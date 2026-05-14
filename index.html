@@ -104,109 +104,104 @@
   .bar-tooltip{position:absolute; padding:6px 10px; background:#1d242e; border:1px solid var(--line);
     border-radius:6px; font-size:12px; color:var(--text); pointer-events:none; transform:translate(-50%,-100%);
     white-space:nowrap; opacity:0; transition:opacity .15s}
-  /* nav hamburger toggle — hidden on desktop, shown on mobile */
-  .nav-toggle{
-    display:none; align-items:center; gap:10px; width:100%;
-    background:var(--panel2); border:1px solid var(--line); color:var(--text);
-    padding:10px 12px; border-radius:8px; cursor:pointer;
-    font:600 12px -apple-system,sans-serif; letter-spacing:.06em; text-transform:uppercase;
-    margin-top:6px;
-  }
-  .nav-toggle:hover{background:var(--panel)}
-  .nav-toggle .bars{display:inline-flex; flex-direction:column; gap:3px}
-  .nav-toggle .bars span{width:16px; height:2px; background:var(--accent); border-radius:1px; transition:transform .2s, opacity .2s}
-  .nav-toggle[aria-expanded="true"] .bars span:nth-child(1){transform:translateY(5px) rotate(45deg)}
-  .nav-toggle[aria-expanded="true"] .bars span:nth-child(2){opacity:0}
-  .nav-toggle[aria-expanded="true"] .bars span:nth-child(3){transform:translateY(-5px) rotate(-45deg)}
-  .nav-toggle .label-open{display:none}
-  .nav-toggle[aria-expanded="true"] .label-open{display:inline}
-  .nav-toggle[aria-expanded="true"] .label-closed{display:none}
-
   @media (max-width:900px){
     .wrap{grid-template-columns:1fr}
-    nav.side{
-      position:sticky; top:0; height:auto; max-height:100vh; overflow-y:auto;
-      border-right:0; border-bottom:1px solid var(--line);
-      padding:12px 14px; z-index:50;
-      background:rgba(18,22,28,.96); backdrop-filter:blur(8px);
-    }
-    nav.side .nav-body{display:none}
-    nav.side.is-open .nav-body{display:block; margin-top:10px; padding-top:8px; border-top:1px solid var(--line)}
-    nav.side h1.brand{margin-bottom:0}
-    .nav-toggle{display:flex}
-    main{padding:24px 18px 80px; max-width:100%}
+    nav.side{display:none}
+    main{padding:18px 14px 60px; max-width:100%}
     .grid2{grid-template-columns:1fr}
 
-    /* hero */
-    header.hero{padding:22px 18px 18px; margin-bottom:28px}
-    header.hero h1{font-size:24px}
+    /* ===== List-detail mobile UI ===== */
+    .mobile-index{display:block}
+    .mobile-back{display:none}
 
-    /* sections */
-    section{margin:36px 0}
-    section h2{font-size:19px; flex-wrap:wrap}
+    /* list mode (default): hide all sections + area banners; show hero + mobile index */
+    body:not(.detail-mode) main > section,
+    body:not(.detail-mode) main > .area-banner{display:none}
 
-    /* area banners */
-    .area-banner{padding:12px 14px; gap:10px; margin:44px 0 6px}
-    .area-banner svg{width:26px; height:26px}
-    .area-banner .area-name{font-size:18px}
+    /* detail mode: hide hero + index; show only the active section */
+    body.detail-mode main > header.hero,
+    body.detail-mode main > .mobile-index{display:none}
+    body.detail-mode main > section,
+    body.detail-mode main > .area-banner{display:none}
+    body.detail-mode main > section.detail-active{display:block}
+    body.detail-mode main > .mobile-back{display:inline-flex}
 
-    /* tables: scroll horizontally if too wide */
-    section table{display:block; overflow-x:auto; -webkit-overflow-scrolling:touch; max-width:100%; white-space:nowrap}
-    section table th, section table td{white-space:normal}
+    /* hero tighter on mobile (list view) */
+    header.hero{padding:20px 18px 16px; margin-bottom:18px; border-radius:12px}
+    header.hero h1{font-size:22px; margin-bottom:8px}
+    header.hero p.lead{font-size:13.5px}
+    header.hero .badge{font-size:10px}
 
-    /* tool grid: single column */
+    /* shrink content paddings/fonts inside a detail section */
+    body.detail-mode section{margin:0 0 32px}
+    body.detail-mode section h2{font-size:20px; flex-wrap:wrap}
+    body.detail-mode section h3{font-size:15px}
+    body.detail-mode section h4{font-size:12.5px}
+
+    /* tables: horizontal scroll instead of overflowing */
+    section table{display:block; overflow-x:auto; -webkit-overflow-scrolling:touch; max-width:100%}
+
+    /* tool grid: single column on mobile */
     .tool-grid{grid-template-columns:1fr}
 
-    /* quiz */
-    #quiz{padding:20px 16px}
-    .quiz-actions{flex-wrap:wrap}
-    .quiz-actions #score{flex-basis:100%}
+    /* canvas charts scale to container */
+    canvas#priceChart, canvas#turnChart{width:100% !important; height:auto !important}
 
-    /* canvases scale to container */
-    canvas#priceChart, canvas#turnChart{width:100% !important; height:auto !important; max-width:100%}
+    /* diagrams: tighter padding */
+    figure.diagram{padding:12px 8px}
 
-    /* diagrams: allow horizontal scroll on tiny screens */
-    figure.diagram{padding:14px 10px}
-  }
-
-  @media (max-width:600px){
-    html,body{font-size:14.5px}
-    main{padding:18px 14px 60px}
-
-    header.hero{padding:18px 14px 14px; margin-bottom:24px; border-radius:10px}
-    header.hero h1{font-size:21px; line-height:1.2}
-    header.hero p.lead{font-size:13.5px}
-
-    section{margin:32px 0}
-    section h2{font-size:17px; gap:6px}
-    section h3{font-size:15px}
-    section h4{font-size:12.5px}
-
-    .area-banner{padding:10px 12px; margin:36px 0 4px; gap:8px}
-    .area-banner svg{width:22px; height:22px}
-    .area-banner .area-title{font-size:10px}
-    .area-banner .area-name{font-size:16px}
-    .area-banner .area-lead{font-size:12.5px}
-
+    /* code blocks tighter */
     pre{padding:10px 12px; font-size:11.5px}
-    code{font-size:12px}
-    table{font-size:12.5px}
-    th,td{padding:7px 9px}
-
-    .card{padding:12px 14px}
-    .callout{padding:8px 12px}
 
     /* quiz tighter */
-    .q{padding:12px 12px}
-    .q .opt{padding:7px 10px; font-size:13.5px}
-    button.btn{padding:9px 14px; font-size:13px}
-
-    /* tool cards */
-    .tool-card{padding:14px 14px}
-
-    /* badge wraps on narrow */
-    .badge{white-space:normal}
+    #quiz{padding:18px 14px}
+    .quiz-actions{flex-wrap:wrap}
+    .quiz-actions #score{flex-basis:100%}
   }
+
+  /* ============ Mobile index (list view) ============ */
+  .mobile-index{display:none}
+  .mobile-back{
+    display:none; align-items:center; gap:8px;
+    background:var(--panel); border:1px solid var(--line); color:var(--text);
+    padding:9px 14px 9px 12px; border-radius:8px; cursor:pointer;
+    font:600 13px -apple-system,sans-serif; margin-bottom:16px;
+    text-decoration:none;
+  }
+  .mobile-back:hover{background:var(--panel2); text-decoration:none}
+  .mobile-back .arrow{font-size:16px; line-height:1; color:var(--accent)}
+
+  .mobile-index .mi-prompt{
+    font-size:12px; color:var(--muted); margin:0 2px 14px;
+    letter-spacing:.04em;
+  }
+  .mobile-index .mi-group{margin:18px 0 0}
+  .mobile-index .mi-group:first-of-type{margin-top:4px}
+  .mobile-index .mi-heading{
+    display:flex; align-items:center; gap:8px;
+    font-size:10.5px; letter-spacing:.12em; text-transform:uppercase;
+    margin:0 2px 8px; color:var(--muted); font-weight:700;
+  }
+  .mobile-index .mi-heading .mi-dot{width:8px; height:8px; border-radius:99px; flex:none}
+  .mobile-index .mi-list{list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:6px}
+  .mobile-index .mi-list a{
+    display:flex; align-items:center; justify-content:space-between; gap:10px;
+    padding:13px 14px; background:var(--panel); border:1px solid var(--line);
+    border-radius:10px; color:var(--text); text-decoration:none;
+    transition:border-color .15s, background .15s, transform .1s;
+  }
+  .mobile-index .mi-list a:active{transform:scale(.99)}
+  .mobile-index .mi-list a:hover{border-color:var(--accent); background:var(--panel2); text-decoration:none}
+  .mobile-index .mi-list .mi-text{display:flex; flex-direction:column; min-width:0; flex:1}
+  .mobile-index .mi-list .mi-title{font-size:14.5px; font-weight:600; color:var(--text)}
+  .mobile-index .mi-list .mi-desc{font-size:12px; color:var(--muted); margin-top:2px; line-height:1.4}
+  .mobile-index .mi-list .mi-chev{color:var(--muted); font-size:20px; line-height:1; flex:none; opacity:.7}
+  .mobile-index .mi-concepts .mi-dot{background:#7cf0c1}
+  .mobile-index .mi-models .mi-dot{background:#ffb86b}
+  .mobile-index .mi-components .mi-dot{background:#82b8ff}
+  .mobile-index .mi-execution .mi-dot{background:#e2c9ff}
+  .mobile-index .mi-tooling .mi-dot{background:#ff9ec6}
+  .mobile-index .mi-quiz .mi-dot{background:#ffe27a}
 
   /* ============ Grouped nav ============ */
   nav.side h1.brand{display:flex; align-items:center; gap:8px; margin-bottom:18px}
@@ -320,7 +315,7 @@
 </head>
 <body>
 <div class="wrap">
-<nav class="side" id="sideNav">
+<nav class="side">
   <a href="#top" class="brand-link" onclick="window.scrollTo({top:0,behavior:'smooth'});history.replaceState(null,'',window.location.pathname);return false;" style="text-decoration:none;display:block;cursor:pointer">
     <h1 class="brand" style="cursor:pointer">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--accent)">
@@ -332,13 +327,6 @@
     </h1>
   </a>
 
-  <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navBody" aria-label="Toggle navigation menu">
-    <span class="bars" aria-hidden="true"><span></span><span></span><span></span></span>
-    <span class="label-closed">Menu</span>
-    <span class="label-open">Close</span>
-  </button>
-
-  <div class="nav-body" id="navBody">
   <div class="nav-group">
     <button class="area-toggle is-concepts" aria-expanded="true" aria-controls="g-concepts">
       <svg class="area-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -433,15 +421,122 @@
       <li><a href="#quiz">Take the quiz</a></li>
     </ol>
   </div>
-  </div>
 </nav>
 
 <main>
+<a href="#" class="mobile-back" id="mobileBack" aria-label="Back to all sections">
+  <span class="arrow" aria-hidden="true">←</span>
+  <span>All sections</span>
+</a>
 <header class="hero">
   <span class="badge">Study · ~4 hour skim · ~6–8 hour deep read</span>
   <h1>AI Study Guide — Cheat Sheet</h1>
   <p class="lead">Everything you need on model economics, agent plumbing, and the SDD / MCP / RAG vocabulary that's essential to master as a software engineer working with AI. Numbers are May 2026 list prices — they will move, the relationships won't.</p>
 </header>
+
+<nav class="mobile-index" id="mobileIndex" aria-label="Sections">
+  <p class="mi-prompt">Tap a section to read it.</p>
+
+  <div class="mi-group mi-concepts">
+    <h3 class="mi-heading"><span class="mi-dot"></span> Main Concepts</h3>
+    <ul class="mi-list">
+      <li><a href="#concepts" data-mi-target="concepts">
+        <span class="mi-text"><span class="mi-title">Vocabulary &amp; fundamentals</span>
+        <span class="mi-desc">Tokens, transformers, context window, embeddings, agents.</span></span>
+        <span class="mi-chev" aria-hidden="true">›</span></a></li>
+    </ul>
+  </div>
+
+  <div class="mi-group mi-models">
+    <h3 class="mi-heading"><span class="mi-dot"></span> Models</h3>
+    <ul class="mi-list">
+      <li><a href="#models" data-mi-target="models">
+        <span class="mi-text"><span class="mi-title">Models &amp; Pricing</span>
+        <span class="mi-desc">Frontier vs cheap tiers; May 2026 list prices.</span></span>
+        <span class="mi-chev" aria-hidden="true">›</span></a></li>
+      <li><a href="#routing" data-mi-target="routing">
+        <span class="mi-text"><span class="mi-title">Model Routing</span>
+        <span class="mi-desc">Which model for which task.</span></span>
+        <span class="mi-chev" aria-hidden="true">›</span></a></li>
+      <li><a href="#model-integration" data-mi-target="model-integration">
+        <span class="mi-text"><span class="mi-title">Model Integration</span>
+        <span class="mi-desc">SDKs, gateways, structured output.</span></span>
+        <span class="mi-chev" aria-hidden="true">›</span></a></li>
+      <li><a href="#oss" data-mi-target="oss">
+        <span class="mi-text"><span class="mi-title">Open-Source Alts</span>
+        <span class="mi-desc">DeepSeek, Kimi, GLM and friends.</span></span>
+        <span class="mi-chev" aria-hidden="true">›</span></a></li>
+    </ul>
+  </div>
+
+  <div class="mi-group mi-components">
+    <h3 class="mi-heading"><span class="mi-dot"></span> LLM Components</h3>
+    <ul class="mi-list">
+      <li><a href="#memory" data-mi-target="memory">
+        <span class="mi-text"><span class="mi-title">Memory Types</span>
+        <span class="mi-desc">Short-term, long-term, episodic, semantic.</span></span>
+        <span class="mi-chev" aria-hidden="true">›</span></a></li>
+      <li><a href="#mcp" data-mi-target="mcp">
+        <span class="mi-text"><span class="mi-title">MCP — Tools Protocol</span>
+        <span class="mi-desc">Standard interface to expose tools to LLMs.</span></span>
+        <span class="mi-chev" aria-hidden="true">›</span></a></li>
+      <li><a href="#rag" data-mi-target="rag">
+        <span class="mi-text"><span class="mi-title">RAG</span>
+        <span class="mi-desc">Retrieval-augmented generation patterns.</span></span>
+        <span class="mi-chev" aria-hidden="true">›</span></a></li>
+      <li><a href="#research-graph" data-mi-target="research-graph">
+        <span class="mi-text"><span class="mi-title">Research Graph</span>
+        <span class="mi-desc">Iterative search/reason loops.</span></span>
+        <span class="mi-chev" aria-hidden="true">›</span></a></li>
+      <li><a href="#dag" data-mi-target="dag">
+        <span class="mi-text"><span class="mi-title">DAG</span>
+        <span class="mi-desc">Multi-agent orchestration as directed acyclic graphs.</span></span>
+        <span class="mi-chev" aria-hidden="true">›</span></a></li>
+    </ul>
+  </div>
+
+  <div class="mi-group mi-execution">
+    <h3 class="mi-heading"><span class="mi-dot"></span> Tech Execution</h3>
+    <ul class="mi-list">
+      <li><a href="#evals" data-mi-target="evals">
+        <span class="mi-text"><span class="mi-title">Evals vs Benchmarks</span>
+        <span class="mi-desc">How to actually measure your AI system.</span></span>
+        <span class="mi-chev" aria-hidden="true">›</span></a></li>
+      <li><a href="#prompts" data-mi-target="prompts">
+        <span class="mi-text"><span class="mi-title">Prompt Versioning</span>
+        <span class="mi-desc">Treating prompts like code.</span></span>
+        <span class="mi-chev" aria-hidden="true">›</span></a></li>
+      <li><a href="#sdd" data-mi-target="sdd">
+        <span class="mi-text"><span class="mi-title">Spec-Driven Dev</span>
+        <span class="mi-desc">Writing specs the LLM can build from.</span></span>
+        <span class="mi-chev" aria-hidden="true">›</span></a></li>
+    </ul>
+  </div>
+
+  <div class="mi-group mi-tooling">
+    <h3 class="mi-heading"><span class="mi-dot"></span> Community Tooling</h3>
+    <ul class="mi-list">
+      <li><a href="#tooling" data-mi-target="tooling">
+        <span class="mi-text"><span class="mi-title">Trusted tooling overview</span>
+        <span class="mi-desc">What the ecosystem actually uses.</span></span>
+        <span class="mi-chev" aria-hidden="true">›</span></a></li>
+      <li><a href="#context7" data-mi-target="context7">
+        <span class="mi-text"><span class="mi-title">Context7 deep-dive</span>
+        <span class="mi-desc">Up-to-date library docs for LLMs.</span></span>
+        <span class="mi-chev" aria-hidden="true">›</span></a></li>
+    </ul>
+  </div>
+
+  <div class="mi-group mi-quiz">
+    <h3 class="mi-heading"><span class="mi-dot"></span> Quiz</h3>
+    <ul class="mi-list">
+      <li><a href="#quiz" data-mi-target="quiz">
+        <span class="mi-text"><span class="mi-title">Take the quiz</span>
+        <span class="mi-desc">Check yourself.</span></span>
+        <span class="mi-chev" aria-hidden="true">›</span></a></li>
+    </ul>
+  </div>
+</nav>
 
 <!-- =================== AREA: MAIN CONCEPTS =================== -->
 <aside class="area-banner" id="area-concepts">
@@ -2299,24 +2394,57 @@ await server.connect(new StdioServerTransport());
 </div>
 
 <script>
-/* ============== mobile nav drawer toggle ============== */
+/* ============== mobile list-detail view ============== */
 (function () {
-  const toggle = document.getElementById('navToggle');
-  const nav = document.getElementById('sideNav');
-  if (!toggle || !nav) return;
-  toggle.addEventListener('click', () => {
-    const open = nav.classList.toggle('is-open');
-    toggle.setAttribute('aria-expanded', String(open));
+  const mq = window.matchMedia('(max-width: 900px)');
+  const backBtn = document.getElementById('mobileBack');
+  if (!backBtn) return;
+
+  function clearActive() {
+    document.querySelectorAll('section.detail-active')
+      .forEach(el => el.classList.remove('detail-active'));
+  }
+
+  function applyView() {
+    const id = decodeURIComponent(window.location.hash.slice(1));
+    const target = id ? document.getElementById(id) : null;
+    clearActive();
+    if (mq.matches && target && target.tagName === 'SECTION') {
+      document.body.classList.add('detail-mode');
+      target.classList.add('detail-active');
+      window.scrollTo({top:0, behavior:'auto'});
+    } else {
+      document.body.classList.remove('detail-mode');
+    }
+  }
+
+  window.addEventListener('hashchange', applyView);
+  if (mq.addEventListener) mq.addEventListener('change', applyView);
+  else mq.addListener(applyView);
+
+  backBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    if (window.location.hash) {
+      history.pushState(null, '', window.location.pathname + window.location.search);
+    }
+    applyView();
   });
-  // Close drawer when a section link is tapped on mobile
-  nav.querySelectorAll('.area-items a[href^="#"]').forEach(a => {
-    a.addEventListener('click', () => {
-      if (window.matchMedia('(max-width:900px)').matches) {
-        nav.classList.remove('is-open');
-        toggle.setAttribute('aria-expanded', 'false');
+
+  // Intercept index link clicks so the browser doesn't auto-scroll to anchor before we swap views
+  document.querySelectorAll('#mobileIndex a[href^="#"]').forEach(a => {
+    a.addEventListener('click', (e) => {
+      if (!mq.matches) return;
+      const id = a.getAttribute('href').slice(1);
+      if (!document.getElementById(id)) return;
+      e.preventDefault();
+      if (window.location.hash !== '#' + id) {
+        history.pushState(null, '', '#' + id);
       }
+      applyView();
     });
   });
+
+  applyView();
 })();
 
 /* ============== collapsible nav areas ============== */
