@@ -111,29 +111,225 @@
     main{padding:24px}
     .grid2{grid-template-columns:1fr}
   }
+
+  /* ============ Grouped nav ============ */
+  nav.side h1.brand{display:flex; align-items:center; gap:8px; margin-bottom:18px}
+  nav.side h1.brand svg{width:18px; height:18px; flex:none}
+  .nav-group{margin:0 0 4px; border-radius:8px}
+  .nav-group + .nav-group{margin-top:2px}
+  .area-toggle{
+    display:flex; align-items:center; gap:8px; width:100%;
+    background:transparent; border:0; color:var(--text);
+    padding:8px 8px; border-radius:6px; cursor:pointer;
+    font:600 11.5px -apple-system,sans-serif; text-transform:uppercase;
+    letter-spacing:.08em; transition:background .15s;
+  }
+  .area-toggle:hover{background:var(--panel2)}
+  .area-toggle svg.area-icon{width:14px; height:14px; flex:none; opacity:.9}
+  .area-toggle .caret{margin-left:auto; opacity:.55; transition:transform .2s}
+  .area-toggle[aria-expanded="false"] .caret{transform:rotate(-90deg)}
+  .area-toggle.is-concepts{color:#7cf0c1}
+  .area-toggle.is-models{color:#ffb86b}
+  .area-toggle.is-components{color:#82b8ff}
+  .area-toggle.is-execution{color:#e2c9ff}
+  .area-toggle.is-tooling{color:#ff9ec6}
+  .area-toggle.is-quiz{color:#ffe27a}
+  .area-items{list-style:none; padding:0 0 6px 6px; margin:0;
+    border-left:1px solid var(--line); margin-left:14px;
+    max-height:600px; overflow:hidden; transition:max-height .25s ease, opacity .2s;}
+  .area-toggle[aria-expanded="false"] + .area-items{max-height:0; opacity:0; padding-bottom:0}
+  .area-items li{margin:1px 0}
+  .area-items a{display:block; padding:5px 10px; border-radius:5px; color:var(--muted);
+    font-size:13px; border-left:2px solid transparent; transition:all .15s;}
+  .area-items a:hover{background:var(--panel2); color:var(--text); text-decoration:none}
+  .area-items a.active{color:var(--text); border-left-color:var(--accent); background:rgba(124,240,193,.06)}
+
+  /* ============ Area dividers in main content ============ */
+  .area-banner{
+    display:flex; align-items:center; gap:14px;
+    margin:60px 0 8px; padding:14px 18px;
+    background:linear-gradient(90deg, rgba(124,240,193,.06) 0%, transparent 80%);
+    border-left:3px solid var(--accent); border-radius:0 10px 10px 0;
+  }
+  .area-banner.is-models{background:linear-gradient(90deg, rgba(255,184,107,.07) 0%, transparent 80%); border-left-color:var(--accent2)}
+  .area-banner.is-components{background:linear-gradient(90deg, rgba(130,184,255,.07) 0%, transparent 80%); border-left-color:var(--link)}
+  .area-banner.is-execution{background:linear-gradient(90deg, rgba(226,201,255,.07) 0%, transparent 80%); border-left-color:#c8a8ff}
+  .area-banner.is-tooling{background:linear-gradient(90deg, rgba(255,158,198,.07) 0%, transparent 80%); border-left-color:#ff9ec6}
+  .area-banner svg{width:32px; height:32px; flex:none}
+  .area-banner .area-title{font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); margin:0}
+  .area-banner .area-name{font-size:22px; font-weight:700; margin:2px 0 0; letter-spacing:-.01em}
+  .area-banner .area-lead{margin:6px 0 0; color:var(--muted); font-size:13.5px; max-width:64ch}
+
+  /* ============ Hero ============ */
+  header.hero{
+    position:relative;
+    padding:30px 32px 26px;
+    background:
+      radial-gradient(1200px 240px at 0% 0%, rgba(124,240,193,.07), transparent 55%),
+      radial-gradient(900px 240px at 100% 0%, rgba(255,184,107,.06), transparent 60%),
+      linear-gradient(180deg, var(--panel) 0%, var(--bg) 100%);
+    border:1px solid var(--line); border-radius:14px;
+    margin-bottom:42px;
+  }
+  header.hero h1{background:linear-gradient(90deg,#fff 0%,#cfe8ff 100%); -webkit-background-clip:text; background-clip:text; color:transparent}
+
+  /* ============ Section header icons ============ */
+  section h2 svg.h2-icon{width:18px; height:18px; vertical-align:-3px; margin-right:4px; opacity:.85}
+
+  /* ============ Sortable table ============ */
+  table.sortable th.sortable{cursor:pointer; user-select:none; position:relative; padding-right:24px}
+  table.sortable th.sortable:hover{color:var(--text)}
+  table.sortable th.sortable::after{
+    content:""; position:absolute; right:8px; top:50%; transform:translateY(-50%);
+    width:0; height:0; border-left:4px solid transparent; border-right:4px solid transparent;
+    border-bottom:5px solid #4a5566; opacity:.55;
+  }
+  table.sortable th.sortable.asc::after{border-bottom:5px solid var(--accent); border-top:0; opacity:1}
+  table.sortable th.sortable.desc::after{border-bottom:0; border-top:5px solid var(--accent); opacity:1}
+  table.sortable tbody tr{transition:background .12s}
+
+  /* ============ Tooling cards ============ */
+  .tool-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:14px; margin:18px 0}
+  .tool-card{
+    background:var(--panel); border:1px solid var(--line); border-radius:12px;
+    padding:16px 18px; display:flex; flex-direction:column; gap:8px;
+    transition:transform .15s, border-color .15s, box-shadow .15s;
+  }
+  .tool-card:hover{transform:translateY(-2px); border-color:var(--accent); box-shadow:0 8px 24px rgba(0,0,0,.25)}
+  .tool-card .tc-head{display:flex; align-items:center; gap:10px}
+  .tool-card .tc-icon{width:28px; height:28px; flex:none; border-radius:7px; display:flex; align-items:center; justify-content:center; background:var(--panel2)}
+  .tool-card .tc-name{font-weight:700; font-size:15px}
+  .tool-card .tc-tag{font-size:10.5px; padding:2px 7px; border-radius:99px; background:var(--pill); color:var(--muted); letter-spacing:.04em; text-transform:uppercase}
+  .tool-card .tc-desc{font-size:13px; color:var(--muted); line-height:1.5; margin:0}
+  .tool-card .tc-foot{display:flex; gap:6px; margin-top:auto; flex-wrap:wrap; font-size:11px}
+  .tool-card .tc-foot span{padding:2px 8px; border-radius:99px; background:var(--panel2); color:var(--muted)}
+  .tool-card .tc-link{font-size:12px; color:var(--link); margin-top:6px}
+
+  /* ============ misc polish ============ */
+  section{transition:opacity .2s}
+  tr:hover td{background:var(--panel)}
+  .q .opt{transition:all .18s ease}
+  button.btn{transition:filter .15s, transform .1s}
+  button.btn:active{transform:translateY(1px)}
+  .badge{transition:filter .15s}
+  a{transition:color .12s}
+
+  /* harder-quiz styling for multi-correct */
+  .q.multi .opt input[type="checkbox"]{margin-right:9px}
+  .q .qtext .difficulty{display:inline-block; font-size:10px; padding:1px 7px; margin-left:8px;
+    border-radius:99px; vertical-align:2px; letter-spacing:.05em; text-transform:uppercase}
+  .q .qtext .difficulty.hard{background:rgba(255,107,139,.15); color:#ff8aa6}
+  .q .qtext .difficulty.deep{background:rgba(124,240,193,.12); color:var(--accent)}
 </style>
 </head>
 <body>
 <div class="wrap">
 <nav class="side">
-  <h1>Study Guide</h1>
-  <ol>
-    <li><a href="#concepts">Main Concepts</a></li>
-    <li><a href="#models">Models & Pricing</a></li>
-    <li><a href="#routing">Model Routing</a></li>
-    <li><a href="#model-integration">Model Integration</a></li>
-    <li><a href="#oss">Open-Source Alts</a></li>
-    <li><a href="#research-graph">Research Graph</a></li>
-    <li><a href="#memory">Memory Types</a></li>
-    <li><a href="#evals">Evals vs Benchmarks</a></li>
-    <li><a href="#mcp">Custom MCP</a></li>
-    <li><a href="#rag">RAG</a></li>
-    <li><a href="#dag">DAG</a></li>
-    <li><a href="#prompts">Prompt Versioning</a></li>
-    <li><a href="#context7">Context7</a></li>
-    <li><a href="#sdd">Spec-Driven Dev</a></li>
-    <li><a href="#quiz"><strong style="color:var(--accent)">Quiz</strong> <span class="pill">test</span></a></li>
-  </ol>
+  <a href="#top" class="brand-link" onclick="window.scrollTo({top:0,behavior:'smooth'});history.replaceState(null,'',window.location.pathname);return false;" style="text-decoration:none;display:block;cursor:pointer">
+    <h1 class="brand" style="cursor:pointer">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--accent)">
+        <path d="M12 2 L2 7 l10 5 l10-5 z"/>
+        <path d="M2 17 l10 5 l10-5"/>
+        <path d="M2 12 l10 5 l10-5"/>
+      </svg>
+      <span style="font-size:14px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)">AI Cheat Sheet</span>
+    </h1>
+  </a>
+
+  <div class="nav-group">
+    <button class="area-toggle is-concepts" aria-expanded="true" aria-controls="g-concepts">
+      <svg class="area-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 2 a10 10 0 1 0 0 20 a10 10 0 0 0 0 -20"/>
+        <path d="M8 12 h8 M12 8 v8"/>
+      </svg>
+      <span>Main Concepts</span>
+      <svg class="caret" width="10" height="10" viewBox="0 0 10 10"><path d="M2 4 L5 7 L8 4" stroke="currentColor" fill="none" stroke-width="1.6" stroke-linecap="round"/></svg>
+    </button>
+    <ol class="area-items" id="g-concepts">
+      <li><a href="#concepts">Vocabulary & fundamentals</a></li>
+    </ol>
+  </div>
+
+  <div class="nav-group">
+    <button class="area-toggle is-models" aria-expanded="true" aria-controls="g-models">
+      <svg class="area-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3" y="4" width="18" height="6" rx="1.5"/>
+        <rect x="3" y="14" width="12" height="6" rx="1.5"/>
+        <path d="M7 7 h.01 M7 17 h.01"/>
+      </svg>
+      <span>Models</span>
+      <svg class="caret" width="10" height="10" viewBox="0 0 10 10"><path d="M2 4 L5 7 L8 4" stroke="currentColor" fill="none" stroke-width="1.6" stroke-linecap="round"/></svg>
+    </button>
+    <ol class="area-items" id="g-models">
+      <li><a href="#models">Models & Pricing</a></li>
+      <li><a href="#routing">Model Routing</a></li>
+      <li><a href="#model-integration">Model Integration</a></li>
+      <li><a href="#oss">Open-Source Alts</a></li>
+    </ol>
+  </div>
+
+  <div class="nav-group">
+    <button class="area-toggle is-components" aria-expanded="true" aria-controls="g-components">
+      <svg class="area-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="12" cy="18" r="2.5"/>
+        <path d="M7.5 7.5 L11 16 M16.5 7.5 L13 16 M8 6 h8"/>
+      </svg>
+      <span>LLM Components</span>
+      <svg class="caret" width="10" height="10" viewBox="0 0 10 10"><path d="M2 4 L5 7 L8 4" stroke="currentColor" fill="none" stroke-width="1.6" stroke-linecap="round"/></svg>
+    </button>
+    <ol class="area-items" id="g-components">
+      <li><a href="#memory">Memory Types</a></li>
+      <li><a href="#mcp">MCP — Tools Protocol</a></li>
+      <li><a href="#rag">RAG</a></li>
+      <li><a href="#research-graph">Research Graph</a></li>
+      <li><a href="#dag">DAG</a></li>
+    </ol>
+  </div>
+
+  <div class="nav-group">
+    <button class="area-toggle is-execution" aria-expanded="true" aria-controls="g-execution">
+      <svg class="area-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M4 4 h16 v16 h-16 z"/>
+        <path d="M8 9 l3 3 l-3 3 M14 15 h3"/>
+      </svg>
+      <span>Tech Execution</span>
+      <svg class="caret" width="10" height="10" viewBox="0 0 10 10"><path d="M2 4 L5 7 L8 4" stroke="currentColor" fill="none" stroke-width="1.6" stroke-linecap="round"/></svg>
+    </button>
+    <ol class="area-items" id="g-execution">
+      <li><a href="#evals">Evals vs Benchmarks</a></li>
+      <li><a href="#prompts">Prompt Versioning</a></li>
+      <li><a href="#sdd">Spec-Driven Dev</a></li>
+    </ol>
+  </div>
+
+  <div class="nav-group">
+    <button class="area-toggle is-tooling" aria-expanded="true" aria-controls="g-tooling">
+      <svg class="area-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M14.7 6.3 a4 4 0 1 0 3 7 l4.3 4.3 l-2 2 l-4.3 -4.3 a4 4 0 0 0 -7 -3 l3 3 l-1.4 1.4 l-3 -3 a4 4 0 0 0 7.4 -7.4 z"/>
+      </svg>
+      <span>Community Tooling</span>
+      <svg class="caret" width="10" height="10" viewBox="0 0 10 10"><path d="M2 4 L5 7 L8 4" stroke="currentColor" fill="none" stroke-width="1.6" stroke-linecap="round"/></svg>
+    </button>
+    <ol class="area-items" id="g-tooling">
+      <li><a href="#tooling">Trusted tooling overview</a></li>
+      <li><a href="#context7">Context7 deep-dive</a></li>
+    </ol>
+  </div>
+
+  <div class="nav-group">
+    <button class="area-toggle is-quiz" aria-expanded="true" aria-controls="g-quiz">
+      <svg class="area-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M9 9 a3 3 0 1 1 4 2.8 c-1 .4 -1 1.2 -1 2.2"/>
+        <circle cx="12" cy="18" r=".6" fill="currentColor"/>
+        <circle cx="12" cy="12" r="10"/>
+      </svg>
+      <span>Quiz</span>
+      <svg class="caret" width="10" height="10" viewBox="0 0 10 10"><path d="M2 4 L5 7 L8 4" stroke="currentColor" fill="none" stroke-width="1.6" stroke-linecap="round"/></svg>
+    </button>
+    <ol class="area-items" id="g-quiz">
+      <li><a href="#quiz">Take the quiz</a></li>
+    </ol>
+  </div>
 </nav>
 
 <main>
@@ -142,6 +338,18 @@
   <h1>AI Study Guide — Cheat Sheet</h1>
   <p class="lead">Everything you need on model economics, agent plumbing, and the SDD / MCP / RAG vocabulary that's essential to master as a software engineer working with AI. Numbers are May 2026 list prices — they will move, the relationships won't.</p>
 </header>
+
+<!-- =================== AREA: MAIN CONCEPTS =================== -->
+<aside class="area-banner" id="area-concepts">
+  <svg viewBox="0 0 24 24" fill="none" stroke="#7cf0c1" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="10"/><path d="M8 12 h8 M12 8 v8"/>
+  </svg>
+  <div>
+    <p class="area-title">Area 1 of 5</p>
+    <h2 class="area-name">Main Concepts</h2>
+    <p class="area-lead">The vocabulary. If you can't fluently use these words, the rest of the guide reads as noise.</p>
+  </div>
+</aside>
 
 <!-- =================== MAIN CONCEPTS =================== -->
 <section id="concepts">
@@ -243,8 +451,8 @@
   <p>Attention is also the <strong>most expensive part</strong> of a transformer. Naive attention is O(n²) in the sequence length — double the context, 4× the cost. Variants like <em>Flash Attention</em>, <em>sliding-window attention</em> (Mistral), <em>Multi-Query Attention</em> (PaLM), <em>Grouped-Query Attention</em> (Llama 3), and <em>linear attention</em> (Mamba/RWKV hybrids) all try to reduce that cost. Modern long-context models (Gemini 1M+) almost certainly use a mix of these.</p>
 
   <figure class="diagram">
-    <svg viewBox="0 0 680 360" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Self-attention example">
-      <text x="340" y="22" text-anchor="middle" class="svg-label" font-weight="600" font-size="14">Self-attention: "sat" looks at every other token</text>
+    <svg viewBox="0 -36 680 396" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Self-attention example">
+      <text x="340" y="-16" text-anchor="middle" class="svg-label" font-weight="600" font-size="14">Self-attention: "sat" looks at every other token</text>
 
       <!-- token row -->
       <g>
@@ -536,6 +744,7 @@
   </div>
 </section>
 
+
 <!-- =================== MODELS & PRICING =================== -->
 <section id="models">
   <h2><span class="num">02</span> Models & Pricing — the headline numbers</h2>
@@ -596,6 +805,7 @@
     <li><strong>Context length tiers:</strong> Gemini 3.x and GPT-5.4/5.5 both have long-context pricing cliffs. Gemini 3.1 Pro goes from $2.00 → $4.00/1M input beyond 200K; GPT-5.4/5.5 sessions above ~272K input are priced at 2× input and 1.5× output.</li>
   </ul>
 </section>
+
 
 <!-- =================== ROUTING =================== -->
 <section id="routing">
@@ -830,16 +1040,16 @@
   </div>
 
   <h3>3.6b Per-model pricing — May 2026 list rates</h3>
-  <p style="margin-bottom:10px">All figures are <strong>per 1M tokens</strong>, USD, standard (non-batch) tier. Batch and prompt-cache tiers typically cut input cost 50–90%.</p>
-  <table>
+  <p style="margin-bottom:10px">All figures are <strong>per 1M tokens</strong>, USD, standard (non-batch) tier. Batch and prompt-cache tiers typically cut input cost 50–90%. <span class="small">Click any header to sort.</span></p>
+  <table class="sortable" id="priceTable">
     <thead>
       <tr>
-        <th>Model</th>
-        <th>Provider</th>
-        <th>Tier</th>
-        <th>Input $/1M</th>
-        <th>Output $/1M</th>
-        <th>Output / Input ratio</th>
+        <th class="sortable" data-sort="model" data-type="str">Model</th>
+        <th class="sortable" data-sort="provider" data-type="str">Provider</th>
+        <th class="sortable" data-sort="tier" data-type="tier">Tier</th>
+        <th class="sortable asc" data-sort="input" data-type="num">Input $/1M</th>
+        <th class="sortable" data-sort="output" data-type="num">Output $/1M</th>
+        <th class="sortable" data-sort="ratio" data-type="num">Output / Input ratio</th>
       </tr>
     </thead>
     <tbody>
@@ -990,6 +1200,7 @@
     <strong>Killer line:</strong> "There is no best model. There is a portfolio. Frontier for the hard 5%, Sonnet-tier for the agentic 15%, Haiku/Flash for the 80% that is routing, classification and extraction. Cost-aware routing is how you make AI products profitable in 2026."
   </div>
 </section>
+
 
 <!-- =================== MODEL INTEGRATION =================== -->
 <section id="model-integration">
@@ -1195,7 +1406,7 @@ const final = await client.responses.create({
 </code></pre>
 
   <div class="callout">
-    <strong>Function calling vs MCP:</strong> Function calling is the per-request API shape. MCP is a protocol for discovering and invoking tools across clients. In practice, an OpenAI/Claude/Gemini model may call a tool that your app implements directly, or a tool exposed through an MCP server (<a href="#mcp">§09</a>).
+    <strong>Function calling vs MCP:</strong> Function calling is the per-request API shape. MCP is a protocol for discovering and invoking tools across clients. In practice, an OpenAI/Claude/Gemini model may call a tool that your app implements directly, or a tool exposed through an MCP server (<a href="#mcp">§07</a>).
   </div>
 
   <h3>4.7 How RAG vectors enter the API</h3>
@@ -1252,6 +1463,7 @@ await client.responses.create({
   </div>
 </section>
 
+
 <!-- =================== OPEN SOURCE =================== -->
 <section id="oss">
   <h2><span class="num">05</span> Open-source alternatives — what's actually competitive</h2>
@@ -1268,36 +1480,23 @@ await client.responses.create({
   </div>
 </section>
 
-<!-- =================== RESEARCH GRAPH =================== -->
-<section id="research-graph">
-  <h2><span class="num">06</span> Grafo de Pesquisa (Research Graph)</h2>
-  <p>"Research graph" shows up in two related contexts — make sure you can distinguish them.</p>
 
-  <h3>1. Deep Research agents (the "research graph" as workflow)</h3>
-  <p>An agent that iteratively <strong>plans → searches → reads → synthesizes</strong>, building a graph of sub-questions where each node is a search query/document and edges encode "this finding led to that follow-up." Google's Deep Research, OpenAI Deep Research, and Anthropic's Research feature all follow this pattern.</p>
-  <ul>
-    <li>Long-running (minutes, not seconds).</li>
-    <li>Uses <strong>test-time compute</strong> — many model calls to refine.</li>
-    <li>Connects to web + MCPs + uploaded files.</li>
-    <li>Output is typically a long structured report with citations.</li>
-  </ul>
-
-  <h3>2. GraphRAG (the "research graph" as data structure)</h3>
-  <p>Instead of retrieving flat chunks, you build a <strong>knowledge graph</strong> from your corpus (entities + relationships) and retrieve <em>connected subgraphs</em> at query time. Better for multi-hop questions ("which authors collaborated with X on topic Y between 2020-2024?") that flat RAG fails on.</p>
-  <ul>
-    <li>Microsoft <strong>GraphRAG</strong> popularized this in 2024 — by 2026 production-grade.</li>
-    <li><strong>Deep GraphRAG</strong>, <strong>FastInsight</strong> are current research frontier — hierarchical retrieval, semantic-topological reranking.</li>
-    <li>Vector RAG retrieves <em>semantically similar</em> facts; graph RAG retrieves <em>relationally connected</em> facts.</li>
-  </ul>
-
-  <div class="callout">
-    <strong>If asked "what's a research graph":</strong> Lead with the agent workflow (search graph as a thinking trace), then mention GraphRAG as the data-side counterpart. Bonus: mention that in both cases the graph is a <em>DAG</em> at execution time (no cycles, dependencies flow forward).
+<!-- =================== AREA: LLM COMPONENTS =================== -->
+<aside class="area-banner is-components" id="area-components">
+  <svg viewBox="0 0 24 24" fill="none" stroke="#82b8ff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="12" cy="18" r="2.5"/>
+    <path d="M7.5 7.5 L11 16 M16.5 7.5 L13 16 M8 6 h8"/>
+  </svg>
+  <div>
+    <p class="area-title">Area 3 of 5</p>
+    <h2 class="area-name">LLM Components</h2>
+    <p class="area-lead">The plumbing around the model: how it remembers, how it reaches tools, how it retrieves grounding data, and how its work is scheduled.</p>
   </div>
-</section>
+</aside>
 
 <!-- =================== MEMORY =================== -->
 <section id="memory">
-  <h2><span class="num">07</span> Memory types in AI agents</h2>
+  <h2><span class="num">06</span> Memory types in AI agents</h2>
   <p>Drawn from cognitive science. <strong>Four types</strong> — know them all.</p>
 
   <div class="grid2">
@@ -1332,59 +1531,10 @@ await client.responses.create({
   </ul>
 </section>
 
-<!-- =================== EVALS =================== -->
-<section id="evals">
-  <h2><span class="num">08</span> Evals vs Benchmarks — and how to build each</h2>
-
-  <table>
-    <thead><tr><th></th><th>Benchmarks</th><th>Evals</th></tr></thead>
-    <tbody>
-      <tr><td>Purpose</td><td>Compare <em>models</em> in isolation</td><td>Measure <em>your app</em> at a specific job</td></tr>
-      <tr><td>Dataset</td><td>Public, standardized (MMLU, SWE-bench, GPQA, HumanEval, AIME)</td><td>Custom, drawn from your domain + production failures</td></tr>
-      <tr><td>Audience</td><td>Researchers, model buyers</td><td>You, your team, your CI</td></tr>
-      <tr><td>Stability</td><td>Frozen — saturates over time</td><td>Living — grows with each prod regression</td></tr>
-    </tbody>
-  </table>
-
-  <h3>How to build an eval suite (production pattern)</h3>
-  <ol>
-    <li><strong>Define the task</strong> + success criteria. Not "be helpful" — "extract the order ID from emails with ≥98% accuracy."</li>
-    <li><strong>Seed dataset</strong> from real production traces. Hand-label 50–200 examples covering golden path + edge cases.</li>
-    <li><strong>Pick a grader:</strong>
-      <ul>
-        <li>Exact match / regex (cheapest, brittlest)</li>
-        <li>Code-based (assertions, JSON schema)</li>
-        <li>LLM-as-judge (flexible, biased — pair with rubric + calibration)</li>
-        <li>Human review (gold but slow)</li>
-      </ul>
-    </li>
-    <li><strong>Run in CI</strong> on every prompt/model change. Block merges on regressions.</li>
-    <li><strong>Auto-grow from failures:</strong> every production incident becomes a new test case — the regression suite is your moat.</li>
-    <li><strong>Layer it:</strong> automated evals pre-launch → A/B test in prod → user feedback loop → distribution drift monitoring.</li>
-  </ol>
-
-  <h3>How to build a benchmark (rarely what you want)</h3>
-  <ol>
-    <li>Define a <em>capability</em>, not a product — "reasoning over chains of arithmetic" not "our checkout bot."</li>
-    <li>Collect public, hold-out dataset. Document contamination policy (was the model trained on it?).</li>
-    <li>Single objective metric. Reproducible scripts. Versioned.</li>
-    <li>Publish — it only matters if others run it.</li>
-  </ol>
-
-  <h3>Key tools (2026)</h3>
-  <ul>
-    <li><strong>OpenAI Evals</strong>, <strong>DeepEval</strong>, <strong>Promptfoo</strong>, <strong>Braintrust</strong>, <strong>LangSmith</strong>, <strong>Inspect (UK AISI)</strong>.</li>
-    <li><strong>RAGAS</strong> for RAG-specific metrics (faithfulness, context precision, answer relevance).</li>
-  </ul>
-
-  <div class="callout warn">
-    <strong>The killer line:</strong> "Benchmarks tell you which model to start with. Evals tell you when you're shipping a regression." If you only remember one thing about this section, remember that.
-  </div>
-</section>
 
 <!-- =================== MCP =================== -->
 <section id="mcp">
-  <h2><span class="num">09</span> Custom MCP — Model Context Protocol</h2>
+  <h2><span class="num">07</span> Custom MCP — Model Context Protocol</h2>
   <p>MCP is the "USB-C for AI" — a standardized protocol (Anthropic, late 2024, now broadly adopted) for letting any LLM client talk to any tool/data source.</p>
 
   <h3>If you already know REST APIs, here is the analogy</h3>
@@ -1472,9 +1622,10 @@ await server.connect(new StdioServerTransport());
   </ul>
 </section>
 
+
 <!-- =================== RAG =================== -->
 <section id="rag">
-  <h2><span class="num">10</span> RAG — Retrieval Augmented Generation</h2>
+  <h2><span class="num">08</span> RAG — Retrieval Augmented Generation</h2>
   <p>"Pre-pend relevant context to the prompt." The naive version fails 40% of the time at retrieval — the 2026 stack is hybrid + reranked + sometimes graph.</p>
 
   <figure class="diagram">
@@ -1564,9 +1715,38 @@ await server.connect(new StdioServerTransport());
   </div>
 </section>
 
+
+<!-- =================== RESEARCH GRAPH =================== -->
+<section id="research-graph">
+  <h2><span class="num">09</span> Grafo de Pesquisa (Research Graph)</h2>
+  <p>"Research graph" shows up in two related contexts — make sure you can distinguish them.</p>
+
+  <h3>1. Deep Research agents (the "research graph" as workflow)</h3>
+  <p>An agent that iteratively <strong>plans → searches → reads → synthesizes</strong>, building a graph of sub-questions where each node is a search query/document and edges encode "this finding led to that follow-up." Google's Deep Research, OpenAI Deep Research, and Anthropic's Research feature all follow this pattern.</p>
+  <ul>
+    <li>Long-running (minutes, not seconds).</li>
+    <li>Uses <strong>test-time compute</strong> — many model calls to refine.</li>
+    <li>Connects to web + MCPs + uploaded files.</li>
+    <li>Output is typically a long structured report with citations.</li>
+  </ul>
+
+  <h3>2. GraphRAG (the "research graph" as data structure)</h3>
+  <p>Instead of retrieving flat chunks, you build a <strong>knowledge graph</strong> from your corpus (entities + relationships) and retrieve <em>connected subgraphs</em> at query time. Better for multi-hop questions ("which authors collaborated with X on topic Y between 2020-2024?") that flat RAG fails on.</p>
+  <ul>
+    <li>Microsoft <strong>GraphRAG</strong> popularized this in 2024 — by 2026 production-grade.</li>
+    <li><strong>Deep GraphRAG</strong>, <strong>FastInsight</strong> are current research frontier — hierarchical retrieval, semantic-topological reranking.</li>
+    <li>Vector RAG retrieves <em>semantically similar</em> facts; graph RAG retrieves <em>relationally connected</em> facts.</li>
+  </ul>
+
+  <div class="callout">
+    <strong>If asked "what's a research graph":</strong> Lead with the agent workflow (search graph as a thinking trace), then mention GraphRAG as the data-side counterpart. Bonus: mention that in both cases the graph is a <em>DAG</em> at execution time (no cycles, dependencies flow forward).
+  </div>
+</section>
+
+
 <!-- =================== DAG =================== -->
 <section id="dag">
-  <h2><span class="num">11</span> DAG — Directed Acyclic Graph</h2>
+  <h2><span class="num">10</span> DAG — Directed Acyclic Graph</h2>
   <p>A graph of nodes + directed edges with <strong>no cycles</strong>. In AI agent land, nodes are LLM calls / tools / retrievers / branches; edges are dependencies. No cycles = execution always terminates.</p>
 
   <figure class="diagram">
@@ -1669,6 +1849,71 @@ await server.connect(new StdioServerTransport());
   <p>Adaptive multi-agent systems can now <strong>restructure their DAGs at runtime</strong> based on intermediate results — this is a hot research area.</p>
 </section>
 
+
+<!-- =================== AREA: TECH EXECUTION =================== -->
+<aside class="area-banner is-execution" id="area-execution">
+  <svg viewBox="0 0 24 24" fill="none" stroke="#c8a8ff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4 4 h16 v16 h-16 z"/>
+    <path d="M8 9 l3 3 l-3 3 M14 15 h3"/>
+  </svg>
+  <div>
+    <p class="area-title">Area 4 of 5</p>
+    <h2 class="area-name">Tech Execution</h2>
+    <p class="area-lead">How you actually run LLMs in production: evaluating quality, versioning prompts, and driving codegen with executable specs.</p>
+  </div>
+</aside>
+
+<!-- =================== EVALS =================== -->
+<section id="evals">
+  <h2><span class="num">11</span> Evals vs Benchmarks — and how to build each</h2>
+
+  <table>
+    <thead><tr><th></th><th>Benchmarks</th><th>Evals</th></tr></thead>
+    <tbody>
+      <tr><td>Purpose</td><td>Compare <em>models</em> in isolation</td><td>Measure <em>your app</em> at a specific job</td></tr>
+      <tr><td>Dataset</td><td>Public, standardized (MMLU, SWE-bench, GPQA, HumanEval, AIME)</td><td>Custom, drawn from your domain + production failures</td></tr>
+      <tr><td>Audience</td><td>Researchers, model buyers</td><td>You, your team, your CI</td></tr>
+      <tr><td>Stability</td><td>Frozen — saturates over time</td><td>Living — grows with each prod regression</td></tr>
+    </tbody>
+  </table>
+
+  <h3>How to build an eval suite (production pattern)</h3>
+  <ol>
+    <li><strong>Define the task</strong> + success criteria. Not "be helpful" — "extract the order ID from emails with ≥98% accuracy."</li>
+    <li><strong>Seed dataset</strong> from real production traces. Hand-label 50–200 examples covering golden path + edge cases.</li>
+    <li><strong>Pick a grader:</strong>
+      <ul>
+        <li>Exact match / regex (cheapest, brittlest)</li>
+        <li>Code-based (assertions, JSON schema)</li>
+        <li>LLM-as-judge (flexible, biased — pair with rubric + calibration)</li>
+        <li>Human review (gold but slow)</li>
+      </ul>
+    </li>
+    <li><strong>Run in CI</strong> on every prompt/model change. Block merges on regressions.</li>
+    <li><strong>Auto-grow from failures:</strong> every production incident becomes a new test case — the regression suite is your moat.</li>
+    <li><strong>Layer it:</strong> automated evals pre-launch → A/B test in prod → user feedback loop → distribution drift monitoring.</li>
+  </ol>
+
+  <h3>How to build a benchmark (rarely what you want)</h3>
+  <ol>
+    <li>Define a <em>capability</em>, not a product — "reasoning over chains of arithmetic" not "our checkout bot."</li>
+    <li>Collect public, hold-out dataset. Document contamination policy (was the model trained on it?).</li>
+    <li>Single objective metric. Reproducible scripts. Versioned.</li>
+    <li>Publish — it only matters if others run it.</li>
+  </ol>
+
+  <h3>Key tools (2026)</h3>
+  <ul>
+    <li><strong>OpenAI Evals</strong>, <strong>DeepEval</strong>, <strong>Promptfoo</strong>, <strong>Braintrust</strong>, <strong>LangSmith</strong>, <strong>Inspect (UK AISI)</strong>.</li>
+    <li><strong>RAGAS</strong> for RAG-specific metrics (faithfulness, context precision, answer relevance).</li>
+  </ul>
+
+  <div class="callout warn">
+    <strong>The killer line:</strong> "Benchmarks tell you which model to start with. Evals tell you when you're shipping a regression." If you only remember one thing about this section, remember that.
+  </div>
+</section>
+
+
 <!-- =================== PROMPTS =================== -->
 <section id="prompts">
   <h2><span class="num">12</span> Prompt Versioning</h2>
@@ -1704,37 +1949,10 @@ await server.connect(new StdioServerTransport());
   </ul>
 </section>
 
-<!-- =================== CONTEXT7 =================== -->
-<section id="context7">
-  <h2><span class="num">13</span> What is Context7?</h2>
-  <p><strong>Context7</strong> is an MCP server (built by <strong>Upstash</strong>) that serves <em>up-to-date, version-specific library documentation</em> into your AI coding tools — Cursor, Claude Code, Windsurf, OpenCode, anything that speaks MCP.</p>
-
-  <h3>The problem it solves</h3>
-  <p>LLMs hallucinate APIs because their training cutoff lags real library releases. Context7 fetches fresh docs at query time so the model sees the <em>actual</em> current API rather than reciting a 2-year-old version from memory.</p>
-
-  <h3>How it works</h3>
-  <ul>
-    <li>Two tools exposed via MCP:
-      <ul>
-        <li><code>resolve-library-id</code> — map "react query" to a Context7 ID.</li>
-        <li><code>query-docs</code> / <code>get-library-docs</code> — fetch version-specific docs by ID + query. The visible name depends on the client/package wrapper.</li>
-      </ul>
-    </li>
-    <li>Free tier, MIT-licensed server, optional API key for higher rate limits.</li>
-    <li>Hosted at <code>context7.com</code>.</li>
-  </ul>
-
-  <h3>Why Upstash?</h3>
-  <p>Upstash is a serverless-Redis / messaging company. They built Context7 as a developer-tool play and run it on their own infra — that's why they can offer a free tier sustainably.</p>
-
-  <div class="callout">
-    <strong>Use case:</strong> Any time you ask Claude/Cursor to use a library and it generates calls to a function that doesn't exist or moved — that's Context7's pitch. Add <code>"use context7"</code> in your prompt and the tool will pull current docs.
-  </div>
-</section>
 
 <!-- =================== SDD =================== -->
 <section id="sdd">
-  <h2><span class="num">14</span> Spec-Driven Development (SDD)</h2>
+  <h2><span class="num">13</span> Spec-Driven Development (SDD)</h2>
   <p>"Inversion of the power structure: specifications no longer serve code — code serves specifications." Specs become executable artifacts that gate AI codegen.</p>
 
   <h3>The four (sometimes five) phases</h3>
@@ -1769,18 +1987,199 @@ await server.connect(new StdioServerTransport());
 
   <h3>Where it intersects everything else in this guide</h3>
   <ul>
-    <li>The <strong>Task Graph is a DAG</strong> (<a href="#dag">§11</a>).</li>
-    <li>Each task often runs through a <strong>research graph</strong> (<a href="#research-graph">§06</a>) — read related code, find prior patterns.</li>
-    <li>Evals (<a href="#evals">§08</a>) become the executable acceptance criteria.</li>
+    <li>The <strong>Task Graph is a DAG</strong> (<a href="#dag">§10</a>).</li>
+    <li>Each task often runs through a <strong>research graph</strong> (<a href="#research-graph">§09</a>) — read related code, find prior patterns.</li>
+    <li>Evals (<a href="#evals">§11</a>) become the executable acceptance criteria.</li>
     <li>Prompts driving each phase are <strong>versioned</strong> (<a href="#prompts">§12</a>).</li>
-    <li>The agent uses <strong>MCP</strong> (<a href="#mcp">§09</a>) to talk to git, the build, the test runner.</li>
-    <li><strong>Context7</strong> (<a href="#context7">§13</a>) feeds it the actual library APIs to use.</li>
+    <li>The agent uses <strong>MCP</strong> (<a href="#mcp">§07</a>) to talk to git, the build, the test runner.</li>
+    <li><strong>Context7</strong> (<a href="#context7">§14</a>) feeds it the actual library APIs to use.</li>
   </ul>
 </section>
 
+
+<!-- =================== AREA: COMMUNITY TOOLING =================== -->
+<aside class="area-banner is-tooling" id="area-tooling">
+  <svg viewBox="0 0 24 24" fill="none" stroke="#ff9ec6" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M14.7 6.3 a4 4 0 1 0 3 7 l4.3 4.3 l-2 2 l-4.3 -4.3 a4 4 0 0 0 -7 -3 l3 3 l-1.4 1.4 l-3 -3 a4 4 0 0 0 7.4 -7.4 z"/>
+  </svg>
+  <div>
+    <p class="area-title">Area 5 of 5</p>
+    <h2 class="area-name">Community Tooling</h2>
+    <p class="area-lead">Trusted, fast-growing tools the AI engineering community has settled around. Each one slots into a section above — these are the shipping-grade implementations.</p>
+  </div>
+</aside>
+
+<!-- =================== COMMUNITY TOOLING — OVERVIEW =================== -->
+<section id="tooling">
+  <h2><span class="num">14</span> Community tooling — what to actually reach for</h2>
+  <p>Seven tools the AI engineering community has settled around in 2026. Each one corresponds to a section above: this is the "what would you actually install on Monday?" layer.</p>
+
+  <div class="tool-grid" id="toolGrid">
+    <article class="tool-card" data-cat="docs">
+      <div class="tc-head">
+        <div class="tc-icon" style="color:#7cf0c1">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 4 h12 a4 4 0 0 1 4 4 v12 H8 a4 4 0 0 1 -4 -4 z"/>
+            <path d="M8 8 h8 M8 12 h8 M8 16 h5"/>
+          </svg>
+        </div>
+        <div class="tc-name">Context7</div>
+        <span class="tc-tag">docs MCP</span>
+      </div>
+      <p class="tc-desc">Upstash-built MCP server that serves <em>version-specific</em> library docs into Cursor, Claude Code, Windsurf, OpenCode — anywhere that speaks MCP. Cuts hallucinated APIs at the source.</p>
+      <div class="tc-foot">
+        <span>MIT</span><span>free tier</span><span>MCP</span>
+      </div>
+      <a class="tc-link" href="#context7">Deep-dive ↓</a>
+    </article>
+
+    <article class="tool-card" data-cat="spec">
+      <div class="tc-head">
+        <div class="tc-icon" style="color:#82b8ff">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 3 h9 l5 5 v13 h-14 z"/><path d="M14 3 v6 h6"/>
+            <path d="M9 13 h6 M9 17 h4"/>
+          </svg>
+        </div>
+        <div class="tc-name">GitHub Spec Kit</div>
+        <span class="tc-tag">SDD</span>
+      </div>
+      <p class="tc-desc">Open-source reference toolkit for spec-driven dev: <code>/specify</code> → <code>/plan</code> → <code>/tasks</code>. Generates a task DAG that an AI agent can execute against acceptance criteria.</p>
+      <div class="tc-foot">
+        <span>MIT</span><span>GitHub-native</span><span>CLI</span>
+      </div>
+      <a class="tc-link" href="#sdd">See §13 SDD ↑</a>
+    </article>
+
+    <article class="tool-card" data-cat="spec">
+      <div class="tc-head">
+        <div class="tc-icon" style="color:#ffb86b">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="4" y="3" width="16" height="18" rx="2"/>
+            <path d="M8 8 h8 M8 12 h8 M8 16 h5"/>
+            <circle cx="18" cy="16" r="2.5" fill="currentColor"/>
+          </svg>
+        </div>
+        <div class="tc-name">OpenSpec</div>
+        <span class="tc-tag">change-spec</span>
+      </div>
+      <p class="tc-desc">Lightweight spec-driven workflow built around <em>change proposals</em> — each AI-driven change ships with a markdown spec, delta, and validation script. Diff-friendly, repo-resident.</p>
+      <div class="tc-foot">
+        <span>open source</span><span>CLI</span><span>git-native</span>
+      </div>
+      <a class="tc-link" href="#sdd">See §13 SDD ↑</a>
+    </article>
+
+    <article class="tool-card" data-cat="skills">
+      <div class="tc-head">
+        <div class="tc-icon" style="color:#ff9ec6">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2 l3 7 h7 l-5.5 4.5 l2 7 l-6.5 -4.5 l-6.5 4.5 l2 -7 l-5.5 -4.5 h7 z"/>
+          </svg>
+        </div>
+        <div class="tc-name">Superpowers</div>
+        <span class="tc-tag">skill pack</span>
+      </div>
+      <p class="tc-desc">Curated bundle of Claude Code skills (planning, review, search, web, scaffolding). Drop-in <code>~/.claude</code> directory that upgrades a vanilla Claude Code install into a structured engineering agent.</p>
+      <div class="tc-foot">
+        <span>open source</span><span>Claude Code</span><span>community</span>
+      </div>
+    </article>
+
+    <article class="tool-card" data-cat="evals">
+      <div class="tc-head">
+        <div class="tc-icon" style="color:#c8a8ff">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 12 a9 9 0 1 0 9 -9"/>
+            <path d="M12 7 v6 l4 2"/>
+          </svg>
+        </div>
+        <div class="tc-name">LangSmith</div>
+        <span class="tc-tag">trace · eval</span>
+      </div>
+      <p class="tc-desc">LangChain's observability + eval platform. Captures every model/tool call with traces, runs LLM-as-judge or rule evals on datasets, and gates prompt PRs in CI.</p>
+      <div class="tc-foot">
+        <span>SaaS</span><span>LangChain</span><span>tracing</span>
+      </div>
+      <a class="tc-link" href="#evals">See §11 Evals ↑</a>
+    </article>
+
+    <article class="tool-card" data-cat="evals">
+      <div class="tc-head">
+        <div class="tc-icon" style="color:#ffe27a">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 17 l5 -5 l4 4 l8 -8"/>
+            <path d="M14 8 h6 v6"/>
+          </svg>
+        </div>
+        <div class="tc-name">Braintrust</div>
+        <span class="tc-tag">eval-first</span>
+      </div>
+      <p class="tc-desc">Eval-driven dev for LLM apps: datasets, experiments, online scoring, prompt playground in one workspace. Pairs especially well with structured-output workflows.</p>
+      <div class="tc-foot">
+        <span>SaaS</span><span>OSS SDK</span><span>experiments</span>
+      </div>
+      <a class="tc-link" href="#evals">See §11 Evals ↑</a>
+    </article>
+
+    <article class="tool-card" data-cat="evals">
+      <div class="tc-head">
+        <div class="tc-icon" style="color:#7cf0c1">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 6 h16 M4 12 h16 M4 18 h16"/>
+            <circle cx="8" cy="6" r="2" fill="currentColor"/>
+            <circle cx="14" cy="12" r="2" fill="currentColor"/>
+            <circle cx="11" cy="18" r="2" fill="currentColor"/>
+          </svg>
+        </div>
+        <div class="tc-name">Promptfoo</div>
+        <span class="tc-tag">CLI evals</span>
+      </div>
+      <p class="tc-desc">Open-source CLI for prompt/model evals defined in YAML. Diffs outputs across providers and models, runs assertions, integrates with CI. Lowest-friction way to start gating prompt changes.</p>
+      <div class="tc-foot">
+        <span>MIT</span><span>CLI</span><span>CI-friendly</span>
+      </div>
+      <a class="tc-link" href="#prompts">See §12 Prompts ↑</a>
+    </article>
+  </div>
+
+  <div class="callout">
+    <strong>How they fit together:</strong> <em>Spec Kit / OpenSpec</em> define what to build → <em>Superpowers</em> gives the agent skills to build it → <em>Context7</em> keeps its library knowledge fresh → <em>Promptfoo / Braintrust / LangSmith</em> measure whether the output is actually correct. Each tool plugs into a different section of this guide.
+  </div>
+</section>
+
+<!-- =================== CONTEXT7 =================== -->
+<section id="context7">
+  <h2><span class="num">15</span> What is Context7?</h2>
+  <p><strong>Context7</strong> is an MCP server (built by <strong>Upstash</strong>) that serves <em>up-to-date, version-specific library documentation</em> into your AI coding tools — Cursor, Claude Code, Windsurf, OpenCode, anything that speaks MCP.</p>
+
+  <h3>The problem it solves</h3>
+  <p>LLMs hallucinate APIs because their training cutoff lags real library releases. Context7 fetches fresh docs at query time so the model sees the <em>actual</em> current API rather than reciting a 2-year-old version from memory.</p>
+
+  <h3>How it works</h3>
+  <ul>
+    <li>Two tools exposed via MCP:
+      <ul>
+        <li><code>resolve-library-id</code> — map "react query" to a Context7 ID.</li>
+        <li><code>query-docs</code> / <code>get-library-docs</code> — fetch version-specific docs by ID + query. The visible name depends on the client/package wrapper.</li>
+      </ul>
+    </li>
+    <li>Free tier, MIT-licensed server, optional API key for higher rate limits.</li>
+    <li>Hosted at <code>context7.com</code>.</li>
+  </ul>
+
+  <h3>Why Upstash?</h3>
+  <p>Upstash is a serverless-Redis / messaging company. They built Context7 as a developer-tool play and run it on their own infra — that's why they can offer a free tier sustainably.</p>
+
+  <div class="callout">
+    <strong>Use case:</strong> Any time you ask Claude/Cursor to use a library and it generates calls to a function that doesn't exist or moved — that's Context7's pitch. Add <code>"use context7"</code> in your prompt and the tool will pull current docs.
+  </div>
+</section>
+
+
 <!-- =================== QUIZ =================== -->
 <section id="quiz">
-  <h2><span class="num">15</span> Quick Quiz — 29 questions</h2>
+  <h2><span class="num">16</span> Knowledge check — graded quiz</h2>
   <p class="small">Pick an answer for each. Hit <em>Grade</em> at the bottom. Explanations appear after grading.</p>
 
   <div id="quiz-body"></div>
@@ -1796,6 +2195,89 @@ await server.connect(new StdioServerTransport());
 </div>
 
 <script>
+/* ============== collapsible nav areas ============== */
+(function () {
+  document.querySelectorAll('.area-toggle').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const open = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', String(!open));
+    });
+  });
+
+  // active-link highlighting on scroll
+  const links = document.querySelectorAll('.area-items a[href^="#"]');
+  const map = new Map();
+  links.forEach(a => {
+    const id = a.getAttribute('href').slice(1);
+    const el = document.getElementById(id);
+    if (el) map.set(el, a);
+  });
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        links.forEach(a => a.classList.remove('active'));
+        const a = map.get(e.target);
+        if (a) a.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-40% 0px -55% 0px', threshold: 0 });
+  map.forEach((_, el) => obs.observe(el));
+})();
+
+/* ============== sortable pricing table ============== */
+(function () {
+  const table = document.getElementById('priceTable');
+  if (!table) return;
+  const tbody = table.tBodies[0];
+  const rows = Array.from(tbody.rows);
+
+  const tierRank = { budget: 0, mid: 1, premium: 2 };
+  const parseNum = s => parseFloat(String(s).replace(/[^0-9.\-]/g, '')) || 0;
+
+  function getVal(row, col, type) {
+    const cells = row.cells;
+    // column index by header order: model=0, provider=1, tier=2, input=3, output=4, ratio=5
+    const idx = { model:0, provider:1, tier:2, input:3, output:4, ratio:5 }[col];
+    const cell = cells[idx];
+    if (type === 'num') return parseNum(cell.textContent);
+    if (type === 'tier') {
+      const t = (cell.textContent || '').trim().toLowerCase();
+      return tierRank[t] ?? 99;
+    }
+    return (cell.textContent || '').trim().toLowerCase();
+  }
+
+  function sortBy(th) {
+    const col = th.dataset.sort;
+    const type = th.dataset.type;
+    let dir = th.classList.contains('asc') ? 'desc' : 'asc';
+    // reset all headers
+    table.querySelectorAll('th.sortable').forEach(h => h.classList.remove('asc','desc'));
+    th.classList.add(dir);
+
+    const sign = dir === 'asc' ? 1 : -1;
+    rows.sort((a, b) => {
+      const va = getVal(a, col, type);
+      const vb = getVal(b, col, type);
+      if (va < vb) return -1 * sign;
+      if (va > vb) return  1 * sign;
+      return 0;
+    });
+    rows.forEach(r => tbody.appendChild(r));
+  }
+
+  table.querySelectorAll('th.sortable').forEach(th => {
+    th.addEventListener('click', () => sortBy(th));
+  });
+
+  // Apply default sort (Input asc) so the initial header indicator matches actual ordering
+  const def = table.querySelector('th.sortable[data-sort="input"]');
+  if (def) {
+    def.classList.remove('asc');   // toggle will flip back to asc
+    sortBy(def);
+  }
+})();
+
 /* ============== price-per-1M chart (log scale, side-by-side input/output) ============== */
 (function () {
   const data = [
@@ -2290,6 +2772,203 @@ const questions = [
     ],
     correct: 1,
     explain: "Constitution (principles) → Specification (intent) → optional Clarification → Architecture (human-in-the-loop plan) → Tasks (DAG) → Implementation (AI executes the graph)."
+  },
+
+  // ====================================================
+  // ============ HARDER / DEEPER ROUND =================
+  // ====================================================
+
+  {
+    difficulty: "hard",
+    q: "Your agent finishes a Claude tool-use turn (with extended thinking enabled), runs the tool, and you build the next request. Which of these is the most dangerous mistake?",
+    opts: [
+      "Truncating prior user messages older than 20 turns",
+      "Discarding the assistant's <code>thinking</code> blocks before re-sending the conversation",
+      "Reordering tool_result blocks to put errors first",
+      "Setting <code>thinking.budget_tokens</code> lower on the follow-up call"
+    ],
+    correct: 1,
+    explain: "Anthropic requires the unmodified thinking blocks from the LAST assistant message to be passed back on a tool-use continuation. Drop them and the model either errors or reasons worse. The other options are fine — older user-message pruning is normal, errors-first reordering is a stylistic choice, and adjusting thinking budget per call is supported."
+  },
+  {
+    difficulty: "hard",
+    q: "Kimi K2.6 is MoE (~32B active / ~1T total) while DeepSeek V4 Pro achieves a similar active/total ratio via DSA. Which statement best captures the architectural difference?",
+    opts: [
+      "MoE replicates the entire model N times; DSA shrinks it once",
+      "MoE routes each token to a subset of expert feed-forward blocks via a learned router; DSA leaves a single dense FFN in place and instead makes attention itself sparse so per-token compute is cut without expert routing",
+      "DSA is a closed-source variant of MoE used only by DeepSeek",
+      "MoE is for inference, DSA is for training"
+    ],
+    correct: 1,
+    explain: "MoE = many FFN experts + a router selecting a few per token (compute reduction in the FFN). DSA = sparse attention so most attention computations are skipped per token. Different layers attacked, similar economics: cheap compute per token, big total parameter count."
+  },
+  {
+    difficulty: "deep",
+    q: "Prompt caching gives up to 90% off on cached input tokens. What is the underlying GPU-side reason it can be that cheap?",
+    opts: [
+      "Cached prompts run on a separate, cheaper GPU class",
+      "The provider serves them from CDN — no GPU at all",
+      "The KV (key/value) cache for the cached prefix is already computed and stored in GPU memory, so the prefill step is skipped on cache hits — only the new suffix needs prefill",
+      "It's purely a billing concession; compute is identical"
+    ],
+    correct: 2,
+    explain: "Prefill (computing K/V for every prompt token) is the expensive step. If the provider has a KV cache pinned for your prefix, the next request only needs to prefill the new suffix and decode. The discount reflects that real compute saving — which is also why prompt-cache TTLs (5 min / 1 hour for Anthropic) exist: VRAM eviction."
+  },
+  {
+    difficulty: "hard",
+    q: "Cascade routing: Haiku 4.5 handles a turn for $0.015 and escalates 20% of turns to Opus 4.7 at $0.075. What's the blended cost per turn, and what is its biggest practical risk?",
+    opts: [
+      "$0.027/turn — main risk is mis-classification at the router",
+      "$0.090/turn — main risk is Opus rate limits",
+      "$0.015/turn — main risk is latency",
+      "$0.075/turn — main risk is data residency"
+    ],
+    correct: 0,
+    explain: "0.8 × $0.015 + 0.2 × $0.075 = $0.012 + $0.015 = $0.027/turn. The dominant risk is the router: a bad classifier silently routes hard turns to Haiku (quality regression) or easy turns to Opus (cost regression). Hence why router metrics belong in your eval suite."
+  },
+  {
+    difficulty: "hard",
+    q: "GraphRAG vs hybrid vector RAG: which production scenario most strongly favors GraphRAG?",
+    opts: [
+      "FAQ search over a 5K-document help center where exact wording matters",
+      "Q&A over a 200K-token product spec that fits in Gemini 3.1 Pro's context",
+      "\"Which directors who worked with Studio A between 2018-2022 also collaborated with Studio B before 2018?\" over a film-industry corpus",
+      "Code search across a monorepo for a single function definition"
+    ],
+    correct: 2,
+    explain: "Multi-hop relational queries are where vector RAG plateaus — semantic similarity alone doesn't traverse 'collaborated-with' edges across time windows. A knowledge graph + subgraph retrieval handles that natively. The other cases are better served by BM25+vector hybrid, long-context, and grep respectively."
+  },
+  {
+    difficulty: "hard",
+    q: "MCP Streamable HTTP transport replaced an older transport — which one, and what was the operational reason?",
+    opts: [
+      "It replaced WebSockets because they don't pass through corporate proxies",
+      "It replaced the older standalone HTTP+SSE transport — Streamable HTTP unifies request/response and server-to-client streaming over a single bidirectional HTTP endpoint, simpler to deploy and proxy than the two-endpoint SSE design",
+      "It replaced gRPC because clients can't speak HTTP/2",
+      "It replaced stdio for local use — stdio is now deprecated"
+    ],
+    correct: 1,
+    explain: "The original spec had a separate HTTP endpoint for requests and an SSE endpoint for server→client messages — operationally awkward. Streamable HTTP merges them: one endpoint, optional SSE response framing when the server wants to stream. stdio is still very much the local-subprocess default for desktop apps."
+  },
+  {
+    difficulty: "deep",
+    q: "Output tokens cost 5–8× more than input tokens across nearly every provider. Which is the strongest single reason?",
+    opts: [
+      "Output text is longer than input text on average",
+      "Output is generated <em>sequentially</em> (one token at a time, each pass through the full model), while input prefill is processed in parallel — so per-token GPU utilization is much worse for output, and providers price that in",
+      "Output tokens trigger safety classifiers that input tokens don't",
+      "Output tokens require more storage in conversation history"
+    ],
+    correct: 1,
+    explain: "Decoding is bandwidth-bound and sequential — every token requires another full forward pass and you can't batch across tokens of the same request. Prefill is matmul-heavy but parallel. That asymmetry is the structural reason output is far more expensive."
+  },
+  {
+    difficulty: "hard",
+    q: "An eval suite is failing on prompt v4.3.0 but passing on v4.2.1. You re-run v4.2.1 and now it fails too. Most likely cause?",
+    opts: [
+      "Your CI runner ran out of memory",
+      "The grader prompt or judge model drifted (e.g. provider snapshot moved); pin the judge model + version, version the rubric, and treat the grader as part of the eval, not infrastructure",
+      "The prompt registry corrupted v4.2.1",
+      "The eval dataset must be re-embedded"
+    ],
+    correct: 1,
+    explain: "Classic LLM-as-judge failure mode: the judge isn't pinned, the provider rolled the snapshot, and \"identical\" reruns now disagree. Fix: pin <code>model</code> + snapshot, version your rubric, and add a per-grader calibration set so drift is detected before it poisons your production gating."
+  },
+  {
+    difficulty: "hard",
+    q: "Which of these is NOT a legitimate reason to route through AWS Bedrock instead of api.anthropic.com?",
+    opts: [
+      "Inheriting an AWS account's IAM, VPC, KMS, and audit logging",
+      "Keeping data inside your AWS region for compliance",
+      "Bundling LLM spend into an existing AWS enterprise discount commit",
+      "Getting access to Claude model versions before they're available on api.anthropic.com"
+    ],
+    correct: 3,
+    explain: "Bedrock/Vertex/Azure typically lag the first-party API by days-to-weeks on new model versions. People adopt them <em>despite</em> that lag because the procurement/compliance/IAM story is unbeatable. If you need the latest snapshot the day it ships, the direct API is the better fit."
+  },
+  {
+    difficulty: "hard",
+    q: "LangGraph encourages \"DAG with controlled loops\" rather than pure DAGs. The reason is:",
+    opts: [
+      "DAGs can't represent conditional branching",
+      "Real agents need bounded retry/re-plan cycles (e.g. \"if the test fails, regenerate up to 3×\"); pure DAGs can't express that, but unbounded recurrence is also dangerous — so the framework lets you add cycles while requiring an iteration cap",
+      "DAGs are slower to schedule than graphs with cycles",
+      "Pure DAGs can't run in parallel"
+    ],
+    correct: 1,
+    explain: "Pure DAGs are too rigid for retry/repair loops; free-form recurrence runs forever. The pragmatic middle ground is the LangGraph pattern: cycles allowed, iteration limit mandatory."
+  },
+  {
+    difficulty: "deep",
+    q: "An RAG pipeline currently does: <em>embed → vector search → top-5 → LLM</em>. RAGAS faithfulness is acceptable but precision is poor: irrelevant chunks frequently make it into the prompt. What is the highest-ROI single change?",
+    opts: [
+      "Swap embedding model to a bigger one",
+      "Increase top-K from 5 to 20 to recover recall",
+      "Insert a hybrid (BM25 + vector) retrieval step <em>and</em> a cross-encoder reranker over a wider top-50 → top-5 funnel — recall comes from hybrid, precision from the reranker",
+      "Fine-tune the generation model on your corpus"
+    ],
+    correct: 2,
+    explain: "Naive vector-only retrieval misses keyword-exact matches; raising K alone makes the precision problem worse. Hybrid+rerank is the canonical fix: hybrid recovers what dense missed; the cross-encoder deeply re-scores the union. Typical wins: +25–40% precision."
+  },
+  {
+    difficulty: "hard",
+    q: "Reasoning effort=\"high\" on GPT-5.5 quintuples your output_tokens_details.reasoning_tokens for a 2K-token answer. Which TWO are <strong>true</strong>? (Pick the best single combined answer.)",
+    opts: [
+      "(a) Reasoning tokens are billed as output, (b) they're returned as raw text in the response",
+      "(a) Reasoning tokens are billed as output, (b) only their count (and sometimes encrypted/summary items) is exposed, raw thinking is hidden",
+      "(a) Reasoning tokens are free with the Pro tier, (b) they're exposed as a separate stream",
+      "(a) Reasoning tokens count as input, (b) you can disable billing for them"
+    ],
+    correct: 1,
+    explain: "Reasoning tokens are generated tokens (counted as output, billed as output) but OpenAI does NOT expose the raw reasoning string — only counts, summaries, or encrypted items used to continue tool loops. That's why \"why is my bill so high?\" is almost always extended reasoning, not output."
+  },
+  {
+    difficulty: "hard",
+    q: "In SDD, why is the Constitution treated as immutable input on every AI run, even for a tiny bugfix task?",
+    opts: [
+      "Because Spec Kit's CLI doesn't allow editing it",
+      "Because principles like tech stack, security policy, and coding standards must not drift between tasks; a Constitution that quietly changes per run silently changes generated code across PRs",
+      "Because LLMs ignore everything before the user message",
+      "Because Git won't merge changes to Constitution files"
+    ],
+    correct: 1,
+    explain: "Constitution = persistent, project-wide rules. The whole point is that <em>every</em> task gets the same baseline. If you mutate it per task, you've reintroduced the exact drift problem SDD was invented to fix."
+  },
+  {
+    difficulty: "deep",
+    q: "Your agent calls a tool that returns 350KB of JSON. You stuff the whole thing back into <code>tool_result</code>. Two turns later quality collapses. Most likely root cause?",
+    opts: [
+      "The model's context window is too small",
+      "350KB of JSON dominates the prompt → attention dilutes across the noise (\"lost in the middle\"), KV cache may evict the system prompt, and on long-context-tier providers you crossed a pricing cliff — the fix is to summarize/extract the tool result before returning it",
+      "JSON encoding adds invisible tokens that break the tokenizer",
+      "Tool results larger than 100KB are silently rejected by all providers"
+    ],
+    correct: 1,
+    explain: "Big raw tool outputs are a top-3 production failure mode. Even within window: attention degrades over very long inputs, you blow through cached prefixes, and you hit long-context price tiers. The fix is application-side: filter/summarize the tool result down to what the model actually needs."
+  },
+  {
+    difficulty: "hard",
+    q: "What's the difference between MCP <strong>resources</strong> and MCP <strong>tools</strong>, and why does it matter?",
+    opts: [
+      "They're synonyms; the spec just provides both for readability",
+      "Tools are write actions, resources are read actions, and the protocol distinguishes them so the client UX can do things like attach a resource to context without executing it — and so that auth/audit policy can differ between \"reading data\" and \"performing an action\"",
+      "Resources are JSON, tools are XML",
+      "Resources require OAuth; tools don't"
+    ],
+    correct: 1,
+    explain: "Resources are file-like, read-only things the client can pull into the LLM's context (a doc, a page, a query result). Tools are callable functions (often side-effectful). Splitting them lets clients render \"attach this resource\" affordances and lets servers apply stricter policy on actions vs reads."
+  },
+  {
+    difficulty: "hard",
+    q: "You see <code>context window</code> and <code>context length</code> used interchangeably. Which is the most precise framing?",
+    opts: [
+      "They mean the same thing; the difference is regional English",
+      "Context <em>window</em> is the model's hard <em>capacity</em> (e.g. 1M tokens for Claude Sonnet 4.6); context <em>length</em> is the <em>actual</em> number of tokens you sent on a given request. Pricing tiers and KV-cache behavior depend on context <em>length</em>, not the window",
+      "Context window is input-only; context length is input+output combined",
+      "Context length applies only to reasoning models"
+    ],
+    correct: 1,
+    explain: "Window is capacity; length is usage. Providers like Gemini 3.1 Pro and GPT-5.4/5.5 have pricing cliffs that trigger at certain <em>lengths</em> (200K for Gemini, ~272K for GPT-5.x), and KV cache decisions depend on length, not window size."
   }
 ];
 
@@ -2297,8 +2976,11 @@ const body = document.getElementById('quiz-body');
 questions.forEach((qq, i) => {
   const div = document.createElement('div');
   div.className = 'q';
+  const diffBadge = qq.difficulty
+    ? `<span class="difficulty ${qq.difficulty}">${qq.difficulty === 'hard' ? 'hard' : 'deep dive'}</span>`
+    : '';
   div.innerHTML = `
-    <div class="qtext">${i+1}. ${qq.q}</div>
+    <div class="qtext">${i+1}. ${qq.q}${diffBadge}</div>
     ${qq.opts.map((o, j) => `
       <label class="opt" data-i="${i}" data-j="${j}">
         <input type="radio" name="q${i}" value="${j}">${o}
@@ -2308,6 +2990,14 @@ questions.forEach((qq, i) => {
   `;
   body.appendChild(div);
 });
+
+// Update quiz count + intro line dynamically
+(function () {
+  const intro = document.querySelector('#quiz p.small');
+  const h2 = document.querySelector('#quiz h2');
+  if (h2) h2.innerHTML = h2.innerHTML.replace(/quiz.*$/i, `quiz <span class="small" style="color:var(--muted); font-weight:400; font-size:13px">(${questions.length} questions · ~${Math.ceil(questions.length * 0.6)} min)</span>`);
+  if (intro) intro.innerHTML = `Pick an answer for each. Hit <em>Grade</em> at the bottom. The <span class="difficulty hard" style="font-size:10px;padding:1px 7px;border-radius:99px;background:rgba(255,107,139,.15);color:#ff8aa6;letter-spacing:.05em;text-transform:uppercase">hard</span> and <span class="difficulty deep" style="font-size:10px;padding:1px 7px;border-radius:99px;background:rgba(124,240,193,.12);color:var(--accent);letter-spacing:.05em;text-transform:uppercase">deep dive</span> tags mark elaborate questions worth taking your time on.`;
+})();
 
 function grade() {
   let score = 0;
