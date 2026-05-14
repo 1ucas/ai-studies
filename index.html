@@ -106,10 +106,102 @@
     white-space:nowrap; opacity:0; transition:opacity .15s}
   @media (max-width:900px){
     .wrap{grid-template-columns:1fr}
-    nav.side{position:relative; height:auto; border-right:0; border-bottom:1px solid var(--line)}
-    main{padding:24px}
+    nav.side{display:none}
+    main{padding:18px 14px 60px; max-width:100%}
     .grid2{grid-template-columns:1fr}
+
+    /* ===== List-detail mobile UI ===== */
+    .mobile-index{display:block}
+    .mobile-back{display:none}
+
+    /* list mode (default): hide all sections + area banners; show hero + mobile index */
+    body:not(.detail-mode) main > section,
+    body:not(.detail-mode) main > .area-banner{display:none}
+
+    /* detail mode: hide hero + index; show only the active section */
+    body.detail-mode main > header.hero,
+    body.detail-mode main > .mobile-index{display:none}
+    body.detail-mode main > section,
+    body.detail-mode main > .area-banner{display:none}
+    body.detail-mode main > section.detail-active{display:block}
+    body.detail-mode main > .mobile-back{display:inline-flex}
+
+    /* hero tighter on mobile (list view) */
+    header.hero{padding:20px 18px 16px; margin-bottom:18px; border-radius:12px}
+    header.hero h1{font-size:22px; margin-bottom:8px}
+    header.hero p.lead{font-size:13.5px}
+    header.hero .badge{font-size:10px}
+
+    /* shrink content paddings/fonts inside a detail section */
+    body.detail-mode section{margin:0 0 32px}
+    body.detail-mode section h2{font-size:20px; flex-wrap:wrap}
+    body.detail-mode section h3{font-size:15px}
+    body.detail-mode section h4{font-size:12.5px}
+
+    /* tables: horizontal scroll instead of overflowing */
+    section table{display:block; overflow-x:auto; -webkit-overflow-scrolling:touch; max-width:100%}
+
+    /* tool grid: single column on mobile */
+    .tool-grid{grid-template-columns:1fr}
+
+    /* canvas charts scale to container */
+    canvas#priceChart, canvas#turnChart{width:100% !important; height:auto !important}
+
+    /* diagrams: tighter padding */
+    figure.diagram{padding:12px 8px}
+
+    /* code blocks tighter */
+    pre{padding:10px 12px; font-size:11.5px}
+
+    /* quiz tighter */
+    #quiz{padding:18px 14px}
+    .quiz-actions{flex-wrap:wrap}
+    .quiz-actions #score{flex-basis:100%}
   }
+
+  /* ============ Mobile index (list view) ============ */
+  .mobile-index{display:none}
+  .mobile-back{
+    display:none; align-items:center; gap:8px;
+    background:var(--panel); border:1px solid var(--line); color:var(--text);
+    padding:9px 14px 9px 12px; border-radius:8px; cursor:pointer;
+    font:600 13px -apple-system,sans-serif; margin-bottom:16px;
+    text-decoration:none;
+  }
+  .mobile-back:hover{background:var(--panel2); text-decoration:none}
+  .mobile-back .arrow{font-size:16px; line-height:1; color:var(--accent)}
+
+  .mobile-index .mi-prompt{
+    font-size:12px; color:var(--muted); margin:0 2px 14px;
+    letter-spacing:.04em;
+  }
+  .mobile-index .mi-group{margin:18px 0 0}
+  .mobile-index .mi-group:first-of-type{margin-top:4px}
+  .mobile-index .mi-heading{
+    display:flex; align-items:center; gap:8px;
+    font-size:10.5px; letter-spacing:.12em; text-transform:uppercase;
+    margin:0 2px 8px; color:var(--muted); font-weight:700;
+  }
+  .mobile-index .mi-heading .mi-dot{width:8px; height:8px; border-radius:99px; flex:none}
+  .mobile-index .mi-list{list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:6px}
+  .mobile-index .mi-list a{
+    display:flex; align-items:center; justify-content:space-between; gap:10px;
+    padding:13px 14px; background:var(--panel); border:1px solid var(--line);
+    border-radius:10px; color:var(--text); text-decoration:none;
+    transition:border-color .15s, background .15s, transform .1s;
+  }
+  .mobile-index .mi-list a:active{transform:scale(.99)}
+  .mobile-index .mi-list a:hover{border-color:var(--accent); background:var(--panel2); text-decoration:none}
+  .mobile-index .mi-list .mi-text{display:flex; flex-direction:column; min-width:0; flex:1}
+  .mobile-index .mi-list .mi-title{font-size:14.5px; font-weight:600; color:var(--text)}
+  .mobile-index .mi-list .mi-desc{font-size:12px; color:var(--muted); margin-top:2px; line-height:1.4}
+  .mobile-index .mi-list .mi-chev{color:var(--muted); font-size:20px; line-height:1; flex:none; opacity:.7}
+  .mobile-index .mi-concepts .mi-dot{background:#7cf0c1}
+  .mobile-index .mi-models .mi-dot{background:#ffb86b}
+  .mobile-index .mi-components .mi-dot{background:#82b8ff}
+  .mobile-index .mi-execution .mi-dot{background:#e2c9ff}
+  .mobile-index .mi-tooling .mi-dot{background:#ff9ec6}
+  .mobile-index .mi-quiz .mi-dot{background:#ffe27a}
 
   /* ============ Grouped nav ============ */
   nav.side h1.brand{display:flex; align-items:center; gap:8px; margin-bottom:18px}
@@ -332,11 +424,119 @@
 </nav>
 
 <main>
+<a href="#" class="mobile-back" id="mobileBack" aria-label="Back to all sections">
+  <span class="arrow" aria-hidden="true">←</span>
+  <span>All sections</span>
+</a>
 <header class="hero">
   <span class="badge">Study · ~4 hour skim · ~6–8 hour deep read</span>
   <h1>AI Study Guide — Cheat Sheet</h1>
   <p class="lead">Everything you need on model economics, agent plumbing, and the SDD / MCP / RAG vocabulary that's essential to master as a software engineer working with AI. Numbers are May 2026 list prices — they will move, the relationships won't.</p>
 </header>
+
+<nav class="mobile-index" id="mobileIndex" aria-label="Sections">
+  <p class="mi-prompt">Tap a section to read it.</p>
+
+  <div class="mi-group mi-concepts">
+    <h3 class="mi-heading"><span class="mi-dot"></span> Main Concepts</h3>
+    <ul class="mi-list">
+      <li><a href="#concepts" data-mi-target="concepts">
+        <span class="mi-text"><span class="mi-title">Vocabulary &amp; fundamentals</span>
+        <span class="mi-desc">Tokens, transformers, context window, embeddings, agents.</span></span>
+        <span class="mi-chev" aria-hidden="true">›</span></a></li>
+    </ul>
+  </div>
+
+  <div class="mi-group mi-models">
+    <h3 class="mi-heading"><span class="mi-dot"></span> Models</h3>
+    <ul class="mi-list">
+      <li><a href="#models" data-mi-target="models">
+        <span class="mi-text"><span class="mi-title">Models &amp; Pricing</span>
+        <span class="mi-desc">Frontier vs cheap tiers; May 2026 list prices.</span></span>
+        <span class="mi-chev" aria-hidden="true">›</span></a></li>
+      <li><a href="#routing" data-mi-target="routing">
+        <span class="mi-text"><span class="mi-title">Model Routing</span>
+        <span class="mi-desc">Which model for which task.</span></span>
+        <span class="mi-chev" aria-hidden="true">›</span></a></li>
+      <li><a href="#model-integration" data-mi-target="model-integration">
+        <span class="mi-text"><span class="mi-title">Model Integration</span>
+        <span class="mi-desc">SDKs, gateways, structured output.</span></span>
+        <span class="mi-chev" aria-hidden="true">›</span></a></li>
+      <li><a href="#oss" data-mi-target="oss">
+        <span class="mi-text"><span class="mi-title">Open-Source Alts</span>
+        <span class="mi-desc">DeepSeek, Kimi, GLM and friends.</span></span>
+        <span class="mi-chev" aria-hidden="true">›</span></a></li>
+    </ul>
+  </div>
+
+  <div class="mi-group mi-components">
+    <h3 class="mi-heading"><span class="mi-dot"></span> LLM Components</h3>
+    <ul class="mi-list">
+      <li><a href="#memory" data-mi-target="memory">
+        <span class="mi-text"><span class="mi-title">Memory Types</span>
+        <span class="mi-desc">Short-term, long-term, episodic, semantic.</span></span>
+        <span class="mi-chev" aria-hidden="true">›</span></a></li>
+      <li><a href="#mcp" data-mi-target="mcp">
+        <span class="mi-text"><span class="mi-title">MCP — Tools Protocol</span>
+        <span class="mi-desc">Standard interface to expose tools to LLMs.</span></span>
+        <span class="mi-chev" aria-hidden="true">›</span></a></li>
+      <li><a href="#rag" data-mi-target="rag">
+        <span class="mi-text"><span class="mi-title">RAG</span>
+        <span class="mi-desc">Retrieval-augmented generation patterns.</span></span>
+        <span class="mi-chev" aria-hidden="true">›</span></a></li>
+      <li><a href="#research-graph" data-mi-target="research-graph">
+        <span class="mi-text"><span class="mi-title">Research Graph</span>
+        <span class="mi-desc">Iterative search/reason loops.</span></span>
+        <span class="mi-chev" aria-hidden="true">›</span></a></li>
+      <li><a href="#dag" data-mi-target="dag">
+        <span class="mi-text"><span class="mi-title">DAG</span>
+        <span class="mi-desc">Multi-agent orchestration as directed acyclic graphs.</span></span>
+        <span class="mi-chev" aria-hidden="true">›</span></a></li>
+    </ul>
+  </div>
+
+  <div class="mi-group mi-execution">
+    <h3 class="mi-heading"><span class="mi-dot"></span> Tech Execution</h3>
+    <ul class="mi-list">
+      <li><a href="#evals" data-mi-target="evals">
+        <span class="mi-text"><span class="mi-title">Evals vs Benchmarks</span>
+        <span class="mi-desc">How to actually measure your AI system.</span></span>
+        <span class="mi-chev" aria-hidden="true">›</span></a></li>
+      <li><a href="#prompts" data-mi-target="prompts">
+        <span class="mi-text"><span class="mi-title">Prompt Versioning</span>
+        <span class="mi-desc">Treating prompts like code.</span></span>
+        <span class="mi-chev" aria-hidden="true">›</span></a></li>
+      <li><a href="#sdd" data-mi-target="sdd">
+        <span class="mi-text"><span class="mi-title">Spec-Driven Dev</span>
+        <span class="mi-desc">Writing specs the LLM can build from.</span></span>
+        <span class="mi-chev" aria-hidden="true">›</span></a></li>
+    </ul>
+  </div>
+
+  <div class="mi-group mi-tooling">
+    <h3 class="mi-heading"><span class="mi-dot"></span> Community Tooling</h3>
+    <ul class="mi-list">
+      <li><a href="#tooling" data-mi-target="tooling">
+        <span class="mi-text"><span class="mi-title">Trusted tooling overview</span>
+        <span class="mi-desc">What the ecosystem actually uses.</span></span>
+        <span class="mi-chev" aria-hidden="true">›</span></a></li>
+      <li><a href="#context7" data-mi-target="context7">
+        <span class="mi-text"><span class="mi-title">Context7 deep-dive</span>
+        <span class="mi-desc">Up-to-date library docs for LLMs.</span></span>
+        <span class="mi-chev" aria-hidden="true">›</span></a></li>
+    </ul>
+  </div>
+
+  <div class="mi-group mi-quiz">
+    <h3 class="mi-heading"><span class="mi-dot"></span> Quiz</h3>
+    <ul class="mi-list">
+      <li><a href="#quiz" data-mi-target="quiz">
+        <span class="mi-text"><span class="mi-title">Take the quiz</span>
+        <span class="mi-desc">Check yourself.</span></span>
+        <span class="mi-chev" aria-hidden="true">›</span></a></li>
+    </ul>
+  </div>
+</nav>
 
 <!-- =================== AREA: MAIN CONCEPTS =================== -->
 <aside class="area-banner" id="area-concepts">
@@ -2194,6 +2394,59 @@ await server.connect(new StdioServerTransport());
 </div>
 
 <script>
+/* ============== mobile list-detail view ============== */
+(function () {
+  const mq = window.matchMedia('(max-width: 900px)');
+  const backBtn = document.getElementById('mobileBack');
+  if (!backBtn) return;
+
+  function clearActive() {
+    document.querySelectorAll('section.detail-active')
+      .forEach(el => el.classList.remove('detail-active'));
+  }
+
+  function applyView() {
+    const id = decodeURIComponent(window.location.hash.slice(1));
+    const target = id ? document.getElementById(id) : null;
+    clearActive();
+    if (mq.matches && target && target.tagName === 'SECTION') {
+      document.body.classList.add('detail-mode');
+      target.classList.add('detail-active');
+      window.scrollTo({top:0, behavior:'auto'});
+    } else {
+      document.body.classList.remove('detail-mode');
+    }
+  }
+
+  window.addEventListener('hashchange', applyView);
+  if (mq.addEventListener) mq.addEventListener('change', applyView);
+  else mq.addListener(applyView);
+
+  backBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    if (window.location.hash) {
+      history.pushState(null, '', window.location.pathname + window.location.search);
+    }
+    applyView();
+  });
+
+  // Intercept index link clicks so the browser doesn't auto-scroll to anchor before we swap views
+  document.querySelectorAll('#mobileIndex a[href^="#"]').forEach(a => {
+    a.addEventListener('click', (e) => {
+      if (!mq.matches) return;
+      const id = a.getAttribute('href').slice(1);
+      if (!document.getElementById(id)) return;
+      e.preventDefault();
+      if (window.location.hash !== '#' + id) {
+        history.pushState(null, '', '#' + id);
+      }
+      applyView();
+    });
+  });
+
+  applyView();
+})();
+
 /* ============== collapsible nav areas ============== */
 (function () {
   document.querySelectorAll('.area-toggle').forEach(btn => {
