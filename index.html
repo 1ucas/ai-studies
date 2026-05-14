@@ -1,0 +1,2341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Study Guide — May 2026</title>
+<style>
+  :root{
+    --bg:#0b0d10; --panel:#12161c; --panel2:#171c24; --line:#222a35;
+    --text:#e6ebf2; --muted:#8a94a3; --accent:#7cf0c1; --accent2:#ffb86b;
+    --warn:#ff6b8b; --link:#82b8ff; --pill:#1d242e;
+    --good:#4ade80; --bad:#f87171;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Inter",system-ui,sans-serif;
+    line-height:1.55; font-size:15px;}
+  a{color:var(--link); text-decoration:none}
+  a:hover{text-decoration:underline}
+  .wrap{display:grid; grid-template-columns:260px 1fr; min-height:100vh;}
+  nav.side{
+    position:sticky; top:0; align-self:start; height:100vh; overflow-y:auto;
+    background:var(--panel); border-right:1px solid var(--line); padding:20px 16px;
+  }
+  nav.side h1{font-size:14px; letter-spacing:.08em; text-transform:uppercase;
+    color:var(--accent); margin:0 0 16px}
+  nav.side ol{list-style:none; padding:0; margin:0; counter-reset:n}
+  nav.side li{counter-increment:n; margin:2px 0}
+  nav.side a{display:block; padding:7px 10px; border-radius:6px; color:var(--muted);
+    font-size:13.5px; border-left:2px solid transparent}
+  nav.side a:hover{background:var(--panel2); color:var(--text)}
+  nav.side a::before{content:counter(n) ". "; color:var(--accent2); font-variant-numeric:tabular-nums}
+  nav.side .pill{display:inline-block; font-size:10px; padding:2px 6px; margin-left:6px;
+    border-radius:99px; background:var(--pill); color:var(--accent2); text-transform:uppercase}
+  main{padding:36px 48px 120px; max-width:980px}
+  header.hero{margin-bottom:32px}
+  header.hero h1{font-size:30px; margin:0 0 6px; letter-spacing:-.02em}
+  header.hero p.lead{color:var(--muted); margin:0; max-width:64ch}
+  .badge{display:inline-block; padding:3px 8px; background:var(--pill); border:1px solid var(--line);
+    border-radius:99px; font-size:11px; color:var(--accent); letter-spacing:.04em; text-transform:uppercase}
+  section{margin:48px 0; scroll-margin-top:20px}
+  section h2{font-size:22px; margin:0 0 6px; display:flex; align-items:baseline; gap:10px}
+  section h2 .num{color:var(--accent2); font-variant-numeric:tabular-nums; font-size:14px}
+  section h3{font-size:16px; margin:22px 0 6px; color:var(--accent)}
+  section h4{font-size:14px; margin:18px 0 4px; color:var(--accent2); text-transform:uppercase; letter-spacing:.05em}
+  p,ul,ol{margin:8px 0}
+  ul,ol{padding-left:20px}
+  li{margin:4px 0}
+  code{font-family:"SF Mono","JetBrains Mono",ui-monospace,monospace; font-size:13px;
+    background:var(--panel2); padding:1px 6px; border-radius:4px; color:#e2c9ff}
+  pre{background:var(--panel2); border:1px solid var(--line); border-radius:8px;
+    padding:14px 16px; overflow-x:auto; font-size:12.5px; line-height:1.5}
+  pre code{background:none; padding:0; color:#dbe2ec}
+  table{border-collapse:collapse; width:100%; margin:12px 0; font-size:13.5px}
+  th,td{padding:9px 12px; text-align:left; border-bottom:1px solid var(--line); vertical-align:top}
+  th{background:var(--panel); color:var(--accent); font-weight:600; font-size:12px; text-transform:uppercase; letter-spacing:.04em}
+  tr:hover td{background:var(--panel)}
+  .card{background:var(--panel); border:1px solid var(--line); border-radius:10px;
+    padding:16px 20px; margin:12px 0}
+  .grid2{display:grid; grid-template-columns:1fr 1fr; gap:16px}
+  .callout{border-left:3px solid var(--accent); background:var(--panel); padding:10px 16px; border-radius:0 8px 8px 0; margin:12px 0}
+  .callout.warn{border-color:var(--accent2)}
+  .callout.danger{border-color:var(--warn)}
+  .kbd{font-family:monospace; background:var(--panel2); border:1px solid var(--line); border-bottom-width:2px;
+    padding:1px 6px; border-radius:4px; font-size:11.5px}
+  .tag{display:inline-block; padding:2px 8px; background:var(--pill); border-radius:99px;
+    font-size:11px; color:var(--muted); margin-right:4px}
+  .tag.good{color:var(--good)} .tag.bad{color:var(--bad)} .tag.warn{color:var(--accent2)}
+  /* quiz */
+  #quiz{background:linear-gradient(180deg,#10141a 0%,#0b0d10 100%); border:1px solid var(--line); border-radius:14px; padding:28px}
+  .q{margin:18px 0; padding:14px 16px; background:var(--panel); border-radius:10px; border:1px solid var(--line)}
+  .q .qtext{font-weight:600; margin-bottom:10px}
+  .q .opt{display:block; padding:8px 12px; margin:5px 0; background:var(--panel2); border:1px solid var(--line);
+    border-radius:7px; cursor:pointer; transition:all .15s}
+  .q .opt:hover{border-color:var(--accent); transform:translateX(2px)}
+  .q .opt.correct{border-color:var(--good); background:rgba(74,222,128,.12)}
+  .q .opt.wrong{border-color:var(--bad); background:rgba(248,113,113,.12)}
+  .q .opt input{margin-right:9px}
+  .q .explain{margin-top:8px; padding:10px 12px; border-left:3px solid var(--accent);
+    background:var(--panel2); border-radius:0 6px 6px 0; font-size:13px; color:var(--muted); display:none}
+  .q .explain.show{display:block}
+  .quiz-actions{display:flex; gap:12px; align-items:center; margin-top:20px}
+  button.btn{background:var(--accent); color:#0b0d10; border:0; padding:10px 18px; border-radius:8px;
+    font-weight:600; cursor:pointer; font-size:14px}
+  button.btn:hover{filter:brightness(1.1)}
+  button.btn.secondary{background:var(--panel2); color:var(--text); border:1px solid var(--line)}
+  #score{font-size:18px; font-weight:600}
+  .small{font-size:12px; color:var(--muted)}
+  .price{color:var(--accent); font-variant-numeric:tabular-nums; font-weight:600}
+  .strike{text-decoration:line-through; color:var(--muted)}
+  hr{border:0; border-top:1px solid var(--line); margin:20px 0}
+  /* diagrams */
+  figure.diagram{margin:20px 0; padding:18px; background:#0e1217; border:1px solid var(--line); border-radius:10px}
+  figure.diagram svg{display:block; margin:0 auto; max-width:100%; height:auto}
+  figure.diagram figcaption{font-size:12.5px; color:var(--muted); text-align:center; margin-top:10px; line-height:1.5}
+  .legend{display:flex; flex-wrap:wrap; gap:14px; justify-content:center; margin-top:10px; font-size:11.5px; color:var(--muted)}
+  .legend .sw{display:inline-block; width:12px; height:12px; border-radius:3px; vertical-align:middle; margin-right:5px}
+  .svg-label{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text",system-ui,sans-serif; font-size:12px; fill:#e6ebf2}
+  .svg-mute{fill:#8a94a3; font-size:11px}
+  .svg-accent{fill:#7cf0c1}
+  .svg-warn{fill:#ffb86b}
+  .svg-pink{fill:#ff6b8b}
+  /* cost chart */
+  #costChart{display:block; margin:0 auto; background:#0e1217; border-radius:8px}
+  .bar-tooltip{position:absolute; padding:6px 10px; background:#1d242e; border:1px solid var(--line);
+    border-radius:6px; font-size:12px; color:var(--text); pointer-events:none; transform:translate(-50%,-100%);
+    white-space:nowrap; opacity:0; transition:opacity .15s}
+  @media (max-width:900px){
+    .wrap{grid-template-columns:1fr}
+    nav.side{position:relative; height:auto; border-right:0; border-bottom:1px solid var(--line)}
+    main{padding:24px}
+    .grid2{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav class="side">
+  <h1>Study Guide</h1>
+  <ol>
+    <li><a href="#concepts">Main Concepts</a></li>
+    <li><a href="#models">Models & Pricing</a></li>
+    <li><a href="#routing">Model Routing</a></li>
+    <li><a href="#model-integration">Model Integration</a></li>
+    <li><a href="#oss">Open-Source Alts</a></li>
+    <li><a href="#research-graph">Research Graph</a></li>
+    <li><a href="#memory">Memory Types</a></li>
+    <li><a href="#evals">Evals vs Benchmarks</a></li>
+    <li><a href="#mcp">Custom MCP</a></li>
+    <li><a href="#rag">RAG</a></li>
+    <li><a href="#dag">DAG</a></li>
+    <li><a href="#prompts">Prompt Versioning</a></li>
+    <li><a href="#context7">Context7</a></li>
+    <li><a href="#sdd">Spec-Driven Dev</a></li>
+    <li><a href="#quiz"><strong style="color:var(--accent)">Quiz</strong> <span class="pill">test</span></a></li>
+  </ol>
+</nav>
+
+<main>
+<header class="hero">
+  <span class="badge">Study · 2–3 hour skim</span>
+  <h1>AI Study Guide — Cheat Sheet</h1>
+  <p class="lead">Everything you need on model economics, agent plumbing, and the SDD / MCP / RAG vocabulary that's essential to master as a software engineer working with AI. Numbers are May 2026 list prices — they will move, the relationships won't.</p>
+</header>
+
+<!-- =================== MAIN CONCEPTS =================== -->
+<section id="concepts">
+  <h2><span class="num">01</span> Main Concepts — the vocabulary first</h2>
+  <p>Anchor terms you'll see thrown around in the rest of the guide and in the study. Each is 2–4 sentences — enough to use the word fluently without faking it.</p>
+
+  <h3>1.1 Token</h3>
+  <p>The unit an LLM reads and writes. Roughly a chunk of 3–4 characters in English (a short word, or a piece of a long word). "Hello, world!" is about 4 tokens. Models are <strong>priced per token</strong>, have <strong>context windows measured in tokens</strong>, and <strong>generate one token at a time</strong>. The <em>tokenizer</em> is the (deterministic) algorithm that splits text into tokens — and different tokenizers can change your bill even when the visible text looks identical.</p>
+
+  <h3>1.2 Transformer</h3>
+  <p>The neural-network architecture that powers every modern LLM (GPT, Claude, Gemini, Llama, DeepSeek, Kimi — all transformers). Introduced in the 2017 paper <em>"Attention Is All You Need."</em> Replaced the older RNN/LSTM approach. The transformer's superpower is that it processes all tokens in a sequence <strong>in parallel</strong> (instead of one-at-a-time like RNNs), which is what made training on internet-scale data feasible.</p>
+  <p>A transformer is built out of stacked "blocks." Each block does two things: <strong>attention</strong> (look at relevant other tokens) and a <strong>feed-forward layer</strong> (process each token independently). Stack ~30–100 of those blocks, train on trillions of tokens, and you have an LLM.</p>
+
+  <figure class="diagram">
+    <svg viewBox="0 0 640 480" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Transformer architecture">
+      <!-- title -->
+      <text x="320" y="22" text-anchor="middle" class="svg-label" font-weight="600" font-size="14">Transformer (decoder-only LLM)</text>
+
+      <!-- Output -->
+      <rect x="200" y="40" width="240" height="36" rx="6" fill="#1d242e" stroke="#7cf0c1" stroke-width="1.5"/>
+      <text x="320" y="63" text-anchor="middle" class="svg-label">Output: next-token probabilities</text>
+      <line x1="320" y1="76" x2="320" y2="96" stroke="#7cf0c1" stroke-width="1.5" marker-end="url(#arrUp)"/>
+
+      <!-- Block 3 -->
+      <g>
+        <rect x="120" y="96" width="400" height="76" rx="8" fill="#12161c" stroke="#3a4555" stroke-width="1"/>
+        <text x="135" y="113" class="svg-mute">Block N (last)</text>
+        <rect x="150" y="120" width="160" height="44" rx="5" fill="#161e2a" stroke="#7cf0c1" stroke-width="1"/>
+        <text x="230" y="146" text-anchor="middle" class="svg-label">Self-Attention</text>
+        <line x1="310" y1="142" x2="335" y2="142" stroke="#7cf0c1" stroke-width="1.2" marker-end="url(#arrR)"/>
+        <rect x="335" y="120" width="160" height="44" rx="5" fill="#161e2a" stroke="#ffb86b" stroke-width="1"/>
+        <text x="415" y="146" text-anchor="middle" class="svg-label">Feed-Forward (MLP)</text>
+      </g>
+      <line x1="320" y1="172" x2="320" y2="188" stroke="#3a4555" stroke-width="1" stroke-dasharray="2 3"/>
+      <text x="540" y="180" class="svg-mute">… ~30–100 blocks total</text>
+
+      <!-- Block 2 (dimmed) -->
+      <g opacity="0.55">
+        <rect x="120" y="190" width="400" height="56" rx="8" fill="#12161c" stroke="#3a4555" stroke-width="1"/>
+        <text x="135" y="207" class="svg-mute">Block 2</text>
+        <rect x="150" y="208" width="160" height="32" rx="5" fill="#161e2a" stroke="#7cf0c1" stroke-width="1"/>
+        <text x="230" y="228" text-anchor="middle" class="svg-label">Self-Attention</text>
+        <rect x="335" y="208" width="160" height="32" rx="5" fill="#161e2a" stroke="#ffb86b" stroke-width="1"/>
+        <text x="415" y="228" text-anchor="middle" class="svg-label">Feed-Forward</text>
+      </g>
+
+      <!-- Block 1 -->
+      <g>
+        <rect x="120" y="258" width="400" height="76" rx="8" fill="#12161c" stroke="#3a4555" stroke-width="1"/>
+        <text x="135" y="275" class="svg-mute">Block 1</text>
+        <rect x="150" y="282" width="160" height="44" rx="5" fill="#161e2a" stroke="#7cf0c1" stroke-width="1"/>
+        <text x="230" y="308" text-anchor="middle" class="svg-label">Self-Attention</text>
+        <line x1="310" y1="304" x2="335" y2="304" stroke="#7cf0c1" stroke-width="1.2" marker-end="url(#arrR)"/>
+        <rect x="335" y="282" width="160" height="44" rx="5" fill="#161e2a" stroke="#ffb86b" stroke-width="1"/>
+        <text x="415" y="308" text-anchor="middle" class="svg-label">Feed-Forward (MLP)</text>
+      </g>
+      <line x1="320" y1="334" x2="320" y2="354" stroke="#7cf0c1" stroke-width="1.5" marker-end="url(#arrUp)"/>
+
+      <!-- Embedding -->
+      <rect x="200" y="354" width="240" height="32" rx="6" fill="#1d242e" stroke="#82b8ff" stroke-width="1.2"/>
+      <text x="320" y="374" text-anchor="middle" class="svg-label">Token + Position Embeddings</text>
+      <line x1="320" y1="386" x2="320" y2="406" stroke="#82b8ff" stroke-width="1.5" marker-end="url(#arrUp)"/>
+
+      <!-- Input tokens -->
+      <g>
+        <rect x="120" y="410" width="60" height="32" rx="4" fill="#12161c" stroke="#3a4555"/>
+        <text x="150" y="430" text-anchor="middle" class="svg-label">The</text>
+        <rect x="195" y="410" width="60" height="32" rx="4" fill="#12161c" stroke="#3a4555"/>
+        <text x="225" y="430" text-anchor="middle" class="svg-label">cat</text>
+        <rect x="270" y="410" width="60" height="32" rx="4" fill="#12161c" stroke="#3a4555"/>
+        <text x="300" y="430" text-anchor="middle" class="svg-label">sat</text>
+        <rect x="345" y="410" width="60" height="32" rx="4" fill="#12161c" stroke="#3a4555"/>
+        <text x="375" y="430" text-anchor="middle" class="svg-label">on</text>
+        <rect x="420" y="410" width="60" height="32" rx="4" fill="#12161c" stroke="#3a4555"/>
+        <text x="450" y="430" text-anchor="middle" class="svg-label">the</text>
+      </g>
+      <text x="320" y="464" text-anchor="middle" class="svg-mute">input tokens (one position per token)</text>
+
+      <defs>
+        <marker id="arrUp" viewBox="0 0 10 10" refX="5" refY="9" markerWidth="6" markerHeight="6" orient="auto">
+          <path d="M0,9 L5,0 L10,9 Z" fill="#7cf0c1"/>
+        </marker>
+        <marker id="arrR" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+          <path d="M0,0 L9,5 L0,10 Z" fill="#7cf0c1"/>
+        </marker>
+      </defs>
+    </svg>
+    <div class="legend">
+      <span><span class="sw" style="background:#7cf0c1"></span>Self-Attention (mixes info across tokens)</span>
+      <span><span class="sw" style="background:#ffb86b"></span>Feed-Forward (processes each token alone)</span>
+      <span><span class="sw" style="background:#82b8ff"></span>Embeddings (tokens → vectors)</span>
+    </div>
+    <figcaption>Each <em>block</em> is Attention → Feed-Forward. Information flows upward, one token-position per column. Stack many blocks and the model can learn deep abstractions.</figcaption>
+  </figure>
+
+  <h3>1.3 Attention</h3>
+  <p>The mechanism inside a transformer that lets each token "look at" other tokens in the sequence and weight how much each one matters. When the model is generating the next word after "The cat sat on the …", attention is what lets it look back at "cat" and "sat" — and weight them more heavily than filler words — when deciding the next token.</p>
+  <p>Concretely: every token produces three vectors — Query (Q), Key (K), Value (V). The Query of the current token is compared (dot product) against the Keys of all other tokens to produce attention scores. Those scores weight the Values, which get summed → the token's new representation. <em>"Self-attention"</em> means tokens attend to other tokens in the same sequence.</p>
+  <p>Attention is also the <strong>most expensive part</strong> of a transformer. Naive attention is O(n²) in the sequence length — double the context, 4× the cost. Variants like <em>Flash Attention</em>, <em>sliding-window attention</em> (Mistral), <em>Multi-Query Attention</em> (PaLM), <em>Grouped-Query Attention</em> (Llama 3), and <em>linear attention</em> (Mamba/RWKV hybrids) all try to reduce that cost. Modern long-context models (Gemini 1M+) almost certainly use a mix of these.</p>
+
+  <figure class="diagram">
+    <svg viewBox="0 0 680 360" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Self-attention example">
+      <text x="340" y="22" text-anchor="middle" class="svg-label" font-weight="600" font-size="14">Self-attention: "sat" looks at every other token</text>
+
+      <!-- token row -->
+      <g>
+        <rect x="40" y="50" width="78" height="38" rx="5" fill="#12161c" stroke="#3a4555"/>
+        <text x="79" y="74" text-anchor="middle" class="svg-label">The</text>
+        <rect x="128" y="50" width="78" height="38" rx="5" fill="#12161c" stroke="#3a4555"/>
+        <text x="167" y="74" text-anchor="middle" class="svg-label">cat</text>
+        <!-- current token highlighted -->
+        <rect x="216" y="50" width="78" height="38" rx="5" fill="#1d242e" stroke="#7cf0c1" stroke-width="2"/>
+        <text x="255" y="74" text-anchor="middle" class="svg-label" font-weight="700" fill="#7cf0c1">sat ←</text>
+        <rect x="304" y="50" width="78" height="38" rx="5" fill="#12161c" stroke="#3a4555"/>
+        <text x="343" y="74" text-anchor="middle" class="svg-label">on</text>
+        <rect x="392" y="50" width="78" height="38" rx="5" fill="#12161c" stroke="#3a4555"/>
+        <text x="431" y="74" text-anchor="middle" class="svg-label">the</text>
+        <rect x="480" y="50" width="78" height="38" rx="5" fill="#12161c" stroke="#3a4555"/>
+        <text x="519" y="74" text-anchor="middle" class="svg-label">mat</text>
+      </g>
+
+      <!-- attention weights, thickness = weight -->
+      <!-- sat → The (weak) -->
+      <path d="M 255 50 Q 167 25 79 50" fill="none" stroke="#7cf0c1" stroke-width="1.2" opacity="0.45"/>
+      <text x="120" y="20" class="svg-mute" font-size="10">0.05</text>
+      <!-- sat → cat (strong) -->
+      <path d="M 255 50 Q 211 18 167 50" fill="none" stroke="#7cf0c1" stroke-width="4.5" opacity="0.95"/>
+      <text x="212" y="14" class="svg-accent" font-size="11" font-weight="700">0.42</text>
+      <!-- sat → on (medium) -->
+      <path d="M 255 50 Q 299 18 343 50" fill="none" stroke="#7cf0c1" stroke-width="2.5" opacity="0.75"/>
+      <text x="300" y="14" class="svg-accent" font-size="10">0.18</text>
+      <!-- sat → the (weak) -->
+      <path d="M 255 50 Q 343 22 431 50" fill="none" stroke="#7cf0c1" stroke-width="1.3" opacity="0.5"/>
+      <text x="388" y="18" class="svg-mute" font-size="10">0.08</text>
+      <!-- sat → mat (medium-strong) -->
+      <path d="M 255 50 Q 387 8 519 50" fill="none" stroke="#7cf0c1" stroke-width="3.5" opacity="0.85"/>
+      <text x="450" y="8" class="svg-accent" font-size="11" font-weight="600">0.27</text>
+
+      <text x="340" y="110" text-anchor="middle" class="svg-mute">attention scores ↑  (thicker line = higher weight)</text>
+
+      <!-- Q/K/V mechanism -->
+      <g transform="translate(40,150)">
+        <text x="0" y="0" class="svg-label" font-weight="600">How those scores are computed</text>
+
+        <!-- Q box -->
+        <rect x="0" y="20" width="100" height="44" rx="5" fill="#161e2a" stroke="#7cf0c1"/>
+        <text x="50" y="40" text-anchor="middle" class="svg-label">Q (Query)</text>
+        <text x="50" y="56" text-anchor="middle" class="svg-mute">from "sat"</text>
+
+        <text x="110" y="48" class="svg-label" font-size="18">·</text>
+
+        <!-- K box -->
+        <rect x="125" y="20" width="100" height="44" rx="5" fill="#161e2a" stroke="#82b8ff"/>
+        <text x="175" y="40" text-anchor="middle" class="svg-label">K (Key)</text>
+        <text x="175" y="56" text-anchor="middle" class="svg-mute">from each token</text>
+
+        <text x="235" y="48" class="svg-label" font-size="14">→ softmax →</text>
+
+        <!-- scores -->
+        <rect x="325" y="20" width="120" height="44" rx="5" fill="#161e2a" stroke="#ffb86b"/>
+        <text x="385" y="40" text-anchor="middle" class="svg-label">attention scores</text>
+        <text x="385" y="56" text-anchor="middle" class="svg-mute">(the numbers above)</text>
+
+        <text x="455" y="48" class="svg-label" font-size="14">×</text>
+
+        <!-- V box -->
+        <rect x="475" y="20" width="100" height="44" rx="5" fill="#161e2a" stroke="#ff6b8b"/>
+        <text x="525" y="40" text-anchor="middle" class="svg-label">V (Value)</text>
+        <text x="525" y="56" text-anchor="middle" class="svg-mute">from each token</text>
+
+        <!-- result -->
+        <text x="0" y="100" class="svg-mute">= weighted sum of Values → new representation of "sat"</text>
+      </g>
+
+      <!-- complexity note -->
+      <g transform="translate(40,280)">
+        <rect x="0" y="0" width="600" height="60" rx="6" fill="#1d242e" stroke="#3a4555"/>
+        <text x="14" y="22" class="svg-label" font-weight="600" fill="#ffb86b">Cost: every token attends to every token → O(n²)</text>
+        <text x="14" y="42" class="svg-mute">Sequence 1K tokens → 1M pairs. 100K tokens → 10B pairs. That's why long context is hard and</text>
+        <text x="14" y="55" class="svg-mute">why labs invent variants: Flash Attention, GQA / MQA, MLA (DeepSeek), sliding window, linear attention.</text>
+      </g>
+    </svg>
+    <figcaption>The current token ("sat") asks every other token how relevant it is, then mixes their information weighted by those scores. The Q/K/V vectors are <em>learned</em> projections of each token's embedding.</figcaption>
+  </figure>
+
+  <h3>1.4 Context window</h3>
+  <p>The maximum number of tokens the model can see in a single request — input + output combined (or sometimes counted separately, varies by provider). When you hear "Gemini has a 1M context window," it means the model can hold ~1 million tokens of input. Bigger window → more documents/code/conversation history you can shove in without RAG.</p>
+
+  <h3>1.5 Chain-of-Thought (CoT)</h3>
+  <p>The model's intermediate "thinking" — written out step-by-step before producing a final answer. Introduced as a prompting trick in 2022 ("Let's think step by step…") and now baked into <strong>reasoning models</strong> as a built-in behavior. Three flavors to know:</p>
+  <ul>
+    <li><strong>Prompted CoT</strong> — you ask the model to think step by step. Works on any model.</li>
+    <li><strong>Visible reasoning</strong> — the model emits step-by-step reasoning into the response (you and the user see it).</li>
+    <li><strong>Hidden / provider-owned "thinking"</strong> — used by OpenAI reasoning, Claude extended/adaptive thinking, Gemini Thinking, and DeepSeek V4 Pro thinking mode. The model spends extra generated tokens on internal reasoning; providers may hide it, summarize it, encrypt/sign it, or expose special thinking blocks. You pay for those thinking tokens — that is why reasoning models can cost 5–30× more in output.</li>
+  </ul>
+  <p>Why it works: writing intermediate steps gives the model more "compute" to reach the right answer (it allocates more forward passes to harder questions). Why it costs: you are literally paying for thousands of extra output tokens you never see.</p>
+
+  <figure class="diagram">
+    <svg viewBox="0 0 680 290" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Chain-of-thought">
+      <text x="340" y="22" text-anchor="middle" class="svg-label" font-weight="600" font-size="14">Provider-owned thinking — what you pay for vs what you see</text>
+
+      <!-- User prompt -->
+      <rect x="30" y="50" width="170" height="60" rx="6" fill="#1d242e" stroke="#82b8ff"/>
+      <text x="115" y="72" text-anchor="middle" class="svg-label" font-weight="600">User prompt</text>
+      <text x="115" y="92" text-anchor="middle" class="svg-mute">"What is 23 × 47?"</text>
+
+      <line x1="200" y1="80" x2="230" y2="80" stroke="#82b8ff" stroke-width="1.5" marker-end="url(#arrR2)"/>
+
+      <!-- Model -->
+      <rect x="230" y="50" width="220" height="200" rx="8" fill="#0e1217" stroke="#3a4555" stroke-dasharray="4 3"/>
+      <text x="340" y="68" text-anchor="middle" class="svg-mute" font-weight="600">Reasoning model</text>
+
+      <!-- Hidden thinking -->
+      <rect x="244" y="80" width="192" height="120" rx="6" fill="#161e2a" stroke="#ffb86b" stroke-width="1.2"/>
+      <text x="340" y="98" text-anchor="middle" class="svg-label" fill="#ffb86b" font-weight="600">Internal thinking</text>
+      <text x="252" y="116" class="svg-mute" font-size="11">"Let me break this down…"</text>
+      <text x="252" y="131" class="svg-mute" font-size="11">"23 × 47 = 23 × (50 − 3)"</text>
+      <text x="252" y="146" class="svg-mute" font-size="11">"= 23 × 50 − 23 × 3"</text>
+      <text x="252" y="161" class="svg-mute" font-size="11">"= 1150 − 69"</text>
+      <text x="252" y="176" class="svg-mute" font-size="11">"= 1081. Let me double-check…"</text>
+      <text x="252" y="194" class="svg-pink" font-size="11" font-weight="600">≈ 2,000 tokens · billed · invisible</text>
+
+      <!-- Visible answer -->
+      <rect x="244" y="210" width="192" height="32" rx="5" fill="#161e2a" stroke="#7cf0c1" stroke-width="1.5"/>
+      <text x="340" y="230" text-anchor="middle" class="svg-label" fill="#7cf0c1" font-weight="600">Answer: 1,081</text>
+
+      <line x1="450" y1="226" x2="480" y2="226" stroke="#7cf0c1" stroke-width="1.5" marker-end="url(#arrR3)"/>
+
+      <!-- User receives -->
+      <rect x="480" y="195" width="170" height="60" rx="6" fill="#1d242e" stroke="#7cf0c1"/>
+      <text x="565" y="217" text-anchor="middle" class="svg-label" font-weight="600">User sees</text>
+      <text x="565" y="237" text-anchor="middle" class="svg-mute">"1,081"</text>
+
+      <!-- Cost callout -->
+      <g transform="translate(480, 50)">
+        <rect x="0" y="0" width="170" height="125" rx="6" fill="#1d242e" stroke="#ff6b8b"/>
+        <text x="85" y="20" text-anchor="middle" class="svg-label" fill="#ff6b8b" font-weight="600">Billing impact</text>
+        <text x="14" y="42" class="svg-mute" font-size="11">Visible output: ~10 tok</text>
+        <text x="14" y="60" class="svg-mute" font-size="11">Internal thinking: ~2,000 tok</text>
+        <text x="14" y="80" class="svg-label" font-size="11">Total billed: 2,010 tok</text>
+        <text x="14" y="105" class="svg-warn" font-size="11" font-weight="600">→ 5–30× a non-reasoning</text>
+        <text x="14" y="118" class="svg-warn" font-size="11" font-weight="600">model on the same q.</text>
+      </g>
+
+      <defs>
+        <marker id="arrR2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+          <path d="M0,0 L9,5 L0,10 Z" fill="#82b8ff"/>
+        </marker>
+        <marker id="arrR3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+          <path d="M0,0 L9,5 L0,10 Z" fill="#7cf0c1"/>
+        </marker>
+      </defs>
+    </svg>
+    <figcaption>The user sees only the final answer. The model's internal monologue (hundreds–thousands of tokens) is hidden but billed as output tokens.</figcaption>
+  </figure>
+
+  <h3>1.6 Mixture of Experts (MoE)</h3>
+  <p>An architectural trick to make models bigger <em>without</em> proportionally more compute per token. Instead of one giant feed-forward block per layer, you have N "expert" blocks plus a small <strong>router</strong> network that picks 1–2 experts to actually run for each token. The model has a huge <em>total</em> parameter count, but only a small <em>active</em> count per forward pass.</p>
+  <p>Example: <strong>Kimi K2.6</strong> is ~1T total / ~32B active per token — a classic MoE. <strong>DeepSeek V4 Pro</strong> has a similar ratio (1.6T total / 49B active) but uses DSA (DeepSeek Sparse Attention) rather than traditional MoE. You get the knowledge breadth of a giant model at the inference cost of a much smaller one. Trade-off: <strong>all expert weights must reside in VRAM at all times</strong>, even those not selected for a given token — so weight residency is higher than a dense model of equivalent compute cost. The flip side is that <em>compute per token is lower</em> (only the active experts run matrix multiplications). Routing can also be uneven: popular experts get overloaded while others sit in VRAM without contributing.</p>
+  <p>Most cheap open-weight models are MoE in 2026. Closed flagship models (GPT-5.x, Claude 4.x, Gemini 3.x) are widely <em>believed</em> to be MoE but the labs do not confirm architecture details.</p>
+
+  <figure class="diagram">
+    <svg viewBox="0 0 680 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Mixture of Experts">
+      <text x="340" y="22" text-anchor="middle" class="svg-label" font-weight="600" font-size="14">Mixture of Experts (MoE) — classic style (e.g. Kimi K2.6): 8 experts, top-2 routing</text>
+
+      <!-- Token in -->
+      <rect x="30" y="140" width="100" height="40" rx="6" fill="#1d242e" stroke="#82b8ff"/>
+      <text x="80" y="165" text-anchor="middle" class="svg-label">token "cat"</text>
+      <line x1="130" y1="160" x2="170" y2="160" stroke="#82b8ff" stroke-width="1.5" marker-end="url(#arrR4)"/>
+
+      <!-- Router -->
+      <rect x="170" y="135" width="100" height="50" rx="6" fill="#1d242e" stroke="#ffb86b" stroke-width="1.5"/>
+      <text x="220" y="158" text-anchor="middle" class="svg-label" font-weight="600">Router</text>
+      <text x="220" y="174" text-anchor="middle" class="svg-mute">picks top-2</text>
+
+      <!-- Lines to experts (8 of them) -->
+      <!-- Experts grid -->
+      <g>
+        <!-- Expert 1 (inactive) -->
+        <rect x="330" y="50" width="100" height="38" rx="5" fill="#12161c" stroke="#3a4555" opacity="0.5"/>
+        <text x="380" y="74" text-anchor="middle" class="svg-mute">Expert 1</text>
+        <line x1="270" y1="160" x2="330" y2="69" stroke="#3a4555" stroke-width="0.8" opacity="0.4"/>
+
+        <!-- Expert 2 (ACTIVE) -->
+        <rect x="330" y="100" width="100" height="38" rx="5" fill="#1d242e" stroke="#7cf0c1" stroke-width="2"/>
+        <text x="380" y="124" text-anchor="middle" class="svg-label" fill="#7cf0c1" font-weight="700">Expert 2 ✓</text>
+        <line x1="270" y1="160" x2="330" y2="119" stroke="#7cf0c1" stroke-width="2.2"/>
+
+        <!-- Expert 3 (inactive) -->
+        <rect x="330" y="150" width="100" height="38" rx="5" fill="#12161c" stroke="#3a4555" opacity="0.5"/>
+        <text x="380" y="174" text-anchor="middle" class="svg-mute">Expert 3</text>
+        <line x1="270" y1="160" x2="330" y2="169" stroke="#3a4555" stroke-width="0.8" opacity="0.4"/>
+
+        <!-- Expert 4 (inactive) -->
+        <rect x="330" y="200" width="100" height="38" rx="5" fill="#12161c" stroke="#3a4555" opacity="0.5"/>
+        <text x="380" y="224" text-anchor="middle" class="svg-mute">Expert 4</text>
+        <line x1="270" y1="160" x2="330" y2="219" stroke="#3a4555" stroke-width="0.8" opacity="0.4"/>
+
+        <!-- Expert 5 (inactive) -->
+        <rect x="330" y="250" width="100" height="38" rx="5" fill="#12161c" stroke="#3a4555" opacity="0.5"/>
+        <text x="380" y="274" text-anchor="middle" class="svg-mute">Expert 5</text>
+        <line x1="270" y1="160" x2="330" y2="269" stroke="#3a4555" stroke-width="0.8" opacity="0.4"/>
+
+        <!-- Expert 6 (ACTIVE) -->
+        <rect x="450" y="100" width="100" height="38" rx="5" fill="#1d242e" stroke="#7cf0c1" stroke-width="2"/>
+        <text x="500" y="124" text-anchor="middle" class="svg-label" fill="#7cf0c1" font-weight="700">Expert 6 ✓</text>
+        <line x1="270" y1="160" x2="450" y2="119" stroke="#7cf0c1" stroke-width="2.2"/>
+
+        <!-- Expert 7 (inactive) -->
+        <rect x="450" y="150" width="100" height="38" rx="5" fill="#12161c" stroke="#3a4555" opacity="0.5"/>
+        <text x="500" y="174" text-anchor="middle" class="svg-mute">Expert 7</text>
+        <line x1="270" y1="160" x2="450" y2="169" stroke="#3a4555" stroke-width="0.8" opacity="0.4"/>
+
+        <!-- Expert 8 (inactive) -->
+        <rect x="450" y="200" width="100" height="38" rx="5" fill="#12161c" stroke="#3a4555" opacity="0.5"/>
+        <text x="500" y="224" text-anchor="middle" class="svg-mute">Expert 8</text>
+        <line x1="270" y1="160" x2="450" y2="219" stroke="#3a4555" stroke-width="0.8" opacity="0.4"/>
+      </g>
+
+      <!-- Combine -->
+      <line x1="430" y1="119" x2="585" y2="155" stroke="#7cf0c1" stroke-width="2"/>
+      <line x1="550" y1="119" x2="585" y2="155" stroke="#7cf0c1" stroke-width="2"/>
+      <rect x="585" y="140" width="65" height="40" rx="6" fill="#1d242e" stroke="#7cf0c1"/>
+      <text x="617" y="165" text-anchor="middle" class="svg-label">output</text>
+
+      <!-- Stats panel -->
+      <g transform="translate(30, 240)">
+        <rect x="0" y="0" width="270" height="65" rx="6" fill="#1d242e" stroke="#3a4555"/>
+        <text x="14" y="20" class="svg-label" font-weight="600">Per-token cost &lt;&lt; total params</text>
+        <text x="14" y="38" class="svg-mute" font-size="11">Total params loaded in RAM: ~1T</text>
+        <text x="14" y="52" class="svg-mute" font-size="11">Compute per token: only ~32B (2 of 8 experts)</text>
+      </g>
+
+      <defs>
+        <marker id="arrR4" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+          <path d="M0,0 L9,5 L0,10 Z" fill="#82b8ff"/>
+        </marker>
+      </defs>
+    </svg>
+    <figcaption>A router (small neural net) picks the most relevant 2 experts per token. The other 6 stay dormant. You get the knowledge of all 8 experts at the compute cost of running 2.</figcaption>
+  </figure>
+
+  <h3>1.7 Classifier</h3>
+  <p>A model (often small) whose job is to assign one of a fixed set of <strong>labels</strong> to an input. "Is this email <code>spam</code> or <code>not-spam</code>?" "Is this user question about <code>billing</code>, <code>technical</code>, or <code>account</code>?" Output is a category (or a probability over categories), not free text.</p>
+  <p>In LLM systems classifiers do the cheap upstream work: <strong>intent detection</strong>, <strong>routing</strong>, <strong>safety filtering</strong>, <strong>relevance scoring</strong>. They can be (a) a fine-tuned small model like DistilBERT/Llama-3.1-8B, (b) a frozen LLM prompted to output a single label, or (c) a classical ML model (logistic regression on embeddings). Big LLMs are overkill — a fine-tuned small classifier is faster, cheaper, and usually more accurate on a fixed taxonomy.</p>
+
+  <h3>1.8 Routing (in LLM systems)</h3>
+  <p>The decision of <em>which model</em> (or which tool, or which downstream component) should handle a given request. "Routing" appears at multiple layers:</p>
+  <ul>
+    <li><strong>Model routing</strong> — pick which LLM (Haiku vs Sonnet vs Opus). The <a href="#routing">§03</a> topic.</li>
+    <li><strong>Tool routing</strong> — given a request, pick which tool/function the agent should call.</li>
+    <li><strong>Skill routing</strong> — pick which sub-agent or specialized prompt handles this.</li>
+    <li><strong>Expert routing</strong> — inside an MoE model, the router network picks which experts fire for a given token (different layer of abstraction — same word).</li>
+  </ul>
+  <p>A "router" is usually a classifier (see 1.7) — that's why the two concepts are joined at the hip.</p>
+
+  <h3>1.9 Model lab vs Provider vs Inference platform</h3>
+  <p>Three things that often get conflated:</p>
+  <ul>
+    <li><strong>Model lab</strong> — who trained and owns the model. <em>Anthropic, OpenAI, Google DeepMind, Meta, DeepSeek, Moonshot, Z.ai, Mistral, Alibaba (Qwen).</em></li>
+    <li><strong>First-party provider</strong> — the lab serving its own model via API. <em>api.anthropic.com, api.openai.com, ai.google.dev.</em></li>
+    <li><strong>Third-party inference platform</strong> — a company that hosts <em>other labs'</em> models (usually open-weight) on their infrastructure. <em>Together AI, Fireworks, DeepInfra, Groq, Replicate, OpenRouter.</em></li>
+    <li><strong>Cloud-vendor reseller</strong> — your existing cloud account, with frontier models bolted on. <em>AWS Bedrock, Google Vertex AI, Azure OpenAI Service.</em></li>
+  </ul>
+  <p>"Different provider models per sub-task" in the routing pattern (<a href="#routing">§03</a>) means: this step uses an Anthropic-hosted Sonnet; the next uses a Together-hosted Kimi K2.6; the embedding step uses Voyage. Different vendors, one workflow.</p>
+
+  <h3>1.10 AWS Bedrock & Google Vertex AI — what and why</h3>
+  <p>These are the <strong>cloud-vendor abstractions</strong> on top of "calling an LLM API." Same job, different vendor:</p>
+  <table>
+    <thead><tr><th></th><th>AWS Bedrock</th><th>Google Vertex AI</th><th>Azure OpenAI Service</th></tr></thead>
+    <tbody>
+      <tr><td>Cloud</td><td>AWS</td><td>Google Cloud (GCP)</td><td>Microsoft Azure</td></tr>
+      <tr><td>Models hosted</td><td>Anthropic, Meta (Llama), Mistral, Cohere, Amazon Nova, DeepSeek, Stability</td><td>Google (Gemini), Anthropic, Meta, Mistral, plus 100+ in Model Garden</td><td>OpenAI (GPT-5.x, embeddings, image/audio models)</td></tr>
+      <tr><td>Auth</td><td>IAM (your existing AWS roles)</td><td>GCP service accounts / IAM</td><td>Azure AD / managed identity</td></tr>
+      <tr><td>Data residency</td><td>Stays in your AWS region; never used for training</td><td>Stays in your GCP region; never used for training</td><td>Stays in your Azure region; never used for training</td></tr>
+      <tr><td>Billing</td><td>Bundled into your AWS invoice</td><td>Bundled into your GCP invoice</td><td>Bundled into your Azure invoice</td></tr>
+    </tbody>
+  </table>
+
+  <h4>Why they matter in practice</h4>
+  <ul>
+    <li><strong>Procurement.</strong> If your company already has a $10M/year AWS commit, Bedrock spend counts against it. No new vendor to onboard — Legal, Finance, Security all say yes faster.</li>
+    <li><strong>Data sovereignty & compliance.</strong> Requests/responses stay inside your cloud VPC and region. HIPAA, SOC 2, FedRAMP boundaries are inherited from the cloud account. Going to <code>api.anthropic.com</code> directly often fails a regulated-industry security review; Bedrock does not.</li>
+    <li><strong>Networking.</strong> Private VPC endpoints — model calls never traverse the public internet. Big for finance, healthcare, government.</li>
+    <li><strong>Unified IAM / observability.</strong> CloudTrail / Cloud Audit Logs records every call. Use the same roles, secrets manager, KMS keys you already use.</li>
+    <li><strong>Multi-model marketplace.</strong> One contract, one SDK, dozens of models. Switching models is a config change, not a procurement cycle.</li>
+    <li><strong>Trade-off:</strong> new model versions usually land on the lab's first-party API days-to-weeks <em>before</em> Bedrock/Vertex. And pricing on these platforms is sometimes ~5% higher than the direct API.</li>
+  </ul>
+
+  <div class="callout">
+    <strong>Key insight:</strong> "For enterprise AI, the model is rarely the limiting factor — procurement, data residency, and IAM are. Bedrock and Vertex exist because they let you adopt frontier models without re-doing your compliance posture."
+  </div>
+</section>
+
+<!-- =================== MODELS & PRICING =================== -->
+<section id="models">
+  <h2><span class="num">02</span> Models & Pricing — the headline numbers</h2>
+  <p>Prices are per <strong>1M tokens</strong>, USD, standard tier (input / output). Caching and batch usually cut 50–90% off input.</p>
+
+  <h3>Closed-source frontier</h3>
+  <table>
+    <thead><tr><th>Model</th><th>Input</th><th>Output</th><th>Sweet spot</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Claude Opus 4.7</strong></td><td class="price">$5.00</td><td class="price">$25.00</td><td>Newest Opus flagship. Long-horizon agents, deep coding, planning. 1M context window.</td></tr>
+      <tr><td><strong>Claude Opus 4.6</strong></td><td class="price">$5.00</td><td class="price">$25.00</td><td>Mature Opus workhorse. Still very relevant for long-context agents, code review, deep synthesis, and evals pinned before 4.7.</td></tr>
+      <tr><td><strong>Claude Sonnet 4.6</strong></td><td class="price">$3.00</td><td class="price">$15.00</td><td>Workhorse — coding, tool use, agentic flows. 40% cheaper than Opus per token.</td></tr>
+      <tr><td><strong>Claude Haiku 4.5</strong></td><td class="price">$1.00</td><td class="price">$5.00</td><td>High-throughput classification, routing, cheap drafts. 5× cheaper than Opus.</td></tr>
+      <tr><td><strong>GPT-5.5</strong></td><td class="price">$5.00</td><td class="price">$30.00</td><td>OpenAI flagship. Top coding scores. Pro tier is $30/$180 — frontier reasoning only.</td></tr>
+      <tr><td><strong>GPT-5.4</strong></td><td class="price">$2.50</td><td class="price">$15.00</td><td>Mainstream OpenAI default — good general-purpose balance.</td></tr>
+      <tr><td><strong>GPT-5</strong> (base)</td><td class="price">$1.25</td><td class="price">$10.00</td><td>Previous-generation reasoning model. Good fallback when GPT-5.4/5.5 is overkill.</td></tr>
+      <tr><td><strong>Gemini 3.1 Pro</strong></td><td class="price">$2.00</td><td class="price">$12.00</td><td>Long context (≤200K at these rates, doubles after). Top multimodal, agentic + vibe-coding. Preview.</td></tr>
+      <tr><td><strong>Gemini 3 Flash</strong></td><td class="price">$0.50</td><td class="price">$3.00</td><td>Frontier-class intelligence at speed. Strong search/grounding. Preview.</td></tr>
+      <tr><td><strong>Gemini 3.1 Flash-Lite</strong></td><td class="price">$0.25</td><td class="price">$1.50</td><td>High-volume agentic tasks, translation, simple extraction. Cheapest Gemini 3 tier. Stable.</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Open-weight / cheap</h3>
+  <table>
+    <thead><tr><th>Model</th><th>Input</th><th>Output</th><th>Notes</th></tr></thead>
+    <tbody>
+      <tr><td><strong>DeepSeek V4 Flash</strong></td><td class="price">$0.14</td><td class="price">$0.28</td><td>1M context default. Replaces V3 as the budget workhorse. Same price point, meaningfully better quality.</td></tr>
+      <tr><td><strong>DeepSeek V4 Pro</strong></td><td class="price">$1.74</td><td class="price">$3.48</td><td>1.6T total / 49B active. Uses DSA (DeepSeek Sparse Attention), not traditional MoE. Top open-weight overall. Cache-hit input at list price is $0.0145/1M.</td></tr>
+      <tr><td><strong>Kimi K2.6</strong> (Moonshot)</td><td class="price">$0.95</td><td class="price">$4.00</td><td>Open-weight, Modified MIT. State-of-the-art coding agent — ties GPT-5.5 on some coding benchmarks. Cache-hit input is $0.16/1M.</td></tr>
+      <tr><td><strong>GLM 5.1</strong> (Z.ai)</td><td class="price">$1.40</td><td class="price">$4.40</td><td>Open-weight (MIT), 754B params, 200K ctx. Flagship agentic model — SOTA on SWE-Bench Pro (58.4%). Sustains long-horizon coding over 600+ iterations.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout warn">
+    <strong>Temporary discounts:</strong> Keep promotional pricing out of the baseline comparison. DeepSeek currently lists a 75% V4 Pro discount through 2026-05-31, which lowers Pro to $0.435 input / $0.87 output and cache-hit input to $0.003625 per 1M. Treat that as a billing-window note, not the model's raw price.
+  </div>
+
+  <div class="callout">
+    <strong>Mental model:</strong> Frontier closed models cost anywhere from ~3× to 100× more than open-weight alternatives depending on whether you compare against a flagship open model (Kimi/GLM/DeepSeek Pro) or a cheap flash tier. The premium buys: tool-use reliability, long-horizon coherence, multimodal depth, and ecosystem (tools, caches, hosted retrieval). For batch extraction or classification, the cheap open/flash tier still wins by an order of magnitude.
+  </div>
+
+  <figure class="diagram" style="position:relative">
+    <div style="font-size:13px; color:var(--accent); text-align:center; margin-bottom:8px; font-weight:600">Price per 1M tokens — input vs output (log scale)</div>
+    <canvas id="priceChart" width="640" height="340"></canvas>
+    <div id="priceTip" class="bar-tooltip"></div>
+    <div class="legend">
+      <span><span class="sw" style="background:#7cf0c1"></span>Input</span>
+      <span><span class="sw" style="background:#ffb86b"></span>Output</span>
+    </div>
+    <figcaption>Open-weight pricing now spans cheap flash models and more expensive flagship open models. DeepSeek Flash is orders cheaper; Kimi/GLM/DeepSeek Pro are still materially below closed frontier pricing. Hover a bar for the exact number.</figcaption>
+  </figure>
+
+  <h3>Cost optimization levers (memorize these)</h3>
+  <ul>
+    <li><strong>Prompt caching:</strong> Up to <strong>90% off input</strong> for repeated context (system prompts, RAG documents). Anthropic, OpenAI, Gemini and several open-model providers support it. Anthropic exposes 5-minute and 1-hour cache write tiers.</li>
+    <li><strong>Batch API:</strong> <strong>50% off</strong> input+output, 24h SLA. Use for evals, offline summarization, bulk classification.</li>
+    <li><strong>Cache-hit pricing</strong> is a major lever on providers that expose it: DeepSeek V4 Pro cache-hit input is $0.0145/1M vs $1.74/1M cache-miss at list price; Kimi K2.6 cache-hit input is $0.16/1M vs $0.95/1M standard input.</li>
+    <li><strong>Context length tiers:</strong> Gemini 3.x and GPT-5.4/5.5 both have long-context pricing cliffs. Gemini 3.1 Pro goes from $2.00 → $4.00/1M input beyond 200K; GPT-5.4/5.5 sessions above ~272K input are priced at 2× input and 1.5× output.</li>
+  </ul>
+</section>
+
+<!-- =================== ROUTING =================== -->
+<section id="routing">
+  <h2><span class="num">03</span> Which model for which task <span class="badge" style="background:var(--warn); color:#0b0d10">CORE</span></h2>
+  <p>The single most important question to ask yourself. The 2026 architecture <strong>routes</strong> different requests to different models — you do not pick one model and stick with it. Below is the full decision framework.</p>
+
+  <h3>3.1 The 4 dimensions that decide the model</h3>
+  <p>Before naming a model, you have to characterize the request along four axes:</p>
+  <table>
+    <thead><tr><th>Dimension</th><th>What to ask</th><th>Why it matters</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Capability tier</strong></td><td>Does it need frontier reasoning, or is it a routine extract/classify/summarize?</td><td>10× cost gap between Opus and Haiku — most tasks do not need the top tier.</td></tr>
+      <tr><td><strong>Context length</strong></td><td>Tokens in (1K? 50K? 500K?)</td><td>Eliminates models below the threshold; affects pricing tier on Gemini.</td></tr>
+      <tr><td><strong>Latency budget</strong></td><td>Interactive (&lt;2s) vs batch (24h)?</td><td>Reasoning models are slow; batch APIs are 50% cheaper but async.</td></tr>
+      <tr><td><strong>Data sovereignty</strong></td><td>Can the data leave your perimeter?</td><td>If no → open-weight on your infra. If yes → closed frontier is usually cheaper and better.</td></tr>
+    </tbody>
+  </table>
+
+  <h3>3.2 The full task → model matrix</h3>
+  <table>
+    <thead><tr><th>Task</th><th>First choice</th><th>Cheap / OSS alt</th><th>Why</th></tr></thead>
+    <tbody>
+      <tr><td>Frontier reasoning (math olympiad, novel science, hard logic)</td><td>Claude Opus 4.6/4.7 · GPT-5.5 Pro</td><td>DeepSeek V4 Pro (thinking mode)</td><td>Highest GPQA Diamond / AIME scores. Reasoning models spend extra internal thinking tokens before responding.</td></tr>
+      <tr><td>Agentic coding (multi-step, tool use, long sessions)</td><td>Claude Sonnet 4.6 → escalate to Opus 4.6/4.7</td><td>Kimi K2.6 · DeepSeek V4 Pro</td><td>Anthropic models lead on long-horizon coherence and tool-use reliability — the failure mode that kills agents.</td></tr>
+      <tr><td>One-shot code generation / completion</td><td>GPT-5.5 · Gemini 3.1 Pro</td><td>DeepSeek V4 Pro · Kimi K2.6</td><td>Top SWE-bench / LiveCodeBench scores when you only need one good answer, not a multi-turn agent.</td></tr>
+      <tr><td>Code review / static analysis</td><td>Claude Sonnet 4.6</td><td>DeepSeek V4 Flash</td><td>Strong at spotting subtle bugs, security smells; better self-restraint than GPT (less "rewriting your code unprompted").</td></tr>
+      <tr><td>Long document RAG / 200K+ context extraction</td><td>Gemini 3.1 Pro · Claude Opus 4.6/4.7 · GPT-5.4/5.5 when OpenAI tooling matters</td><td>Gemini 3 Flash · GPT-5</td><td>Native ~1M context options. Beats RAG for corpora that fit, but watch long-context pricing cliffs.</td></tr>
+      <tr><td>High-volume structured extraction (invoices, forms)</td><td>Gemini 3 Flash · Claude Haiku 4.5</td><td>DeepSeek V4 Flash</td><td>Cheap per token + structured output mode + good enough on simple schemas.</td></tr>
+      <tr><td>Classification / intent routing</td><td>Claude Haiku 4.5 · Gemini 3.1 Flash-Lite</td><td>DeepSeek V4 Flash · fine-tuned small open model</td><td>Sub-second latency, $0.14-$1 per 1M input. A fine-tune of Llama 3.1 8B can crush this for pennies.</td></tr>
+      <tr><td>Conversational chat (customer support, FAQ)</td><td>Claude Sonnet 4.6 · GPT-5.4</td><td>GPT-5 · Gemini 3 Flash</td><td>Sonnet has the strongest tone/safety balance; GPT-5.4 is the cheapest mainstream option.</td></tr>
+      <tr><td>Creative writing / marketing copy</td><td>Claude Opus 4.6/4.7 · GPT-5.5</td><td>DeepSeek V4 Flash</td><td>Opus has the best prose quality; GPT-5.5 is more "viral-style." Match to brand voice.</td></tr>
+      <tr><td>Multimodal — images / docs / charts</td><td>Gemini 3.1 Pro</td><td>GPT-5.4 · Claude Sonnet 4.6</td><td>Gemini was natively multimodal-trained from scratch and reads charts/diagrams the best.</td></tr>
+      <tr><td>Multimodal — audio (transcription + understanding)</td><td>Gemini 3.1 Pro</td><td>GPT-5.4 · Whisper + LLM</td><td>Native audio input. Otherwise: Whisper-large-v3 → text → any LLM.</td></tr>
+      <tr><td>Translation</td><td>Gemini 3.1 Pro · GPT-5.4</td><td>Qwen 3 (CJK) · DeepSeek V4 Flash</td><td>Frontier models all do well; Qwen is the strongest open-weight for CJK languages.</td></tr>
+      <tr><td>Summarization (short, factual)</td><td>Gemini 3.1 Flash-Lite · Haiku 4.5</td><td>DeepSeek V4 Flash</td><td>Cheap and fast. Quality plateau hit years ago — no need for a frontier model.</td></tr>
+      <tr><td>Summarization (long-form, nuanced)</td><td>Claude Sonnet 4.6 · Opus 4.6 for high-stakes synthesis</td><td>Gemini 3.1 Pro</td><td>Sonnet preserves nuance and attribution better than the cheaper tier; Opus 4.6 is still a strong choice when the summary must preserve long-range dependencies.</td></tr>
+      <tr><td>Function / tool calling reliability</td><td>Claude Sonnet 4.6 · Opus 4.6/4.7 · GPT-5.4</td><td>Kimi K2.6</td><td>Top tier consistently emits valid JSON / arguments. Open-weight is catching up but still trails on edge cases.</td></tr>
+      <tr><td>On-prem / regulated industry (health, defense, legal)</td><td>Kimi K2.6 · DeepSeek V4 Pro · GLM 5.1</td><td>Llama 3.x · Mistral</td><td>Open weights → self-host on vLLM / SGLang, or use Bedrock / Vertex with VPC isolation.</td></tr>
+      <tr><td>Embeddings</td><td>OpenAI <code>text-embedding-3-large</code> · Voyage 3 · Cohere Embed v4</td><td>BGE-M3 (open)</td><td>Not LLMs — separate models. Voyage and Cohere lead retrieval benchmarks; BGE-M3 is the best free option.</td></tr>
+      <tr><td>Reranking</td><td>Cohere Rerank v3</td><td>BGE-reranker-v2-m3</td><td>Cross-encoder, not an LLM. Adds ~50–150 ms but +25–40% precision.</td></tr>
+    </tbody>
+  </table>
+
+  <h3>3.3 Architectural differences between models</h3>
+  <p>The pricing table tells you what to pay; this table tells you <em>why</em> a model costs what it does and where it shines. Many details (params, exact architecture) are undisclosed by closed-source labs — flagged as <code>?</code>.</p>
+  <table>
+    <thead><tr><th>Model</th><th>Lab</th><th>Architecture</th><th>Active / Total params</th><th>Context</th><th>Modalities</th><th>Reasoning mode</th><th>Tool use</th><th>Open?</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><strong>Claude Opus 4.7</strong></td><td>Anthropic</td>
+        <td>Transformer, dense (?), GQA</td>
+        <td>undisclosed</td>
+        <td>1M</td>
+        <td>Text + vision</td>
+        <td>Extended Thinking (provider-owned, optional)</td>
+        <td>Best-in-class tool reliability</td>
+        <td>Closed</td>
+      </tr>
+      <tr>
+        <td><strong>Claude Opus 4.6</strong></td><td>Anthropic</td>
+        <td>Transformer, dense (?), GQA</td>
+        <td>undisclosed</td>
+        <td>1M</td>
+        <td>Text + vision</td>
+        <td>Adaptive / Extended Thinking</td>
+        <td>Mature Opus-tier agent reliability</td>
+        <td>Closed</td>
+      </tr>
+      <tr>
+        <td><strong>Claude Sonnet 4.6</strong></td><td>Anthropic</td>
+        <td>Transformer (?), GQA</td>
+        <td>undisclosed</td>
+        <td>1M</td>
+        <td>Text + vision</td>
+        <td>Extended Thinking</td>
+        <td>Excellent</td>
+        <td>Closed</td>
+      </tr>
+      <tr>
+        <td><strong>Claude Haiku 4.5</strong></td><td>Anthropic</td>
+        <td>Smaller transformer</td>
+        <td>undisclosed (small)</td>
+        <td>~200K</td>
+        <td>Text + vision</td>
+        <td>Optional thinking</td>
+        <td>Good for size</td>
+        <td>Closed</td>
+      </tr>
+      <tr>
+        <td><strong>GPT-5.5 / 5.5 Pro</strong></td><td>OpenAI</td>
+        <td>MoE (widely believed)</td>
+        <td>undisclosed</td>
+        <td>1.05M</td>
+        <td>Text + vision input</td>
+        <td>Reasoning effort + usage counters</td>
+        <td>Top-tier function calling</td>
+        <td>Closed</td>
+      </tr>
+      <tr>
+        <td><strong>GPT-5.4</strong></td><td>OpenAI</td>
+        <td>MoE (?)</td>
+        <td>undisclosed</td>
+        <td>1.05M</td>
+        <td>Text + vision input</td>
+        <td>Reasoning effort</td>
+        <td>Excellent</td>
+        <td>Closed</td>
+      </tr>
+      <tr>
+        <td><strong>Gemini 3.1 Pro</strong></td><td>Google DeepMind</td>
+        <td>MoE + long-context attention variants (?)</td>
+        <td>undisclosed</td>
+        <td>1M+ (pricing doubles after 200K)</td>
+        <td>Text + vision + audio + video</td>
+        <td>Thinking mode (token counts/signatures)</td>
+        <td>Strong, native</td>
+        <td>Closed</td>
+      </tr>
+      <tr>
+        <td><strong>Gemini 3 Flash</strong></td><td>Google DeepMind</td>
+        <td>Smaller MoE, distilled (?)</td>
+        <td>undisclosed</td>
+        <td>1M+</td>
+        <td>Text + vision + audio</td>
+        <td>Optional thinking</td>
+        <td>Good</td>
+        <td>Closed</td>
+      </tr>
+      <tr>
+        <td><strong>Gemini 3.1 Flash-Lite</strong></td><td>Google DeepMind</td>
+        <td>Smaller MoE, distilled (?)</td>
+        <td>undisclosed</td>
+        <td>1M+</td>
+        <td>Text + vision</td>
+        <td>No</td>
+        <td>Good for volume</td>
+        <td>Closed</td>
+      </tr>
+      <tr>
+        <td><strong>DeepSeek V4 Flash</strong></td><td>DeepSeek</td>
+        <td>Token-wise compression + DSA (DeepSeek Sparse Attention)</td>
+        <td>13B active / 284B total</td>
+        <td>1M</td>
+        <td>Text</td>
+        <td>Both thinking and non-thinking modes</td>
+        <td>Solid</td>
+        <td>Open weights</td>
+      </tr>
+      <tr>
+        <td><strong>DeepSeek V4 Pro</strong></td><td>DeepSeek</td>
+        <td>Token-wise compression + DSA (DeepSeek Sparse Attention)</td>
+        <td>49B active / 1.6T total</td>
+        <td>1M</td>
+        <td>Text</td>
+        <td>Both thinking and non-thinking modes</td>
+        <td>Strong, top open-weight</td>
+        <td>Open weights</td>
+      </tr>
+      <tr>
+        <td><strong>Kimi K2.6</strong></td><td>Moonshot AI</td>
+        <td>MoE, agentic-trained</td>
+        <td>~32B active / ~1T total</td>
+        <td>256K</td>
+        <td>Text + vision (native)</td>
+        <td>Agentic loop</td>
+        <td>State-of-the-art among OSS</td>
+        <td>Open weights (Modified MIT)</td>
+      </tr>
+      <tr>
+        <td><strong>GLM 5.1</strong></td><td>Z.ai / Tsinghua</td>
+        <td>Transformer, dense-ish</td>
+        <td>~754B total</td>
+        <td>200K</td>
+        <td>Text + vision</td>
+        <td>Optional</td>
+        <td>SOTA agentic coding (SWE-Bench Pro 58.4%)</td>
+        <td>Open weights (MIT)</td>
+      </tr>
+      <tr>
+        <td><strong>Qwen 3</strong></td><td>Alibaba</td>
+        <td>Dense + MoE variants</td>
+        <td>varies (0.5B → 235B)</td>
+        <td>128K–1M</td>
+        <td>Text + vision (some variants)</td>
+        <td>"Thinking" variants exist</td>
+        <td>Good</td>
+        <td>Open weights</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h4>How to read this table</h4>
+  <ul>
+    <li><strong>MoE → cheap inference, big memory.</strong> A 1T/32B MoE (e.g. Kimi K2.6) costs about as much to run per token as a 32B dense model — but you need RAM for all 1T at once. DeepSeek V4 goes further: its DSA (DeepSeek Sparse Attention) achieves similar efficiency without traditional expert routing, making V4 Pro (1.6T/49B) cheaper to serve than its parameter count suggests.</li>
+    <li><strong>Long context = attention variant.</strong> When you see "1M context" (Gemini, GPT-5.4/5.5, Opus 4.6/4.7, Sonnet 4.6), the model is not using naive quadratic attention at full cost — it's using cheaper attention/cache strategies. The labs rarely publish exactly what.</li>
+    <li><strong>Reasoning mode is now often a request parameter, not a separate model.</strong> Claude 4.x has extended/adaptive thinking, GPT-5.x has reasoning effort, Gemini 3.x has thinking budgets, and DeepSeek V4 exposes thinking/non-thinking modes.</li>
+    <li><strong>Tool-use quality varies more than raw IQ.</strong> The benchmark gap between Sonnet 4.6 and Kimi K2.6 on raw reasoning is small. The gap on "follows a 12-step tool sequence without going off the rails" is huge — that is where Anthropic still leads.</li>
+    <li><strong>"GQA" / "MLA"</strong> — Grouped-Query Attention (used by Llama, most modern transformers — fewer K/V heads than Q heads → cheaper) and Multi-head Latent Attention (DeepSeek's invention — compresses KV cache, lets them serve 128K context cheaply).</li>
+  </ul>
+
+  <h3>3.4 Routing patterns you should be able to name</h3>
+  <ul>
+    <li><strong>Cascade / triage routing</strong> — cheap model answers; if confidence low or a "hard" classifier flags it, escalate to the expensive model. Common shape: <em>Haiku 4.5 → Sonnet 4.6 → Opus 4.6/4.7</em>. Cuts cost 60–80% with minimal quality loss.</li>
+    <li><strong>Task-typed routing</strong> — a classifier (sometimes an LLM, sometimes a fine-tuned small model) tags the request (<code>code</code>, <code>chat</code>, <code>math</code>, <code>vision</code>) and dispatches.</li>
+    <li><strong>Speculative / draft-then-verify</strong> — cheap model drafts, expensive model verifies / edits. Used in agentic coding (e.g. Haiku proposes, Sonnet reviews).</li>
+    <li><strong>Mixture-of-Experts <em>at the orchestration layer</em></strong> — same name as in model architectures, but here it means routing to different <em>provider</em> models per sub-task in a workflow.</li>
+    <li><strong>Provider failover</strong> — primary on Anthropic, fallback to Bedrock-Anthropic or to OpenAI on outage. Tools: OpenRouter, Portkey, LiteLLM.</li>
+  </ul>
+
+  <h3>3.5 Reasoning vs non-reasoning — when each is worth the cost</h3>
+  <p>Reasoning models (Opus 4.6/4.7 extended thinking, GPT-5.5 Pro, DeepSeek V4 Pro thinking mode) burn many extra <em>output</em> tokens on provider-owned internal thinking. Use them when:</p>
+  <ul>
+    <li>The task has a <strong>verifiable correct answer</strong> — math, code that must pass tests, logical puzzles.</li>
+    <li>The task is <strong>multi-step planning</strong> where a wrong early step poisons the rest.</li>
+    <li>You can afford 5–30× more output tokens and 2–10× more latency.</li>
+  </ul>
+  <p>Do <strong>not</strong> use them for chat, summarization, classification, or anywhere the answer is "open-ended" — you pay for thinking you do not need.</p>
+
+  <h3>3.6 Concrete cost example (memorize one number)</h3>
+  <div class="card">
+    <p>A typical agent turn: <strong>10K input tokens + 1K output tokens</strong>. Cost per turn — and projected at 1M turns/month:</p>
+    <figure class="diagram" style="position:relative; padding:14px 18px">
+      <canvas id="turnChart" width="640" height="360"></canvas>
+      <div id="turnTip" class="bar-tooltip"></div>
+      <div class="legend">
+        <span><span class="sw" style="background:#7cf0c1"></span>Cheap tier (Haiku / Flash / DeepSeek)</span>
+        <span><span class="sw" style="background:#ffb86b"></span>Mid tier (Sonnet / GPT-5.5)</span>
+        <span><span class="sw" style="background:#ff6b8b"></span>Premium (Opus / GPT-5.5 Pro)</span>
+      </div>
+      <figcaption>Same workload, 300×+ price spread. At 1M turns/month: <strong>$1.7K → $480K</strong>. This is why routing matters.</figcaption>
+    </figure>
+  </div>
+
+  <h3>3.6b Per-model pricing — May 2026 list rates</h3>
+  <p style="margin-bottom:10px">All figures are <strong>per 1M tokens</strong>, USD, standard (non-batch) tier. Batch and prompt-cache tiers typically cut input cost 50–90%.</p>
+  <table>
+    <thead>
+      <tr>
+        <th>Model</th>
+        <th>Provider</th>
+        <th>Tier</th>
+        <th>Input $/1M</th>
+        <th>Output $/1M</th>
+        <th>Output / Input ratio</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Cheap / budget -->
+      <tr>
+        <td><strong>DeepSeek V4 Flash</strong></td>
+        <td>DeepSeek</td>
+        <td><span class="tag good">budget</span></td>
+        <td class="price">$0.14</td>
+        <td class="price">$0.28</td>
+        <td>2×</td>
+      </tr>
+      <tr>
+        <td><strong>Gemini 3.1 Flash-Lite</strong></td>
+        <td>Google</td>
+        <td><span class="tag good">budget</span></td>
+        <td class="price">$0.25</td>
+        <td class="price">$1.50</td>
+        <td>6×</td>
+      </tr>
+      <tr>
+        <td><strong>DeepSeek V4 Pro</strong></td>
+        <td>DeepSeek</td>
+        <td><span class="tag good">budget</span></td>
+        <td class="price">$1.74</td>
+        <td class="price">$3.48</td>
+        <td>2×</td>
+      </tr>
+      <tr>
+        <td><strong>Gemini 3 Flash</strong></td>
+        <td>Google</td>
+        <td><span class="tag good">budget</span></td>
+        <td class="price">$0.50</td>
+        <td class="price">$3.00</td>
+        <td>6×</td>
+      </tr>
+      <tr>
+        <td><strong>GPT-5</strong> (base)</td>
+        <td>OpenAI</td>
+        <td><span class="tag good">budget</span></td>
+        <td class="price">$1.25</td>
+        <td class="price">$10.00</td>
+        <td>8×</td>
+      </tr>
+      <tr>
+        <td><strong>Kimi K2.6</strong></td>
+        <td>Moonshot AI</td>
+        <td><span class="tag good">budget</span></td>
+        <td class="price">$0.95</td>
+        <td class="price">$4.00</td>
+        <td>4.2×</td>
+      </tr>
+      <tr>
+        <td><strong>GLM 5.1</strong></td>
+        <td>Z.ai</td>
+        <td><span class="tag good">budget</span></td>
+        <td class="price">$1.40</td>
+        <td class="price">$4.40</td>
+        <td>3.1×</td>
+      </tr>
+      <!-- Mid tier -->
+      <tr>
+        <td><strong>Claude Haiku 4.5</strong></td>
+        <td>Anthropic</td>
+        <td><span class="tag warn">mid</span></td>
+        <td class="price">$1.00</td>
+        <td class="price">$5.00</td>
+        <td>5×</td>
+      </tr>
+      <tr>
+        <td><strong>Gemini 3.1 Pro</strong></td>
+        <td>Google</td>
+        <td><span class="tag warn">mid</span></td>
+        <td class="price">$2.00</td>
+        <td class="price">$12.00</td>
+        <td>6×</td>
+      </tr>
+      <tr>
+        <td><strong>GPT-5.4</strong></td>
+        <td>OpenAI</td>
+        <td><span class="tag warn">mid</span></td>
+        <td class="price">$2.50</td>
+        <td class="price">$15.00</td>
+        <td>6×</td>
+      </tr>
+      <tr>
+        <td><strong>Claude Sonnet 4.6</strong></td>
+        <td>Anthropic</td>
+        <td><span class="tag warn">mid</span></td>
+        <td class="price">$3.00</td>
+        <td class="price">$15.00</td>
+        <td>5×</td>
+      </tr>
+      <!-- Premium -->
+      <tr>
+        <td><strong>Claude Opus 4.6</strong></td>
+        <td>Anthropic</td>
+        <td><span class="tag bad">premium</span></td>
+        <td class="price">$5.00</td>
+        <td class="price">$25.00</td>
+        <td>5×</td>
+      </tr>
+      <tr>
+        <td><strong>Claude Opus 4.7</strong></td>
+        <td>Anthropic</td>
+        <td><span class="tag bad">premium</span></td>
+        <td class="price">$5.00</td>
+        <td class="price">$25.00</td>
+        <td>5×</td>
+      </tr>
+      <tr>
+        <td><strong>GPT-5.5</strong></td>
+        <td>OpenAI</td>
+        <td><span class="tag bad">premium</span></td>
+        <td class="price">$5.00</td>
+        <td class="price">$30.00</td>
+        <td>6×</td>
+      </tr>
+      <tr>
+        <td><strong>GPT-5.5 Pro</strong></td>
+        <td>OpenAI</td>
+        <td><span class="tag bad">premium</span></td>
+        <td class="price">$30.00</td>
+        <td class="price">$180.00</td>
+        <td>6×</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="callout" style="margin-top:10px">
+    <strong>Rule of thumb:</strong> output tokens cost 5–8× more than input tokens across every provider — because generation is sequential (one token at a time) while input is processed in parallel. This is why reasoning models with internal thinking are so expensive: they silently generate thousands of output tokens before answering.
+  </div>
+
+  <h3>3.7 Decision flow (the "out loud" version)</h3>
+  <ol>
+    <li>Is the data sensitive / regulated? <strong>Yes</strong> → open-weight on your infra. Stop.</li>
+    <li>Does the task fit in &lt; 8K tokens and have a small fixed schema? <strong>Yes</strong> → Haiku 4.5 / Gemini 3.1 Flash-Lite / DeepSeek V4 Flash.</li>
+    <li>Does it need to reason multi-step over code or math? <strong>Yes</strong> → Sonnet 4.6 → Opus 4.6/4.7 / GPT-5.5 Pro / DeepSeek V4 Pro (thinking mode).</li>
+    <li>Is it a long document (&gt; 200K tokens)? <strong>Yes</strong> → Gemini 3.1 Pro / Gemini 3 Flash.</li>
+    <li>Is it multimodal? <strong>Yes</strong> → Gemini 3.1 Pro first.</li>
+    <li>Default agentic coding / tool use → <strong>Sonnet 4.6</strong>.</li>
+    <li>Then ask: can I cache 80% of this prompt? If yes, the choice gets cheaper by 10×.</li>
+  </ol>
+
+  <div class="callout warn">
+    <strong>Common pitfall:</strong> Do not recommend "the smartest model" reflexively. In production, 80% of tokens go to <em>routine</em> work — and using Opus for routing is a costly mistake at scale. The right answer is almost always "I would route — here is the cascade."
+  </div>
+  <div class="callout">
+    <strong>Killer line:</strong> "There is no best model. There is a portfolio. Frontier for the hard 5%, Sonnet-tier for the agentic 15%, Haiku/Flash for the 80% that is routing, classification and extraction. Cost-aware routing is how you make AI products profitable in 2026."
+  </div>
+</section>
+
+<!-- =================== MODEL INTEGRATION =================== -->
+<section id="model-integration">
+  <h2><span class="num">04</span> Model Integration — the API contract</h2>
+  <p>This is the "how does my app actually talk to the model?" layer. The provider names differ, but production integrations usually have the same shape: send messages + configuration + tools + optional retrieved context; receive text, tool calls, usage, and sometimes reasoning metadata.</p>
+
+  <h3>4.1 Standard endpoints you should recognize</h3>
+  <p>The exact payload shape changes by provider, but these are the endpoint families you will see in production:</p>
+  <table>
+    <thead><tr><th>Provider / style</th><th>Endpoint</th><th>Use it for</th><th>Response shape</th></tr></thead>
+    <tbody>
+      <tr><td><strong>OpenAI Responses</strong></td><td><code>POST /v1/responses</code></td><td>Default for modern OpenAI apps: multimodal, tools, file search, MCP, reasoning, state.</td><td><code>output[]</code> items: messages, function calls, reasoning, hosted-tool calls.</td></tr>
+      <tr><td><strong>OpenAI Chat Completions</strong></td><td><code>POST /v1/chat/completions</code></td><td>Stable chat-compatible API; many routers and OSS providers emulate it.</td><td><code>choices[0].message</code>, with optional <code>tool_calls</code>.</td></tr>
+      <tr><td><strong>OpenAI Completions</strong></td><td><code>POST /v1/completions</code></td><td>Legacy prompt-in/text-out completion API. Know it exists; avoid for new agentic work.</td><td><code>choices[].text</code>.</td></tr>
+      <tr><td><strong>Anthropic Messages</strong></td><td><code>POST /v1/messages</code></td><td>Claude chat, tool use, thinking blocks, vision.</td><td><code>content[]</code> blocks and <code>stop_reason</code>.</td></tr>
+      <tr><td><strong>Gemini GenerateContent</strong></td><td><code>POST /v1beta/models/{model}:generateContent</code></td><td>Gemini text/multimodal generation, thinking, function declarations.</td><td><code>candidates[].content.parts[]</code>.</td></tr>
+      <tr><td><strong>OpenAI-compatible OSS providers</strong></td><td><code>/v1/chat/completions</code> mostly</td><td>DeepSeek, Moonshot/Kimi, Z.ai, Together, Fireworks, OpenRouter-style integrations.</td><td>Usually OpenAI chat-compatible; tool/reasoning extras vary.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout">
+    <strong>Endpoint mental model:</strong> <code>/completions</code> is old prompt completion, <code>/chat/completions</code> is message-based chat, <code>/responses</code> is OpenAI's newer typed item/event API, Anthropic calls its chat endpoint <code>/messages</code>, and Gemini calls the same idea <code>generateContent</code>.
+  </div>
+
+  <h3>4.2 The request envelope</h3>
+  <p>A model API request is not just a prompt string. Treat it as a typed contract:</p>
+  <table>
+    <thead><tr><th>Field</th><th>What it carries</th><th>Production note</th></tr></thead>
+    <tbody>
+      <tr><td><code>model</code></td><td>Which model snapshot or alias to run.</td><td>Pin versions for eval-sensitive flows; aliases can change behavior.</td></tr>
+      <tr><td><code>input</code> / <code>messages</code> / <code>contents</code></td><td>User text, prior assistant turns, images/files, and retrieved context.</td><td>Everything here spends input tokens unless cached or stored server-side.</td></tr>
+      <tr><td><code>instructions</code> / <code>system</code></td><td>Developer policy, role, style, safety rules, output contract.</td><td>Keep stable system prompts cacheable and versioned.</td></tr>
+      <tr><td><code>tools</code></td><td>Function schemas, hosted tools, MCP connectors, file search.</td><td>Descriptions are part of the prompt. Bad schemas create bad tool calls.</td></tr>
+      <tr><td><code>reasoning</code> / <code>thinkingConfig</code> / <code>thinking</code></td><td>How much hidden or visible reasoning the model may spend.</td><td>Counts as generated output cost even when the raw thinking is hidden.</td></tr>
+      <tr><td><code>text.format</code> / <code>response_format</code></td><td>Schema for the final answer when you want JSON from the model itself.</td><td>Use this for final structured answers; use tool calling for app actions.</td></tr>
+      <tr><td><code>stream</code></td><td>Whether text/tool-call deltas arrive incrementally.</td><td>Needed for good UX and for long tool arguments, but complicates parsing.</td></tr>
+    </tbody>
+  </table>
+
+  <h3>4.3 The output envelope</h3>
+  <p>The important production habit is to parse the response as typed data, not as "the model's string." A single response can contain final text, one or more tool calls, hosted-tool calls, safety/refusal metadata, usage, and reasoning artifacts.</p>
+  <table>
+    <thead><tr><th>Output part</th><th>Where it appears</th><th>What to do with it</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Final text</strong></td><td>OpenAI <code>message/output_text</code>; Anthropic <code>text</code> block; Gemini <code>text</code> part.</td><td>Render to the user, store in conversation history, and include in later turns if you manage context manually.</td></tr>
+      <tr><td><strong>Tool call request</strong></td><td>OpenAI <code>function_call</code> or chat <code>tool_calls</code>; Anthropic <code>tool_use</code>; Gemini <code>functionCall</code>.</td><td>Validate, authorize, execute in your app, then send a matching tool result back.</td></tr>
+      <tr><td><strong>Tool result</strong></td><td>Not generated by the model; generated by your app and sent in the next request.</td><td>Return the result with the provider's call id / tool-use id so the model can continue.</td></tr>
+      <tr><td><strong>Reasoning/thinking metadata</strong></td><td>OpenAI usage + reasoning items; Anthropic <code>thinking</code> blocks/signatures; Gemini thought counts/signatures.</td><td>Log counts for cost, and preserve provider-owned items exactly when continuing a tool loop.</td></tr>
+      <tr><td><strong>Usage</strong></td><td><code>usage</code> / <code>usage_metadata</code>.</td><td>Track input, cached input, output, reasoning/thought tokens, latency, and cost.</td></tr>
+      <tr><td><strong>Stop / finish reason</strong></td><td>OpenAI status/finish reason; Anthropic <code>stop_reason</code>; Gemini finish reason.</td><td>Branch on <code>tool_use</code>, <code>max_tokens</code>, safety stop, or normal end turn.</td></tr>
+    </tbody>
+  </table>
+
+<pre><code>// Conceptual shape. Names differ, but the flow is the same.
+request = {
+  model: "frontier-or-cheap-model",
+  messages_or_input: [
+    { role: "system", content: "You are the support agent." },
+    { role: "user", content: "Where is order ord_123?" }
+  ],
+  tools: [{
+    name: "lookup_order",
+    parameters: { type: "object", properties: { order_id: { type: "string" } } }
+  }],
+  reasoning_or_thinking: { effort_or_budget: "low" }
+}
+
+response = {
+  id: "resp_...",
+  output: [
+    { type: "reasoning", encrypted_content: "..." },
+    { type: "function_call", call_id: "call_1", name: "lookup_order", arguments: "{\"order_id\":\"ord_123\"}" }
+  ],
+  usage: {
+    input_tokens: 1200,
+    output_tokens: 340,
+    output_tokens_details: { reasoning_tokens: 256 }
+  }
+}
+
+next_request_input = [
+  ...previous_input,
+  ...response.output,
+  { type: "function_call_output", call_id: "call_1", output: "{\"status\":\"shipped\"}" }
+]
+</code></pre>
+
+  <h3>4.4 Context flow: how input + output feed the next call</h3>
+  <p>Every multi-turn app is either <strong>stateful</strong> or <strong>stateless</strong>:</p>
+  <ul>
+    <li><strong>Stateful:</strong> provider stores prior turns. You pass a conversation/response id such as OpenAI's <code>previous_response_id</code>. Easier, but you depend on provider-side state.</li>
+    <li><strong>Stateless:</strong> your app stores the conversation. On each request you send the relevant prior user messages, assistant outputs, tool calls, tool results, and retrieved context.</li>
+  </ul>
+  <p>The safe stateless loop is: <strong>user input → model output items → tool results → model final answer → next user input</strong>. Do not summarize or mutate provider-owned reasoning/signature blocks in the middle of a tool loop; several APIs require those blocks exactly as returned.</p>
+
+  <div class="callout">
+    <strong>Context rule:</strong> The assistant output is not just display text. It may be required protocol state. If you throw away tool-call ids, reasoning items, thought signatures, or content-block ordering, the next API call can fail or reason worse.
+  </div>
+
+  <h3>4.5 Reasoning / thinking tokens in API responses</h3>
+  <p>Do not assume "thinking" means the same wire behavior everywhere. The common rule is: <strong>thinking costs output tokens</strong>; the provider decides whether you can see it, summarize it, or only count it.</p>
+  <table>
+    <thead><tr><th>Provider</th><th>How you enable it</th><th>What comes back</th><th>What you must preserve</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><strong>OpenAI Responses API</strong></td>
+        <td><code>reasoning: { effort: "none|minimal|low|medium|high|xhigh" }</code> depending on model</td>
+        <td>Raw reasoning is not exposed. Usage includes <code>output_tokens_details.reasoning_tokens</code>; some models can return reasoning summaries or encrypted reasoning items.</td>
+        <td>When tool calls happen, pass back reasoning items returned since the last user message, or use <code>previous_response_id</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>Anthropic Claude</strong></td>
+        <td><code>thinking: { type: "enabled", budget_tokens: ... }</code></td>
+        <td><code>thinking</code> content blocks followed by <code>text</code> blocks; summaries/encryption vary by model/version.</td>
+        <td>With tool use, pass the complete unmodified <code>thinking</code> blocks back for the last assistant message.</td>
+      </tr>
+      <tr>
+        <td><strong>Gemini</strong></td>
+        <td><code>generationConfig.thinkingConfig.thinkingBudget</code></td>
+        <td>Usage metadata includes fields such as <code>thoughtsTokenCount</code>. Thinking may also produce encrypted thought signatures.</td>
+        <td>When function calling or REST history rewriting is involved, pass signatures/parts back exactly as received.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout warn">
+    <strong>Interview-safe answer:</strong> "Thinking tokens are generated tokens. OpenAI exposes the count in usage, Anthropic exposes thinking blocks/signatures, Gemini exposes thought token counts/signatures. In all cases, they affect context, latency, and cost."
+  </div>
+
+  <h3>4.6 Tool calling is a loop, not magic</h3>
+  <p>The model never executes your function. It emits a structured request; your app validates it, runs the function, then sends the result back so the model can continue.</p>
+  <ol>
+    <li><strong>Declare tools</strong> with name, description, and JSON Schema / OpenAPI-style parameters.</li>
+    <li><strong>Receive tool calls</strong> from the model with a tool name, arguments, and call id.</li>
+    <li><strong>Execute in your app</strong> after auth, validation, idempotency checks, and audit logging.</li>
+    <li><strong>Return tool results</strong> using the provider's call id field.</li>
+    <li><strong>Continue</strong> until the model returns final text or another tool call.</li>
+  </ol>
+
+  <table>
+    <thead><tr><th>Provider</th><th>Declare</th><th>Model returns</th><th>You return</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><strong>OpenAI</strong></td>
+        <td><code>tools: [{ type: "function", name, description, parameters, strict }]</code></td>
+        <td><code>{ type: "function_call", call_id, name, arguments }</code></td>
+        <td><code>{ type: "function_call_output", call_id, output }</code></td>
+      </tr>
+      <tr>
+        <td><strong>Anthropic</strong></td>
+        <td><code>tools: [{ name, description, input_schema }]</code></td>
+        <td><code>{ type: "tool_use", id, name, input }</code></td>
+        <td><code>{ type: "tool_result", tool_use_id, content }</code></td>
+      </tr>
+      <tr>
+        <td><strong>Gemini</strong></td>
+        <td><code>tools.functionDeclarations</code></td>
+        <td><code>functionCall</code> part with name and args</td>
+        <td><code>functionResponse</code> part</td>
+      </tr>
+    </tbody>
+  </table>
+
+<pre><code>const tools = [{
+  type: "function",
+  name: "lookup_order",
+  description: "Fetch one order by id. Use only when the user asks about an existing order.",
+  parameters: {
+    type: "object",
+    properties: {
+      order_id: { type: "string", description: "Internal order id, e.g. ord_123" }
+    },
+    required: ["order_id"],
+    additionalProperties: false
+  },
+  strict: true
+}];
+
+const input = [{ role: "user", content: "Where is order ord_123?" }];
+const response = await client.responses.create({
+  model: "gpt-5.4",
+  input,
+  tools,
+  reasoning: { effort: "low" }
+});
+
+input.push(...response.output); // preserves function calls + provider-owned reasoning items
+for (const item of response.output) {
+  if (item.type !== "function_call") continue;
+  const result = await lookupOrder(JSON.parse(item.arguments));
+  input.push({
+    type: "function_call_output",
+    call_id: item.call_id,
+    output: JSON.stringify(result)
+  });
+}
+
+const final = await client.responses.create({
+  model: "gpt-5.4",
+  input,
+  tools
+});
+</code></pre>
+
+  <div class="callout">
+    <strong>Function calling vs MCP:</strong> Function calling is the per-request API shape. MCP is a protocol for discovering and invoking tools across clients. In practice, an OpenAI/Claude/Gemini model may call a tool that your app implements directly, or a tool exposed through an MCP server (<a href="#mcp">§09</a>).
+  </div>
+
+  <h3>4.7 How RAG vectors enter the API</h3>
+  <p>You usually do <strong>not</strong> send raw vectors to the generation model. Vectors live in the retrieval layer. The model receives the retrieved text, metadata, and citations.</p>
+
+  <h4>External vector database pattern</h4>
+  <ol>
+    <li><strong>Ingest:</strong> split documents into chunks; call an embeddings API; store <code>{ id, vector, text, metadata }</code> in Pinecone, Weaviate, Qdrant, pgvector, Elasticsearch, etc.</li>
+    <li><strong>Query:</strong> embed the user's question using the same embedding model family.</li>
+    <li><strong>Retrieve:</strong> vector search + BM25/hybrid + rerank top results.</li>
+    <li><strong>Generate:</strong> send the top snippets as normal input text: source title, URL/file id, chunk text, and citation id.</li>
+  </ol>
+
+<pre><code>const queryEmbedding = await embeddings.create({
+  model: "text-embedding-3-large",
+  input: userQuestion,
+  encoding_format: "float"
+});
+
+const matches = await vectorDb.search({
+  vector: queryEmbedding.data[0].embedding,
+  topK: 8,
+  filter: { tenant_id: tenantId }
+});
+
+const context = matches.map((m, i) =>
+  `[${i + 1}] ${m.metadata.title}\n${m.metadata.text}`
+).join("\n\n");
+
+await client.responses.create({
+  model: "gpt-5.4",
+  input: `Answer using only these sources:\n\n${context}\n\nQuestion: ${userQuestion}`
+});
+</code></pre>
+
+  <h4>Hosted file-search pattern</h4>
+  <p>Some providers manage the vector store for you. In OpenAI's Responses API, for example, you upload files into a vector store, then pass a hosted tool config such as <code>{ type: "file_search", vector_store_ids: ["vs_123"] }</code>. The model can call the file-search tool, and you can optionally ask the API to include the retrieved results in the response for debugging/evals.</p>
+
+  <div class="callout warn">
+    <strong>Common pitfall:</strong> RAG is not "send embeddings to the LLM." It is "use embeddings to choose text, then send the chosen text to the LLM." The only exception is a provider-managed retrieval tool, where you send a vector-store id and let the provider handle retrieval.
+  </div>
+
+  <h3>4.8 What to log from every model call</h3>
+  <ul>
+    <li><strong>Request id</strong> from provider headers/response metadata for support and incident debugging.</li>
+    <li><strong>Model version</strong>, prompt/template version, tool schema version, and retrieval index version.</li>
+    <li><strong>Usage:</strong> input, cached input, visible output, reasoning/thinking tokens, total tokens, latency.</li>
+    <li><strong>Tool trace:</strong> tool name, args hash, auth principal, result status, retry count, duration.</li>
+    <li><strong>Retrieval trace:</strong> query, embedding model, top-K ids, reranker scores, source ids actually cited.</li>
+  </ul>
+
+  <div class="callout">
+    <strong>Production rule:</strong> "The model API is an event loop with billing. Treat every response item as typed data, preserve provider-owned reasoning/signature items, and make tools/retrieval observable enough to replay."
+  </div>
+</section>
+
+<!-- =================== OPEN SOURCE =================== -->
+<section id="oss">
+  <h2><span class="num">05</span> Open-source alternatives — what's actually competitive</h2>
+  <ul>
+    <li><strong>Kimi K2.6 (Moonshot AI)</strong> — released Apr 2026, Modified MIT license. Native multimodal agentic model. Coding parity with GPT-5.5 on several benchmarks at ~88% lower cost.</li>
+    <li><strong>DeepSeek V4</strong> — the price/performance reference. V4 Flash for general work ($0.14/$0.28), V4 Pro for top-tier open-weight quality (49B active / 1.6T total, DSA architecture) with an optional thinking mode for reasoning. 1M context default across the line.</li>
+    <li><strong>GLM 5.1 (Z.ai / Tsinghua)</strong> — 754B params, MIT license, 200K ctx. Flagship agentic model; SOTA on SWE-Bench Pro (58.4%) and CyberGym (68.7%). Sustains optimization over 600+ iterations where other models plateau. Available on HuggingFace, vLLM, SGLang, and api.z.ai.</li>
+    <li><strong>Llama / Mistral families</strong> — broad ecosystem, fine-tunable, on every inference provider.</li>
+    <li><strong>Qwen 3</strong> (Alibaba) — strong multilingual, competitive coding.</li>
+  </ul>
+
+  <div class="callout">
+    <strong>Why this matters:</strong> Internal tools at a company often can't ship customer data to OpenAI/Anthropic. Open-weight + a managed inference provider (Together, Fireworks, DeepInfra, Groq) or self-hosted vLLM is the realistic answer. Know that vocabulary.
+  </div>
+</section>
+
+<!-- =================== RESEARCH GRAPH =================== -->
+<section id="research-graph">
+  <h2><span class="num">06</span> Grafo de Pesquisa (Research Graph)</h2>
+  <p>"Research graph" shows up in two related contexts — make sure you can distinguish them.</p>
+
+  <h3>1. Deep Research agents (the "research graph" as workflow)</h3>
+  <p>An agent that iteratively <strong>plans → searches → reads → synthesizes</strong>, building a graph of sub-questions where each node is a search query/document and edges encode "this finding led to that follow-up." Google's Deep Research, OpenAI Deep Research, and Anthropic's Research feature all follow this pattern.</p>
+  <ul>
+    <li>Long-running (minutes, not seconds).</li>
+    <li>Uses <strong>test-time compute</strong> — many model calls to refine.</li>
+    <li>Connects to web + MCPs + uploaded files.</li>
+    <li>Output is typically a long structured report with citations.</li>
+  </ul>
+
+  <h3>2. GraphRAG (the "research graph" as data structure)</h3>
+  <p>Instead of retrieving flat chunks, you build a <strong>knowledge graph</strong> from your corpus (entities + relationships) and retrieve <em>connected subgraphs</em> at query time. Better for multi-hop questions ("which authors collaborated with X on topic Y between 2020-2024?") that flat RAG fails on.</p>
+  <ul>
+    <li>Microsoft <strong>GraphRAG</strong> popularized this in 2024 — by 2026 production-grade.</li>
+    <li><strong>Deep GraphRAG</strong>, <strong>FastInsight</strong> are current research frontier — hierarchical retrieval, semantic-topological reranking.</li>
+    <li>Vector RAG retrieves <em>semantically similar</em> facts; graph RAG retrieves <em>relationally connected</em> facts.</li>
+  </ul>
+
+  <div class="callout">
+    <strong>If asked "what's a research graph":</strong> Lead with the agent workflow (search graph as a thinking trace), then mention GraphRAG as the data-side counterpart. Bonus: mention that in both cases the graph is a <em>DAG</em> at execution time (no cycles, dependencies flow forward).
+  </div>
+</section>
+
+<!-- =================== MEMORY =================== -->
+<section id="memory">
+  <h2><span class="num">07</span> Memory types in AI agents</h2>
+  <p>Drawn from cognitive science. <strong>Four types</strong> — know them all.</p>
+
+  <div class="grid2">
+    <div class="card">
+      <h4>Short-term / Working / In-context</h4>
+      <p>Everything inside the current context window. Like RAM — gone when the session ends. Cheap, fast, limited.</p>
+      <p class="small">Examples: current conversation, this turn's tool outputs, scratchpad.</p>
+    </div>
+    <div class="card">
+      <h4>Episodic (long-term)</h4>
+      <p>Specific past <em>experiences</em> with temporal context. "Last Tuesday Lucas asked me to refactor X."</p>
+      <p class="small">Storage: vector DB for semantic search + event log for ground truth.</p>
+    </div>
+    <div class="card">
+      <h4>Semantic (long-term)</h4>
+      <p>Factual knowledge, decoupled from when you learned it. "Lucas's preferred language is C#."</p>
+      <p class="small">Storage: structured DB for facts + vector DB for concept embeddings.</p>
+    </div>
+    <div class="card">
+      <h4>Procedural (long-term)</h4>
+      <p>"How to do things." Workflows, tool sequences, learned policies. Often encoded in the system prompt / agent definition itself.</p>
+      <p class="small">Storage: system prompts, fine-tuned weights, skill files.</p>
+    </div>
+  </div>
+
+  <h3>Architecture in 2026</h3>
+  <ul>
+    <li><strong>Vector memory</strong> = retrieves semantically similar items.</li>
+    <li><strong>Graph memory</strong> = retrieves relationally connected items. Production-grade by early 2026 (was experimental in 2024).</li>
+    <li><strong>Memory compression:</strong> the "fundamental cognitive step" of moving short-term → long-term. Filter signal from conversational noise.</li>
+    <li>Frameworks: <code>mem0</code>, <code>Letta</code> (formerly MemGPT), <code>Zep</code>, Redis-based stores.</li>
+  </ul>
+</section>
+
+<!-- =================== EVALS =================== -->
+<section id="evals">
+  <h2><span class="num">08</span> Evals vs Benchmarks — and how to build each</h2>
+
+  <table>
+    <thead><tr><th></th><th>Benchmarks</th><th>Evals</th></tr></thead>
+    <tbody>
+      <tr><td>Purpose</td><td>Compare <em>models</em> in isolation</td><td>Measure <em>your app</em> at a specific job</td></tr>
+      <tr><td>Dataset</td><td>Public, standardized (MMLU, SWE-bench, GPQA, HumanEval, AIME)</td><td>Custom, drawn from your domain + production failures</td></tr>
+      <tr><td>Audience</td><td>Researchers, model buyers</td><td>You, your team, your CI</td></tr>
+      <tr><td>Stability</td><td>Frozen — saturates over time</td><td>Living — grows with each prod regression</td></tr>
+    </tbody>
+  </table>
+
+  <h3>How to build an eval suite (production pattern)</h3>
+  <ol>
+    <li><strong>Define the task</strong> + success criteria. Not "be helpful" — "extract the order ID from emails with ≥98% accuracy."</li>
+    <li><strong>Seed dataset</strong> from real production traces. Hand-label 50–200 examples covering golden path + edge cases.</li>
+    <li><strong>Pick a grader:</strong>
+      <ul>
+        <li>Exact match / regex (cheapest, brittlest)</li>
+        <li>Code-based (assertions, JSON schema)</li>
+        <li>LLM-as-judge (flexible, biased — pair with rubric + calibration)</li>
+        <li>Human review (gold but slow)</li>
+      </ul>
+    </li>
+    <li><strong>Run in CI</strong> on every prompt/model change. Block merges on regressions.</li>
+    <li><strong>Auto-grow from failures:</strong> every production incident becomes a new test case — the regression suite is your moat.</li>
+    <li><strong>Layer it:</strong> automated evals pre-launch → A/B test in prod → user feedback loop → distribution drift monitoring.</li>
+  </ol>
+
+  <h3>How to build a benchmark (rarely what you want)</h3>
+  <ol>
+    <li>Define a <em>capability</em>, not a product — "reasoning over chains of arithmetic" not "our checkout bot."</li>
+    <li>Collect public, hold-out dataset. Document contamination policy (was the model trained on it?).</li>
+    <li>Single objective metric. Reproducible scripts. Versioned.</li>
+    <li>Publish — it only matters if others run it.</li>
+  </ol>
+
+  <h3>Key tools (2026)</h3>
+  <ul>
+    <li><strong>OpenAI Evals</strong>, <strong>DeepEval</strong>, <strong>Promptfoo</strong>, <strong>Braintrust</strong>, <strong>LangSmith</strong>, <strong>Inspect (UK AISI)</strong>.</li>
+    <li><strong>RAGAS</strong> for RAG-specific metrics (faithfulness, context precision, answer relevance).</li>
+  </ul>
+
+  <div class="callout warn">
+    <strong>The killer line:</strong> "Benchmarks tell you which model to start with. Evals tell you when you're shipping a regression." If you only remember one thing about this section, remember that.
+  </div>
+</section>
+
+<!-- =================== MCP =================== -->
+<section id="mcp">
+  <h2><span class="num">09</span> Custom MCP — Model Context Protocol</h2>
+  <p>MCP is the "USB-C for AI" — a standardized protocol (Anthropic, late 2024, now broadly adopted) for letting any LLM client talk to any tool/data source.</p>
+
+  <h3>If you already know REST APIs, here is the analogy</h3>
+  <p>A REST API exposes <strong>resources</strong> at URLs (<code>GET /users/42</code>) so that <em>humans writing code</em> can integrate with your system. Each client (web app, mobile app, partner backend) writes its own integration: pick endpoints, parse responses, handle auth, retry on failures.</p>
+  <p>An <strong>MCP server</strong> exposes <strong>tools, resources and prompts</strong> over a standard protocol so that <em>any LLM client</em> can integrate with your system <strong>without writing client code</strong>. The LLM discovers what is available, reads the schemas, and decides at runtime which tool to call.</p>
+  <p>Same idea — "expose capabilities so something else can call them" — but the caller is an LLM agent, the discovery is automatic, and the contract is uniform across every AI tool in your stack (Claude Desktop, Claude Code, Cursor, Windsurf, Codex, etc).</p>
+
+  <h3>REST vs MCP — side-by-side</h3>
+  <table>
+    <thead><tr><th>Aspect</th><th>REST API</th><th>MCP Server</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Audience</strong></td><td>Developers writing client code</td><td>LLM agents at runtime</td></tr>
+      <tr><td><strong>Discovery</strong></td><td>Out-of-band (docs, OpenAPI, Postman collection)</td><td>In-band — client calls <code>tools/list</code>, gets JSON schemas back</td></tr>
+      <tr><td><strong>Wire format</strong></td><td>HTTP + JSON (or XML, form-encoded…)</td><td>JSON-RPC 2.0 over stdio or Streamable HTTP</td></tr>
+      <tr><td><strong>Verbs</strong></td><td>GET, POST, PUT, PATCH, DELETE</td><td>Tool calls (POST-like), Resource reads (GET-like), Prompt fetches</td></tr>
+      <tr><td><strong>Statelessness</strong></td><td>Each request stands alone</td><td>Session-oriented — server keeps a connection, can push notifications</td></tr>
+      <tr><td><strong>Schema language</strong></td><td>OpenAPI / JSON Schema (optional)</td><td>JSON Schema (mandatory, used for tool argument validation by the LLM)</td></tr>
+      <tr><td><strong>Auth</strong></td><td>API keys, OAuth, JWT — many flavors</td><td>OAuth 2.1 in the spec; for stdio servers, runs as you locally</td></tr>
+      <tr><td><strong>How a caller decides what to invoke</strong></td><td>Developer reads docs, hardcodes the call</td><td>LLM reads the tool description + schema and decides at runtime</td></tr>
+      <tr><td><strong>Versioning</strong></td><td><code>/v1/</code>, <code>/v2/</code> in URL</td><td>Server advertises capability versions in the handshake</td></tr>
+      <tr><td><strong>Streaming</strong></td><td>SSE, WebSockets — depends on endpoint</td><td>Streamable HTTP can use SSE for server-to-client streaming and notifications</td></tr>
+      <tr><td><strong>Integration cost per client</strong></td><td>Linear — every new client writes its own glue</td><td>~Zero — every MCP-aware tool gets it for free once the server exists</td></tr>
+      <tr><td><strong>Best for</strong></td><td>Stable contracts between systems written by humans</td><td>Surfacing capabilities to AI tools / agents</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout">
+    <strong>Mental model:</strong> REST is "an API for code." MCP is "an API for LLMs." You can absolutely <em>wrap</em> an existing REST API in an MCP server — and that is exactly what most production MCPs do (the Jira MCP, GitHub MCP, Linear MCP are all thin wrappers over their respective REST/GraphQL APIs, repackaged with LLM-friendly descriptions and schemas).
+  </div>
+
+  <h3>What MCP adds that REST does not</h3>
+  <ul>
+    <li><strong>Self-describing tools.</strong> The LLM asks "what can you do?" and gets back tool names, descriptions, and argument schemas it can validate against. No human reads OpenAPI first.</li>
+    <li><strong>One integration → every AI client.</strong> Build the Jira MCP once; Claude Desktop, Claude Code, Cursor, Codex, Windsurf all use it.</li>
+    <li><strong>Resources are LLM-aware.</strong> A resource is a "thing the LLM can pull into context" — not just "data returned from a call." The protocol distinguishes that.</li>
+    <li><strong>Prompts as a first-class primitive.</strong> The server can ship reusable prompt templates (e.g. <code>/review-pr</code>) — REST has no analog.</li>
+    <li><strong>Session and notifications.</strong> Server can push updates (e.g. "this resource changed, refresh"). REST needs WebSockets or polling for that.</li>
+  </ul>
+
+  <h3>Three primitives an MCP server can expose</h3>
+  <ul>
+    <li><strong>Tools</strong> — functions the LLM can call (write actions, queries).</li>
+    <li><strong>Resources</strong> — file-like read-only data the client can fetch.</li>
+    <li><strong>Prompts</strong> — pre-written templates users can invoke.</li>
+  </ul>
+
+  <h3>Transport</h3>
+  <ul>
+    <li><strong>stdio</strong> — local subprocess. Used for desktop apps (Claude Desktop, Cursor, Claude Code locally).</li>
+    <li><strong>Streamable HTTP</strong> — remote, scalable. For cloud-deployed servers, multi-tenant. It replaced the older standalone HTTP+SSE transport; SSE may still appear inside Streamable HTTP for server-to-client streaming.</li>
+    <li>Wire format: <strong>JSON-RPC 2.0</strong> over either transport.</li>
+  </ul>
+
+  <h3>Minimal TypeScript MCP server (sketch)</h3>
+<pre><code>import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
+import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
+import { z } from "zod";
+
+const server = new McpServer({ name: "weather", version: "1.0.0" });
+
+server.tool(
+  "get_forecast",
+  { city: z.string() },
+  async ({ city }) => ({
+    content: [{ type: "text", text: `Sunny in ${city}, 22°C` }]
+  })
+);
+
+await server.connect(new StdioServerTransport());
+</code></pre>
+
+  <h3>SDKs available</h3>
+  <ul>
+    <li><strong>Python</strong> — <code>mcp</code> (official). Most popular.</li>
+    <li><strong>TypeScript</strong> — <code>@modelcontextprotocol/sdk</code>.</li>
+    <li><strong>C#</strong> — official Microsoft SDK (good news for you given your background).</li>
+    <li>Java, Go, Rust — community.</li>
+  </ul>
+
+  <h3>When to build one</h3>
+  <ul>
+    <li>You have an internal system (Jira, internal DB, monorepo CLI) that you want every AI tool (Claude Code, Cursor, Codex) to access uniformly.</li>
+    <li>You want auth, rate-limiting, audit-logging on tool calls in one place.</li>
+    <li>Compare to: plain function-calling — works, but every client needs its own integration.</li>
+  </ul>
+</section>
+
+<!-- =================== RAG =================== -->
+<section id="rag">
+  <h2><span class="num">10</span> RAG — Retrieval Augmented Generation</h2>
+  <p>"Pre-pend relevant context to the prompt." The naive version fails 40% of the time at retrieval — the 2026 stack is hybrid + reranked + sometimes graph.</p>
+
+  <figure class="diagram">
+    <svg viewBox="0 0 680 290" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="RAG pipeline">
+      <text x="340" y="22" text-anchor="middle" class="svg-label" font-weight="600" font-size="14">Hybrid + Rerank RAG pipeline</text>
+
+      <!-- Query -->
+      <rect x="20" y="120" width="80" height="50" rx="6" fill="#1d242e" stroke="#82b8ff"/>
+      <text x="60" y="142" text-anchor="middle" class="svg-label">Query</text>
+      <text x="60" y="158" text-anchor="middle" class="svg-mute">user q</text>
+
+      <line x1="100" y1="145" x2="135" y2="145" stroke="#82b8ff" stroke-width="1.5" marker-end="url(#arrR5)"/>
+
+      <!-- Parallel search -->
+      <rect x="135" y="70" width="130" height="50" rx="6" fill="#161e2a" stroke="#7cf0c1"/>
+      <text x="200" y="92" text-anchor="middle" class="svg-label">Vector search</text>
+      <text x="200" y="108" text-anchor="middle" class="svg-mute">dense embeddings</text>
+
+      <rect x="135" y="165" width="130" height="50" rx="6" fill="#161e2a" stroke="#7cf0c1"/>
+      <text x="200" y="187" text-anchor="middle" class="svg-label">BM25 keyword</text>
+      <text x="200" y="203" text-anchor="middle" class="svg-mute">sparse / lexical</text>
+
+      <!-- branching lines -->
+      <line x1="115" y1="135" x2="135" y2="95" stroke="#7cf0c1" stroke-width="1.2"/>
+      <line x1="115" y1="155" x2="135" y2="190" stroke="#7cf0c1" stroke-width="1.2"/>
+
+      <!-- Fusion -->
+      <rect x="285" y="120" width="100" height="50" rx="6" fill="#1d242e" stroke="#ffb86b"/>
+      <text x="335" y="142" text-anchor="middle" class="svg-label" font-weight="600">RRF fusion</text>
+      <text x="335" y="158" text-anchor="middle" class="svg-mute">top-50</text>
+
+      <line x1="265" y1="95" x2="285" y2="135" stroke="#ffb86b" stroke-width="1.2"/>
+      <line x1="265" y1="190" x2="285" y2="155" stroke="#ffb86b" stroke-width="1.2"/>
+
+      <line x1="385" y1="145" x2="415" y2="145" stroke="#ffb86b" stroke-width="1.5" marker-end="url(#arrR6)"/>
+
+      <!-- Reranker -->
+      <rect x="415" y="120" width="110" height="50" rx="6" fill="#1d242e" stroke="#ff6b8b" stroke-width="1.5"/>
+      <text x="470" y="142" text-anchor="middle" class="svg-label" fill="#ff6b8b" font-weight="600">Reranker</text>
+      <text x="470" y="158" text-anchor="middle" class="svg-mute">cross-encoder · top-5</text>
+
+      <line x1="525" y1="145" x2="555" y2="145" stroke="#ff6b8b" stroke-width="1.5" marker-end="url(#arrR7)"/>
+
+      <!-- LLM -->
+      <rect x="555" y="120" width="100" height="50" rx="6" fill="#1d242e" stroke="#82b8ff"/>
+      <text x="605" y="142" text-anchor="middle" class="svg-label">LLM</text>
+      <text x="605" y="158" text-anchor="middle" class="svg-mute">+ cite sources</text>
+
+      <!-- Stage labels -->
+      <text x="200" y="245" text-anchor="middle" class="svg-mute" font-size="11">parallel retrieve</text>
+      <text x="335" y="245" text-anchor="middle" class="svg-mute" font-size="11">merge ranks</text>
+      <text x="470" y="245" text-anchor="middle" class="svg-mute" font-size="11">+25–40% precision</text>
+      <text x="605" y="245" text-anchor="middle" class="svg-mute" font-size="11">grounded answer</text>
+
+      <!-- Bottom annotation -->
+      <text x="340" y="275" text-anchor="middle" class="svg-warn" font-size="12">Skipping the reranker is the most common mistake — it is the single highest-ROI step.</text>
+
+      <defs>
+        <marker id="arrR5" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L9,5 L0,10 Z" fill="#82b8ff"/></marker>
+        <marker id="arrR6" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L9,5 L0,10 Z" fill="#ffb86b"/></marker>
+        <marker id="arrR7" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L9,5 L0,10 Z" fill="#ff6b8b"/></marker>
+      </defs>
+    </svg>
+    <figcaption>Hybrid (vector + BM25) catches both semantic and exact-keyword matches. RRF merges. A cross-encoder reranker then deeply re-scores the top-50 against the query — the single biggest quality win.</figcaption>
+  </figure>
+
+  <h3>The modern stack</h3>
+  <ol>
+    <li><strong>Chunking</strong> — semantic / sliding-window chunks (300–800 tokens). Track parent doc.</li>
+    <li><strong>Embedding</strong> — dense vectors (OpenAI <code>text-embedding-3-large</code>, Cohere, BGE, Voyage).</li>
+    <li><strong>Hybrid retrieval</strong> — BM25 keyword + vector similarity in parallel, fused with <strong>Reciprocal Rank Fusion (RRF)</strong>. <em>The single biggest quality win</em> over naive.</li>
+    <li><strong>Reranking</strong> — top-50 → cross-encoder reranker (Cohere Rerank, BGE-reranker) → top-5. Highest-ROI step. +25–40% precision.</li>
+    <li><strong>Generation</strong> — pass top-K + query to LLM. Cite sources.</li>
+    <li><strong>Eval</strong> — RAGAS metrics (faithfulness, context precision, answer relevance).</li>
+  </ol>
+
+  <h3>When RAG vs alternatives</h3>
+  <ul>
+    <li><strong>RAG</strong> — knowledge changes often, large corpus, need citations.</li>
+    <li><strong>Long context</strong> (Gemini 1M, etc.) — small enough corpus to fit; cost permits.</li>
+    <li><strong>Fine-tuning</strong> — style/format, not facts. Don't use fine-tuning for fresh data.</li>
+    <li><strong>GraphRAG</strong> — multi-hop questions over a structured domain.</li>
+  </ul>
+
+  <div class="callout">
+    <strong>Bumper sticker:</strong> "In 2026, retrieval is the bottleneck, not generation. Hybrid + rerank is the default." Don't reach for fancier (HyDE, multi-query, agentic RAG) until you've measured RAGAS scores and proved you need it.
+  </div>
+</section>
+
+<!-- =================== DAG =================== -->
+<section id="dag">
+  <h2><span class="num">11</span> DAG — Directed Acyclic Graph</h2>
+  <p>A graph of nodes + directed edges with <strong>no cycles</strong>. In AI agent land, nodes are LLM calls / tools / retrievers / branches; edges are dependencies. No cycles = execution always terminates.</p>
+
+  <figure class="diagram">
+    <svg viewBox="0 0 620 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="DAG example">
+      <text x="310" y="22" text-anchor="middle" class="svg-label" font-weight="600" font-size="14">Sample task DAG — "build a feature" agent run</text>
+
+      <!-- Level 0 -->
+      <g>
+        <circle cx="310" cy="60" r="28" fill="#1d242e" stroke="#82b8ff" stroke-width="2"/>
+        <text x="310" y="58" text-anchor="middle" class="svg-label" font-size="11" font-weight="700">A</text>
+        <text x="310" y="72" text-anchor="middle" class="svg-mute" font-size="9">read spec</text>
+      </g>
+
+      <!-- Level 1 -->
+      <g>
+        <circle cx="160" cy="150" r="28" fill="#1d242e" stroke="#7cf0c1" stroke-width="2"/>
+        <text x="160" y="148" text-anchor="middle" class="svg-label" font-size="11" font-weight="700">B</text>
+        <text x="160" y="162" text-anchor="middle" class="svg-mute" font-size="9">scaffold API</text>
+      </g>
+      <g>
+        <circle cx="310" cy="150" r="28" fill="#1d242e" stroke="#7cf0c1" stroke-width="2"/>
+        <text x="310" y="148" text-anchor="middle" class="svg-label" font-size="11" font-weight="700">C</text>
+        <text x="310" y="162" text-anchor="middle" class="svg-mute" font-size="9">scaffold UI</text>
+      </g>
+      <g>
+        <circle cx="460" cy="150" r="28" fill="#1d242e" stroke="#7cf0c1" stroke-width="2"/>
+        <text x="460" y="148" text-anchor="middle" class="svg-label" font-size="11" font-weight="700">D</text>
+        <text x="460" y="162" text-anchor="middle" class="svg-mute" font-size="9">migration</text>
+      </g>
+
+      <!-- Level 2 -->
+      <g>
+        <circle cx="230" cy="240" r="28" fill="#1d242e" stroke="#ffb86b" stroke-width="2"/>
+        <text x="230" y="238" text-anchor="middle" class="svg-label" font-size="11" font-weight="700">E</text>
+        <text x="230" y="252" text-anchor="middle" class="svg-mute" font-size="9">tests API</text>
+      </g>
+      <g>
+        <circle cx="390" cy="240" r="28" fill="#1d242e" stroke="#ffb86b" stroke-width="2"/>
+        <text x="390" y="238" text-anchor="middle" class="svg-label" font-size="11" font-weight="700">F</text>
+        <text x="390" y="252" text-anchor="middle" class="svg-mute" font-size="9">wire UI→API</text>
+      </g>
+
+      <!-- Level 3 -->
+      <g>
+        <circle cx="310" cy="295" r="22" fill="#1d242e" stroke="#ff6b8b" stroke-width="2"/>
+        <text x="310" y="299" text-anchor="middle" class="svg-label" font-size="10" font-weight="700">G ship</text>
+      </g>
+
+      <!-- Edges -->
+      <line x1="296" y1="84" x2="178" y2="129" stroke="#3a4555" stroke-width="1.5" marker-end="url(#arrG)"/>
+      <line x1="310" y1="88" x2="310" y2="122" stroke="#3a4555" stroke-width="1.5" marker-end="url(#arrG)"/>
+      <line x1="324" y1="84" x2="442" y2="129" stroke="#3a4555" stroke-width="1.5" marker-end="url(#arrG)"/>
+
+      <line x1="178" y1="174" x2="218" y2="216" stroke="#3a4555" stroke-width="1.5" marker-end="url(#arrG)"/>
+      <line x1="310" y1="178" x2="240" y2="218" stroke="#3a4555" stroke-width="1.5" marker-end="url(#arrG)"/>
+      <line x1="310" y1="178" x2="378" y2="218" stroke="#3a4555" stroke-width="1.5" marker-end="url(#arrG)"/>
+      <line x1="446" y1="174" x2="402" y2="216" stroke="#3a4555" stroke-width="1.5" marker-end="url(#arrG)"/>
+
+      <line x1="240" y1="265" x2="298" y2="285" stroke="#3a4555" stroke-width="1.5" marker-end="url(#arrG)"/>
+      <line x1="380" y1="265" x2="322" y2="285" stroke="#3a4555" stroke-width="1.5" marker-end="url(#arrG)"/>
+
+      <!-- Side annotation -->
+      <g transform="translate(530, 60)">
+        <text x="0" y="0" class="svg-mute" font-size="11">parallel:</text>
+        <text x="0" y="14" class="svg-accent" font-size="11">B, C, D</text>
+        <text x="0" y="40" class="svg-mute" font-size="11">parallel:</text>
+        <text x="0" y="54" class="svg-warn" font-size="11">E, F</text>
+        <text x="0" y="80" class="svg-mute" font-size="11">no cycles</text>
+        <text x="0" y="94" class="svg-mute" font-size="11">→ terminates</text>
+      </g>
+
+      <defs>
+        <marker id="arrG" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+          <path d="M0,0 L9,5 L0,10 Z" fill="#5a6678"/>
+        </marker>
+      </defs>
+    </svg>
+    <figcaption>A real agent task graph. B, C, D can run in parallel as soon as A completes. E only needs B; F needs B and C. The scheduler walks the graph topologically — fails in one node don't block its siblings.</figcaption>
+  </figure>
+
+  <h3>Why DAGs for agents</h3>
+  <ul>
+    <li>Explicit data flow — easy to reason about, log, replay.</li>
+    <li>Parallel execution where edges allow.</li>
+    <li>Deterministic scheduling, retries per node, partial failure recovery.</li>
+    <li>Easy observability — every node is a checkpoint.</li>
+  </ul>
+
+  <h3>Frameworks</h3>
+  <ul>
+    <li><strong>LangGraph</strong> — DAG-based agent orchestration in the LangChain ecosystem. State + nodes + edges. The reference.</li>
+    <li><strong>LlamaIndex Workflows</strong> — similar pattern, event-driven.</li>
+    <li><strong>Haystack</strong> (deepset) — pipeline DAGs.</li>
+    <li><strong>Inngest / Temporal / Prefect / Airflow</strong> — general-purpose DAG schedulers being adopted for AI.</li>
+  </ul>
+
+  <h3>2026 nuance</h3>
+  <p>Pure DAGs are restrictive — real agents often want <em>conditional cycles</em> (re-plan, retry). LangGraph supports cycles but encourages bounding them with iteration limits. The pattern is <strong>"DAG with controlled loops"</strong> rather than free-form recurrence.</p>
+
+  <p>Adaptive multi-agent systems can now <strong>restructure their DAGs at runtime</strong> based on intermediate results — this is a hot research area.</p>
+</section>
+
+<!-- =================== PROMPTS =================== -->
+<section id="prompts">
+  <h2><span class="num">12</span> Prompt Versioning</h2>
+  <p>Treat prompts as <strong>versioned production artifacts</strong>, same as code. PromptOps is the missing DevOps layer of AI.</p>
+
+  <h3>What a versioning tool gives you</h3>
+  <ul>
+    <li>Immutable versions with diffs and change history.</li>
+    <li>Tags / release labels (<code>prod</code>, <code>staging</code>, <code>v3.2.1</code>).</li>
+    <li>Decoupling deploy from code release — edit prompt without redeploying app.</li>
+    <li>Non-engineer access (PMs editing copy).</li>
+    <li>Automated eval triggered on new version.</li>
+    <li>Rollback.</li>
+  </ul>
+
+  <h3>Tools</h3>
+  <table>
+    <thead><tr><th>Tool</th><th>Strength</th><th>Best for</th></tr></thead>
+    <tbody>
+      <tr><td><strong>LangSmith</strong></td><td>Tight LangChain/LangGraph integration, tracing, evals</td><td>Teams already on LangChain</td></tr>
+      <tr><td><strong>PromptLayer</strong></td><td>No-code UI, non-engineer friendly, release labels</td><td>PMs editing prompts independently</td></tr>
+      <tr><td><strong>Braintrust</strong></td><td>Eval-first, datasets + experiments + prompts together</td><td>Eval-heavy workflows</td></tr>
+      <tr><td><strong>Maxim AI / Helicone / Langfuse</strong></td><td>Open-source / self-hostable options</td><td>Data-sensitive enterprises</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Without a tool — minimum bar</h3>
+  <ul>
+    <li>Prompts in git, not in inline string literals.</li>
+    <li>Version field embedded in the prompt (<code>v1.4.2</code>) logged with every request.</li>
+    <li>Eval suite runs on prompt PRs (CI gate).</li>
+    <li>Production traces tagged with prompt version → you can correlate quality drops to specific versions.</li>
+  </ul>
+</section>
+
+<!-- =================== CONTEXT7 =================== -->
+<section id="context7">
+  <h2><span class="num">13</span> What is Context7?</h2>
+  <p><strong>Context7</strong> is an MCP server (built by <strong>Upstash</strong>) that serves <em>up-to-date, version-specific library documentation</em> into your AI coding tools — Cursor, Claude Code, Windsurf, OpenCode, anything that speaks MCP.</p>
+
+  <h3>The problem it solves</h3>
+  <p>LLMs hallucinate APIs because their training cutoff lags real library releases. Context7 fetches fresh docs at query time so the model sees the <em>actual</em> current API rather than reciting a 2-year-old version from memory.</p>
+
+  <h3>How it works</h3>
+  <ul>
+    <li>Two tools exposed via MCP:
+      <ul>
+        <li><code>resolve-library-id</code> — map "react query" to a Context7 ID.</li>
+        <li><code>query-docs</code> / <code>get-library-docs</code> — fetch version-specific docs by ID + query. The visible name depends on the client/package wrapper.</li>
+      </ul>
+    </li>
+    <li>Free tier, MIT-licensed server, optional API key for higher rate limits.</li>
+    <li>Hosted at <code>context7.com</code>.</li>
+  </ul>
+
+  <h3>Why Upstash?</h3>
+  <p>Upstash is a serverless-Redis / messaging company. They built Context7 as a developer-tool play and run it on their own infra — that's why they can offer a free tier sustainably.</p>
+
+  <div class="callout">
+    <strong>Use case:</strong> Any time you ask Claude/Cursor to use a library and it generates calls to a function that doesn't exist or moved — that's Context7's pitch. Add <code>"use context7"</code> in your prompt and the tool will pull current docs.
+  </div>
+</section>
+
+<!-- =================== SDD =================== -->
+<section id="sdd">
+  <h2><span class="num">14</span> Spec-Driven Development (SDD)</h2>
+  <p>"Inversion of the power structure: specifications no longer serve code — code serves specifications." Specs become executable artifacts that gate AI codegen.</p>
+
+  <h3>The four (sometimes five) phases</h3>
+  <ol>
+    <li><strong>Constitution</strong> — persistent project principles: tech stack, coding standards, security rules. Immutable context for every AI run.</li>
+    <li><strong>Specification</strong> — unambiguous user stories, acceptance criteria, constraints. <em>Intent only — no implementation.</em></li>
+    <li><strong>(Clarification)</strong> — structured pass to surface unspecified edge cases. Q&A logged back into the spec.</li>
+    <li><strong>Architecture / Plan</strong> — human-in-the-loop technical plan. Tech choices, module boundaries, data model. You review and sign off.</li>
+    <li><strong>Tasks</strong> — break the plan into discrete, AI-executable tasks. Modeled as a <strong>DAG</strong> (Task Graph): dependencies explicit, parallelism where possible.</li>
+    <li><strong>Implementation</strong> — AI agent walks the task DAG, generates code, runs tests, marks tasks complete.</li>
+  </ol>
+
+  <h3>Why the Task Graph is a DAG</h3>
+  <ul>
+    <li>Tasks have dependencies (B needs A's schema, C and D can run in parallel).</li>
+    <li>No cycles means the agent can <em>schedule</em> work — execute leaves first, work up.</li>
+    <li>Failure isolates to a subtree. You can re-run one task without losing the others.</li>
+    <li>This is exactly how build systems (Bazel, Nx) have always worked — SDD borrows the pattern.</li>
+  </ul>
+
+  <h3>Tools (2026)</h3>
+  <ul>
+    <li><strong>GitHub Spec Kit</strong> — open-source toolkit, the reference implementation. Has <code>/specify</code>, <code>/plan</code>, <code>/tasks</code> commands.</li>
+    <li><strong>Kiro</strong> (AWS) — GA Nov 2025. VS Code fork with deep SDD integration.</li>
+    <li><strong>Tessl</strong> — spec-as-the-source-of-truth approach.</li>
+    <li>Claude Code, Cursor — increasingly bake in spec-driven workflows.</li>
+  </ul>
+
+  <div class="callout warn">
+    <strong>The essential framing:</strong> "Traditional specs are documents humans read. SDD specs are <em>contracts the AI executes against</em> — they gate codegen, drive task graphs, and survive across model versions. The spec is the durable artifact; the code is a refreshable build product."
+  </div>
+
+  <h3>Where it intersects everything else in this guide</h3>
+  <ul>
+    <li>The <strong>Task Graph is a DAG</strong> (<a href="#dag">§11</a>).</li>
+    <li>Each task often runs through a <strong>research graph</strong> (<a href="#research-graph">§06</a>) — read related code, find prior patterns.</li>
+    <li>Evals (<a href="#evals">§08</a>) become the executable acceptance criteria.</li>
+    <li>Prompts driving each phase are <strong>versioned</strong> (<a href="#prompts">§12</a>).</li>
+    <li>The agent uses <strong>MCP</strong> (<a href="#mcp">§09</a>) to talk to git, the build, the test runner.</li>
+    <li><strong>Context7</strong> (<a href="#context7">§13</a>) feeds it the actual library APIs to use.</li>
+  </ul>
+</section>
+
+<!-- =================== QUIZ =================== -->
+<section id="quiz">
+  <h2><span class="num">15</span> Quick Quiz — 29 questions</h2>
+  <p class="small">Pick an answer for each. Hit <em>Grade</em> at the bottom. Explanations appear after grading.</p>
+
+  <div id="quiz-body"></div>
+
+  <div class="quiz-actions">
+    <button class="btn" onclick="grade()">Grade</button>
+    <button class="btn secondary" onclick="reset()">Reset</button>
+    <div id="score"></div>
+  </div>
+</section>
+
+</main>
+</div>
+
+<script>
+/* ============== price-per-1M chart (log scale, side-by-side input/output) ============== */
+(function () {
+  const data = [
+    { name: "DeepSeek V4 Flash", i: 0.14, o: 0.28,  tag: "oss" },
+    { name: "GLM 5.1",          i: 1.40, o: 4.40,  tag: "oss" },
+    { name: "Gemini 3.1 F-Lite",i: 0.25, o: 1.50,  tag: "cheap" },
+    { name: "DeepSeek V4 Pro",  i: 1.74, o: 3.48,  tag: "oss" },
+    { name: "Kimi K2.6",        i: 0.95, o: 4.00,  tag: "oss" },
+    { name: "GPT-5",            i: 1.25, o: 10.00, tag: "mid" },
+    { name: "Claude Haiku 4.5", i: 1.00, o: 5.00,  tag: "cheap" },
+    { name: "Gemini 3 Flash",   i: 0.50, o: 3.00,  tag: "cheap" },
+    { name: "Gemini 3.1 Pro",   i: 2.00, o: 12.00, tag: "mid" },
+    { name: "GPT-5.4",          i: 2.50, o: 15.00, tag: "mid" },
+    { name: "Claude Sonnet 4.6",i: 3.00, o: 15.00, tag: "mid" },
+    { name: "Claude Opus 4.6/4.7", i: 5.00, o: 25.00, tag: "premium" },
+    { name: "GPT-5.5",          i: 5.00, o: 30.00, tag: "premium" }
+  ].sort((a,b) => a.i - b.i);
+
+  const c = document.getElementById('priceChart');
+  if (!c) return;
+  const ctx = c.getContext('2d');
+  const W = c.width, H = c.height;
+  const padL = 130, padR = 20, padT = 18, padB = 28;
+  const innerW = W - padL - padR;
+  const innerH = H - padT - padB;
+  const minV = 0.1, maxV = 35;
+  const xOf = v => padL + (Math.log10(v) - Math.log10(minV)) / (Math.log10(maxV) - Math.log10(minV)) * innerW;
+  const rowH = innerH / data.length;
+  const barH = rowH * 0.35;
+
+  ctx.clearRect(0,0,W,H);
+  // gridlines + axis labels
+  ctx.font = '11px -apple-system, sans-serif';
+  ctx.fillStyle = '#8a94a3';
+  ctx.strokeStyle = '#222a35';
+  ctx.lineWidth = 1;
+  [0.1, 0.3, 1, 3, 10, 30].forEach(t => {
+    const x = xOf(t);
+    ctx.beginPath();
+    ctx.moveTo(x, padT);
+    ctx.lineTo(x, H - padB);
+    ctx.stroke();
+    ctx.fillText('$' + t, x - 8, H - 10);
+  });
+
+  const bars = [];
+  data.forEach((d, i) => {
+    const y = padT + i * rowH + rowH / 2;
+    // label
+    ctx.fillStyle = '#e6ebf2';
+    ctx.font = '11.5px -apple-system, sans-serif';
+    ctx.textAlign = 'right';
+    ctx.fillText(d.name, padL - 8, y + 4);
+    ctx.textAlign = 'left';
+
+    // input bar
+    const xi0 = xOf(minV);
+    const xi1 = xOf(d.i);
+    ctx.fillStyle = '#7cf0c1';
+    ctx.fillRect(xi0, y - barH - 1, xi1 - xi0, barH);
+    bars.push({ x:xi0, y:y - barH - 1, w:xi1-xi0, h:barH, label:`${d.name} input · $${d.i}/1M` });
+
+    // output bar
+    const xo1 = xOf(d.o);
+    ctx.fillStyle = '#ffb86b';
+    ctx.fillRect(xi0, y + 1, xo1 - xi0, barH);
+    bars.push({ x:xi0, y:y + 1, w:xo1-xi0, h:barH, label:`${d.name} output · $${d.o}/1M` });
+  });
+
+  const tip = document.getElementById('priceTip');
+  c.addEventListener('mousemove', e => {
+    const rect = c.getBoundingClientRect();
+    const sx = c.width / rect.width;
+    const sy = c.height / rect.height;
+    const x = (e.clientX - rect.left) * sx;
+    const y = (e.clientY - rect.top) * sy;
+    const hit = bars.find(b => x>=b.x && x<=b.x+b.w && y>=b.y && y<=b.y+b.h);
+    if (hit) {
+      tip.textContent = hit.label;
+      tip.style.left = (e.clientX - rect.left) + 'px';
+      tip.style.top = (e.clientY - rect.top - 8) + 'px';
+      tip.style.opacity = 1;
+    } else {
+      tip.style.opacity = 0;
+    }
+  });
+  c.addEventListener('mouseleave', () => tip.style.opacity = 0);
+})();
+
+/* ============== per-turn cost chart ============== */
+(function () {
+  const data = [
+    { name: "DeepSeek V4 Flash",  cost: 0.00168, tier: "cheap" },
+    { name: "Gemini 3.1 F-Lite", cost: 0.004,   tier: "cheap" },
+    { name: "Gemini 3 Flash",     cost: 0.008,   tier: "cheap" },
+    { name: "Claude Haiku 4.5",  cost: 0.015,  tier: "cheap" },
+    { name: "Claude Sonnet 4.6", cost: 0.045,  tier: "mid" },
+    { name: "Claude Opus 4.6/4.7", cost: 0.075, tier: "premium" },
+    { name: "GPT-5.5",           cost: 0.080,  tier: "mid" },
+    { name: "GPT-5.5 Pro",       cost: 0.480,  tier: "premium" }
+  ].sort((a,b) => a.cost - b.cost);
+
+  const colors = { cheap: '#7cf0c1', mid: '#ffb86b', premium: '#ff6b8b' };
+
+  const c = document.getElementById('turnChart');
+  if (!c) return;
+  const ctx = c.getContext('2d');
+  const W = c.width, H = c.height;
+  const padL = 150, padR = 110, padT = 20, padB = 28;
+  const innerW = W - padL - padR;
+  const innerH = H - padT - padB;
+  const minV = 0.001, maxV = 0.6;
+  const xOf = v => padL + (Math.log10(v) - Math.log10(minV)) / (Math.log10(maxV) - Math.log10(minV)) * innerW;
+  const rowH = innerH / data.length;
+  const barH = rowH * 0.55;
+
+  ctx.clearRect(0,0,W,H);
+  ctx.font = '11px -apple-system, sans-serif';
+  ctx.fillStyle = '#8a94a3';
+  ctx.strokeStyle = '#222a35';
+  ctx.lineWidth = 1;
+  [0.001, 0.003, 0.01, 0.03, 0.1, 0.3].forEach(t => {
+    const x = xOf(t);
+    ctx.beginPath();
+    ctx.moveTo(x, padT);
+    ctx.lineTo(x, H - padB);
+    ctx.stroke();
+    ctx.fillText('$' + t.toFixed(t<0.01?4:3), x - 14, H - 10);
+  });
+  ctx.fillText('per turn ($)', padL + innerW/2 - 30, H - 0);
+
+  const bars = [];
+  data.forEach((d, i) => {
+    const y = padT + i * rowH + rowH/2 - barH/2;
+    ctx.fillStyle = '#e6ebf2';
+    ctx.font = '12px -apple-system, sans-serif';
+    ctx.textAlign = 'right';
+    ctx.fillText(d.name, padL - 10, y + barH/2 + 4);
+    ctx.textAlign = 'left';
+
+    const x0 = xOf(minV);
+    const x1 = xOf(d.cost);
+    ctx.fillStyle = colors[d.tier];
+    ctx.fillRect(x0, y, x1 - x0, barH);
+
+    // monthly cost annotation on right
+    const monthly = d.cost * 1_000_000;
+    ctx.fillStyle = '#8a94a3';
+    ctx.font = '11.5px -apple-system, sans-serif';
+    ctx.fillText('$' + Math.round(monthly).toLocaleString() + '/mo', x1 + 8, y + barH/2 + 4);
+
+    bars.push({
+      x:x0, y, w:x1-x0, h:barH,
+      label:`${d.name} · $${d.cost.toFixed(4)}/turn · $${Math.round(monthly).toLocaleString()}/mo @1M turns`
+    });
+  });
+
+  const tip = document.getElementById('turnTip');
+  c.addEventListener('mousemove', e => {
+    const rect = c.getBoundingClientRect();
+    const sx = c.width / rect.width;
+    const sy = c.height / rect.height;
+    const x = (e.clientX - rect.left) * sx;
+    const y = (e.clientY - rect.top) * sy;
+    const hit = bars.find(b => x>=b.x && x<=b.x+b.w && y>=b.y && y<=b.y+b.h);
+    if (hit) {
+      tip.textContent = hit.label;
+      tip.style.left = (e.clientX - rect.left) + 'px';
+      tip.style.top = (e.clientY - rect.top - 8) + 'px';
+      tip.style.opacity = 1;
+    } else {
+      tip.style.opacity = 0;
+    }
+  });
+  c.addEventListener('mouseleave', () => tip.style.opacity = 0);
+})();
+
+const questions = [
+  // ---- Main Concepts ----
+  {
+    q: "Which best describes a 'token' in LLM systems?",
+    opts: [
+      "A single character",
+      "A whole word",
+      "A chunk of ~3–4 characters; the unit the model reads/writes and is billed on",
+      "A 512-bit cryptographic identifier"
+    ],
+    correct: 2,
+    explain: "Tokens are the model's unit of input/output. ~3–4 chars on average in English. Pricing, context windows, and generation all happen one token at a time. The tokenizer that splits text → tokens can change your bill even when the visible text looks similar."
+  },
+  {
+    q: "Which paper introduced the Transformer architecture used by every modern LLM?",
+    opts: [
+      "Deep Residual Learning (ResNet, 2015)",
+      "Attention Is All You Need (2017)",
+      "GPT-3: Language Models are Few-Shot Learners (2020)",
+      "BERT: Pre-training of Deep Bidirectional Transformers (2018)"
+    ],
+    correct: 1,
+    explain: "Vaswani et al., 'Attention Is All You Need' (2017). Replaced RNN/LSTM with parallelizable attention — that made training on internet-scale data feasible."
+  },
+  {
+    q: "What does the attention mechanism do inside a transformer?",
+    opts: [
+      "Compresses the model weights to fit in GPU memory",
+      "Lets each token weight how much every other token in the sequence matters when producing its next representation, via Query/Key/Value vectors",
+      "Caches API responses to reduce cost",
+      "Decides which expert to route a token to in MoE models"
+    ],
+    correct: 1,
+    explain: "Each token produces Q, K, V. The current token's Q is dotted with all other tokens' K → attention scores → weighted sum of V. Naive attention is O(n²) in sequence length — that's why long context is hard."
+  },
+  {
+    q: "Why do reasoning models (Opus 4.6/4.7 Extended Thinking, GPT-5.5 Pro, DeepSeek V4 Pro thinking mode) cost so much more per request than non-reasoning models?",
+    opts: [
+      "They run on more expensive GPUs",
+      "They generate large amounts of internal thinking tokens you pay for but never see as raw reasoning",
+      "They use a separate paid subscription",
+      "They charge by latency, not by token"
+    ],
+    correct: 1,
+    explain: "Reasoning models emit provider-owned internal thinking before the polished answer. Those hidden tokens are usually billed as output and reported in usage counters. Net: 5–30× the output token count vs the same prompt to a non-reasoning model."
+  },
+  {
+    q: "Mixture of Experts (MoE) — what does '~32B active / ~1T total' mean for Kimi K2.6?",
+    opts: [
+      "32 billion users, 1 trillion requests served",
+      "The model has ~1T parameters total, but only ~32B are activated per token via a router network — so inference cost ≈ a 32B dense model",
+      "32B input parameters, 1T output parameters",
+      "It's a typo — MoE models have a single parameter count"
+    ],
+    correct: 1,
+    explain: "MoE = many 'expert' feed-forward blocks per layer + a router that picks 1–2 experts per token. You get the knowledge of a huge model at the inference cost of a small one. Trade-off: you still need RAM for all ~1T. Note: DeepSeek V4 achieves similar efficiency via DSA (Sparse Attention) rather than traditional MoE."
+  },
+  {
+    q: "In an LLM pipeline, what is a 'classifier'?",
+    opts: [
+      "Any LLM that answers in plain text",
+      "A (usually small) model that assigns one of a fixed set of labels to its input — used for intent detection, routing, safety filtering",
+      "The component that ranks search results",
+      "A vector database index"
+    ],
+    correct: 1,
+    explain: "Classifiers output a category, not free text. They're how routers decide: 'is this billing/technical/account?' A fine-tuned small model usually beats a big LLM on a fixed taxonomy — faster, cheaper, often more accurate."
+  },
+  {
+    q: "What does 'routing' refer to in an LLM application?",
+    opts: [
+      "The HTTP path to your API endpoint",
+      "The decision of which model (or tool, or sub-agent) should handle a given request — usually made by a classifier",
+      "Network configuration between regions",
+      "The order in which prompts are versioned"
+    ],
+    correct: 1,
+    explain: "Routing = pick the right downstream component (model, tool, skill, sub-agent) for the request. The classifier deciding 'use Haiku' vs 'escalate to Opus' is a router. Cascade routing is the most common pattern."
+  },
+  {
+    q: "Your team uses Together AI to host Kimi K2.6 plus Anthropic for Sonnet. In this setup what is Together AI?",
+    opts: [
+      "The model lab that trained Kimi K2.6",
+      "A third-party inference platform that hosts other labs' (usually open-weight) models on its own infrastructure",
+      "A cloud-vendor reseller equivalent to Bedrock",
+      "A prompt-versioning tool"
+    ],
+    correct: 1,
+    explain: "Model lab = who trained it (Moonshot AI, Anthropic). First-party provider = the lab serving its own API. Third-party inference platform = Together / Fireworks / DeepInfra / Groq / Replicate / OpenRouter — they host other labs' weights. Different roles."
+  },
+  {
+    q: "Why do enterprises route Claude requests through AWS Bedrock instead of calling api.anthropic.com directly?",
+    opts: [
+      "Bedrock is the only place that supports Claude",
+      "Bedrock inherits the AWS account's IAM, VPC, KMS, audit logging, data residency and procurement contract — so adopting Claude doesn't require re-doing the compliance posture",
+      "Bedrock is significantly cheaper than the direct API",
+      "Bedrock is faster because it runs in CloudFront"
+    ],
+    correct: 1,
+    explain: "The model is rarely the limiting factor — procurement, data residency and IAM are. Bedrock / Vertex / Azure OpenAI inherit the cloud account's compliance boundary, which is why regulated industries default to them despite slightly higher prices and slower model rollout."
+  },
+
+  // ---- Pricing ----
+  {
+    q: "Which Claude model is positioned as the cheapest tier, for high-throughput routing and classification?",
+    opts: ["Opus 4.7", "Sonnet 4.6", "Haiku 4.5", "Claude Mythos Preview"],
+    correct: 2,
+    explain: "Haiku 4.5 sits at $1/$5 per 1M — 5× cheaper than Opus. Use it for routing, classification, drafts."
+  },
+  {
+    q: "GPT-5.5 standard tier costs:",
+    opts: ["$1.25 / $10.00 per 1M", "$2.50 / $15.00 per 1M", "$5.00 / $30.00 per 1M", "$30 / $180 per 1M"],
+    correct: 2,
+    explain: "$5/$30 standard. $30/$180 is GPT-5.5 Pro. $1.25/$10 is base GPT-5. $2.50/$15 is GPT-5.4."
+  },
+  {
+    q: "Which is an open-weight model with state-of-the-art coding performance released April 2026?",
+    opts: ["Claude Sonnet 4.6", "Gemini 3.1 Pro", "Kimi K2.6", "GPT-5.4"],
+    correct: 2,
+    explain: "Kimi K2.6 from Moonshot AI, Modified MIT license, ties GPT-5.5 on some coding benchmarks at ~88% lower cost."
+  },
+  {
+    q: "Prompt caching with Anthropic gives you how much discount on cached input tokens?",
+    opts: ["10%", "50%", "Up to 90%", "Free (100%)"],
+    correct: 2,
+    explain: "Up to 90% off on cached input. Batch processing gives a separate 50% discount on input+output."
+  },
+
+  // ---- Routing patterns ----
+  {
+    q: "The 'cascade' routing pattern works how?",
+    opts: [
+      "Send every request to all models in parallel and vote",
+      "Cheap model answers first; if confidence is low or a hard-classifier flags it, escalate to the more expensive tier (e.g. Haiku → Sonnet → Opus)",
+      "Use the cheapest available model that has tokens left in your monthly quota",
+      "Fine-tune a custom model on every request"
+    ],
+    correct: 1,
+    explain: "Cascade / triage routing. Most production tokens are routine — cheap models answer 70–80% of them. Only the hard residual escalates. Cuts cost dramatically with minimal quality loss."
+  },
+  {
+    q: "Your team needs an internal AI coding assistant but cannot send proprietary source code to OpenAI or Anthropic. Best default architecture?",
+    opts: [
+      "Use GPT-5.5 with extra system-prompt disclaimers",
+      "Self-host or use a managed inference provider for an open-weight model (Kimi K2.6, DeepSeek V4, GLM 5.1)",
+      "Fine-tune a small local model from scratch",
+      "Wait — there are no production-quality open-weight options"
+    ],
+    correct: 1,
+    explain: "Open-weight models (Kimi K2.6, DeepSeek V4 Pro, GLM 5.1) are competitive on coding. Run them via Together / Fireworks / DeepInfra / Groq, self-host on vLLM, or use Bedrock / Vertex with VPC isolation. Data stays in your perimeter."
+  },
+
+  // ---- Model integration ----
+  {
+    q: "In OpenAI's Responses API, where do hidden reasoning tokens show up?",
+    opts: [
+      "As raw chain-of-thought text in the final answer",
+      "In usage metadata, under output token details such as reasoning_tokens; they are billed as output but raw reasoning is not exposed",
+      "Only in server logs, never in the API response",
+      "As input tokens, because reasoning happens before generation"
+    ],
+    correct: 1,
+    explain: "Reasoning tokens are generated tokens. OpenAI exposes the count in the response usage object, but not the raw hidden reasoning text. For tool loops, preserve reasoning items or use previous_response_id so the model can continue correctly."
+  },
+  {
+    q: "What is the correct RAG integration pattern for a normal external vector database?",
+    opts: [
+      "Send raw embedding vectors directly to the chat model in the prompt",
+      "Embed chunks and queries, retrieve matching chunks from the vector DB, then send the selected text + metadata to the model",
+      "Fine-tune the model on every new document before each answer",
+      "Put the vector database credentials in the system prompt"
+    ],
+    correct: 1,
+    explain: "Vectors live in the retrieval layer. The generation model usually receives plain text snippets, source metadata, and citation ids. Hosted file-search tools are the exception: you pass a vector-store id and the provider handles retrieval."
+  },
+  {
+    q: "What is the basic tool-calling loop?",
+    opts: [
+      "The model directly executes your production function",
+      "Declare tool schemas; model returns a tool call and arguments; your app validates/executes; your app returns the tool result with the call id",
+      "Send a REST endpoint URL and let the model discover the OpenAPI spec by itself",
+      "Use embeddings to convert every tool result into a vector"
+    ],
+    correct: 1,
+    explain: "Tool calling is a typed back-and-forth. The model proposes a call; your application owns execution, validation, authorization, retries, and audit logs. Then you return the result in the provider's required tool-result shape."
+  },
+
+  // ---- Memory ----
+  {
+    q: "Which is NOT one of the four standard memory types for an AI agent?",
+    opts: ["Episodic", "Semantic", "Procedural", "Adversarial"],
+    correct: 3,
+    explain: "The four are working/short-term, episodic, semantic, procedural. 'Adversarial' is not a memory type."
+  },
+
+  // ---- Evals ----
+  {
+    q: "What's the key difference between an eval and a benchmark?",
+    opts: [
+      "Evals are public, benchmarks are private",
+      "Benchmarks compare models in isolation; evals measure your app at a specific task",
+      "Evals are for training, benchmarks are for inference",
+      "Benchmarks use humans, evals use LLMs"
+    ],
+    correct: 1,
+    explain: "Benchmarks (MMLU, SWE-bench) compare model capabilities. Evals test your specific application against your specific success criteria — and grow with every production regression."
+  },
+
+  // ---- MCP ----
+  {
+    q: "What are the three primitive types an MCP server can expose?",
+    opts: [
+      "Models, Prompts, Datasets",
+      "Tools, Resources, Prompts",
+      "Functions, Files, Variables",
+      "Endpoints, Schemas, Handlers"
+    ],
+    correct: 1,
+    explain: "Tools (callable functions), Resources (readable file-like data), Prompts (templates). Wire: JSON-RPC 2.0 over stdio or Streamable HTTP."
+  },
+  {
+    q: "Best analogy: REST is to MCP as ___ is to ___?",
+    opts: [
+      "Frontend is to backend",
+      "An API for code is to an API for LLMs",
+      "Synchronous is to asynchronous",
+      "Open source is to closed source"
+    ],
+    correct: 1,
+    explain: "REST exposes capabilities for human-written client code (developer reads docs, hardcodes calls). MCP exposes capabilities for LLM agents that discover and invoke them at runtime. Many production MCP servers are just LLM-friendly wrappers over existing REST APIs."
+  },
+  {
+    q: "A common question to think through: 'we already have function-calling — why bother with MCP?' Best answer:",
+    opts: [
+      "MCP is faster than function-calling",
+      "MCP is a standardized protocol so one server can serve many clients (Claude, Cursor, Codex) with shared auth, rate-limiting, and audit logging in one place",
+      "Function-calling is being deprecated",
+      "MCP is required for prompt caching"
+    ],
+    correct: 1,
+    explain: "Function-calling works — per client. MCP's value is standardization: build the integration once, every MCP-aware client uses it, and you centralize auth/policy/logging instead of duplicating across each AI tool."
+  },
+
+  // ---- RAG ----
+  {
+    q: "What's the highest-ROI single improvement you can make to a naive RAG pipeline?",
+    opts: [
+      "Use a bigger embedding model",
+      "Increase chunk size",
+      "Add hybrid search (BM25 + vector) and a reranker",
+      "Fine-tune the LLM on your corpus"
+    ],
+    correct: 2,
+    explain: "Hybrid retrieval + reranking gives +25–40% precision. Naive RAG fails at retrieval ~40% of the time; this is where the wins are."
+  },
+  {
+    q: "Which is GraphRAG's main advantage over vector RAG?",
+    opts: [
+      "It's cheaper to embed",
+      "It retrieves relationally connected facts, useful for multi-hop questions",
+      "It removes the need for an LLM",
+      "It works without any chunking"
+    ],
+    correct: 1,
+    explain: "Vector RAG retrieves semantically similar chunks. GraphRAG traverses entity/relationship edges — far better for multi-hop questions ('who collaborated with X on Y in 2020–2024')."
+  },
+
+  // ---- DAG ----
+  {
+    q: "Why is the Task Graph in Spec-Driven Development structured as a DAG?",
+    opts: [
+      "Because LLMs require acyclic input",
+      "To make dependencies explicit, enable parallel execution, and allow safe retries of subtrees",
+      "Because cycles violate the GraphRAG specification",
+      "DAG is just a naming convention — it could be any graph"
+    ],
+    correct: 1,
+    explain: "DAGs give explicit dependencies, parallelism on independent branches, deterministic scheduling, per-node retries — exactly what an autonomous agent needs. Same reason Bazel/Nx use DAGs."
+  },
+
+  // ---- Prompts ----
+  {
+    q: "Two prompt versioning tools and what they're each good at:",
+    opts: [
+      "LangSmith for LangChain stacks; PromptLayer for non-engineer no-code prompt editing",
+      "PromptLayer for evals; LangSmith for inference",
+      "Both are identical, pick whichever",
+      "LangSmith is open source; PromptLayer is closed"
+    ],
+    correct: 0,
+    explain: "LangSmith ties tightly into LangChain/LangGraph with tracing + evals. PromptLayer's edge is its no-code UI and release-label system letting PMs edit prompts without engineering involvement."
+  },
+
+  // ---- Context7 ----
+  {
+    q: "What does Context7 do?",
+    opts: [
+      "It's a vector database from Upstash",
+      "It's an MCP server (by Upstash) that fetches up-to-date, version-specific library documentation at query time so the LLM stops hallucinating APIs",
+      "It's a prompt versioning service",
+      "It's an open-source LLM from Moonshot"
+    ],
+    correct: 1,
+    explain: "Context7 exposes resolve-library-id plus a docs-fetch tool (named query-docs or get-library-docs depending on the client/package) via MCP. Add 'use context7' in your prompt and the AI tool pulls current docs instead of reciting a 2-year-old API from memory."
+  },
+
+  // ---- SDD ----
+  {
+    q: "Which best describes the canonical SDD workflow phases?",
+    opts: [
+      "Code → Test → Deploy → Monitor",
+      "Constitution → Specification → Architecture → Tasks → Implementation",
+      "Prompt → Generate → Review → Ship",
+      "Plan → Code → Refactor → Eval"
+    ],
+    correct: 1,
+    explain: "Constitution (principles) → Specification (intent) → optional Clarification → Architecture (human-in-the-loop plan) → Tasks (DAG) → Implementation (AI executes the graph)."
+  }
+];
+
+const body = document.getElementById('quiz-body');
+questions.forEach((qq, i) => {
+  const div = document.createElement('div');
+  div.className = 'q';
+  div.innerHTML = `
+    <div class="qtext">${i+1}. ${qq.q}</div>
+    ${qq.opts.map((o, j) => `
+      <label class="opt" data-i="${i}" data-j="${j}">
+        <input type="radio" name="q${i}" value="${j}">${o}
+      </label>
+    `).join('')}
+    <div class="explain" id="exp-${i}"><strong>Answer: ${qq.opts[qq.correct]}.</strong> ${qq.explain}</div>
+  `;
+  body.appendChild(div);
+});
+
+function grade() {
+  let score = 0;
+  questions.forEach((qq, i) => {
+    const opts = document.querySelectorAll(`label[data-i="${i}"]`);
+    const picked = document.querySelector(`input[name="q${i}"]:checked`);
+    opts.forEach(o => o.classList.remove('correct','wrong'));
+    opts[qq.correct].classList.add('correct');
+    if (picked) {
+      const j = +picked.value;
+      if (j === qq.correct) score++;
+      else opts[j].classList.add('wrong');
+    }
+    document.getElementById(`exp-${i}`).classList.add('show');
+  });
+  const total = questions.length;
+  const pct = Math.round(100*score/total);
+  const el = document.getElementById('score');
+  let mood = pct>=85?'🟢 ready':pct>=65?'🟡 close — reread weak sections':'🔴 more reps needed';
+  el.textContent = `Score: ${score} / ${total} (${pct}%) — ${mood}`;
+  el.style.color = pct>=85?'var(--good)':pct>=65?'var(--accent2)':'var(--bad)';
+}
+function reset() {
+  document.querySelectorAll('input[type=radio]').forEach(r => r.checked = false);
+  document.querySelectorAll('.opt').forEach(o => o.classList.remove('correct','wrong'));
+  document.querySelectorAll('.explain').forEach(e => e.classList.remove('show'));
+  document.getElementById('score').textContent = '';
+}
+</script>
+</body>
+</html>
