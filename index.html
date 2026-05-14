@@ -24,12 +24,11 @@
   }
   nav.side h1{font-size:14px; letter-spacing:.08em; text-transform:uppercase;
     color:var(--accent); margin:0 0 16px}
-  nav.side ol{list-style:none; padding:0; margin:0; counter-reset:n}
-  nav.side li{counter-increment:n; margin:2px 0}
+  nav.side ol{list-style:none; padding:0; margin:0}
+  nav.side li{margin:2px 0}
   nav.side a{display:block; padding:7px 10px; border-radius:6px; color:var(--muted);
     font-size:13.5px; border-left:2px solid transparent}
   nav.side a:hover{background:var(--panel2); color:var(--text)}
-  nav.side a::before{content:counter(n) ". "; color:var(--accent2); font-variant-numeric:tabular-nums}
   nav.side .pill{display:inline-block; font-size:10px; padding:2px 6px; margin-left:6px;
     border-radius:99px; background:var(--pill); color:var(--accent2); text-transform:uppercase}
   main{padding:36px 48px 120px; max-width:980px}
@@ -334,7 +333,7 @@
 
 <main>
 <header class="hero">
-  <span class="badge">Study · 2–3 hour skim</span>
+  <span class="badge">Study · ~4 hour skim · ~6–8 hour deep read</span>
   <h1>AI Study Guide — Cheat Sheet</h1>
   <p class="lead">Everything you need on model economics, agent plumbing, and the SDD / MCP / RAG vocabulary that's essential to master as a software engineer working with AI. Numbers are May 2026 list prices — they will move, the relationships won't.</p>
 </header>
