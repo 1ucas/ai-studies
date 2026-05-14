@@ -17,11 +17,12 @@
     line-height:1.55; font-size:15px;}
   a{color:var(--link); text-decoration:none}
   a:hover{text-decoration:underline}
-  .wrap{display:grid; grid-template-columns:260px 1fr; min-height:100vh;}
+  .wrap{display:grid; grid-template-columns:260px minmax(0,1fr); min-height:100vh;}
   nav.side{
     position:sticky; top:0; align-self:start; height:100vh; overflow-y:auto;
     background:var(--panel); border-right:1px solid var(--line); padding:20px 16px;
   }
+  .mobile-shell,.nav-backdrop,.nav-close{display:none}
   nav.side h1{font-size:14px; letter-spacing:.08em; text-transform:uppercase;
     color:var(--accent); margin:0 0 16px}
   nav.side ol{list-style:none; padding:0; margin:0}
@@ -31,7 +32,7 @@
   nav.side a:hover{background:var(--panel2); color:var(--text)}
   nav.side .pill{display:inline-block; font-size:10px; padding:2px 6px; margin-left:6px;
     border-radius:99px; background:var(--pill); color:var(--accent2); text-transform:uppercase}
-  main{padding:36px 48px 120px; max-width:980px}
+  main{padding:36px 48px 120px; max-width:980px; min-width:0; width:100%}
   header.hero{margin-bottom:32px}
   header.hero h1{font-size:30px; margin:0 0 6px; letter-spacing:-.02em}
   header.hero p.lead{color:var(--muted); margin:0; max-width:64ch}
@@ -50,7 +51,9 @@
   pre{background:var(--panel2); border:1px solid var(--line); border-radius:8px;
     padding:14px 16px; overflow-x:auto; font-size:12.5px; line-height:1.5}
   pre code{background:none; padding:0; color:#dbe2ec}
+  .table-scroll{width:100%; overflow-x:auto; -webkit-overflow-scrolling:touch; margin:12px 0}
   table{border-collapse:collapse; width:100%; margin:12px 0; font-size:13.5px}
+  .table-scroll table{margin:0; min-width:720px}
   th,td{padding:9px 12px; text-align:left; border-bottom:1px solid var(--line); vertical-align:top}
   th{background:var(--panel); color:var(--accent); font-weight:600; font-size:12px; text-transform:uppercase; letter-spacing:.04em}
   tr:hover td{background:var(--panel)}
@@ -89,8 +92,10 @@
   .strike{text-decoration:line-through; color:var(--muted)}
   hr{border:0; border-top:1px solid var(--line); margin:20px 0}
   /* diagrams */
-  figure.diagram{margin:20px 0; padding:18px; background:#0e1217; border:1px solid var(--line); border-radius:10px}
+  figure.diagram{position:relative; margin:20px 0; padding:18px; background:#0e1217; border:1px solid var(--line); border-radius:10px}
   figure.diagram svg{display:block; margin:0 auto; max-width:100%; height:auto}
+  .diagram-scroll{width:100%; overflow-x:auto; -webkit-overflow-scrolling:touch; overscroll-behavior-x:contain}
+  .diagram-scroll > svg,.diagram-scroll > canvas{display:block; margin:0 auto}
   figure.diagram figcaption{font-size:12.5px; color:var(--muted); text-align:center; margin-top:10px; line-height:1.5}
   .legend{display:flex; flex-wrap:wrap; gap:14px; justify-content:center; margin-top:10px; font-size:11.5px; color:var(--muted)}
   .legend .sw{display:inline-block; width:12px; height:12px; border-radius:3px; vertical-align:middle; margin-right:5px}
@@ -104,10 +109,9 @@
   .bar-tooltip{position:absolute; padding:6px 10px; background:#1d242e; border:1px solid var(--line);
     border-radius:6px; font-size:12px; color:var(--text); pointer-events:none; transform:translate(-50%,-100%);
     white-space:nowrap; opacity:0; transition:opacity .15s}
-  @media (max-width:900px){
-    .wrap{grid-template-columns:1fr}
-    nav.side{position:relative; height:auto; border-right:0; border-bottom:1px solid var(--line)}
-    main{padding:24px}
+  @media (max-width:1100px){
+    .wrap{grid-template-columns:230px minmax(0,1fr)}
+    main{padding:28px; max-width:none}
     .grid2{grid-template-columns:1fr}
   }
 
@@ -219,11 +223,119 @@
     border-radius:99px; vertical-align:2px; letter-spacing:.05em; text-transform:uppercase}
   .q .qtext .difficulty.hard{background:rgba(255,107,139,.15); color:#ff8aa6}
   .q .qtext .difficulty.deep{background:rgba(124,240,193,.12); color:var(--accent)}
+
+  @media (max-width:760px){
+    html{scroll-padding-top:74px}
+    html,body{overflow-x:hidden}
+    body.nav-open{overflow:hidden}
+    .mobile-shell{
+      position:fixed; top:0; left:0; right:0; z-index:40;
+      display:grid; grid-template-columns:auto 1fr; grid-template-areas:"button title" "button current";
+      align-items:center; column-gap:10px; min-height:58px;
+      padding:8px 14px calc(8px + env(safe-area-inset-bottom,0px));
+      background:rgba(11,13,16,.94); border-bottom:1px solid var(--line);
+      backdrop-filter:blur(14px);
+    }
+    .mobile-nav-toggle{
+      grid-area:button; display:inline-flex; align-items:center; gap:7px;
+      min-height:40px; padding:0 10px; border:1px solid var(--line); border-radius:8px;
+      background:var(--panel); color:var(--text); font:600 13px -apple-system,BlinkMacSystemFont,"SF Pro Text",system-ui,sans-serif;
+      cursor:pointer;
+    }
+    .mobile-nav-toggle svg{width:18px; height:18px; color:var(--accent)}
+    .mobile-title{grid-area:title; color:var(--text); font-weight:700; font-size:13px; line-height:1.2; text-decoration:none}
+    .mobile-current{grid-area:current; color:var(--muted); font-size:12px; line-height:1.2; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+    .nav-backdrop{
+      display:block; position:fixed; inset:0; z-index:35;
+      background:rgba(0,0,0,.52); opacity:0; visibility:hidden;
+      transition:opacity .18s ease, visibility .18s ease;
+    }
+    body.nav-open .nav-backdrop{opacity:1; visibility:visible}
+    .wrap{display:block; width:100vw; max-width:100vw; min-height:100vh; padding-top:58px; overflow-x:hidden}
+    nav.side{
+      position:fixed; z-index:45; top:0; bottom:0; left:0;
+      width:min(86vw,340px); height:100dvh; padding:18px 14px 28px;
+      border-right:1px solid var(--line); border-bottom:0;
+      transform:translateX(-102%); transition:transform .22s ease;
+      box-shadow:18px 0 40px rgba(0,0,0,.36);
+    }
+    body.nav-open nav.side{transform:translateX(0)}
+    .nav-close{
+      display:flex; position:absolute; top:12px; right:12px;
+      width:36px; height:36px; align-items:center; justify-content:center;
+      border:1px solid var(--line); border-radius:8px; background:var(--panel2); color:var(--text);
+      cursor:pointer;
+    }
+    .nav-close svg{width:17px; height:17px}
+    nav.side h1.brand{padding-right:44px; margin-bottom:16px}
+    .area-toggle{min-height:40px; padding:9px 8px}
+    .area-items{max-height:680px}
+    .area-items a{padding:8px 10px; font-size:14px}
+    main{width:100vw; max-width:100vw; padding:18px 15px 88px; overflow-x:clip}
+    main > *{max-width:100%}
+    header.hero{width:100%; padding:20px 18px; border-radius:10px; margin-bottom:30px}
+    header.hero h1{font-size:25px; line-height:1.15; overflow-wrap:anywhere}
+    header.hero p.lead{font-size:14px; overflow-wrap:break-word}
+    .badge{font-size:10px; line-height:1.4}
+    .area-banner{margin:34px 0 4px; padding:12px 14px; gap:10px}
+    .area-banner svg{width:26px; height:26px}
+    .area-banner .area-name{font-size:19px}
+    .area-banner .area-lead{font-size:13px}
+    section{margin:36px 0; scroll-margin-top:78px}
+    section h2{display:block; font-size:20px; line-height:1.25}
+    section h2 .num{display:inline-block; margin-right:8px}
+    section h3{font-size:15px; margin-top:20px}
+    p,ul,ol{overflow-wrap:anywhere}
+    ul,ol{padding-left:18px}
+    .card,.q,#quiz{padding:14px 15px; border-radius:8px}
+    .tool-grid{grid-template-columns:1fr}
+    .quiz-actions{flex-wrap:wrap}
+    #score{width:100%; font-size:16px}
+    pre{font-size:12px; padding:12px; border-radius:7px}
+    code{white-space:normal}
+    pre code{white-space:pre}
+    .table-scroll{
+      border:1px solid var(--line); border-radius:8px;
+      background:var(--panel); scrollbar-width:thin;
+    }
+    .table-scroll table{min-width:680px}
+    .table-scroll th:first-child,.table-scroll td:first-child{
+      position:sticky; left:0; z-index:1; background:var(--panel);
+      box-shadow:1px 0 0 var(--line);
+    }
+    .table-scroll th:first-child{z-index:2}
+    th,td{padding:8px 10px}
+    figure.diagram{padding:12px; border-radius:8px; margin:16px 0}
+    .diagram-scroll{padding-bottom:6px; scrollbar-width:thin; box-shadow:inset -18px 0 18px -20px rgba(230,235,242,.6)}
+    figure.diagram .diagram-scroll > svg,figure.diagram .diagram-scroll > canvas{
+      width:var(--diagram-width, 680px); max-width:none; height:auto;
+    }
+    .legend{justify-content:flex-start; gap:8px 12px}
+  }
 </style>
 </head>
-<body>
+<body id="top">
+<div class="mobile-shell" aria-label="Mobile topic navigation">
+  <button class="mobile-nav-toggle" type="button" aria-controls="siteNav" aria-expanded="false" data-nav-toggle>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M4 6 h16"/>
+      <path d="M4 12 h16"/>
+      <path d="M4 18 h16"/>
+    </svg>
+    <span>Topics</span>
+  </button>
+  <a class="mobile-title" href="#top">AI Cheat Sheet</a>
+  <span class="mobile-current" id="currentTopic" aria-live="polite">Overview</span>
+</div>
+<div class="nav-backdrop" data-nav-close></div>
 <div class="wrap">
-<nav class="side">
+<nav class="side" id="siteNav" aria-label="Study guide topics">
+  <button class="nav-close" type="button" aria-label="Close topics" data-nav-close>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M18 6 6 18"/>
+      <path d="M6 6 18 18"/>
+    </svg>
+  </button>
   <a href="#top" class="brand-link" onclick="window.scrollTo({top:0,behavior:'smooth'});history.replaceState(null,'',window.location.pathname);return false;" style="text-decoration:none;display:block;cursor:pointer">
     <h1 class="brand" style="cursor:pointer">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--accent)">
@@ -2194,8 +2306,66 @@ await server.connect(new StdioServerTransport());
 </div>
 
 <script>
+/* ============== responsive wrappers ============== */
+(function () {
+  document.querySelectorAll('main table').forEach((table, i) => {
+    if (table.parentElement && table.parentElement.classList.contains('table-scroll')) return;
+    const wrap = document.createElement('div');
+    wrap.className = 'table-scroll';
+    wrap.tabIndex = 0;
+    wrap.setAttribute('role', 'region');
+    const sectionTitle = table.closest('section')?.querySelector('h2')?.textContent?.replace(/\s+/g, ' ').trim();
+    wrap.setAttribute('aria-label', sectionTitle ? `${sectionTitle} table` : `Scrollable table ${i + 1}`);
+    table.parentNode.insertBefore(wrap, table);
+    wrap.appendChild(table);
+  });
+
+  document.querySelectorAll('figure.diagram > svg, figure.diagram > canvas').forEach((media, i) => {
+    if (media.parentElement && media.parentElement.classList.contains('diagram-scroll')) return;
+    const wrap = document.createElement('div');
+    wrap.className = 'diagram-scroll';
+    wrap.tabIndex = 0;
+    wrap.setAttribute('role', 'region');
+    const label = media.getAttribute('aria-label') || media.getAttribute('id') || `diagram ${i + 1}`;
+    wrap.setAttribute('aria-label', `Scrollable ${label}`);
+
+    let width = 680;
+    if (media.tagName.toLowerCase() === 'canvas') width = media.width || width;
+    if (media.tagName.toLowerCase() === 'svg') {
+      const vb = media.viewBox && media.viewBox.baseVal;
+      if (vb && vb.width) width = vb.width;
+    }
+    wrap.style.setProperty('--diagram-width', `${Math.ceil(width)}px`);
+
+    media.parentNode.insertBefore(wrap, media);
+    wrap.appendChild(media);
+  });
+})();
+
 /* ============== collapsible nav areas ============== */
 (function () {
+  const toggle = document.querySelector('[data-nav-toggle]');
+  const currentTopic = document.getElementById('currentTopic');
+  const mobileQuery = window.matchMedia('(max-width: 760px)');
+
+  function setNav(open) {
+    document.body.classList.toggle('nav-open', open);
+    if (toggle) toggle.setAttribute('aria-expanded', String(open));
+  }
+
+  if (toggle) {
+    toggle.addEventListener('click', () => setNav(!document.body.classList.contains('nav-open')));
+  }
+  document.querySelectorAll('[data-nav-close]').forEach(el => {
+    el.addEventListener('click', () => setNav(false));
+  });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') setNav(false);
+  });
+  mobileQuery.addEventListener?.('change', e => {
+    if (!e.matches) setNav(false);
+  });
+
   document.querySelectorAll('.area-toggle').forEach(btn => {
     btn.addEventListener('click', () => {
       const open = btn.getAttribute('aria-expanded') === 'true';
@@ -2210,17 +2380,28 @@ await server.connect(new StdioServerTransport());
     const id = a.getAttribute('href').slice(1);
     const el = document.getElementById(id);
     if (el) map.set(el, a);
+    a.addEventListener('click', () => {
+      if (mobileQuery.matches) setNav(false);
+    });
   });
+  function setCurrent(a) {
+    if (!a || !currentTopic) return;
+    currentTopic.textContent = a.textContent.replace(/\s+/g, ' ').trim();
+  }
   const obs = new IntersectionObserver(entries => {
     entries.forEach(e => {
       if (e.isIntersecting) {
         links.forEach(a => a.classList.remove('active'));
         const a = map.get(e.target);
-        if (a) a.classList.add('active');
+        if (a) {
+          a.classList.add('active');
+          setCurrent(a);
+        }
       }
     });
   }, { rootMargin: '-40% 0px -55% 0px', threshold: 0 });
   map.forEach((_, el) => obs.observe(el));
+  setCurrent(links[0]);
 })();
 
 /* ============== sortable pricing table ============== */
