@@ -2022,27 +2022,27 @@ await server.connect(new StdioServerTransport());
 
 <!-- =================== RESEARCH GRAPH =================== -->
 <section id="research-graph">
-  <h2><span class="num">09</span> Grafo de Pesquisa (Research Graph)</h2>
-  <p>"Research graph" shows up in two related contexts — make sure you can distinguish them.</p>
+  <h2 data-pt="<span class=&quot;num&quot;>09</span> Grafo de Pesquisa (Research Graph)"><span class="num">09</span> Grafo de Pesquisa (Research Graph)</h2>
+  <p data-pt="&quot;Research graph&quot; aparece em dois contextos relacionados — certifique-se de poder distingui-los.">"Research graph" shows up in two related contexts — make sure you can distinguish them.</p>
 
-  <h3>1. Deep Research agents (the "research graph" as workflow)</h3>
-  <p>An agent that iteratively <strong>plans → searches → reads → synthesizes</strong>, building a graph of sub-questions where each node is a search query/document and edges encode "this finding led to that follow-up." Google's Deep Research, OpenAI Deep Research, and Anthropic's Research feature all follow this pattern.</p>
+  <h3 data-pt="1. Agents de Deep Research (o &quot;research graph&quot; como workflow)">1. Deep Research agents (the "research graph" as workflow)</h3>
+  <p data-pt="Um agent que iterativamente <strong>planeja → busca → lê → sintetiza</strong>, construindo um grafo de sub-questões onde cada nó é uma query de busca/documento e as arestas codificam &quot;essa descoberta levou a esse desdobramento&quot;. O Deep Research do Google, OpenAI Deep Research e o recurso Research da Anthropic seguem esse padrão.">An agent that iteratively <strong>plans → searches → reads → synthesizes</strong>, building a graph of sub-questions where each node is a search query/document and edges encode "this finding led to that follow-up." Google's Deep Research, OpenAI Deep Research, and Anthropic's Research feature all follow this pattern.</p>
   <ul>
-    <li>Long-running (minutes, not seconds).</li>
-    <li>Uses <strong>test-time compute</strong> — many model calls to refine.</li>
-    <li>Connects to web + MCPs + uploaded files.</li>
-    <li>Output is typically a long structured report with citations.</li>
+    <li data-pt="Longa duração (minutos, não segundos).">Long-running (minutes, not seconds).</li>
+    <li data-pt="Usa <strong>test-time compute</strong> — muitas chamadas de modelo para refinar.">Uses <strong>test-time compute</strong> — many model calls to refine.</li>
+    <li data-pt="Conecta à web + MCPs + arquivos carregados.">Connects to web + MCPs + uploaded files.</li>
+    <li data-pt="O output é tipicamente um relatório longo estruturado com citações.">Output is typically a long structured report with citations.</li>
   </ul>
 
-  <h3>2. GraphRAG (the "research graph" as data structure)</h3>
-  <p>Instead of retrieving flat chunks, you build a <strong>knowledge graph</strong> from your corpus (entities + relationships) and retrieve <em>connected subgraphs</em> at query time. Better for multi-hop questions ("which authors collaborated with X on topic Y between 2020-2024?") that flat RAG fails on.</p>
+  <h3 data-pt="2. GraphRAG (o &quot;research graph&quot; como estrutura de dados)">2. GraphRAG (the "research graph" as data structure)</h3>
+  <p data-pt="Em vez de recuperar chunks planos, você constrói um <strong>knowledge graph</strong> do seu corpus (entidades + relacionamentos) e recupera <em>subgrafos conectados</em> no momento da query. Melhor para perguntas multi-hop (&quot;quais autores colaboraram com X no tópico Y entre 2020-2024?&quot;) em que RAG plano falha.">Instead of retrieving flat chunks, you build a <strong>knowledge graph</strong> from your corpus (entities + relationships) and retrieve <em>connected subgraphs</em> at query time. Better for multi-hop questions ("which authors collaborated with X on topic Y between 2020-2024?") that flat RAG fails on.</p>
   <ul>
-    <li>Microsoft <strong>GraphRAG</strong> popularized this in 2024 — by 2026 production-grade.</li>
-    <li><strong>Deep GraphRAG</strong>, <strong>FastInsight</strong> are current research frontier — hierarchical retrieval, semantic-topological reranking.</li>
-    <li>Vector RAG retrieves <em>semantically similar</em> facts; graph RAG retrieves <em>relationally connected</em> facts.</li>
+    <li data-pt="Microsoft <strong>GraphRAG</strong> popularizou isso em 2024 — em 2026 pronto para produção.">Microsoft <strong>GraphRAG</strong> popularized this in 2024 — by 2026 production-grade.</li>
+    <li data-pt="<strong>Deep GraphRAG</strong>, <strong>FastInsight</strong> são a fronteira da pesquisa atual — retrieval hierárquico, reranking semântico-topológico."><strong>Deep GraphRAG</strong>, <strong>FastInsight</strong> are current research frontier — hierarchical retrieval, semantic-topological reranking.</li>
+    <li data-pt="RAG vetorial recupera fatos <em>semanticamente similares</em>; graph RAG recupera fatos <em>relacionalmente conectados</em>.">Vector RAG retrieves <em>semantically similar</em> facts; graph RAG retrieves <em>relationally connected</em> facts.</li>
   </ul>
 
-  <div class="callout">
+  <div class="callout" data-pt="<strong>Se perguntarem &quot;o que é um research graph&quot;:</strong> Comece com o workflow do agent (grafo de busca como trace de pensamento), depois mencione GraphRAG como o contraparte do lado de dados. Bônus: mencione que em ambos os casos o grafo é um <em>DAG</em> no tempo de execução (sem ciclos, dependências fluem para frente).">
     <strong>If asked "what's a research graph":</strong> Lead with the agent workflow (search graph as a thinking trace), then mention GraphRAG as the data-side counterpart. Bonus: mention that in both cases the graph is a <em>DAG</em> at execution time (no cycles, dependencies flow forward).
   </div>
 </section>
@@ -2050,8 +2050,8 @@ await server.connect(new StdioServerTransport());
 
 <!-- =================== DAG =================== -->
 <section id="dag">
-  <h2><span class="num">10</span> DAG — Directed Acyclic Graph</h2>
-  <p>A graph of nodes + directed edges with <strong>no cycles</strong>. In AI agent land, nodes are LLM calls / tools / retrievers / branches; edges are dependencies. No cycles = execution always terminates.</p>
+  <h2 data-pt="<span class=&quot;num&quot;>10</span> DAG — Directed Acyclic Graph"><span class="num">10</span> DAG — Directed Acyclic Graph</h2>
+  <p data-pt="Um grafo de nós + arestas direcionadas <strong>sem ciclos</strong>. No mundo de agents AI, nós são chamadas LLM / tools / retrievers / branches; arestas são dependências. Sem ciclos = execução sempre termina.">A graph of nodes + directed edges with <strong>no cycles</strong>. In AI agent land, nodes are LLM calls / tools / retrievers / branches; edges are dependencies. No cycles = execution always terminates.</p>
 
   <figure class="diagram">
     <svg viewBox="0 0 620 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="DAG example">
@@ -2128,78 +2128,78 @@ await server.connect(new StdioServerTransport());
         </marker>
       </defs>
     </svg>
-    <figcaption>A real agent task graph. B, C, D can run in parallel as soon as A completes. E only needs B; F needs B and C. The scheduler walks the graph topologically — fails in one node don't block its siblings.</figcaption>
+    <figcaption data-pt="Um grafo de task de agent real. B, C, D podem rodar em paralelo assim que A completa. E só precisa de B; F precisa de B e C. O scheduler percorre o grafo topologicamente — falhas em um nó não bloqueiam seus irmãos.">A real agent task graph. B, C, D can run in parallel as soon as A completes. E only needs B; F needs B and C. The scheduler walks the graph topologically — fails in one node don't block its siblings.</figcaption>
   </figure>
 
-  <h3>Why DAGs for agents</h3>
+  <h3 data-pt="Por que DAGs para agents">Why DAGs for agents</h3>
   <ul>
-    <li>Explicit data flow — easy to reason about, log, replay.</li>
-    <li>Parallel execution where edges allow.</li>
-    <li>Deterministic scheduling, retries per node, partial failure recovery.</li>
-    <li>Easy observability — every node is a checkpoint.</li>
+    <li data-pt="Fluxo de dados explícito — fácil de raciocinar, logar, fazer replay.">Explicit data flow — easy to reason about, log, replay.</li>
+    <li data-pt="Execução paralela onde as arestas permitem.">Parallel execution where edges allow.</li>
+    <li data-pt="Scheduling determinístico, retries por nó, recuperação de falha parcial.">Deterministic scheduling, retries per node, partial failure recovery.</li>
+    <li data-pt="Observabilidade fácil — cada nó é um checkpoint.">Easy observability — every node is a checkpoint.</li>
   </ul>
 
-  <h3>Frameworks</h3>
+  <h3 data-pt="Frameworks">Frameworks</h3>
   <ul>
-    <li><strong>LangGraph</strong> — DAG-based agent orchestration in the LangChain ecosystem. State + nodes + edges. The reference.</li>
-    <li><strong>LlamaIndex Workflows</strong> — similar pattern, event-driven.</li>
-    <li><strong>Haystack</strong> (deepset) — pipeline DAGs.</li>
-    <li><strong>Inngest / Temporal / Prefect / Airflow</strong> — general-purpose DAG schedulers being adopted for AI.</li>
+    <li data-pt="<strong>LangGraph</strong> — orquestração de agent baseada em DAG no ecossistema LangChain. Estado + nós + arestas. A referência."><strong>LangGraph</strong> — DAG-based agent orchestration in the LangChain ecosystem. State + nodes + edges. The reference.</li>
+    <li data-pt="<strong>LlamaIndex Workflows</strong> — padrão similar, orientado a eventos."><strong>LlamaIndex Workflows</strong> — similar pattern, event-driven.</li>
+    <li data-pt="<strong>Haystack</strong> (deepset) — pipeline DAGs."><strong>Haystack</strong> (deepset) — pipeline DAGs.</li>
+    <li data-pt="<strong>Inngest / Temporal / Prefect / Airflow</strong> — schedulers DAG de propósito geral sendo adotados para AI."><strong>Inngest / Temporal / Prefect / Airflow</strong> — general-purpose DAG schedulers being adopted for AI.</li>
   </ul>
 
-  <h3>2026 nuance</h3>
-  <p>Pure DAGs are restrictive — real agents often want <em>conditional cycles</em> (re-plan, retry). LangGraph supports cycles but encourages bounding them with iteration limits. The pattern is <strong>"DAG with controlled loops"</strong> rather than free-form recurrence.</p>
+  <h3 data-pt="Nuance de 2026">2026 nuance</h3>
+  <p data-pt="DAGs puros são restritivos — agents reais frequentemente querem <em>ciclos condicionais</em> (re-planejar, fazer retry). LangGraph suporta ciclos mas encoraja limitá-los com limites de iteração. O padrão é <strong>&quot;DAG com loops controlados&quot;</strong> em vez de recorrência livre.">Pure DAGs are restrictive — real agents often want <em>conditional cycles</em> (re-plan, retry). LangGraph supports cycles but encourages bounding them with iteration limits. The pattern is <strong>"DAG with controlled loops"</strong> rather than free-form recurrence.</p>
 
-  <p>Adaptive multi-agent systems can now <strong>restructure their DAGs at runtime</strong> based on intermediate results — this is a hot research area.</p>
+  <p data-pt="Sistemas multi-agent adaptativos agora podem <strong>reestruturar seus DAGs em runtime</strong> baseado em resultados intermediários — esta é uma área de pesquisa quente.">Adaptive multi-agent systems can now <strong>restructure their DAGs at runtime</strong> based on intermediate results — this is a hot research area.</p>
 </section>
 
 
 <!-- =================== EVALS =================== -->
 <section id="evals">
-  <h2><span class="num">11</span> Evals vs Benchmarks — and how to build each</h2>
+  <h2 data-pt="<span class=&quot;num&quot;>11</span> Evals vs Benchmarks — e como construir cada um"><span class="num">11</span> Evals vs Benchmarks — and how to build each</h2>
 
   <table>
-    <thead><tr><th></th><th>Benchmarks</th><th>Evals</th></tr></thead>
+    <thead><tr><th></th><th data-pt="Benchmarks">Benchmarks</th><th data-pt="Evals">Evals</th></tr></thead>
     <tbody>
-      <tr><td>Purpose</td><td>Compare <em>models</em> in isolation</td><td>Measure <em>your app</em> at a specific job</td></tr>
-      <tr><td>Dataset</td><td>Public, standardized (MMLU, SWE-bench, GPQA, HumanEval, AIME)</td><td>Custom, drawn from your domain + production failures</td></tr>
-      <tr><td>Audience</td><td>Researchers, model buyers</td><td>You, your team, your CI</td></tr>
-      <tr><td>Stability</td><td>Frozen — saturates over time</td><td>Living — grows with each prod regression</td></tr>
+      <tr><td data-pt="Propósito">Purpose</td><td data-pt="Comparar <em>modelos</em> em isolamento">Compare <em>models</em> in isolation</td><td data-pt="Medir <em>seu app</em> em um trabalho específico">Measure <em>your app</em> at a specific job</td></tr>
+      <tr><td data-pt="Dataset">Dataset</td><td data-pt="Público, padronizado (MMLU, SWE-bench, GPQA, HumanEval, AIME)">Public, standardized (MMLU, SWE-bench, GPQA, HumanEval, AIME)</td><td data-pt="Customizado, extraído do seu domínio + falhas em produção">Custom, drawn from your domain + production failures</td></tr>
+      <tr><td data-pt="Audiência">Audience</td><td data-pt="Pesquisadores, compradores de modelos">Researchers, model buyers</td><td data-pt="Você, seu time, seu CI">You, your team, your CI</td></tr>
+      <tr><td data-pt="Estabilidade">Stability</td><td data-pt="Fixo — satura com o tempo">Frozen — saturates over time</td><td data-pt="Vivo — cresce com cada regressão em prod">Living — grows with each prod regression</td></tr>
     </tbody>
   </table>
 
-  <h3>How to build an eval suite (production pattern)</h3>
+  <h3 data-pt="Como construir um suite de evals (padrão de produção)">How to build an eval suite (production pattern)</h3>
   <ol>
-    <li><strong>Define the task</strong> + success criteria. Not "be helpful" — "extract the order ID from emails with ≥98% accuracy."</li>
-    <li><strong>Seed dataset</strong> from real production traces. Hand-label 50–200 examples covering golden path + edge cases.</li>
-    <li><strong>Pick a grader:</strong>
+    <li data-pt="<strong>Defina a task</strong> + critérios de sucesso. Não &quot;ser útil&quot; — &quot;extrair o ID de pedido de emails com ≥98% de precisão.&quot;"><strong>Define the task</strong> + success criteria. Not "be helpful" — "extract the order ID from emails with ≥98% accuracy."</li>
+    <li data-pt="<strong>Seed dataset</strong> de traces reais de produção. Rotule manualmente 50–200 exemplos cobrindo golden path + edge cases."><strong>Seed dataset</strong> from real production traces. Hand-label 50–200 examples covering golden path + edge cases.</li>
+    <li data-pt="<strong>Escolha um grader:</strong>"><strong>Pick a grader:</strong>
       <ul>
-        <li>Exact match / regex (cheapest, brittlest)</li>
-        <li>Code-based (assertions, JSON schema)</li>
-        <li>LLM-as-judge (flexible, biased — pair with rubric + calibration)</li>
-        <li>Human review (gold but slow)</li>
+        <li data-pt="Correspondência exata / regex (mais barato, mais frágil)">Exact match / regex (cheapest, brittlest)</li>
+        <li data-pt="Baseado em código (assertions, JSON schema)">Code-based (assertions, JSON schema)</li>
+        <li data-pt="LLM-as-judge (flexível, com viés — combine com rubrica + calibração)">LLM-as-judge (flexible, biased — pair with rubric + calibration)</li>
+        <li data-pt="Revisão humana (gold mas lento)">Human review (gold but slow)</li>
       </ul>
     </li>
-    <li><strong>Run in CI</strong> on every prompt/model change. Block merges on regressions.</li>
-    <li><strong>Auto-grow from failures:</strong> every production incident becomes a new test case — the regression suite is your moat.</li>
-    <li><strong>Layer it:</strong> automated evals pre-launch → A/B test in prod → user feedback loop → distribution drift monitoring.</li>
+    <li data-pt="<strong>Rode no CI</strong> em cada mudança de prompt/modelo. Bloqueie merges em regressões."><strong>Run in CI</strong> on every prompt/model change. Block merges on regressions.</li>
+    <li data-pt="<strong>Cresça automaticamente com falhas:</strong> cada incidente em produção vira um novo caso de teste — o suite de regressão é o seu fosso."><strong>Auto-grow from failures:</strong> every production incident becomes a new test case — the regression suite is your moat.</li>
+    <li data-pt="<strong>Camadas:</strong> evals automatizados pré-lançamento → A/B test em prod → loop de feedback do usuário → monitoramento de drift de distribuição."><strong>Layer it:</strong> automated evals pre-launch → A/B test in prod → user feedback loop → distribution drift monitoring.</li>
   </ol>
 
-  <h3>How to build a benchmark (rarely what you want)</h3>
+  <h3 data-pt="Como construir um benchmark (raramente o que você quer)">How to build a benchmark (rarely what you want)</h3>
   <ol>
-    <li>Define a <em>capability</em>, not a product — "reasoning over chains of arithmetic" not "our checkout bot."</li>
-    <li>Collect public, hold-out dataset. Document contamination policy (was the model trained on it?).</li>
-    <li>Single objective metric. Reproducible scripts. Versioned.</li>
-    <li>Publish — it only matters if others run it.</li>
+    <li data-pt="Defina uma <em>capacidade</em>, não um produto — &quot;reasoning sobre cadeias de aritmética&quot; não &quot;nosso bot de checkout.&quot;">Define a <em>capability</em>, not a product — "reasoning over chains of arithmetic" not "our checkout bot."</li>
+    <li data-pt="Colete dataset público, hold-out. Documente política de contaminação (o modelo foi treinado nisso?).">Collect public, hold-out dataset. Document contamination policy (was the model trained on it?).</li>
+    <li data-pt="Métrica objetivo única. Scripts reproduzíveis. Versionado.">Single objective metric. Reproducible scripts. Versioned.</li>
+    <li data-pt="Publique — só importa se outros rodarem.">Publish — it only matters if others run it.</li>
   </ol>
 
-  <h3>Key tools (2026)</h3>
+  <h3 data-pt="Ferramentas principais (2026)">Key tools (2026)</h3>
   <ul>
     <li><strong>OpenAI Evals</strong>, <strong>DeepEval</strong>, <strong>Promptfoo</strong>, <strong>Braintrust</strong>, <strong>LangSmith</strong>, <strong>Inspect (UK AISI)</strong>.</li>
-    <li><strong>RAGAS</strong> for RAG-specific metrics (faithfulness, context precision, answer relevance).</li>
+    <li data-pt="<strong>RAGAS</strong> para métricas específicas de RAG (faithfulness, context precision, answer relevance)."><strong>RAGAS</strong> for RAG-specific metrics (faithfulness, context precision, answer relevance).</li>
   </ul>
 
-  <div class="callout warn">
+  <div class="callout warn" data-pt="<strong>A frase matadora:</strong> &quot;Benchmarks te dizem qual modelo começar. Evals te dizem quando você está enviando uma regressão.&quot; Se você só lembrar uma coisa desta seção, lembre isso.">
     <strong>The killer line:</strong> "Benchmarks tell you which model to start with. Evals tell you when you're shipping a regression." If you only remember one thing about this section, remember that.
   </div>
 </section>
@@ -2207,36 +2207,36 @@ await server.connect(new StdioServerTransport());
 
 <!-- =================== PROMPTS =================== -->
 <section id="prompts">
-  <h2><span class="num">12</span> Prompt Versioning</h2>
-  <p>Treat prompts as <strong>versioned production artifacts</strong>, same as code. PromptOps is the missing DevOps layer of AI.</p>
+  <h2 data-pt="<span class=&quot;num&quot;>12</span> Versionamento de Prompts"><span class="num">12</span> Prompt Versioning</h2>
+  <p data-pt="Trate prompts como <strong>artefatos de produção versionados</strong>, igual a código. PromptOps é a camada de DevOps que falta no mundo de IA.">Treat prompts as <strong>versioned production artifacts</strong>, same as code. PromptOps is the missing DevOps layer of AI.</p>
 
-  <h3>What a versioning tool gives you</h3>
+  <h3 data-pt="O que uma ferramenta de versionamento oferece">What a versioning tool gives you</h3>
   <ul>
-    <li>Immutable versions with diffs and change history.</li>
-    <li>Tags / release labels (<code>prod</code>, <code>staging</code>, <code>v3.2.1</code>).</li>
-    <li>Decoupling deploy from code release — edit prompt without redeploying app.</li>
-    <li>Non-engineer access (PMs editing copy).</li>
-    <li>Automated eval triggered on new version.</li>
-    <li>Rollback.</li>
+    <li data-pt="Versões imutáveis com diffs e histórico de mudanças.">Immutable versions with diffs and change history.</li>
+    <li data-pt="Tags / labels de release (<code>prod</code>, <code>staging</code>, <code>v3.2.1</code>).">Tags / release labels (<code>prod</code>, <code>staging</code>, <code>v3.2.1</code>).</li>
+    <li data-pt="Desacoplar deploy do release de código — edita o prompt sem precisar fazer redeploy do app.">Decoupling deploy from code release — edit prompt without redeploying app.</li>
+    <li data-pt="Acesso para não-engenheiros (PMs editando copy).">Non-engineer access (PMs editing copy).</li>
+    <li data-pt="Eval automatizado disparado em nova versão.">Automated eval triggered on new version.</li>
+    <li data-pt="Rollback.">Rollback.</li>
   </ul>
 
-  <h3>Tools</h3>
+  <h3 data-pt="Ferramentas">Tools</h3>
   <table>
-    <thead><tr><th>Tool</th><th>Strength</th><th>Best for</th></tr></thead>
+    <thead><tr><th>Tool</th><th data-pt="Ponto forte">Strength</th><th data-pt="Melhor para">Best for</th></tr></thead>
     <tbody>
-      <tr><td><strong>LangSmith</strong></td><td>Tight LangChain/LangGraph integration, tracing, evals</td><td>Teams already on LangChain</td></tr>
-      <tr><td><strong>PromptLayer</strong></td><td>No-code UI, non-engineer friendly, release labels</td><td>PMs editing prompts independently</td></tr>
-      <tr><td><strong>Braintrust</strong></td><td>Eval-first, datasets + experiments + prompts together</td><td>Eval-heavy workflows</td></tr>
-      <tr><td><strong>Maxim AI / Helicone / Langfuse</strong></td><td>Open-source / self-hostable options</td><td>Data-sensitive enterprises</td></tr>
+      <tr><td><strong>LangSmith</strong></td><td data-pt="Integração forte com LangChain/LangGraph, tracing, evals">Tight LangChain/LangGraph integration, tracing, evals</td><td data-pt="Times que já usam LangChain">Teams already on LangChain</td></tr>
+      <tr><td><strong>PromptLayer</strong></td><td data-pt="UI sem código, amigável para não-engenheiros, release labels">No-code UI, non-engineer friendly, release labels</td><td data-pt="PMs editando prompts de forma independente">PMs editing prompts independently</td></tr>
+      <tr><td><strong>Braintrust</strong></td><td data-pt="Focado em evals, datasets + experimentos + prompts juntos">Eval-first, datasets + experiments + prompts together</td><td data-pt="Workflows com muitos evals">Eval-heavy workflows</td></tr>
+      <tr><td><strong>Maxim AI / Helicone / Langfuse</strong></td><td data-pt="Opções open-source / auto-hospedáveis">Open-source / self-hostable options</td><td data-pt="Empresas com dados sensíveis">Data-sensitive enterprises</td></tr>
     </tbody>
   </table>
 
-  <h3>Without a tool — minimum bar</h3>
+  <h3 data-pt="Sem ferramenta — mínimo aceitável">Without a tool — minimum bar</h3>
   <ul>
-    <li>Prompts in git, not in inline string literals.</li>
-    <li>Version field embedded in the prompt (<code>v1.4.2</code>) logged with every request.</li>
-    <li>Eval suite runs on prompt PRs (CI gate).</li>
-    <li>Production traces tagged with prompt version → you can correlate quality drops to specific versions.</li>
+    <li data-pt="Prompts no git, não em string literals inline.">Prompts in git, not in inline string literals.</li>
+    <li data-pt="Campo de versão embutido no prompt (<code>v1.4.2</code>) logado em cada request.">Version field embedded in the prompt (<code>v1.4.2</code>) logged with every request.</li>
+    <li data-pt="Suite de evals roda nos PRs de prompt (gate no CI).">Eval suite runs on prompt PRs (CI gate).</li>
+    <li data-pt="Traces de produção tagueados com a versão do prompt → você consegue correlacionar quedas de qualidade a versões específicas.">Production traces tagged with prompt version → you can correlate quality drops to specific versions.</li>
   </ul>
 </section>
 
