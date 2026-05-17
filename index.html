@@ -312,155 +312,312 @@
     }
     .legend{justify-content:flex-start; gap:8px 12px}
   }
+
+  /* ============ SPA shell — iOS Settings-style ============ */
+  .view{min-height:100dvh}
+  .view[hidden]{display:none}
+
+  /* Home */
+  .home-inner{max-width:760px; margin:0 auto; padding:32px 20px 96px}
+  .home-hero{
+    padding:20px 4px 28px;
+  }
+  .home-hero .badge{margin-bottom:14px}
+  .home-hero h1{
+    font-size:34px; margin:0 0 8px; letter-spacing:-.02em; line-height:1.1;
+    background:linear-gradient(90deg,#fff 0%,#cfe8ff 100%);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .home-hero p.lead{color:var(--muted); margin:0; max-width:64ch; font-size:14px}
+
+  .settings-section{margin:28px 0 0}
+  .settings-section-title{
+    margin:0 12px 6px; font-size:11px; letter-spacing:.12em; text-transform:uppercase;
+    color:var(--muted); font-weight:600;
+  }
+  .settings-section-lead{
+    margin:0 12px 10px; color:var(--muted); font-size:12.5px; line-height:1.5;
+  }
+  .settings-group{
+    background:var(--panel); border:1px solid var(--line); border-radius:12px;
+    overflow:hidden;
+  }
+  .settings-row{
+    display:flex; align-items:center; gap:14px; padding:11px 14px;
+    color:var(--text); text-decoration:none; cursor:pointer;
+    border-top:1px solid var(--line);
+    transition:background .12s;
+  }
+  .settings-row:first-child{border-top:0}
+  .settings-row:hover{background:var(--panel2); text-decoration:none}
+  .settings-row:active{background:#1c2230}
+  .settings-row-icon{
+    width:30px; height:30px; flex:none; border-radius:7px;
+    display:flex; align-items:center; justify-content:center;
+    color:#fff;
+  }
+  .settings-row-icon svg{width:18px; height:18px}
+  .settings-row-icon.is-concepts{background:#1aa37a}
+  .settings-row-icon.is-models{background:#e08a3a}
+  .settings-row-icon.is-components{background:#3b82f6}
+  .settings-row-icon.is-execution{background:#8b6dd3}
+  .settings-row-icon.is-tooling{background:#d65b95}
+  .settings-row-icon.is-quiz{background:#caa83a}
+  .settings-row-label{flex:1; min-width:0; font-size:15px; line-height:1.3}
+  .settings-row-chevron{
+    width:9px; height:14px; flex:none; opacity:.5; color:var(--muted);
+  }
+
+  /* Detail view */
+  .detail-header{
+    position:sticky; top:0; z-index:5;
+    display:grid; grid-template-columns:44px 1fr 44px; align-items:center;
+    min-height:54px; padding:8px 12px;
+    background:rgba(11,13,16,.86); backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--line);
+  }
+  .detail-back-btn{
+    grid-column:1; justify-self:start;
+    display:flex; align-items:center; gap:4px;
+    height:36px; padding:0 10px 0 6px;
+    background:transparent; border:0; border-radius:8px;
+    color:var(--link); font:600 15px -apple-system,BlinkMacSystemFont,"SF Pro Text",system-ui,sans-serif;
+    cursor:pointer;
+  }
+  .detail-back-btn:hover{background:var(--panel2)}
+  .detail-back-btn svg{width:14px; height:14px}
+  .detail-title{
+    grid-column:2; margin:0; text-align:center;
+    font-size:15px; font-weight:700; letter-spacing:-.01em;
+    white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+  }
+  main.detail-content{
+    max-width:980px; margin:0 auto; padding:24px 28px 120px;
+    width:100%;
+  }
+  main.detail-content > section{display:none; margin:0}
+  main.detail-content > section.is-active{display:block}
+  main.detail-content > section h2{margin-top:8px}
+
+  /* Page transitions — direction-aware push/pop slide */
+  @keyframes slide-in-right {
+    from{transform:translateX(100%); opacity:.6}
+    to{transform:translateX(0); opacity:1}
+  }
+  @keyframes slide-out-left {
+    from{transform:translateX(0); opacity:1}
+    to{transform:translateX(-22%); opacity:.6}
+  }
+  @keyframes slide-in-left {
+    from{transform:translateX(-22%); opacity:.6}
+    to{transform:translateX(0); opacity:1}
+  }
+  @keyframes slide-out-right {
+    from{transform:translateX(0); opacity:1}
+    to{transform:translateX(100%); opacity:.6}
+  }
+  ::view-transition-old(root),
+  ::view-transition-new(root){
+    animation-duration:.28s; animation-timing-function:cubic-bezier(.32,.72,.34,1);
+    animation-fill-mode:both;
+  }
+  html[data-nav-dir="forward"]::view-transition-old(root){animation-name:slide-out-left}
+  html[data-nav-dir="forward"]::view-transition-new(root){animation-name:slide-in-right}
+  html[data-nav-dir="back"]::view-transition-old(root){animation-name:slide-out-right}
+  html[data-nav-dir="back"]::view-transition-new(root){animation-name:slide-in-left}
+
+  /* Mobile tweaks for SPA */
+  @media (max-width:760px){
+    .home-inner{padding:20px 16px 80px}
+    .home-hero{padding:8px 4px 22px}
+    .home-hero h1{font-size:27px}
+    main.detail-content{padding:18px 16px 96px}
+    .detail-title{font-size:14px}
+    .settings-row{padding:13px 14px}
+    .settings-row-label{font-size:15.5px}
+  }
 </style>
 </head>
 <body id="top">
-<div class="mobile-shell" aria-label="Mobile topic navigation">
-  <button class="mobile-nav-toggle" type="button" aria-controls="siteNav" aria-expanded="false" data-nav-toggle>
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-      <path d="M4 6 h16"/>
-      <path d="M4 12 h16"/>
-      <path d="M4 18 h16"/>
-    </svg>
-    <span>Topics</span>
-  </button>
-  <a class="mobile-title" href="#top">AI Cheat Sheet</a>
-  <span class="mobile-current" id="currentTopic" aria-live="polite">Overview</span>
+
+<!-- ============== HOME VIEW (iOS Settings-style menu) ============== -->
+<div class="view view-home" data-view="home">
+  <div class="home-inner">
+    <header class="home-hero">
+      <span class="badge">Study · ~4 hour skim · ~6–8 hour deep read</span>
+      <h1>AI Cheat Sheet</h1>
+      <p class="lead">Everything you need on model economics, agent plumbing, and the SDD / MCP / RAG vocabulary that's essential to master as a software engineer working with AI. Numbers are May 2026 list prices — they will move, the relationships won't.</p>
+    </header>
+
+    <div class="settings-list">
+
+      <div class="settings-section">
+        <h3 class="settings-section-title">Main Concepts</h3>
+        <p class="settings-section-lead">The vocabulary. If you can't fluently use these words, the rest of the guide reads as noise.</p>
+        <div class="settings-group">
+          <a class="settings-row" href="#/concepts" data-section="concepts">
+            <span class="settings-row-icon is-concepts">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12 h8 M12 8 v8"/></svg>
+            </span>
+            <span class="settings-row-label">Vocabulary &amp; fundamentals</span>
+            <svg class="settings-row-chevron" viewBox="0 0 9 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 2 L7 7 L2 12"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="settings-section">
+        <h3 class="settings-section-title">Models</h3>
+        <div class="settings-group">
+          <a class="settings-row" href="#/models" data-section="models">
+            <span class="settings-row-icon is-models">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="6" rx="1.5"/><rect x="3" y="14" width="12" height="6" rx="1.5"/><path d="M7 7 h.01 M7 17 h.01"/></svg>
+            </span>
+            <span class="settings-row-label">Models &amp; Pricing</span>
+            <svg class="settings-row-chevron" viewBox="0 0 9 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 2 L7 7 L2 12"/></svg>
+          </a>
+          <a class="settings-row" href="#/routing" data-section="routing">
+            <span class="settings-row-icon is-models">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6 h6 l3 4 h7"/><path d="M4 18 h6 l3 -4"/><circle cx="20" cy="10" r="2"/><circle cx="20" cy="14" r="2"/></svg>
+            </span>
+            <span class="settings-row-label">Model Routing</span>
+            <svg class="settings-row-chevron" viewBox="0 0 9 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 2 L7 7 L2 12"/></svg>
+          </a>
+          <a class="settings-row" href="#/model-integration" data-section="model-integration">
+            <span class="settings-row-icon is-models">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4 h12 v6 h-12 z"/><path d="M6 14 h12 v6 h-12 z"/><path d="M12 10 v4"/></svg>
+            </span>
+            <span class="settings-row-label">Model Integration</span>
+            <svg class="settings-row-chevron" viewBox="0 0 9 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 2 L7 7 L2 12"/></svg>
+          </a>
+          <a class="settings-row" href="#/oss" data-section="oss">
+            <span class="settings-row-icon is-models">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 v4 M12 18 v4 M2 12 h4 M18 12 h4 M5 5 l3 3 M16 16 l3 3 M5 19 l3 -3 M16 8 l3 -3"/></svg>
+            </span>
+            <span class="settings-row-label">Open-Source Alternatives</span>
+            <svg class="settings-row-chevron" viewBox="0 0 9 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 2 L7 7 L2 12"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="settings-section">
+        <h3 class="settings-section-title">LLM Components</h3>
+        <p class="settings-section-lead">The plumbing around the model: how it remembers, how it reaches tools, how it retrieves grounding data, and how its work is scheduled.</p>
+        <div class="settings-group">
+          <a class="settings-row" href="#/memory" data-section="memory">
+            <span class="settings-row-icon is-components">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="5" width="16" height="14" rx="2"/><path d="M8 5 v14 M16 5 v14"/></svg>
+            </span>
+            <span class="settings-row-label">Memory Types</span>
+            <svg class="settings-row-chevron" viewBox="0 0 9 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 2 L7 7 L2 12"/></svg>
+          </a>
+          <a class="settings-row" href="#/mcp" data-section="mcp">
+            <span class="settings-row-icon is-components">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="12" cy="18" r="2.5"/><path d="M7.5 7.5 L11 16 M16.5 7.5 L13 16 M8 6 h8"/></svg>
+            </span>
+            <span class="settings-row-label">MCP — Tools Protocol</span>
+            <svg class="settings-row-chevron" viewBox="0 0 9 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 2 L7 7 L2 12"/></svg>
+          </a>
+          <a class="settings-row" href="#/rag" data-section="rag">
+            <span class="settings-row-icon is-components">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="2.5"/><path d="M4 5 v6 c0 1.4 3.6 2.5 8 2.5 s8 -1.1 8 -2.5 v-6"/><path d="M4 11 v6 c0 1.4 3.6 2.5 8 2.5 s8 -1.1 8 -2.5 v-6"/></svg>
+            </span>
+            <span class="settings-row-label">RAG</span>
+            <svg class="settings-row-chevron" viewBox="0 0 9 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 2 L7 7 L2 12"/></svg>
+          </a>
+          <a class="settings-row" href="#/research-graph" data-section="research-graph">
+            <span class="settings-row-icon is-components">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="2"/><circle cx="18" cy="6" r="2"/><circle cx="12" cy="18" r="2"/><circle cx="6" cy="14" r="2"/><path d="M6 8 v4 M8 6 h8 M7.5 7.5 L11 16 M16.5 7.5 L13 16 M7 14 h3"/></svg>
+            </span>
+            <span class="settings-row-label">Research Graph</span>
+            <svg class="settings-row-chevron" viewBox="0 0 9 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 2 L7 7 L2 12"/></svg>
+          </a>
+          <a class="settings-row" href="#/dag" data-section="dag">
+            <span class="settings-row-icon is-components">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="6" height="6" rx="1"/><rect x="15" y="3" width="6" height="6" rx="1"/><rect x="9" y="15" width="6" height="6" rx="1"/><path d="M6 9 L11 15 M18 9 L13 15"/></svg>
+            </span>
+            <span class="settings-row-label">DAG</span>
+            <svg class="settings-row-chevron" viewBox="0 0 9 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 2 L7 7 L2 12"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="settings-section">
+        <h3 class="settings-section-title">Tech Execution</h3>
+        <p class="settings-section-lead">How you actually run LLMs in production: evaluating quality, versioning prompts, and driving codegen with executable specs.</p>
+        <div class="settings-group">
+          <a class="settings-row" href="#/evals" data-section="evals">
+            <span class="settings-row-icon is-execution">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12 l2 2 l4 -4"/><circle cx="12" cy="12" r="9"/></svg>
+            </span>
+            <span class="settings-row-label">Evals vs Benchmarks</span>
+            <svg class="settings-row-chevron" viewBox="0 0 9 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 2 L7 7 L2 12"/></svg>
+          </a>
+          <a class="settings-row" href="#/prompts" data-section="prompts">
+            <span class="settings-row-icon is-execution">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4 h12 l4 4 v12 h-16 z"/><path d="M8 12 h8 M8 16 h6"/></svg>
+            </span>
+            <span class="settings-row-label">Prompt Versioning</span>
+            <svg class="settings-row-chevron" viewBox="0 0 9 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 2 L7 7 L2 12"/></svg>
+          </a>
+          <a class="settings-row" href="#/sdd" data-section="sdd">
+            <span class="settings-row-icon is-execution">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4 h16 v16 h-16 z"/><path d="M8 9 l3 3 l-3 3 M14 15 h3"/></svg>
+            </span>
+            <span class="settings-row-label">Spec-Driven Dev</span>
+            <svg class="settings-row-chevron" viewBox="0 0 9 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 2 L7 7 L2 12"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="settings-section">
+        <h3 class="settings-section-title">Community Tooling</h3>
+        <p class="settings-section-lead">Trusted, fast-growing tools the AI engineering community has settled around — the shipping-grade implementations of the patterns above.</p>
+        <div class="settings-group">
+          <a class="settings-row" href="#/tooling" data-section="tooling">
+            <span class="settings-row-icon is-tooling">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3 a4 4 0 1 0 3 7 l4.3 4.3 l-2 2 l-4.3 -4.3 a4 4 0 0 0 -7 -3 l3 3 l-1.4 1.4 l-3 -3 a4 4 0 0 0 7.4 -7.4 z"/></svg>
+            </span>
+            <span class="settings-row-label">Trusted tooling overview</span>
+            <svg class="settings-row-chevron" viewBox="0 0 9 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 2 L7 7 L2 12"/></svg>
+          </a>
+          <a class="settings-row" href="#/context7" data-section="context7">
+            <span class="settings-row-icon is-tooling">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5 h16 v14 h-16 z"/><path d="M8 9 h8 M8 13 h8 M8 17 h5"/></svg>
+            </span>
+            <span class="settings-row-label">Context7 deep-dive</span>
+            <svg class="settings-row-chevron" viewBox="0 0 9 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 2 L7 7 L2 12"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="settings-section">
+        <h3 class="settings-section-title">Quiz</h3>
+        <div class="settings-group">
+          <a class="settings-row" href="#/quiz" data-section="quiz">
+            <span class="settings-row-icon is-quiz">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 9 a3 3 0 1 1 4 2.8 c-1 .4 -1 1.2 -1 2.2"/><circle cx="12" cy="18" r=".6" fill="currentColor"/><circle cx="12" cy="12" r="10"/></svg>
+            </span>
+            <span class="settings-row-label">Take the quiz</span>
+            <svg class="settings-row-chevron" viewBox="0 0 9 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 2 L7 7 L2 12"/></svg>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
 </div>
-<div class="nav-backdrop" data-nav-close></div>
-<div class="wrap">
-<nav class="side" id="siteNav" aria-label="Study guide topics">
-  <button class="nav-close" type="button" aria-label="Close topics" data-nav-close>
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-      <path d="M18 6 6 18"/>
-      <path d="M6 6 18 18"/>
-    </svg>
-  </button>
-  <a href="#top" class="brand-link" onclick="window.scrollTo({top:0,behavior:'smooth'});history.replaceState(null,'',window.location.pathname);return false;" style="text-decoration:none;display:block;cursor:pointer">
-    <h1 class="brand" style="cursor:pointer">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--accent)">
-        <path d="M12 2 L2 7 l10 5 l10-5 z"/>
-        <path d="M2 17 l10 5 l10-5"/>
-        <path d="M2 12 l10 5 l10-5"/>
-      </svg>
-      <span style="font-size:14px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)">AI Cheat Sheet</span>
-    </h1>
-  </a>
 
-  <div class="nav-group">
-    <button class="area-toggle is-concepts" aria-expanded="true" aria-controls="g-concepts">
-      <svg class="area-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M12 2 a10 10 0 1 0 0 20 a10 10 0 0 0 0 -20"/>
-        <path d="M8 12 h8 M12 8 v8"/>
-      </svg>
-      <span>Main Concepts</span>
-      <svg class="caret" width="10" height="10" viewBox="0 0 10 10"><path d="M2 4 L5 7 L8 4" stroke="currentColor" fill="none" stroke-width="1.6" stroke-linecap="round"/></svg>
+<!-- ============== DETAIL VIEW ============== -->
+<div class="view view-detail" data-view="detail" hidden>
+  <header class="detail-header">
+    <button class="detail-back-btn" type="button" data-back aria-label="Back to menu">
+      <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 2 L4 7 L9 12"/></svg>
+      <span>Menu</span>
     </button>
-    <ol class="area-items" id="g-concepts">
-      <li><a href="#concepts">Vocabulary & fundamentals</a></li>
-    </ol>
-  </div>
-
-  <div class="nav-group">
-    <button class="area-toggle is-models" aria-expanded="true" aria-controls="g-models">
-      <svg class="area-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <rect x="3" y="4" width="18" height="6" rx="1.5"/>
-        <rect x="3" y="14" width="12" height="6" rx="1.5"/>
-        <path d="M7 7 h.01 M7 17 h.01"/>
-      </svg>
-      <span>Models</span>
-      <svg class="caret" width="10" height="10" viewBox="0 0 10 10"><path d="M2 4 L5 7 L8 4" stroke="currentColor" fill="none" stroke-width="1.6" stroke-linecap="round"/></svg>
-    </button>
-    <ol class="area-items" id="g-models">
-      <li><a href="#models">Models & Pricing</a></li>
-      <li><a href="#routing">Model Routing</a></li>
-      <li><a href="#model-integration">Model Integration</a></li>
-      <li><a href="#oss">Open-Source Alts</a></li>
-    </ol>
-  </div>
-
-  <div class="nav-group">
-    <button class="area-toggle is-components" aria-expanded="true" aria-controls="g-components">
-      <svg class="area-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="12" cy="18" r="2.5"/>
-        <path d="M7.5 7.5 L11 16 M16.5 7.5 L13 16 M8 6 h8"/>
-      </svg>
-      <span>LLM Components</span>
-      <svg class="caret" width="10" height="10" viewBox="0 0 10 10"><path d="M2 4 L5 7 L8 4" stroke="currentColor" fill="none" stroke-width="1.6" stroke-linecap="round"/></svg>
-    </button>
-    <ol class="area-items" id="g-components">
-      <li><a href="#memory">Memory Types</a></li>
-      <li><a href="#mcp">MCP — Tools Protocol</a></li>
-      <li><a href="#rag">RAG</a></li>
-      <li><a href="#research-graph">Research Graph</a></li>
-      <li><a href="#dag">DAG</a></li>
-    </ol>
-  </div>
-
-  <div class="nav-group">
-    <button class="area-toggle is-execution" aria-expanded="true" aria-controls="g-execution">
-      <svg class="area-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M4 4 h16 v16 h-16 z"/>
-        <path d="M8 9 l3 3 l-3 3 M14 15 h3"/>
-      </svg>
-      <span>Tech Execution</span>
-      <svg class="caret" width="10" height="10" viewBox="0 0 10 10"><path d="M2 4 L5 7 L8 4" stroke="currentColor" fill="none" stroke-width="1.6" stroke-linecap="round"/></svg>
-    </button>
-    <ol class="area-items" id="g-execution">
-      <li><a href="#evals">Evals vs Benchmarks</a></li>
-      <li><a href="#prompts">Prompt Versioning</a></li>
-      <li><a href="#sdd">Spec-Driven Dev</a></li>
-    </ol>
-  </div>
-
-  <div class="nav-group">
-    <button class="area-toggle is-tooling" aria-expanded="true" aria-controls="g-tooling">
-      <svg class="area-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M14.7 6.3 a4 4 0 1 0 3 7 l4.3 4.3 l-2 2 l-4.3 -4.3 a4 4 0 0 0 -7 -3 l3 3 l-1.4 1.4 l-3 -3 a4 4 0 0 0 7.4 -7.4 z"/>
-      </svg>
-      <span>Community Tooling</span>
-      <svg class="caret" width="10" height="10" viewBox="0 0 10 10"><path d="M2 4 L5 7 L8 4" stroke="currentColor" fill="none" stroke-width="1.6" stroke-linecap="round"/></svg>
-    </button>
-    <ol class="area-items" id="g-tooling">
-      <li><a href="#tooling">Trusted tooling overview</a></li>
-      <li><a href="#context7">Context7 deep-dive</a></li>
-    </ol>
-  </div>
-
-  <div class="nav-group">
-    <button class="area-toggle is-quiz" aria-expanded="true" aria-controls="g-quiz">
-      <svg class="area-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M9 9 a3 3 0 1 1 4 2.8 c-1 .4 -1 1.2 -1 2.2"/>
-        <circle cx="12" cy="18" r=".6" fill="currentColor"/>
-        <circle cx="12" cy="12" r="10"/>
-      </svg>
-      <span>Quiz</span>
-      <svg class="caret" width="10" height="10" viewBox="0 0 10 10"><path d="M2 4 L5 7 L8 4" stroke="currentColor" fill="none" stroke-width="1.6" stroke-linecap="round"/></svg>
-    </button>
-    <ol class="area-items" id="g-quiz">
-      <li><a href="#quiz">Take the quiz</a></li>
-    </ol>
-  </div>
-</nav>
-
-<main>
-<header class="hero">
-  <span class="badge">Study · ~4 hour skim · ~6–8 hour deep read</span>
-  <h1>AI Study Guide — Cheat Sheet</h1>
-  <p class="lead">Everything you need on model economics, agent plumbing, and the SDD / MCP / RAG vocabulary that's essential to master as a software engineer working with AI. Numbers are May 2026 list prices — they will move, the relationships won't.</p>
-</header>
-
-<!-- =================== AREA: MAIN CONCEPTS =================== -->
-<aside class="area-banner" id="area-concepts">
-  <svg viewBox="0 0 24 24" fill="none" stroke="#7cf0c1" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-    <circle cx="12" cy="12" r="10"/><path d="M8 12 h8 M12 8 v8"/>
-  </svg>
-  <div>
-    <p class="area-title">Area 1 of 5</p>
-    <h2 class="area-name">Main Concepts</h2>
-    <p class="area-lead">The vocabulary. If you can't fluently use these words, the rest of the guide reads as noise.</p>
-  </div>
-</aside>
+    <h1 class="detail-title" data-detail-title>Detail</h1>
+    <span aria-hidden="true"></span>
+  </header>
+  <main class="detail-content">
 
 <!-- =================== MAIN CONCEPTS =================== -->
 <section id="concepts">
@@ -1592,19 +1749,6 @@ await client.responses.create({
 </section>
 
 
-<!-- =================== AREA: LLM COMPONENTS =================== -->
-<aside class="area-banner is-components" id="area-components">
-  <svg viewBox="0 0 24 24" fill="none" stroke="#82b8ff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-    <circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="12" cy="18" r="2.5"/>
-    <path d="M7.5 7.5 L11 16 M16.5 7.5 L13 16 M8 6 h8"/>
-  </svg>
-  <div>
-    <p class="area-title">Area 3 of 5</p>
-    <h2 class="area-name">LLM Components</h2>
-    <p class="area-lead">The plumbing around the model: how it remembers, how it reaches tools, how it retrieves grounding data, and how its work is scheduled.</p>
-  </div>
-</aside>
-
 <!-- =================== MEMORY =================== -->
 <section id="memory">
   <h2><span class="num">06</span> Memory types in AI agents</h2>
@@ -1961,19 +2105,6 @@ await server.connect(new StdioServerTransport());
 </section>
 
 
-<!-- =================== AREA: TECH EXECUTION =================== -->
-<aside class="area-banner is-execution" id="area-execution">
-  <svg viewBox="0 0 24 24" fill="none" stroke="#c8a8ff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M4 4 h16 v16 h-16 z"/>
-    <path d="M8 9 l3 3 l-3 3 M14 15 h3"/>
-  </svg>
-  <div>
-    <p class="area-title">Area 4 of 5</p>
-    <h2 class="area-name">Tech Execution</h2>
-    <p class="area-lead">How you actually run LLMs in production: evaluating quality, versioning prompts, and driving codegen with executable specs.</p>
-  </div>
-</aside>
-
 <!-- =================== EVALS =================== -->
 <section id="evals">
   <h2><span class="num">11</span> Evals vs Benchmarks — and how to build each</h2>
@@ -2107,18 +2238,6 @@ await server.connect(new StdioServerTransport());
   </ul>
 </section>
 
-
-<!-- =================== AREA: COMMUNITY TOOLING =================== -->
-<aside class="area-banner is-tooling" id="area-tooling">
-  <svg viewBox="0 0 24 24" fill="none" stroke="#ff9ec6" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M14.7 6.3 a4 4 0 1 0 3 7 l4.3 4.3 l-2 2 l-4.3 -4.3 a4 4 0 0 0 -7 -3 l3 3 l-1.4 1.4 l-3 -3 a4 4 0 0 0 7.4 -7.4 z"/>
-  </svg>
-  <div>
-    <p class="area-title">Area 5 of 5</p>
-    <h2 class="area-name">Community Tooling</h2>
-    <p class="area-lead">Trusted, fast-growing tools the AI engineering community has settled around. Each one slots into a section above — these are the shipping-grade implementations.</p>
-  </div>
-</aside>
 
 <!-- =================== COMMUNITY TOOLING — OVERVIEW =================== -->
 <section id="tooling">
@@ -2342,66 +2461,88 @@ await server.connect(new StdioServerTransport());
   });
 })();
 
-/* ============== collapsible nav areas ============== */
+/* ============== SPA router — push/pop page navigation ============== */
 (function () {
-  const toggle = document.querySelector('[data-nav-toggle]');
-  const currentTopic = document.getElementById('currentTopic');
-  const mobileQuery = window.matchMedia('(max-width: 760px)');
+  const home   = document.querySelector('[data-view="home"]');
+  const detail = document.querySelector('[data-view="detail"]');
+  const titleEl = document.querySelector('[data-detail-title]');
+  const sections = document.querySelectorAll('main.detail-content > section');
 
-  function setNav(open) {
-    document.body.classList.toggle('nav-open', open);
-    if (toggle) toggle.setAttribute('aria-expanded', String(open));
+  // Build label map from the home-menu rows so titles stay in sync with copy.
+  const labels = {};
+  document.querySelectorAll('.settings-row[data-section]').forEach(a => {
+    labels[a.dataset.section] = a.querySelector('.settings-row-label').textContent.trim();
+  });
+
+  function parseHash() {
+    const m = location.hash.match(/^#\/?([\w-]+)?/);
+    return m && m[1] ? m[1] : '';
   }
 
-  if (toggle) {
-    toggle.addEventListener('click', () => setNav(!document.body.classList.contains('nav-open')));
+  function applyRoute(prevId) {
+    const id = parseHash();
+    if (!id) {
+      home.hidden = false;
+      detail.hidden = true;
+      document.title = 'AI Cheat Sheet';
+      window.scrollTo(0, 0);
+      return;
+    }
+    const target = document.getElementById(id);
+    if (!target || target.tagName !== 'SECTION') {
+      location.replace('#/');
+      return;
+    }
+    sections.forEach(s => s.classList.toggle('is-active', s.id === id));
+    titleEl.textContent = labels[id] || (target.querySelector('h2')?.textContent || '').replace(/^\s*\d+\s*/, '').trim();
+    document.title = (labels[id] || 'Detail') + ' · AI Cheat Sheet';
+    home.hidden = true;
+    detail.hidden = false;
+    window.scrollTo(0, 0);
   }
-  document.querySelectorAll('[data-nav-close]').forEach(el => {
-    el.addEventListener('click', () => setNav(false));
-  });
-  document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') setNav(false);
-  });
-  mobileQuery.addEventListener?.('change', e => {
-    if (!e.matches) setNav(false);
-  });
 
-  document.querySelectorAll('.area-toggle').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const open = btn.getAttribute('aria-expanded') === 'true';
-      btn.setAttribute('aria-expanded', String(!open));
+  // Direction-aware View Transitions for iOS-style push/pop.
+  // Click handlers set an explicit direction; browser back/forward falls back to inference.
+  let explicitDir = null;
+
+  document.querySelectorAll('.settings-row[href^="#/"]').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      const href = a.getAttribute('href');
+      if (href === location.hash) return;
+      explicitDir = 'forward';
+      location.hash = href;
     });
   });
 
-  // active-link highlighting on scroll
-  const links = document.querySelectorAll('.area-items a[href^="#"]');
-  const map = new Map();
-  links.forEach(a => {
-    const id = a.getAttribute('href').slice(1);
-    const el = document.getElementById(id);
-    if (el) map.set(el, a);
-    a.addEventListener('click', () => {
-      if (mobileQuery.matches) setNav(false);
+  document.querySelectorAll('[data-back]').forEach(btn => {
+    btn.addEventListener('click', e => {
+      e.preventDefault();
+      if (location.hash === '#/' || !location.hash) return;
+      explicitDir = 'back';
+      location.hash = '#/';
     });
   });
-  function setCurrent(a) {
-    if (!a || !currentTopic) return;
-    currentTopic.textContent = a.textContent.replace(/\s+/g, ' ').trim();
+
+  // Hash changes from any source — clicks above, browser back/forward, deep links.
+  window.addEventListener('hashchange', () => {
+    const dir = explicitDir || (parseHash() ? 'forward' : 'back');
+    explicitDir = null;
+    document.documentElement.dataset.navDir = dir;
+    if (document.startViewTransition && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      document.startViewTransition(() => applyRoute());
+    } else {
+      applyRoute();
+    }
+  });
+
+  // Initial render — normalises legacy "#concepts" links to "#/concepts".
+  const raw = location.hash;
+  if (raw && !raw.startsWith('#/')) {
+    const id = raw.slice(1);
+    history.replaceState(null, '', document.getElementById(id) ? '#/' + id : '#/');
   }
-  const obs = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        links.forEach(a => a.classList.remove('active'));
-        const a = map.get(e.target);
-        if (a) {
-          a.classList.add('active');
-          setCurrent(a);
-        }
-      }
-    });
-  }, { rootMargin: '-40% 0px -55% 0px', threshold: 0 });
-  map.forEach((_, el) => obs.observe(el));
-  setCurrent(links[0]);
+  applyRoute();
 })();
 
 /* ============== sortable pricing table ============== */
