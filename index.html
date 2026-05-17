@@ -2583,14 +2583,14 @@ await server.connect(new StdioServerTransport());
 
 <!-- =================== QUIZ =================== -->
 <section id="quiz">
-  <h2 data-pt="<span class=&quot;num&quot;>17</span> Teste de conhecimento — quiz com nota"><span class="num">17</span> Knowledge check — graded quiz</h2>
-  <p class="small" data-pt="Escolha uma resposta para cada pergunta. Clique em <em>Avaliar</em> no final. As explicações aparecem após a avaliação.">Pick an answer for each. Hit <em>Grade</em> at the bottom. Explanations appear after grading.</p>
+  <h2><span class="num">17</span> <span data-quiz-h2>Knowledge check — graded quiz</span></h2>
+  <p class="small" data-quiz-intro>Pick an answer for each. Hit <em>Grade</em> at the bottom. Explanations appear after grading.</p>
 
   <div id="quiz-body"></div>
 
   <div class="quiz-actions">
-    <button class="btn" onclick="grade()">Grade</button>
-    <button class="btn secondary" onclick="reset()">Reset</button>
+    <button class="btn" onclick="grade()" data-pt="Avaliar">Grade</button>
+    <button class="btn secondary" onclick="reset()" data-pt="Resetar">Reset</button>
     <div id="score"></div>
   </div>
 </section>
@@ -3362,77 +3362,125 @@ const questions = [
   // ---- RAG ----
   {
     q: "What's the highest-ROI single improvement you can make to a naive RAG pipeline?",
+    q_pt: "Qual é a única mudança de maior ROI que você pode fazer num pipeline RAG ingênuo?",
     opts: [
       "Use a bigger embedding model",
       "Increase chunk size",
       "Add hybrid search (BM25 + vector) and a reranker",
       "Fine-tune the LLM on your corpus"
     ],
+    opts_pt: [
+      "Usar um modelo de embedding maior",
+      "Aumentar o tamanho dos chunks",
+      "Adicionar busca híbrida (BM25 + vetorial) e um reranker",
+      "Fazer fine-tune do LLM no seu corpus"
+    ],
     correct: 2,
-    explain: "Hybrid retrieval + reranking gives +25–40% precision. Naive RAG fails at retrieval ~40% of the time; this is where the wins are."
+    explain: "Hybrid retrieval + reranking gives +25–40% precision. Naive RAG fails at retrieval ~40% of the time; this is where the wins are.",
+    explain_pt: "Retrieval híbrido + reranking dá +25–40% de precisão. RAG ingênuo falha no retrieval ~40% das vezes; é aqui que estão os ganhos."
   },
   {
     q: "Which is GraphRAG's main advantage over vector RAG?",
+    q_pt: "Qual é a principal vantagem do GraphRAG sobre o RAG vetorial?",
     opts: [
       "It's cheaper to embed",
       "It retrieves relationally connected facts, useful for multi-hop questions",
       "It removes the need for an LLM",
       "It works without any chunking"
     ],
+    opts_pt: [
+      "É mais barato para fazer embedding",
+      "Recupera fatos conectados relacionalmente, útil para perguntas multi-hop",
+      "Elimina a necessidade de um LLM",
+      "Funciona sem nenhum chunking"
+    ],
     correct: 1,
-    explain: "Vector RAG retrieves semantically similar chunks. GraphRAG traverses entity/relationship edges — far better for multi-hop questions ('who collaborated with X on Y in 2020–2024')."
+    explain: "Vector RAG retrieves semantically similar chunks. GraphRAG traverses entity/relationship edges — far better for multi-hop questions ('who collaborated with X on Y in 2020–2024').",
+    explain_pt: "RAG vetorial recupera chunks semanticamente similares. GraphRAG atravessa arestas de entidade/relacionamento — muito melhor para perguntas multi-hop ('quem colaborou com X em Y entre 2020–2024')."
   },
 
   // ---- DAG ----
   {
     q: "Why is the Task Graph in Spec-Driven Development structured as a DAG?",
+    q_pt: "Por que o Task Graph em Spec-Driven Development é estruturado como um DAG?",
     opts: [
       "Because LLMs require acyclic input",
       "To make dependencies explicit, enable parallel execution, and allow safe retries of subtrees",
       "Because cycles violate the GraphRAG specification",
       "DAG is just a naming convention — it could be any graph"
     ],
+    opts_pt: [
+      "Porque LLMs exigem input acíclico",
+      "Para tornar as dependências explícitas, permitir execução paralela e retries seguros de subárvores",
+      "Porque ciclos violam a especificação do GraphRAG",
+      "DAG é só uma convenção de nome — poderia ser qualquer grafo"
+    ],
     correct: 1,
-    explain: "DAGs give explicit dependencies, parallelism on independent branches, deterministic scheduling, per-node retries — exactly what an autonomous agent needs. Same reason Bazel/Nx use DAGs."
+    explain: "DAGs give explicit dependencies, parallelism on independent branches, deterministic scheduling, per-node retries — exactly what an autonomous agent needs. Same reason Bazel/Nx use DAGs.",
+    explain_pt: "DAGs dão dependências explícitas, paralelismo em ramos independentes, scheduling determinístico, retries por nó — exatamente o que um agente autônomo precisa. Mesma razão pela qual Bazel/Nx usam DAGs."
   },
 
   // ---- Prompts ----
   {
     q: "Two prompt versioning tools and what they're each good at:",
+    q_pt: "Duas ferramentas de versionamento de prompt e no que cada uma é boa:",
     opts: [
       "LangSmith for LangChain stacks; PromptLayer for non-engineer no-code prompt editing",
       "PromptLayer for evals; LangSmith for inference",
       "Both are identical, pick whichever",
       "LangSmith is open source; PromptLayer is closed"
     ],
+    opts_pt: [
+      "LangSmith para stacks LangChain; PromptLayer para edição de prompt no-code por não-engenheiros",
+      "PromptLayer para evals; LangSmith para inferência",
+      "São idênticas, escolha qualquer uma",
+      "LangSmith é open source; PromptLayer é fechado"
+    ],
     correct: 0,
-    explain: "LangSmith ties tightly into LangChain/LangGraph with tracing + evals. PromptLayer's edge is its no-code UI and release-label system letting PMs edit prompts without engineering involvement."
+    explain: "LangSmith ties tightly into LangChain/LangGraph with tracing + evals. PromptLayer's edge is its no-code UI and release-label system letting PMs edit prompts without engineering involvement.",
+    explain_pt: "LangSmith se integra fortemente com LangChain/LangGraph com tracing + evals. O diferencial do PromptLayer é a UI no-code e o sistema de release-labels, permitindo que PMs editem prompts sem envolver engenharia."
   },
 
   // ---- Context7 ----
   {
     q: "What does Context7 do?",
+    q_pt: "O que o Context7 faz?",
     opts: [
       "It's a vector database from Upstash",
       "It's an MCP server (by Upstash) that fetches up-to-date, version-specific library documentation at query time so the LLM stops hallucinating APIs",
       "It's a prompt versioning service",
       "It's an open-source LLM from Moonshot"
     ],
+    opts_pt: [
+      "É um banco de dados vetorial da Upstash",
+      "É um servidor MCP (da Upstash) que busca documentação de bibliotecas atualizada e específica por versão em tempo de consulta para o LLM parar de alucinar APIs",
+      "É um serviço de versionamento de prompt",
+      "É um LLM open-source da Moonshot"
+    ],
     correct: 1,
-    explain: "Context7 exposes resolve-library-id plus a docs-fetch tool (named query-docs or get-library-docs depending on the client/package) via MCP. Add 'use context7' in your prompt and the AI tool pulls current docs instead of reciting a 2-year-old API from memory."
+    explain: "Context7 exposes resolve-library-id plus a docs-fetch tool (named query-docs or get-library-docs depending on the client/package) via MCP. Add 'use context7' in your prompt and the AI tool pulls current docs instead of reciting a 2-year-old API from memory.",
+    explain_pt: "O Context7 expõe resolve-library-id mais uma ferramenta de docs-fetch (chamada query-docs ou get-library-docs dependendo do cliente/pacote) via MCP. Adicione 'use context7' no seu prompt e a ferramenta de IA puxa as docs atuais em vez de recitar uma API de 2 anos atrás de memória."
   },
 
   // ---- SDD ----
   {
     q: "Which best describes the canonical SDD workflow phases?",
+    q_pt: "O que melhor descreve as fases canônicas do workflow SDD?",
     opts: [
       "Code → Test → Deploy → Monitor",
       "Constitution → Specification → Architecture → Tasks → Implementation",
       "Prompt → Generate → Review → Ship",
       "Plan → Code → Refactor → Eval"
     ],
+    opts_pt: [
+      "Código → Teste → Deploy → Monitoramento",
+      "Constitution → Specification → Architecture → Tasks → Implementation",
+      "Prompt → Gerar → Revisar → Ship",
+      "Planejar → Codar → Refatorar → Eval"
+    ],
     correct: 1,
-    explain: "Constitution (principles) → Specification (intent) → optional Clarification → Architecture (human-in-the-loop plan) → Tasks (DAG) → Implementation (AI executes the graph)."
+    explain: "Constitution (principles) → Specification (intent) → optional Clarification → Architecture (human-in-the-loop plan) → Tasks (DAG) → Implementation (AI executes the graph).",
+    explain_pt: "Constitution (princípios) → Specification (intenção) → Clarification opcional → Architecture (plano com humano no loop) → Tasks (DAG) → Implementation (IA executa o grafo)."
   },
 
   // ====================================================
@@ -3442,237 +3490,437 @@ const questions = [
   {
     difficulty: "hard",
     q: "Your agent finishes a Claude tool-use turn (with extended thinking enabled), runs the tool, and you build the next request. Which of these is the most dangerous mistake?",
+    q_pt: "Seu agente termina um turno de tool-use no Claude (com extended thinking habilitado), roda a ferramenta, e você monta o próximo request. Qual destes é o erro mais perigoso?",
     opts: [
       "Truncating prior user messages older than 20 turns",
       "Discarding the assistant's <code>thinking</code> blocks before re-sending the conversation",
       "Reordering tool_result blocks to put errors first",
       "Setting <code>thinking.budget_tokens</code> lower on the follow-up call"
     ],
+    opts_pt: [
+      "Truncar mensagens de usuário anteriores com mais de 20 turnos",
+      "Descartar os blocos <code>thinking</code> do assistente antes de re-enviar a conversa",
+      "Reordenar blocos tool_result para colocar erros primeiro",
+      "Configurar <code>thinking.budget_tokens</code> menor na chamada de follow-up"
+    ],
     correct: 1,
-    explain: "Anthropic requires the unmodified thinking blocks from the LAST assistant message to be passed back on a tool-use continuation. Drop them and the model either errors or reasons worse. The other options are fine — older user-message pruning is normal, errors-first reordering is a stylistic choice, and adjusting thinking budget per call is supported."
+    explain: "Anthropic requires the unmodified thinking blocks from the LAST assistant message to be passed back on a tool-use continuation. Drop them and the model either errors or reasons worse. The other options are fine — older user-message pruning is normal, errors-first reordering is a stylistic choice, and adjusting thinking budget per call is supported.",
+    explain_pt: "A Anthropic exige que os blocos thinking não modificados da ÚLTIMA mensagem do assistente sejam re-enviados numa continuação de tool-use. Removê-los faz o modelo dar erro ou raciocinar pior. As outras opções são ok — podar mensagens de usuário antigas é normal, reordenar com erros primeiro é uma escolha de estilo, e ajustar o budget de thinking por chamada é suportado."
   },
   {
     difficulty: "hard",
     q: "Kimi K2.6 is MoE (~32B active / ~1T total) while DeepSeek V4 Pro achieves a similar active/total ratio via DSA. Which statement best captures the architectural difference?",
+    q_pt: "Kimi K2.6 é MoE (~32B ativo / ~1T total) enquanto DeepSeek V4 Pro atinge uma razão ativo/total similar via DSA. Qual frase melhor captura a diferença arquitetural?",
     opts: [
       "MoE replicates the entire model N times; DSA shrinks it once",
       "MoE routes each token to a subset of expert feed-forward blocks via a learned router; DSA leaves a single dense FFN in place and instead makes attention itself sparse so per-token compute is cut without expert routing",
       "DSA is a closed-source variant of MoE used only by DeepSeek",
       "MoE is for inference, DSA is for training"
     ],
+    opts_pt: [
+      "MoE replica o modelo inteiro N vezes; DSA encolhe ele uma vez",
+      "MoE roteia cada token para um subconjunto de blocos feed-forward de experts via um roteador aprendido; DSA mantém uma única FFN densa no lugar e em vez disso torna o próprio attention esparso, cortando compute por token sem expert routing",
+      "DSA é uma variante closed-source de MoE usada só pela DeepSeek",
+      "MoE é para inferência, DSA é para treinamento"
+    ],
     correct: 1,
-    explain: "MoE = many FFN experts + a router selecting a few per token (compute reduction in the FFN). DSA = sparse attention so most attention computations are skipped per token. Different layers attacked, similar economics: cheap compute per token, big total parameter count."
+    explain: "MoE = many FFN experts + a router selecting a few per token (compute reduction in the FFN). DSA = sparse attention so most attention computations are skipped per token. Different layers attacked, similar economics: cheap compute per token, big total parameter count.",
+    explain_pt: "MoE = muitos experts de FFN + um roteador que seleciona poucos por token (redução de compute na FFN). DSA = attention esparso, então a maioria dos cálculos de attention é pulada por token. Camadas diferentes atacadas, economia similar: compute barato por token, grande contagem total de parâmetros."
   },
   {
     difficulty: "deep",
     q: "Prompt caching gives up to 90% off on cached input tokens. What is the underlying GPU-side reason it can be that cheap?",
+    q_pt: "Prompt caching dá até 90% de desconto em tokens de input cacheados. Qual é a razão subjacente do lado da GPU para poder ser tão barato?",
     opts: [
       "Cached prompts run on a separate, cheaper GPU class",
       "The provider serves them from CDN — no GPU at all",
       "The KV (key/value) cache for the cached prefix is already computed and stored in GPU memory, so the prefill step is skipped on cache hits — only the new suffix needs prefill",
       "It's purely a billing concession; compute is identical"
     ],
+    opts_pt: [
+      "Prompts cacheados rodam numa classe separada de GPU, mais barata",
+      "O provider serve via CDN — nenhuma GPU envolvida",
+      "O cache KV (key/value) para o prefixo cacheado já está computado e armazenado na memória da GPU, então o passo de prefill é pulado em cache hits — só o novo sufixo precisa de prefill",
+      "É puramente uma concessão de billing; o compute é idêntico"
+    ],
     correct: 2,
-    explain: "Prefill (computing K/V for every prompt token) is the expensive step. If the provider has a KV cache pinned for your prefix, the next request only needs to prefill the new suffix and decode. The discount reflects that real compute saving — which is also why prompt-cache TTLs (5 min / 1 hour for Anthropic) exist: VRAM eviction."
+    explain: "Prefill (computing K/V for every prompt token) is the expensive step. If the provider has a KV cache pinned for your prefix, the next request only needs to prefill the new suffix and decode. The discount reflects that real compute saving — which is also why prompt-cache TTLs (5 min / 1 hour for Anthropic) exist: VRAM eviction.",
+    explain_pt: "Prefill (calcular K/V para cada token do prompt) é o passo caro. Se o provider tem um cache KV fixado para seu prefixo, o próximo request só precisa fazer prefill do novo sufixo e decodificar. O desconto reflete essa economia real de compute — e é também por isso que os TTLs de prompt-cache (5 min / 1 hora na Anthropic) existem: eviction de VRAM."
   },
   {
     difficulty: "hard",
     q: "Cascade routing: Haiku 4.5 handles a turn for $0.015 and escalates 20% of turns to Opus 4.7 at $0.075. What's the blended cost per turn, and what is its biggest practical risk?",
+    q_pt: "Cascade routing: Haiku 4.5 atende um turno por $0.015 e escala 20% dos turnos para o Opus 4.7 a $0.075. Qual é o custo combinado por turno, e qual é o maior risco prático?",
     opts: [
       "$0.027/turn — main risk is mis-classification at the router",
       "$0.090/turn — main risk is Opus rate limits",
       "$0.015/turn — main risk is latency",
       "$0.075/turn — main risk is data residency"
     ],
+    opts_pt: [
+      "$0.027/turno — principal risco é classificação errada no roteador",
+      "$0.090/turno — principal risco é rate limit do Opus",
+      "$0.015/turno — principal risco é latência",
+      "$0.075/turno — principal risco é residência de dados"
+    ],
     correct: 0,
-    explain: "0.8 × $0.015 + 0.2 × $0.075 = $0.012 + $0.015 = $0.027/turn. The dominant risk is the router: a bad classifier silently routes hard turns to Haiku (quality regression) or easy turns to Opus (cost regression). Hence why router metrics belong in your eval suite."
+    explain: "0.8 × $0.015 + 0.2 × $0.075 = $0.012 + $0.015 = $0.027/turn. The dominant risk is the router: a bad classifier silently routes hard turns to Haiku (quality regression) or easy turns to Opus (cost regression). Hence why router metrics belong in your eval suite.",
+    explain_pt: "0.8 × $0.015 + 0.2 × $0.075 = $0.012 + $0.015 = $0.027/turno. O risco dominante é o roteador: um classifier ruim silenciosamente roteia turnos difíceis para o Haiku (regressão de qualidade) ou turnos fáceis para o Opus (regressão de custo). Por isso métricas de roteador pertencem ao seu eval suite."
   },
   {
     difficulty: "hard",
     q: "GraphRAG vs hybrid vector RAG: which production scenario most strongly favors GraphRAG?",
+    q_pt: "GraphRAG vs RAG vetorial híbrido: qual cenário de produção favorece mais fortemente o GraphRAG?",
     opts: [
       "FAQ search over a 5K-document help center where exact wording matters",
       "Q&A over a 200K-token product spec that fits in Gemini 3.1 Pro's context",
       "\"Which directors who worked with Studio A between 2018-2022 also collaborated with Studio B before 2018?\" over a film-industry corpus",
       "Code search across a monorepo for a single function definition"
     ],
+    opts_pt: [
+      "Busca em FAQ sobre uma central de ajuda com 5K documentos onde a redação exata importa",
+      "Q&A sobre uma spec de produto de 200K tokens que cabe no contexto do Gemini 3.1 Pro",
+      "\"Quais diretores que trabalharam com o Estúdio A entre 2018-2022 também colaboraram com o Estúdio B antes de 2018?\" sobre um corpus da indústria cinematográfica",
+      "Busca de código num monorepo por uma definição de função única"
+    ],
     correct: 2,
-    explain: "Multi-hop relational queries are where vector RAG plateaus — semantic similarity alone doesn't traverse 'collaborated-with' edges across time windows. A knowledge graph + subgraph retrieval handles that natively. The other cases are better served by BM25+vector hybrid, long-context, and grep respectively."
+    explain: "Multi-hop relational queries are where vector RAG plateaus — semantic similarity alone doesn't traverse 'collaborated-with' edges across time windows. A knowledge graph + subgraph retrieval handles that natively. The other cases are better served by BM25+vector hybrid, long-context, and grep respectively.",
+    explain_pt: "Queries relacionais multi-hop são onde RAG vetorial estagna — similaridade semântica sozinha não atravessa arestas 'colaborou-com' através de janelas de tempo. Um knowledge graph + retrieval de subgrafo lida com isso nativamente. Os outros casos são melhor servidos por híbrido BM25+vetorial, long-context, e grep, respectivamente."
   },
   {
     difficulty: "hard",
     q: "MCP Streamable HTTP transport replaced an older transport — which one, and what was the operational reason?",
+    q_pt: "O transport Streamable HTTP do MCP substituiu um transport mais antigo — qual, e qual foi a razão operacional?",
     opts: [
       "It replaced WebSockets because they don't pass through corporate proxies",
       "It replaced the older standalone HTTP+SSE transport — Streamable HTTP unifies request/response and server-to-client streaming over a single bidirectional HTTP endpoint, simpler to deploy and proxy than the two-endpoint SSE design",
       "It replaced gRPC because clients can't speak HTTP/2",
       "It replaced stdio for local use — stdio is now deprecated"
     ],
+    opts_pt: [
+      "Substituiu WebSockets porque eles não passam por proxies corporativos",
+      "Substituiu o transport HTTP+SSE standalone antigo — Streamable HTTP unifica request/response e streaming servidor-para-cliente num único endpoint HTTP bidirecional, mais simples de fazer deploy e proxy do que o design SSE de dois endpoints",
+      "Substituiu gRPC porque clientes não falam HTTP/2",
+      "Substituiu stdio para uso local — stdio agora é deprecated"
+    ],
     correct: 1,
-    explain: "The original spec had a separate HTTP endpoint for requests and an SSE endpoint for server→client messages — operationally awkward. Streamable HTTP merges them: one endpoint, optional SSE response framing when the server wants to stream. stdio is still very much the local-subprocess default for desktop apps."
+    explain: "The original spec had a separate HTTP endpoint for requests and an SSE endpoint for server→client messages — operationally awkward. Streamable HTTP merges them: one endpoint, optional SSE response framing when the server wants to stream. stdio is still very much the local-subprocess default for desktop apps.",
+    explain_pt: "A spec original tinha um endpoint HTTP separado para requests e um endpoint SSE para mensagens servidor→cliente — operacionalmente complicado. Streamable HTTP funde os dois: um endpoint, framing de resposta SSE opcional quando o servidor quer streamar. stdio continua sendo o default para subprocessos locais em apps desktop."
   },
   {
     difficulty: "deep",
     q: "Output tokens cost 5–8× more than input tokens across nearly every provider. Which is the strongest single reason?",
+    q_pt: "Tokens de output custam 5–8× mais do que tokens de input em praticamente todo provider. Qual é a razão única mais forte?",
     opts: [
       "Output text is longer than input text on average",
       "Output is generated <em>sequentially</em> (one token at a time, each pass through the full model), while input prefill is processed in parallel — so per-token GPU utilization is much worse for output, and providers price that in",
       "Output tokens trigger safety classifiers that input tokens don't",
       "Output tokens require more storage in conversation history"
     ],
+    opts_pt: [
+      "Texto de output é mais longo que texto de input em média",
+      "Output é gerado <em>sequencialmente</em> (um token por vez, cada passagem pelo modelo completo), enquanto prefill de input é processado em paralelo — então utilização de GPU por token é muito pior para output, e os providers cobram isso",
+      "Tokens de output disparam classifiers de safety que tokens de input não disparam",
+      "Tokens de output requerem mais armazenamento no histórico de conversa"
+    ],
     correct: 1,
-    explain: "Decoding is bandwidth-bound and sequential — every token requires another full forward pass and you can't batch across tokens of the same request. Prefill is matmul-heavy but parallel. That asymmetry is the structural reason output is far more expensive."
+    explain: "Decoding is bandwidth-bound and sequential — every token requires another full forward pass and you can't batch across tokens of the same request. Prefill is matmul-heavy but parallel. That asymmetry is the structural reason output is far more expensive.",
+    explain_pt: "Decoding é limitado por banda e sequencial — cada token requer outra passagem forward completa e não dá para fazer batch entre tokens do mesmo request. Prefill é pesado em matmul mas paralelo. Essa assimetria é a razão estrutural pela qual output é muito mais caro."
   },
   {
     difficulty: "hard",
     q: "An eval suite is failing on prompt v4.3.0 but passing on v4.2.1. You re-run v4.2.1 and now it fails too. Most likely cause?",
+    q_pt: "Um eval suite está falhando no prompt v4.3.0 mas passando no v4.2.1. Você re-roda o v4.2.1 e agora ele também falha. Causa mais provável?",
     opts: [
       "Your CI runner ran out of memory",
       "The grader prompt or judge model drifted (e.g. provider snapshot moved); pin the judge model + version, version the rubric, and treat the grader as part of the eval, not infrastructure",
       "The prompt registry corrupted v4.2.1",
       "The eval dataset must be re-embedded"
     ],
+    opts_pt: [
+      "Seu runner de CI ficou sem memória",
+      "O prompt de grader ou o modelo de judge mudou (ex.: snapshot do provider mudou); fixe o modelo de judge + versão, versione a rubrica, e trate o grader como parte do eval, não infraestrutura",
+      "O registry de prompt corrompeu o v4.2.1",
+      "O dataset de eval precisa ser re-embeddado"
+    ],
     correct: 1,
-    explain: "Classic LLM-as-judge failure mode: the judge isn't pinned, the provider rolled the snapshot, and \"identical\" reruns now disagree. Fix: pin <code>model</code> + snapshot, version your rubric, and add a per-grader calibration set so drift is detected before it poisons your production gating."
+    explain: "Classic LLM-as-judge failure mode: the judge isn't pinned, the provider rolled the snapshot, and \"identical\" reruns now disagree. Fix: pin <code>model</code> + snapshot, version your rubric, and add a per-grader calibration set so drift is detected before it poisons your production gating.",
+    explain_pt: "Modo de falha clássico de LLM-as-judge: o judge não está fixado, o provider rolou o snapshot, e re-runs \"idênticos\" agora discordam. Correção: fixe <code>model</code> + snapshot, versione sua rubrica, e adicione um set de calibração por grader para que o drift seja detectado antes de envenenar seu gating de produção."
   },
   {
     difficulty: "hard",
     q: "Which of these is NOT a legitimate reason to route through AWS Bedrock instead of api.anthropic.com?",
+    q_pt: "Qual destes NÃO é uma razão legítima para rotear pelo AWS Bedrock em vez do api.anthropic.com?",
     opts: [
       "Inheriting an AWS account's IAM, VPC, KMS, and audit logging",
       "Keeping data inside your AWS region for compliance",
       "Bundling LLM spend into an existing AWS enterprise discount commit",
       "Getting access to Claude model versions before they're available on api.anthropic.com"
     ],
+    opts_pt: [
+      "Herdar o IAM, VPC, KMS e audit logging de uma conta AWS",
+      "Manter dados dentro da sua região AWS para compliance",
+      "Empacotar o gasto com LLM dentro de um enterprise discount commit existente da AWS",
+      "Ganhar acesso a versões do modelo Claude antes de estarem disponíveis no api.anthropic.com"
+    ],
     correct: 3,
-    explain: "Bedrock/Vertex/Azure typically lag the first-party API by days-to-weeks on new model versions. People adopt them <em>despite</em> that lag because the procurement/compliance/IAM story is unbeatable. If you need the latest snapshot the day it ships, the direct API is the better fit."
+    explain: "Bedrock/Vertex/Azure typically lag the first-party API by days-to-weeks on new model versions. People adopt them <em>despite</em> that lag because the procurement/compliance/IAM story is unbeatable. If you need the latest snapshot the day it ships, the direct API is the better fit.",
+    explain_pt: "Bedrock/Vertex/Azure tipicamente ficam dias-a-semanas atrás da API first-party em novas versões de modelo. As pessoas adotam <em>apesar</em> desse atraso porque o lado de procurement/compliance/IAM é imbatível. Se você precisa do snapshot mais novo no dia em que ele sai, a API direta é a melhor escolha."
   },
   {
     difficulty: "hard",
     q: "LangGraph encourages \"DAG with controlled loops\" rather than pure DAGs. The reason is:",
+    q_pt: "LangGraph encoraja \"DAG com loops controlados\" em vez de DAGs puros. A razão é:",
     opts: [
       "DAGs can't represent conditional branching",
       "Real agents need bounded retry/re-plan cycles (e.g. \"if the test fails, regenerate up to 3×\"); pure DAGs can't express that, but unbounded recurrence is also dangerous — so the framework lets you add cycles while requiring an iteration cap",
       "DAGs are slower to schedule than graphs with cycles",
       "Pure DAGs can't run in parallel"
     ],
+    opts_pt: [
+      "DAGs não conseguem representar branching condicional",
+      "Agentes reais precisam de ciclos limitados de retry/re-plan (ex.: \"se o teste falhar, regenere até 3×\"); DAGs puros não conseguem expressar isso, mas recorrência sem limite também é perigosa — então o framework te deixa adicionar ciclos exigindo um cap de iteração",
+      "DAGs são mais lentos de agendar que grafos com ciclos",
+      "DAGs puros não conseguem rodar em paralelo"
+    ],
     correct: 1,
-    explain: "Pure DAGs are too rigid for retry/repair loops; free-form recurrence runs forever. The pragmatic middle ground is the LangGraph pattern: cycles allowed, iteration limit mandatory."
+    explain: "Pure DAGs are too rigid for retry/repair loops; free-form recurrence runs forever. The pragmatic middle ground is the LangGraph pattern: cycles allowed, iteration limit mandatory.",
+    explain_pt: "DAGs puros são rígidos demais para loops de retry/reparo; recorrência sem forma roda para sempre. O meio-termo pragmático é o padrão do LangGraph: ciclos permitidos, limite de iteração obrigatório."
   },
   {
     difficulty: "deep",
     q: "An RAG pipeline currently does: <em>embed → vector search → top-5 → LLM</em>. RAGAS faithfulness is acceptable but precision is poor: irrelevant chunks frequently make it into the prompt. What is the highest-ROI single change?",
+    q_pt: "Um pipeline RAG atualmente faz: <em>embed → busca vetorial → top-5 → LLM</em>. Faithfulness do RAGAS é aceitável mas precisão é ruim: chunks irrelevantes frequentemente entram no prompt. Qual é a única mudança de maior ROI?",
     opts: [
       "Swap embedding model to a bigger one",
       "Increase top-K from 5 to 20 to recover recall",
       "Insert a hybrid (BM25 + vector) retrieval step <em>and</em> a cross-encoder reranker over a wider top-50 → top-5 funnel — recall comes from hybrid, precision from the reranker",
       "Fine-tune the generation model on your corpus"
     ],
+    opts_pt: [
+      "Trocar o modelo de embedding por um maior",
+      "Aumentar o top-K de 5 para 20 para recuperar recall",
+      "Inserir um passo de retrieval híbrido (BM25 + vetorial) <em>e</em> um reranker cross-encoder sobre um funil mais amplo de top-50 → top-5 — recall vem do híbrido, precisão do reranker",
+      "Fazer fine-tune do modelo de geração no seu corpus"
+    ],
     correct: 2,
-    explain: "Naive vector-only retrieval misses keyword-exact matches; raising K alone makes the precision problem worse. Hybrid+rerank is the canonical fix: hybrid recovers what dense missed; the cross-encoder deeply re-scores the union. Typical wins: +25–40% precision."
+    explain: "Naive vector-only retrieval misses keyword-exact matches; raising K alone makes the precision problem worse. Hybrid+rerank is the canonical fix: hybrid recovers what dense missed; the cross-encoder deeply re-scores the union. Typical wins: +25–40% precision.",
+    explain_pt: "Retrieval ingênuo só com vetorial perde matches exatos de keyword; aumentar K sozinho piora o problema de precisão. Híbrido+rerank é a correção canônica: híbrido recupera o que o denso perdeu; o cross-encoder re-pontua profundamente a união. Ganhos típicos: +25–40% de precisão."
   },
   {
     difficulty: "hard",
     q: "Reasoning effort=\"high\" on GPT-5.5 quintuples your output_tokens_details.reasoning_tokens for a 2K-token answer. Which TWO are <strong>true</strong>? (Pick the best single combined answer.)",
+    q_pt: "Reasoning effort=\"high\" no GPT-5.5 quintuplica seu output_tokens_details.reasoning_tokens para uma resposta de 2K tokens. Quais DUAS são <strong>verdadeiras</strong>? (Escolha a melhor resposta combinada.)",
     opts: [
       "(a) Reasoning tokens are billed as output, (b) they're returned as raw text in the response",
       "(a) Reasoning tokens are billed as output, (b) only their count (and sometimes encrypted/summary items) is exposed, raw thinking is hidden",
       "(a) Reasoning tokens are free with the Pro tier, (b) they're exposed as a separate stream",
       "(a) Reasoning tokens count as input, (b) you can disable billing for them"
     ],
+    opts_pt: [
+      "(a) Reasoning tokens são cobrados como output, (b) são retornados como texto bruto na resposta",
+      "(a) Reasoning tokens são cobrados como output, (b) apenas a contagem (e às vezes itens criptografados/sumários) é exposta, o thinking bruto fica escondido",
+      "(a) Reasoning tokens são grátis no tier Pro, (b) são expostos como uma stream separada",
+      "(a) Reasoning tokens contam como input, (b) você pode desabilitar o billing deles"
+    ],
     correct: 1,
-    explain: "Reasoning tokens are generated tokens (counted as output, billed as output) but OpenAI does NOT expose the raw reasoning string — only counts, summaries, or encrypted items used to continue tool loops. That's why \"why is my bill so high?\" is almost always extended reasoning, not output."
+    explain: "Reasoning tokens are generated tokens (counted as output, billed as output) but OpenAI does NOT expose the raw reasoning string — only counts, summaries, or encrypted items used to continue tool loops. That's why \"why is my bill so high?\" is almost always extended reasoning, not output.",
+    explain_pt: "Reasoning tokens são tokens gerados (contados como output, cobrados como output) mas a OpenAI NÃO expõe a string bruta de reasoning — apenas contagens, sumários ou itens criptografados usados para continuar tool loops. É por isso que \"por que minha conta está tão alta?\" é quase sempre extended reasoning, não output."
   },
   {
     difficulty: "hard",
     q: "In SDD, why is the Constitution treated as immutable input on every AI run, even for a tiny bugfix task?",
+    q_pt: "Em SDD, por que a Constitution é tratada como input imutável em toda execução de IA, mesmo para um bugfix minúsculo?",
     opts: [
       "Because Spec Kit's CLI doesn't allow editing it",
       "Because principles like tech stack, security policy, and coding standards must not drift between tasks; a Constitution that quietly changes per run silently changes generated code across PRs",
       "Because LLMs ignore everything before the user message",
       "Because Git won't merge changes to Constitution files"
     ],
+    opts_pt: [
+      "Porque a CLI do Spec Kit não permite editá-la",
+      "Porque princípios como tech stack, política de segurança e padrões de código não devem driftar entre tasks; uma Constitution que muda silenciosamente por execução muda silenciosamente o código gerado entre PRs",
+      "Porque LLMs ignoram tudo antes da mensagem do usuário",
+      "Porque o Git não consegue fazer merge em arquivos de Constitution"
+    ],
     correct: 1,
-    explain: "Constitution = persistent, project-wide rules. The whole point is that <em>every</em> task gets the same baseline. If you mutate it per task, you've reintroduced the exact drift problem SDD was invented to fix."
+    explain: "Constitution = persistent, project-wide rules. The whole point is that <em>every</em> task gets the same baseline. If you mutate it per task, you've reintroduced the exact drift problem SDD was invented to fix.",
+    explain_pt: "Constitution = regras persistentes, do projeto todo. O ponto inteiro é que <em>toda</em> task receba a mesma baseline. Se você muta por task, reintroduziu exatamente o problema de drift que o SDD foi inventado para resolver."
   },
   {
     difficulty: "deep",
     q: "Your agent calls a tool that returns 350KB of JSON. You stuff the whole thing back into <code>tool_result</code>. Two turns later quality collapses. Most likely root cause?",
+    q_pt: "Seu agente chama uma ferramenta que retorna 350KB de JSON. Você joga tudo de volta em <code>tool_result</code>. Dois turnos depois a qualidade despenca. Causa raiz mais provável?",
     opts: [
       "The model's context window is too small",
       "350KB of JSON dominates the prompt → attention dilutes across the noise (\"lost in the middle\"), KV cache may evict the system prompt, and on long-context-tier providers you crossed a pricing cliff — the fix is to summarize/extract the tool result before returning it",
       "JSON encoding adds invisible tokens that break the tokenizer",
       "Tool results larger than 100KB are silently rejected by all providers"
     ],
+    opts_pt: [
+      "A context window do modelo é pequena demais",
+      "350KB de JSON domina o prompt → attention dilui através do ruído (\"lost in the middle\"), KV cache pode despejar o system prompt, e em providers com tier de long-context você cruzou um pricing cliff — a correção é sumarizar/extrair o tool result antes de retorná-lo",
+      "Encoding de JSON adiciona tokens invisíveis que quebram o tokenizador",
+      "Tool results maiores que 100KB são silenciosamente rejeitados por todos os providers"
+    ],
     correct: 1,
-    explain: "Big raw tool outputs are a top-3 production failure mode. Even within window: attention degrades over very long inputs, you blow through cached prefixes, and you hit long-context price tiers. The fix is application-side: filter/summarize the tool result down to what the model actually needs."
+    explain: "Big raw tool outputs are a top-3 production failure mode. Even within window: attention degrades over very long inputs, you blow through cached prefixes, and you hit long-context price tiers. The fix is application-side: filter/summarize the tool result down to what the model actually needs.",
+    explain_pt: "Outputs grandes de ferramenta são um dos top-3 modos de falha em produção. Mesmo dentro da window: attention degrada em inputs muito longos, você estoura os prefixos cacheados, e bate em tiers de preço de long-context. A correção é do lado da aplicação: filtrar/sumarizar o tool result para o que o modelo realmente precisa."
   },
   {
     difficulty: "hard",
     q: "What's the difference between MCP <strong>resources</strong> and MCP <strong>tools</strong>, and why does it matter?",
+    q_pt: "Qual é a diferença entre <strong>resources</strong> e <strong>tools</strong> do MCP, e por que isso importa?",
     opts: [
       "They're synonyms; the spec just provides both for readability",
       "Tools are write actions, resources are read actions, and the protocol distinguishes them so the client UX can do things like attach a resource to context without executing it — and so that auth/audit policy can differ between \"reading data\" and \"performing an action\"",
       "Resources are JSON, tools are XML",
       "Resources require OAuth; tools don't"
     ],
+    opts_pt: [
+      "São sinônimos; a spec só fornece os dois por legibilidade",
+      "Tools são ações de escrita, resources são ações de leitura, e o protocolo as distingue para que a UX do cliente possa fazer coisas como anexar um resource ao contexto sem executá-lo — e para que a política de auth/audit possa diferir entre \"ler dados\" e \"executar uma ação\"",
+      "Resources são JSON, tools são XML",
+      "Resources exigem OAuth; tools não"
+    ],
     correct: 1,
-    explain: "Resources are file-like, read-only things the client can pull into the LLM's context (a doc, a page, a query result). Tools are callable functions (often side-effectful). Splitting them lets clients render \"attach this resource\" affordances and lets servers apply stricter policy on actions vs reads."
+    explain: "Resources are file-like, read-only things the client can pull into the LLM's context (a doc, a page, a query result). Tools are callable functions (often side-effectful). Splitting them lets clients render \"attach this resource\" affordances and lets servers apply stricter policy on actions vs reads.",
+    explain_pt: "Resources são coisas parecidas com arquivos, read-only, que o cliente pode puxar para o contexto do LLM (um doc, uma página, um resultado de query). Tools são funções chamáveis (geralmente com side-effects). Separá-los deixa os clientes renderizar affordances de \"anexar este resource\" e permite que servidores apliquem política mais estrita em ações vs leituras."
   },
   {
     difficulty: "hard",
     q: "Your team wants to ship an internal coding agent that lives in the terminal. Someone proposes \"let's build our own harness from scratch on raw Anthropic API calls so we have full control.\" What's the strongest counter-argument?",
+    q_pt: "Seu time quer lançar um coding agent interno que vive no terminal. Alguém propõe \"vamos construir nosso próprio harness do zero sobre chamadas raw da API Anthropic para ter controle total\". Qual é o contra-argumento mais forte?",
     opts: [
       "The Anthropic API doesn't support tool use, so a custom harness can't work",
       "Existing coding harnesses (Claude Code, Codex, Cursor) already solve the hard problems — streaming, tool-use loops, permission gates, MCP, hooks, subagents, context management — and expose those problems as extension points; rebuilding the loop usually means reinventing a worse version of an SDK instead of focusing on the system prompt and tools that actually differentiate your agent",
       "Custom harnesses violate Anthropic's terms of service",
       "Raw API calls can't return tool results, so you'd need a vector database"
     ],
+    opts_pt: [
+      "A API da Anthropic não suporta tool use, então um harness custom não pode funcionar",
+      "Coding harnesses existentes (Claude Code, Codex, Cursor) já resolvem os problemas difíceis — streaming, tool-use loops, gates de permissão, MCP, hooks, subagentes, gerenciamento de contexto — e expõem esses problemas como pontos de extensão; reconstruir o loop geralmente significa reinventar uma versão pior de um SDK em vez de focar no system prompt e nas tools que de fato diferenciam seu agente",
+      "Harnesses custom violam os termos de serviço da Anthropic",
+      "Chamadas raw da API não conseguem retornar tool results, então você precisaria de um banco vetorial"
+    ],
     correct: 1,
-    explain: "The model is a stateless request/response endpoint; the harness is the loop around it. Mature harnesses already ship streaming, retries, tool-use continuation (including preserving thinking blocks), permission prompts, MCP integration, hooks, and subagents. For an internal coding agent the right primitives are MCP servers, subagents, hooks, and slash commands — not a from-scratch loop. Build-from-scratch only makes sense when you genuinely need non-standard turn structure or deep embedding inside another product."
+    explain: "The model is a stateless request/response endpoint; the harness is the loop around it. Mature harnesses already ship streaming, retries, tool-use continuation (including preserving thinking blocks), permission prompts, MCP integration, hooks, and subagents. For an internal coding agent the right primitives are MCP servers, subagents, hooks, and slash commands — not a from-scratch loop. Build-from-scratch only makes sense when you genuinely need non-standard turn structure or deep embedding inside another product.",
+    explain_pt: "O modelo é um endpoint request/response sem estado; o harness é o loop ao redor dele. Harnesses maduros já entregam streaming, retries, continuação de tool-use (incluindo preservar thinking blocks), prompts de permissão, integração com MCP, hooks e subagentes. Para um coding agent interno os primitivos certos são servidores MCP, subagentes, hooks e slash commands — não um loop do zero. Construir do zero só faz sentido quando você de fato precisa de uma estrutura de turno não-padrão ou de embedding profundo dentro de outro produto."
   },
   {
     difficulty: "hard",
     q: "You see <code>context window</code> and <code>context length</code> used interchangeably. Which is the most precise framing?",
+    q_pt: "Você vê <code>context window</code> e <code>context length</code> sendo usados de forma intercambiável. Qual é a formulação mais precisa?",
     opts: [
       "They mean the same thing; the difference is regional English",
       "Context <em>window</em> is the model's hard <em>capacity</em> (e.g. 1M tokens for Claude Sonnet 4.6); context <em>length</em> is the <em>actual</em> number of tokens you sent on a given request. Pricing tiers and KV-cache behavior depend on context <em>length</em>, not the window",
       "Context window is input-only; context length is input+output combined",
       "Context length applies only to reasoning models"
     ],
+    opts_pt: [
+      "Significam a mesma coisa; a diferença é inglês regional",
+      "Context <em>window</em> é a <em>capacidade</em> rígida do modelo (ex.: 1M tokens para o Claude Sonnet 4.6); context <em>length</em> é o número <em>real</em> de tokens que você enviou num dado request. Pricing tiers e comportamento do KV-cache dependem do context <em>length</em>, não da window",
+      "Context window é só input; context length é input+output combinados",
+      "Context length se aplica somente a modelos de reasoning"
+    ],
     correct: 1,
-    explain: "Window is capacity; length is usage. Providers like Gemini 3.1 Pro and GPT-5.4/5.5 have pricing cliffs that trigger at certain <em>lengths</em> (200K for Gemini, ~272K for GPT-5.x), and KV cache decisions depend on length, not window size."
+    explain: "Window is capacity; length is usage. Providers like Gemini 3.1 Pro and GPT-5.4/5.5 have pricing cliffs that trigger at certain <em>lengths</em> (200K for Gemini, ~272K for GPT-5.x), and KV cache decisions depend on length, not window size.",
+    explain_pt: "Window é capacidade; length é uso. Providers como Gemini 3.1 Pro e GPT-5.4/5.5 têm pricing cliffs que disparam em certos <em>lengths</em> (200K para o Gemini, ~272K para o GPT-5.x), e decisões de KV cache dependem do length, não do tamanho da window."
   }
 ];
 
-const body = document.getElementById('quiz-body');
-questions.forEach((qq, i) => {
-  const div = document.createElement('div');
-  div.className = 'q';
-  const diffBadge = qq.difficulty
-    ? `<span class="difficulty ${qq.difficulty}">${qq.difficulty === 'hard' ? 'hard' : 'deep dive'}</span>`
-    : '';
-  div.innerHTML = `
-    <div class="qtext">${i+1}. ${qq.q}${diffBadge}</div>
-    ${qq.opts.map((o, j) => `
-      <label class="opt" data-i="${i}" data-j="${j}">
-        <input type="radio" name="q${i}" value="${j}">${o}
-      </label>
-    `).join('')}
-    <div class="explain" id="exp-${i}"><strong>Answer: ${qq.opts[qq.correct]}.</strong> ${qq.explain}</div>
-  `;
-  body.appendChild(div);
+const QUIZ_I18N = {
+  en: {
+    diffHard: 'hard',
+    diffDeep: 'deep dive',
+    answer: 'Answer',
+    countSuffix: n => `(${n} questions · ~${Math.ceil(n * 0.6)} min)`,
+    intro: 'Pick an answer for each. Hit <em>Grade</em> at the bottom. The <span class="difficulty hard" style="font-size:10px;padding:1px 7px;border-radius:99px;background:rgba(255,107,139,.15);color:#ff8aa6;letter-spacing:.05em;text-transform:uppercase">hard</span> and <span class="difficulty deep" style="font-size:10px;padding:1px 7px;border-radius:99px;background:rgba(124,240,193,.12);color:var(--accent);letter-spacing:.05em;text-transform:uppercase">deep dive</span> tags mark elaborate questions worth taking your time on.',
+    score: (s, t, p) => `Score: ${s} / ${t} (${p}%) — `,
+    moodReady: '🟢 ready',
+    moodClose: '🟡 close — reread weak sections',
+    moodMore: '🔴 more reps needed'
+  },
+  pt: {
+    diffHard: 'difícil',
+    diffDeep: 'aprofundamento',
+    answer: 'Resposta',
+    countSuffix: n => `(${n} perguntas · ~${Math.ceil(n * 0.6)} min)`,
+    intro: 'Escolha uma resposta para cada pergunta. Clique em <em>Avaliar</em> no final. As tags <span class="difficulty hard" style="font-size:10px;padding:1px 7px;border-radius:99px;background:rgba(255,107,139,.15);color:#ff8aa6;letter-spacing:.05em;text-transform:uppercase">difícil</span> e <span class="difficulty deep" style="font-size:10px;padding:1px 7px;border-radius:99px;background:rgba(124,240,193,.12);color:var(--accent);letter-spacing:.05em;text-transform:uppercase">aprofundamento</span> marcam perguntas elaboradas que valem o tempo extra.',
+    score: (s, t, p) => `Nota: ${s} / ${t} (${p}%) — `,
+    moodReady: '🟢 pronto',
+    moodClose: '🟡 quase lá — releia as seções fracas',
+    moodMore: '🔴 mais repetições necessárias'
+  }
+};
+
+function currentQuizLang() {
+  const lang = document.documentElement.dataset.lang;
+  if (lang === 'pt' || lang === 'en') return lang;
+  try {
+    const saved = localStorage.getItem('ai-cheat-sheet-lang');
+    if (saved === 'pt' || saved === 'en') return saved;
+  } catch (e) {}
+  return 'en';
+}
+
+function pickQuizField(qq, key) {
+  const lang = currentQuizLang();
+  if (lang === 'pt') {
+    if (key === 'q' && qq.q_pt) return qq.q_pt;
+    if (key === 'opts' && qq.opts_pt) return qq.opts_pt;
+    if (key === 'explain' && qq.explain_pt) return qq.explain_pt;
+  }
+  return qq[key];
+}
+
+function renderQuiz() {
+  const body = document.getElementById('quiz-body');
+  if (!body) return;
+  const t = QUIZ_I18N[currentQuizLang()];
+  body.innerHTML = '';
+  questions.forEach((qq, i) => {
+    const div = document.createElement('div');
+    div.className = 'q';
+    const diffBadge = qq.difficulty
+      ? `<span class="difficulty ${qq.difficulty}">${qq.difficulty === 'hard' ? t.diffHard : t.diffDeep}</span>`
+      : '';
+    const q = pickQuizField(qq, 'q');
+    const opts = pickQuizField(qq, 'opts');
+    const explain = pickQuizField(qq, 'explain');
+    div.innerHTML = `
+      <div class="qtext">${i+1}. ${q}${diffBadge}</div>
+      ${opts.map((o, j) => `
+        <label class="opt" data-i="${i}" data-j="${j}">
+          <input type="radio" name="q${i}" value="${j}">${o}
+        </label>
+      `).join('')}
+      <div class="explain" id="exp-${i}"><strong>${t.answer}: ${opts[qq.correct]}.</strong> ${explain}</div>
+    `;
+    body.appendChild(div);
+  });
+}
+
+function updateQuizMeta() {
+  const lang = currentQuizLang();
+  const t = QUIZ_I18N[lang];
+  const intro = document.querySelector('[data-quiz-intro]');
+  const h2label = document.querySelector('[data-quiz-h2]');
+  const heading = lang === 'pt' ? 'Teste de conhecimento — quiz com nota' : 'Knowledge check — graded quiz';
+  const meta = `<span class="small" style="color:var(--muted); font-weight:400; font-size:13px">${t.countSuffix(questions.length)}</span>`;
+  if (h2label) h2label.innerHTML = `${heading} ${meta}`;
+  if (intro) intro.innerHTML = t.intro;
+}
+
+renderQuiz();
+updateQuizMeta();
+window.addEventListener('langchange', () => {
+  renderQuiz();
+  updateQuizMeta();
 });
 
-// Update quiz count + intro line dynamically
-(function () {
-  const intro = document.querySelector('#quiz p.small');
-  const h2 = document.querySelector('#quiz h2');
-  if (h2) h2.innerHTML = h2.innerHTML.replace(/quiz.*$/i, `quiz <span class="small" style="color:var(--muted); font-weight:400; font-size:13px">(${questions.length} questions · ~${Math.ceil(questions.length * 0.6)} min)</span>`);
-  if (intro) intro.innerHTML = `Pick an answer for each. Hit <em>Grade</em> at the bottom. The <span class="difficulty hard" style="font-size:10px;padding:1px 7px;border-radius:99px;background:rgba(255,107,139,.15);color:#ff8aa6;letter-spacing:.05em;text-transform:uppercase">hard</span> and <span class="difficulty deep" style="font-size:10px;padding:1px 7px;border-radius:99px;background:rgba(124,240,193,.12);color:var(--accent);letter-spacing:.05em;text-transform:uppercase">deep dive</span> tags mark elaborate questions worth taking your time on.`;
-})();
-
 function grade() {
+  const t = QUIZ_I18N[currentQuizLang()];
   let score = 0;
   questions.forEach((qq, i) => {
     const opts = document.querySelectorAll(`label[data-i="${i}"]`);
@@ -3689,8 +3937,8 @@ function grade() {
   const total = questions.length;
   const pct = Math.round(100*score/total);
   const el = document.getElementById('score');
-  let mood = pct>=85?'🟢 ready':pct>=65?'🟡 close — reread weak sections':'🔴 more reps needed';
-  el.textContent = `Score: ${score} / ${total} (${pct}%) — ${mood}`;
+  const mood = pct>=85 ? t.moodReady : pct>=65 ? t.moodClose : t.moodMore;
+  el.textContent = t.score(score, total, pct) + mood;
   el.style.color = pct>=85?'var(--good)':pct>=65?'var(--accent2)':'var(--bad)';
 }
 function reset() {
