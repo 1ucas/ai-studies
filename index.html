@@ -2243,55 +2243,55 @@ await server.connect(new StdioServerTransport());
 
 <!-- =================== SDD =================== -->
 <section id="sdd">
-  <h2><span class="num">13</span> Spec-Driven Development (SDD)</h2>
-  <p>"Inversion of the power structure: specifications no longer serve code — code serves specifications." Specs become executable artifacts that gate AI codegen.</p>
+  <h2 data-pt="<span class=&quot;num&quot;>13</span> Desenvolvimento Orientado por Spec (SDD)"><span class="num">13</span> Spec-Driven Development (SDD)</h2>
+  <p data-pt="&quot;Inversão da estrutura de poder: as specs não servem mais ao código — o código serve às specs.&quot; Specs viram artefatos executáveis que controlam a geração de código por IA.">"Inversion of the power structure: specifications no longer serve code — code serves specifications." Specs become executable artifacts that gate AI codegen.</p>
 
-  <h3>The four (sometimes five) phases</h3>
+  <h3 data-pt="As quatro (às vezes cinco) fases">The four (sometimes five) phases</h3>
   <ol>
-    <li><strong>Constitution</strong> — persistent project principles: tech stack, coding standards, security rules. Immutable context for every AI run.</li>
-    <li><strong>Specification</strong> — unambiguous user stories, acceptance criteria, constraints. <em>Intent only — no implementation.</em></li>
-    <li><strong>(Clarification)</strong> — structured pass to surface unspecified edge cases. Q&A logged back into the spec.</li>
-    <li><strong>Architecture / Plan</strong> — human-in-the-loop technical plan. Tech choices, module boundaries, data model. You review and sign off.</li>
-    <li><strong>Tasks</strong> — break the plan into discrete, AI-executable tasks. Modeled as a <strong>DAG</strong> (Task Graph): dependencies explicit, parallelism where possible.</li>
-    <li><strong>Implementation</strong> — AI agent walks the task DAG, generates code, runs tests, marks tasks complete.</li>
+    <li data-pt="<strong>Constitution</strong> — princípios persistentes do projeto: stack de tecnologia, padrões de código, regras de segurança. Contexto imutável para cada execução de IA."><strong>Constitution</strong> — persistent project principles: tech stack, coding standards, security rules. Immutable context for every AI run.</li>
+    <li data-pt="<strong>Specification</strong> — user stories sem ambiguidade, critérios de aceitação, restrições. <em>Somente intenção — sem implementação.</em>"><strong>Specification</strong> — unambiguous user stories, acceptance criteria, constraints. <em>Intent only — no implementation.</em></li>
+    <li data-pt="<strong>(Clarification)</strong> — passagem estruturada para trazer à tona edge cases não especificados. Q&amp;A logado de volta na spec."><strong>(Clarification)</strong> — structured pass to surface unspecified edge cases. Q&A logged back into the spec.</li>
+    <li data-pt="<strong>Architecture / Plan</strong> — plano técnico com humano no loop. Escolhas de tech, fronteiras de módulo, modelo de dados. Você revisa e aprova."><strong>Architecture / Plan</strong> — human-in-the-loop technical plan. Tech choices, module boundaries, data model. You review and sign off.</li>
+    <li data-pt="<strong>Tasks</strong> — divide o plano em tarefas discretas executáveis por IA. Modeladas como <strong>DAG</strong> (Task Graph): dependências explícitas, paralelismo onde possível."><strong>Tasks</strong> — break the plan into discrete, AI-executable tasks. Modeled as a <strong>DAG</strong> (Task Graph): dependencies explicit, parallelism where possible.</li>
+    <li data-pt="<strong>Implementation</strong> — agente de IA percorre o DAG de tarefas, gera código, roda testes, marca tarefas como concluídas."><strong>Implementation</strong> — AI agent walks the task DAG, generates code, runs tests, marks tasks complete.</li>
   </ol>
 
-  <h3>Why the Task Graph is a DAG</h3>
+  <h3 data-pt="Por que o Task Graph é um DAG">Why the Task Graph is a DAG</h3>
   <ul>
-    <li>Tasks have dependencies (B needs A's schema, C and D can run in parallel).</li>
-    <li>No cycles means the agent can <em>schedule</em> work — execute leaves first, work up.</li>
-    <li>Failure isolates to a subtree. You can re-run one task without losing the others.</li>
-    <li>This is exactly how build systems (Bazel, Nx) have always worked — SDD borrows the pattern.</li>
+    <li data-pt="Tarefas têm dependências (B precisa do schema de A, C e D podem rodar em paralelo).">Tasks have dependencies (B needs A's schema, C and D can run in parallel).</li>
+    <li data-pt="Sem ciclos significa que o agente pode <em>agendar</em> o trabalho — executa as folhas primeiro, sobe.">No cycles means the agent can <em>schedule</em> work — execute leaves first, work up.</li>
+    <li data-pt="Falha fica isolada numa subárvore. Você pode re-rodar uma tarefa sem perder as outras.">Failure isolates to a subtree. You can re-run one task without losing the others.</li>
+    <li data-pt="É exatamente como sistemas de build (Bazel, Nx) sempre funcionaram — SDD empresta o padrão.">This is exactly how build systems (Bazel, Nx) have always worked — SDD borrows the pattern.</li>
   </ul>
 
-  <h3>Tools (2026)</h3>
+  <h3 data-pt="Ferramentas (2026)">Tools (2026)</h3>
   <ul>
-    <li><strong>GitHub Spec Kit</strong> — open-source toolkit, the reference implementation. Has <code>/specify</code>, <code>/plan</code>, <code>/tasks</code> commands.</li>
-    <li><strong>Kiro</strong> (AWS) — GA Nov 2025. VS Code fork with deep SDD integration.</li>
-    <li><strong>Tessl</strong> — spec-as-the-source-of-truth approach.</li>
-    <li>Claude Code, Cursor — increasingly bake in spec-driven workflows.</li>
+    <li data-pt="<strong>GitHub Spec Kit</strong> — toolkit open-source, a implementação de referência. Tem os comandos <code>/specify</code>, <code>/plan</code>, <code>/tasks</code>."><strong>GitHub Spec Kit</strong> — open-source toolkit, the reference implementation. Has <code>/specify</code>, <code>/plan</code>, <code>/tasks</code> commands.</li>
+    <li data-pt="<strong>Kiro</strong> (AWS) — GA Nov 2025. Fork do VS Code com integração profunda de SDD."><strong>Kiro</strong> (AWS) — GA Nov 2025. VS Code fork with deep SDD integration.</li>
+    <li data-pt="<strong>Tessl</strong> — abordagem de spec-como-fonte-da-verdade."><strong>Tessl</strong> — spec-as-the-source-of-truth approach.</li>
+    <li data-pt="Claude Code, Cursor — cada vez mais incorporam workflows orientados por spec.">Claude Code, Cursor — increasingly bake in spec-driven workflows.</li>
   </ul>
 
-  <div class="callout warn">
+  <div class="callout warn" data-pt="<strong>O enquadramento essencial:</strong> &quot;Specs tradicionais são documentos que humanos leem. Specs de SDD são <em>contratos que a IA executa</em> — elas controlam a geração de código, conduzem task graphs, e sobrevivem a trocas de modelo. A spec é o artefato durável; o código é um produto de build regenerável.&quot;">
     <strong>The essential framing:</strong> "Traditional specs are documents humans read. SDD specs are <em>contracts the AI executes against</em> — they gate codegen, drive task graphs, and survive across model versions. The spec is the durable artifact; the code is a refreshable build product."
   </div>
 
-  <h3>Where it intersects everything else in this guide</h3>
+  <h3 data-pt="Onde isso se intersecta com o resto do guia">Where it intersects everything else in this guide</h3>
   <ul>
-    <li>The <strong>Task Graph is a DAG</strong> (<a href="#dag">§10</a>).</li>
-    <li>Each task often runs through a <strong>research graph</strong> (<a href="#research-graph">§09</a>) — read related code, find prior patterns.</li>
-    <li>Evals (<a href="#evals">§11</a>) become the executable acceptance criteria.</li>
-    <li>Prompts driving each phase are <strong>versioned</strong> (<a href="#prompts">§12</a>).</li>
-    <li>The agent uses <strong>MCP</strong> (<a href="#mcp">§07</a>) to talk to git, the build, the test runner.</li>
-    <li><strong>Context7</strong> (<a href="#context7">§14</a>) feeds it the actual library APIs to use.</li>
+    <li data-pt="O <strong>Task Graph é um DAG</strong> (<a href=&quot;#dag&quot;>§10</a>).">The <strong>Task Graph is a DAG</strong> (<a href="#dag">§10</a>).</li>
+    <li data-pt="Cada tarefa frequentemente passa por um <strong>research graph</strong> (<a href=&quot;#research-graph&quot;>§09</a>) — lê código relacionado, encontra padrões anteriores.">Each task often runs through a <strong>research graph</strong> (<a href="#research-graph">§09</a>) — read related code, find prior patterns.</li>
+    <li data-pt="Evals (<a href=&quot;#evals&quot;>§11</a>) viram os critérios de aceitação executáveis.">Evals (<a href="#evals">§11</a>) become the executable acceptance criteria.</li>
+    <li data-pt="Prompts que conduzem cada fase são <strong>versionados</strong> (<a href=&quot;#prompts&quot;>§12</a>).">Prompts driving each phase are <strong>versioned</strong> (<a href="#prompts">§12</a>).</li>
+    <li data-pt="O agente usa <strong>MCP</strong> (<a href=&quot;#mcp&quot;>§07</a>) para falar com git, o build, o test runner.">The agent uses <strong>MCP</strong> (<a href="#mcp">§07</a>) to talk to git, the build, the test runner.</li>
+    <li data-pt="<strong>Context7</strong> (<a href=&quot;#context7&quot;>§14</a>) alimenta com as APIs reais das bibliotecas a usar."><strong>Context7</strong> (<a href="#context7">§14</a>) feeds it the actual library APIs to use.</li>
   </ul>
 </section>
 
 
 <!-- =================== COMMUNITY TOOLING — OVERVIEW =================== -->
 <section id="tooling">
-  <h2><span class="num">14</span> Community tooling — what to actually reach for</h2>
-  <p>Seven tools the AI engineering community has settled around in 2026. Each one corresponds to a section above: this is the "what would you actually install on Monday?" layer.</p>
+  <h2 data-pt="<span class=&quot;num&quot;>14</span> Ferramentas da comunidade — o que realmente usar"><span class="num">14</span> Community tooling — what to actually reach for</h2>
+  <p data-pt="Sete ferramentas em torno das quais a comunidade de engenharia de IA se consolidou em 2026. Cada uma corresponde a uma seção acima: é a camada do &quot;o que você instalaria de verdade na segunda-feira?&quot;.">Seven tools the AI engineering community has settled around in 2026. Each one corresponds to a section above: this is the "what would you actually install on Monday?" layer.</p>
 
   <div class="tool-grid" id="toolGrid">
     <article class="tool-card" data-cat="docs">
@@ -2305,7 +2305,7 @@ await server.connect(new StdioServerTransport());
         <div class="tc-name">Context7</div>
         <span class="tc-tag">docs MCP</span>
       </div>
-      <p class="tc-desc">Upstash-built MCP server that serves <em>version-specific</em> library docs into Cursor, Claude Code, Windsurf, OpenCode — anywhere that speaks MCP. Cuts hallucinated APIs at the source.</p>
+      <p class="tc-desc" data-pt="Servidor MCP feito pela Upstash que serve documentação de bibliotecas <em>por versão específica</em> no Cursor, Claude Code, Windsurf, OpenCode — qualquer lugar que fale MCP. Elimina APIs alucinadas na origem.">Upstash-built MCP server that serves <em>version-specific</em> library docs into Cursor, Claude Code, Windsurf, OpenCode — anywhere that speaks MCP. Cuts hallucinated APIs at the source.</p>
       <div class="tc-foot">
         <span>MIT</span><span>free tier</span><span>MCP</span>
       </div>
@@ -2323,7 +2323,7 @@ await server.connect(new StdioServerTransport());
         <div class="tc-name">GitHub Spec Kit</div>
         <span class="tc-tag">SDD</span>
       </div>
-      <p class="tc-desc">Open-source reference toolkit for spec-driven dev: <code>/specify</code> → <code>/plan</code> → <code>/tasks</code>. Generates a task DAG that an AI agent can execute against acceptance criteria.</p>
+      <p class="tc-desc" data-pt="Toolkit open-source de referência para dev orientado por spec: <code>/specify</code> → <code>/plan</code> → <code>/tasks</code>. Gera um DAG de tarefas que um agente de IA pode executar contra critérios de aceitação.">Open-source reference toolkit for spec-driven dev: <code>/specify</code> → <code>/plan</code> → <code>/tasks</code>. Generates a task DAG that an AI agent can execute against acceptance criteria.</p>
       <div class="tc-foot">
         <span>MIT</span><span>GitHub-native</span><span>CLI</span>
       </div>
@@ -2342,7 +2342,7 @@ await server.connect(new StdioServerTransport());
         <div class="tc-name">OpenSpec</div>
         <span class="tc-tag">change-spec</span>
       </div>
-      <p class="tc-desc">Lightweight spec-driven workflow built around <em>change proposals</em> — each AI-driven change ships with a markdown spec, delta, and validation script. Diff-friendly, repo-resident.</p>
+      <p class="tc-desc" data-pt="Workflow leve orientado por spec, construído em torno de <em>propostas de mudança</em> — cada mudança gerada por IA vem com uma spec markdown, delta, e script de validação. Amigável a diffs, nativo no repositório.">Lightweight spec-driven workflow built around <em>change proposals</em> — each AI-driven change ships with a markdown spec, delta, and validation script. Diff-friendly, repo-resident.</p>
       <div class="tc-foot">
         <span>open source</span><span>CLI</span><span>git-native</span>
       </div>
@@ -2359,7 +2359,7 @@ await server.connect(new StdioServerTransport());
         <div class="tc-name">Superpowers</div>
         <span class="tc-tag">skill pack</span>
       </div>
-      <p class="tc-desc">Curated bundle of Claude Code skills (planning, review, search, web, scaffolding). Drop-in <code>~/.claude</code> directory that upgrades a vanilla Claude Code install into a structured engineering agent.</p>
+      <p class="tc-desc" data-pt="Bundle curado de skills para Claude Code (planejamento, revisão, busca, web, scaffolding). Diretório <code>~/.claude</code> plug-and-play que transforma uma instalação padrão de Claude Code num agente de engenharia estruturado.">Curated bundle of Claude Code skills (planning, review, search, web, scaffolding). Drop-in <code>~/.claude</code> directory that upgrades a vanilla Claude Code install into a structured engineering agent.</p>
       <div class="tc-foot">
         <span>open source</span><span>Claude Code</span><span>community</span>
       </div>
@@ -2376,7 +2376,7 @@ await server.connect(new StdioServerTransport());
         <div class="tc-name">LangSmith</div>
         <span class="tc-tag">trace · eval</span>
       </div>
-      <p class="tc-desc">LangChain's observability + eval platform. Captures every model/tool call with traces, runs LLM-as-judge or rule evals on datasets, and gates prompt PRs in CI.</p>
+      <p class="tc-desc" data-pt="Plataforma de observabilidade + eval da LangChain. Captura cada chamada de modelo/ferramenta com traces, roda evals LLM-as-judge ou baseadas em regras sobre datasets, e controla PRs de prompt no CI.">LangChain's observability + eval platform. Captures every model/tool call with traces, runs LLM-as-judge or rule evals on datasets, and gates prompt PRs in CI.</p>
       <div class="tc-foot">
         <span>SaaS</span><span>LangChain</span><span>tracing</span>
       </div>
@@ -2394,7 +2394,7 @@ await server.connect(new StdioServerTransport());
         <div class="tc-name">Braintrust</div>
         <span class="tc-tag">eval-first</span>
       </div>
-      <p class="tc-desc">Eval-driven dev for LLM apps: datasets, experiments, online scoring, prompt playground in one workspace. Pairs especially well with structured-output workflows.</p>
+      <p class="tc-desc" data-pt="Dev orientado por evals para apps LLM: datasets, experimentos, scoring online, playground de prompt em um único workspace. Combina muito bem com workflows de output estruturado.">Eval-driven dev for LLM apps: datasets, experiments, online scoring, prompt playground in one workspace. Pairs especially well with structured-output workflows.</p>
       <div class="tc-foot">
         <span>SaaS</span><span>OSS SDK</span><span>experiments</span>
       </div>
@@ -2414,7 +2414,7 @@ await server.connect(new StdioServerTransport());
         <div class="tc-name">Promptfoo</div>
         <span class="tc-tag">CLI evals</span>
       </div>
-      <p class="tc-desc">Open-source CLI for prompt/model evals defined in YAML. Diffs outputs across providers and models, runs assertions, integrates with CI. Lowest-friction way to start gating prompt changes.</p>
+      <p class="tc-desc" data-pt="CLI open-source para evals de prompt/modelo definidas em YAML. Compara outputs entre providers e modelos, roda assertions, integra com CI. O jeito de menor atrito para começar a controlar mudanças de prompt.">Open-source CLI for prompt/model evals defined in YAML. Diffs outputs across providers and models, runs assertions, integrates with CI. Lowest-friction way to start gating prompt changes.</p>
       <div class="tc-foot">
         <span>MIT</span><span>CLI</span><span>CI-friendly</span>
       </div>
@@ -2422,35 +2422,39 @@ await server.connect(new StdioServerTransport());
     </article>
   </div>
 
-  <div class="callout">
+  <div class="callout" data-pt="<strong>Como eles se encaixam:</strong> <em>Spec Kit / OpenSpec</em> definem o que construir → <em>Superpowers</em> dá ao agente as skills para construir → <em>Context7</em> mantém o conhecimento de bibliotecas atualizado → <em>Promptfoo / Braintrust / LangSmith</em> medem se o output está realmente correto. Cada ferramenta se encaixa numa seção diferente deste guia.">
     <strong>How they fit together:</strong> <em>Spec Kit / OpenSpec</em> define what to build → <em>Superpowers</em> gives the agent skills to build it → <em>Context7</em> keeps its library knowledge fresh → <em>Promptfoo / Braintrust / LangSmith</em> measure whether the output is actually correct. Each tool plugs into a different section of this guide.
   </div>
 </section>
 
 <!-- =================== CONTEXT7 =================== -->
 <section id="context7">
-  <h2><span class="num">15</span> What is Context7?</h2>
-  <p><strong>Context7</strong> is an MCP server (built by <strong>Upstash</strong>) that serves <em>up-to-date, version-specific library documentation</em> into your AI coding tools — Cursor, Claude Code, Windsurf, OpenCode, anything that speaks MCP.</p>
+  <h2 data-pt="<span class=&quot;num&quot;>15</span> O que é o Context7?"><span class="num">15</span> What is Context7?</h2>
+  <p data-pt="<strong>Context7</strong> é um servidor MCP (feito pela <strong>Upstash</strong>) que serve <em>documentação de bibliotecas atualizada e por versão específica</em> nas suas ferramentas de código com IA — Cursor, Claude Code, Windsurf, OpenCode, qualquer coisa que fale MCP."><strong>Context7</strong> is an MCP server (built by <strong>Upstash</strong>) that serves <em>up-to-date, version-specific library documentation</em> into your AI coding tools — Cursor, Claude Code, Windsurf, OpenCode, anything that speaks MCP.</p>
 
-  <h3>The problem it solves</h3>
-  <p>LLMs hallucinate APIs because their training cutoff lags real library releases. Context7 fetches fresh docs at query time so the model sees the <em>actual</em> current API rather than reciting a 2-year-old version from memory.</p>
+  <h3 data-pt="O problema que ele resolve">The problem it solves</h3>
+  <p data-pt="LLMs alucinam APIs porque o cutoff de treino delas fica atrás dos releases reais das bibliotecas. O Context7 busca docs frescos no momento da consulta para que o modelo veja a API <em>atual de verdade</em>, em vez de recitar uma versão de 2 anos atrás da memória.">LLMs hallucinate APIs because their training cutoff lags real library releases. Context7 fetches fresh docs at query time so the model sees the <em>actual</em> current API rather than reciting a 2-year-old version from memory.</p>
 
-  <h3>How it works</h3>
+  <h3 data-pt="Como funciona">How it works</h3>
   <ul>
-    <li>Two tools exposed via MCP:
+    <li data-pt="Duas ferramentas expostas via MCP:
+      <ul>
+        <li><code>resolve-library-id</code> — mapeia &quot;react query&quot; para um ID do Context7.</li>
+        <li><code>query-docs</code> / <code>get-library-docs</code> — busca docs por versão usando ID + query. O nome visível depende do cliente/wrapper do pacote.</li>
+      </ul>">Two tools exposed via MCP:
       <ul>
         <li><code>resolve-library-id</code> — map "react query" to a Context7 ID.</li>
         <li><code>query-docs</code> / <code>get-library-docs</code> — fetch version-specific docs by ID + query. The visible name depends on the client/package wrapper.</li>
       </ul>
     </li>
-    <li>Free tier, MIT-licensed server, optional API key for higher rate limits.</li>
-    <li>Hosted at <code>context7.com</code>.</li>
+    <li data-pt="Tier gratuito, servidor com licença MIT, API key opcional para rate limits maiores.">Free tier, MIT-licensed server, optional API key for higher rate limits.</li>
+    <li data-pt="Hospedado em <code>context7.com</code>.">Hosted at <code>context7.com</code>.</li>
   </ul>
 
-  <h3>Why Upstash?</h3>
-  <p>Upstash is a serverless-Redis / messaging company. They built Context7 as a developer-tool play and run it on their own infra — that's why they can offer a free tier sustainably.</p>
+  <h3 data-pt="Por que Upstash?">Why Upstash?</h3>
+  <p data-pt="A Upstash é uma empresa de Redis serverless / mensageria. Eles construíram o Context7 como uma jogada de ferramenta para devs e rodam na própria infra — por isso conseguem oferecer um tier gratuito de forma sustentável.">Upstash is a serverless-Redis / messaging company. They built Context7 as a developer-tool play and run it on their own infra — that's why they can offer a free tier sustainably.</p>
 
-  <div class="callout">
+  <div class="callout" data-pt="<strong>Caso de uso:</strong> Sempre que você pede ao Claude/Cursor para usar uma biblioteca e ele gera chamadas para uma função que não existe ou foi movida — esse é o argumento do Context7. Adicione <code>&quot;use context7&quot;</code> no seu prompt e a ferramenta vai buscar os docs atuais.">
     <strong>Use case:</strong> Any time you ask Claude/Cursor to use a library and it generates calls to a function that doesn't exist or moved — that's Context7's pitch. Add <code>"use context7"</code> in your prompt and the tool will pull current docs.
   </div>
 </section>
@@ -2458,14 +2462,14 @@ await server.connect(new StdioServerTransport());
 
 <!-- =================== HARNESS =================== -->
 <section id="harness">
-  <h2><span class="num">16</span> Harness — the runtime around the model</h2>
-  <p>A <strong>model</strong> is a stateless request/response endpoint: prompt in, tokens out. A <strong>harness</strong> is the software loop wrapped around it that makes that endpoint behave like an agent — assembling context, calling the model, parsing the response, executing any tool calls, and deciding when to stop. Claude Code, Cursor, Codex, Cline, Aider — these are all harnesses. The model is the engine; the harness is the chassis, transmission, and steering.</p>
+  <h2 data-pt="<span class=&quot;num&quot;>16</span> Harness — o runtime em torno do modelo"><span class="num">16</span> Harness — the runtime around the model</h2>
+  <p data-pt="Um <strong>modelo</strong> é um endpoint stateless de request/response: prompt entra, tokens saem. Um <strong>harness</strong> é o loop de software em volta dele que faz esse endpoint se comportar como um agente — montando contexto, chamando o modelo, parseando a resposta, executando chamadas de ferramentas, e decidindo quando parar. Claude Code, Cursor, Codex, Cline, Aider — esses são todos harnesses. O modelo é o motor; o harness é o chassi, a transmissão e a direção.">A <strong>model</strong> is a stateless request/response endpoint: prompt in, tokens out. A <strong>harness</strong> is the software loop wrapped around it that makes that endpoint behave like an agent — assembling context, calling the model, parsing the response, executing any tool calls, and deciding when to stop. Claude Code, Cursor, Codex, Cline, Aider — these are all harnesses. The model is the engine; the harness is the chassis, transmission, and steering.</p>
 
-  <div class="callout">
+  <div class="callout" data-pt="<strong>Modelo mental:</strong> &quot;modelo&quot; + &quot;harness&quot; + &quot;system prompt + ferramentas + permissões&quot; = um <em>agente</em>. Mesmo harness, system prompt e toolset diferentes, agente diferente. Mesmo modelo, harness diferente, produto completamente diferente.">
     <strong>Mental model:</strong> "model" + "harness" + "system prompt + tools + permissions" = an <em>agent</em>. Same harness, different system prompt and toolset, different agent. Same model, different harness, completely different product.
   </div>
 
-  <h3>The agent loop</h3>
+  <h3 data-pt="O loop do agente">The agent loop</h3>
   <figure class="diagram">
     <svg viewBox="0 0 660 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Agent harness loop">
       <text x="330" y="22" text-anchor="middle" class="svg-label" font-weight="600" font-size="14">Harness loop — input → context → model → tools → repeat</text>
@@ -2529,58 +2533,58 @@ await server.connect(new StdioServerTransport());
         </marker>
       </defs>
     </svg>
-    <figcaption>The harness owns everything outside the model call: assembling context, deciding what's in scope, executing tool calls under policy, and re-entering the loop with their results. The model only ever sees one turn at a time.</figcaption>
+    <figcaption data-pt="O harness é dono de tudo fora da chamada ao modelo: montagem de contexto, decisão do que está em escopo, execução de chamadas de ferramentas sob política, e re-entrada no loop com os resultados. O modelo nunca vê mais do que um turno por vez.">The harness owns everything outside the model call: assembling context, deciding what's in scope, executing tool calls under policy, and re-entering the loop with their results. The model only ever sees one turn at a time.</figcaption>
   </figure>
 
-  <h3>What a harness actually owns</h3>
+  <h3 data-pt="O que um harness realmente possui">What a harness actually owns</h3>
   <ul>
-    <li><strong>Context assembly</strong> — pick the system prompt, format tool schemas, prune old messages, inject memory and RAG snippets, attach files. The hard part of agent quality lives here.</li>
-    <li><strong>Model call mechanics</strong> — streaming, retries, fallbacks (route to a cheaper model first, escalate on failure), prompt caching, preserving provider-required fields (<code>thinking</code> blocks, <code>previous_response_id</code>).</li>
-    <li><strong>Output parsing</strong> — separate user-visible text from tool calls from internal thinking; handle partial streams; surface stop reasons.</li>
-    <li><strong>Tool execution</strong> — validate arguments, check permissions, sandbox or timeout, capture stdout/stderr, summarize large results before feeding them back.</li>
-    <li><strong>Loop control</strong> — when to continue, when to stop, iteration caps, recovery from bad tool calls.</li>
-    <li><strong>Side effects &amp; observability</strong> — write files, post to GitHub, emit traces, log token usage, redact secrets.</li>
-    <li><strong>UX surface</strong> — slash commands, hooks, subagents, approval prompts, status lines.</li>
+    <li data-pt="<strong>Montagem de contexto</strong> — escolhe o system prompt, formata schemas de ferramentas, poda mensagens antigas, injeta snippets de memória e RAG, anexa arquivos. A parte difícil da qualidade do agente mora aqui."><strong>Context assembly</strong> — pick the system prompt, format tool schemas, prune old messages, inject memory and RAG snippets, attach files. The hard part of agent quality lives here.</li>
+    <li data-pt="<strong>Mecânica da chamada ao modelo</strong> — streaming, retries, fallbacks (rota para modelo mais barato primeiro, escala em caso de falha), prompt caching, preservação de campos obrigatórios do provider (<code>thinking</code> blocks, <code>previous_response_id</code>)."><strong>Model call mechanics</strong> — streaming, retries, fallbacks (route to a cheaper model first, escalate on failure), prompt caching, preserving provider-required fields (<code>thinking</code> blocks, <code>previous_response_id</code>).</li>
+    <li data-pt="<strong>Parsing de output</strong> — separa texto visível ao usuário de chamadas de ferramentas e thinking interno; lida com streams parciais; traz stop reasons à tona."><strong>Output parsing</strong> — separate user-visible text from tool calls from internal thinking; handle partial streams; surface stop reasons.</li>
+    <li data-pt="<strong>Execução de ferramentas</strong> — valida argumentos, verifica permissões, coloca em sandbox ou aplica timeout, captura stdout/stderr, resume resultados grandes antes de retorná-los."><strong>Tool execution</strong> — validate arguments, check permissions, sandbox or timeout, capture stdout/stderr, summarize large results before feeding them back.</li>
+    <li data-pt="<strong>Controle do loop</strong> — quando continuar, quando parar, caps de iteração, recuperação de chamadas de ferramentas ruins."><strong>Loop control</strong> — when to continue, when to stop, iteration caps, recovery from bad tool calls.</li>
+    <li data-pt="<strong>Side effects &amp;amp; observabilidade</strong> — escreve arquivos, posta no GitHub, emite traces, loga uso de tokens, redige secrets."><strong>Side effects &amp; observability</strong> — write files, post to GitHub, emit traces, log token usage, redact secrets.</li>
+    <li data-pt="<strong>Superfície de UX</strong> — slash commands, hooks, subagentes, prompts de aprovação, linhas de status."><strong>UX surface</strong> — slash commands, hooks, subagents, approval prompts, status lines.</li>
   </ul>
 
-  <h3>Harness vs framework vs agent — disambiguation</h3>
+  <h3 data-pt="Harness vs framework vs agente — desambiguação">Harness vs framework vs agent — disambiguation</h3>
   <table>
-    <thead><tr><th>Term</th><th>What it is</th><th>Examples</th></tr></thead>
+    <thead><tr><th data-pt="Termo">Term</th><th data-pt="O que é">What it is</th><th>Examples</th></tr></thead>
     <tbody>
-      <tr><td><strong>Model</strong></td><td>The weights. Request/response only. No memory across calls.</td><td>Claude Opus 4.7, GPT-5.5, Kimi K2.6</td></tr>
-      <tr><td><strong>Harness</strong></td><td>A running product/runtime that wraps the model in a loop and exposes a usable surface.</td><td>Claude Code, Cursor, Codex, Cline, Aider, ChatGPT</td></tr>
-      <tr><td><strong>Agent SDK / framework</strong></td><td>A toolkit for <em>building</em> harnesses. Provides the loop, tool plumbing, primitives.</td><td>Claude Agent SDK, OpenAI Agents SDK, LangGraph, Pydantic AI, CrewAI</td></tr>
-      <tr><td><strong>Agent</strong></td><td>A configured instance — harness + model + system prompt + tools — pointed at a job.</td><td>"the PR-review agent", a subagent inside Claude Code</td></tr>
+      <tr><td><strong>Model</strong></td><td data-pt="Os pesos. Somente request/response. Sem memória entre chamadas.">The weights. Request/response only. No memory across calls.</td><td>Claude Opus 4.7, GPT-5.5, Kimi K2.6</td></tr>
+      <tr><td><strong>Harness</strong></td><td data-pt="Um produto/runtime em execução que envolve o modelo num loop e expõe uma superfície utilizável.">A running product/runtime that wraps the model in a loop and exposes a usable surface.</td><td>Claude Code, Cursor, Codex, Cline, Aider, ChatGPT</td></tr>
+      <tr><td><strong>Agent SDK / framework</strong></td><td data-pt="Um toolkit para <em>construir</em> harnesses. Fornece o loop, plumbing de ferramentas, primitivos.">A toolkit for <em>building</em> harnesses. Provides the loop, tool plumbing, primitives.</td><td>Claude Agent SDK, OpenAI Agents SDK, LangGraph, Pydantic AI, CrewAI</td></tr>
+      <tr><td><strong>Agent</strong></td><td data-pt="Uma instância configurada — harness + modelo + system prompt + ferramentas — apontada para um trabalho.">A configured instance — harness + model + system prompt + tools — pointed at a job.</td><td>"the PR-review agent", a subagent inside Claude Code</td></tr>
     </tbody>
   </table>
 
-  <h3>Build vs extend vs buy</h3>
+  <h3 data-pt="Construir vs estender vs comprar">Build vs extend vs buy</h3>
   <ul>
-    <li><strong>Extend an existing harness</strong> — first instinct for coding agents. Claude Code, Cursor, and Codex are extensible via <em>MCP servers</em>, <em>subagents</em>, <em>hooks</em>, <em>slash commands</em>, and <em>skills</em>. Rebuilding the loop yourself just to add a tool is wasted work.</li>
-    <li><strong>Build with an SDK</strong> — when you need an agent embedded inside your own product (a support bot, an internal ops agent, a CI step). Claude Agent SDK or OpenAI Agents SDK give you the loop, tool execution, and streaming for free; you bring the system prompt and tools.</li>
-    <li><strong>Build from scratch on raw API calls</strong> — only when you need very tight control over context, custom turn structure, or a non-standard tool protocol. Most teams who try this end up reinventing a worse SDK.</li>
-    <li><strong>Use a graph framework</strong> (LangGraph, LlamaIndex Workflows) when the agent is actually a fixed DAG of steps, not a free-form loop. See <a href="#dag">§10</a>.</li>
+    <li data-pt="<strong>Estender um harness existente</strong> — primeiro instinto para agentes de código. Claude Code, Cursor e Codex são extensíveis via <em>servidores MCP</em>, <em>subagentes</em>, <em>hooks</em>, <em>slash commands</em> e <em>skills</em>. Reconstruir o loop só para adicionar uma ferramenta é trabalho desperdiçado."><strong>Extend an existing harness</strong> — first instinct for coding agents. Claude Code, Cursor, and Codex are extensible via <em>MCP servers</em>, <em>subagents</em>, <em>hooks</em>, <em>slash commands</em>, and <em>skills</em>. Rebuilding the loop yourself just to add a tool is wasted work.</li>
+    <li data-pt="<strong>Construir com um SDK</strong> — quando você precisa de um agente embutido no seu próprio produto (um bot de suporte, um agente de ops interno, um step de CI). Claude Agent SDK ou OpenAI Agents SDK te dão o loop, execução de ferramentas e streaming de graça; você traz o system prompt e as ferramentas."><strong>Build with an SDK</strong> — when you need an agent embedded inside your own product (a support bot, an internal ops agent, a CI step). Claude Agent SDK or OpenAI Agents SDK give you the loop, tool execution, and streaming for free; you bring the system prompt and tools.</li>
+    <li data-pt="<strong>Construir do zero com chamadas raw de API</strong> — só quando você precisa de controle muito rigoroso sobre contexto, estrutura de turno customizada ou protocolo de ferramenta não-padrão. A maioria dos times que tenta isso acaba reinventando um SDK pior."><strong>Build from scratch on raw API calls</strong> — only when you need very tight control over context, custom turn structure, or a non-standard tool protocol. Most teams who try this end up reinventing a worse SDK.</li>
+    <li data-pt="<strong>Use um graph framework</strong> (LangGraph, LlamaIndex Workflows) quando o agente é na verdade um DAG fixo de passos, não um loop livre. Veja <a href=&quot;#dag&quot;>§10</a>."><strong>Use a graph framework</strong> (LangGraph, LlamaIndex Workflows) when the agent is actually a fixed DAG of steps, not a free-form loop. See <a href="#dag">§10</a>.</li>
   </ul>
 
-  <h3>Common harness pitfalls</h3>
+  <h3 data-pt="Armadilhas comuns do harness">Common harness pitfalls</h3>
   <ul>
-    <li><strong>Dropping <code>thinking</code> blocks on continuations.</strong> Anthropic requires the last assistant message's thinking blocks be passed back on tool-use turns; strip them and you get errors or degraded reasoning.</li>
-    <li><strong>Returning raw tool output.</strong> A 350KB JSON blob in <code>tool_result</code> dilutes attention, evicts cached prefixes, and crosses long-context pricing tiers. Summarize before you echo. See <a href="#evals">§11</a>.</li>
-    <li><strong>Unbounded loops.</strong> "Keep going until the model says stop" without an iteration cap is how agents burn $50 in tokens overnight.</li>
-    <li><strong>No permission boundary.</strong> If the model can write files, hit prod APIs, or push to git without a confirmation gate, the blast radius of a single hallucination is the whole repo.</li>
-    <li><strong>Stateless tool execution.</strong> Each tool call needs an idempotency story — retries on transient failures, no double-charging, no double-posting.</li>
-    <li><strong>Conversation history as the only memory.</strong> Pure scrollback hits the context ceiling fast. Add summarization, episodic memory, or external state for anything multi-session. See <a href="#memory">§06</a>.</li>
+    <li data-pt="<strong>Descartar blocos <code>thinking</code> em continuações.</strong> A Anthropic exige que os thinking blocks da última mensagem do assistente sejam passados de volta em turnos de tool-use; descarte-os e você tem erros ou raciocínio degradado."><strong>Dropping <code>thinking</code> blocks on continuations.</strong> Anthropic requires the last assistant message's thinking blocks be passed back on tool-use turns; strip them and you get errors or degraded reasoning.</li>
+    <li data-pt="<strong>Retornar output bruto de ferramenta.</strong> Um blob JSON de 350KB em <code>tool_result</code> dilui a atenção, expulsa prefixos cached, e cruza tiers de preço de contexto longo. Resuma antes de ecoar. Veja <a href=&quot;#evals&quot;>§11</a>."><strong>Returning raw tool output.</strong> A 350KB JSON blob in <code>tool_result</code> dilutes attention, evicts cached prefixes, and crosses long-context pricing tiers. Summarize before you echo. See <a href="#evals">§11</a>.</li>
+    <li data-pt="<strong>Loops sem limite.</strong> &quot;Continue até o modelo dizer para parar&quot; sem um cap de iterações é como agentes queimam $50 em tokens durante a noite."><strong>Unbounded loops.</strong> "Keep going until the model says stop" without an iteration cap is how agents burn $50 in tokens overnight.</li>
+    <li data-pt="<strong>Sem fronteira de permissão.</strong> Se o modelo pode escrever arquivos, acessar APIs de produção ou fazer push no git sem um gate de confirmação, o blast radius de uma única alucinação é o repositório inteiro."><strong>No permission boundary.</strong> If the model can write files, hit prod APIs, or push to git without a confirmation gate, the blast radius of a single hallucination is the whole repo.</li>
+    <li data-pt="<strong>Execução de ferramenta stateless.</strong> Cada chamada de ferramenta precisa de uma história de idempotência — retries em falhas transitórias, sem cobrar duas vezes, sem postar duas vezes."><strong>Stateless tool execution.</strong> Each tool call needs an idempotency story — retries on transient failures, no double-charging, no double-posting.</li>
+    <li data-pt="<strong>Histórico de conversa como única memória.</strong> Scrollback puro bate no teto de contexto rápido. Adicione sumarização, memória episódica ou estado externo para qualquer coisa multi-sessão. Veja <a href=&quot;#memory&quot;>§06</a>."><strong>Conversation history as the only memory.</strong> Pure scrollback hits the context ceiling fast. Add summarization, episodic memory, or external state for anything multi-session. See <a href="#memory">§06</a>.</li>
   </ul>
 
-  <h3>2026 nuance</h3>
-  <p>Harnesses are converging on a small set of conventions: MCP for tools, subagents for parallelism and context isolation, hooks for deterministic policy enforcement, skills for reusable procedural knowledge. Choosing a harness in 2026 is mostly choosing a UX (terminal vs IDE vs web vs autonomous) and an extension model — the underlying loop is no longer the differentiator.</p>
+  <h3 data-pt="Nuance de 2026">2026 nuance</h3>
+  <p data-pt="Os harnesses estão convergindo para um pequeno conjunto de convenções: MCP para ferramentas, subagentes para paralelismo e isolamento de contexto, hooks para aplicação determinística de políticas, skills para conhecimento procedural reutilizável. Escolher um harness em 2026 é principalmente escolher uma UX (terminal vs IDE vs web vs autônomo) e um modelo de extensão — o loop subjacente não é mais o diferencial.">Harnesses are converging on a small set of conventions: MCP for tools, subagents for parallelism and context isolation, hooks for deterministic policy enforcement, skills for reusable procedural knowledge. Choosing a harness in 2026 is mostly choosing a UX (terminal vs IDE vs web vs autonomous) and an extension model — the underlying loop is no longer the differentiator.</p>
 </section>
 
 
 <!-- =================== QUIZ =================== -->
 <section id="quiz">
-  <h2><span class="num">17</span> Knowledge check — graded quiz</h2>
-  <p class="small">Pick an answer for each. Hit <em>Grade</em> at the bottom. Explanations appear after grading.</p>
+  <h2 data-pt="<span class=&quot;num&quot;>17</span> Teste de conhecimento — quiz com nota"><span class="num">17</span> Knowledge check — graded quiz</h2>
+  <p class="small" data-pt="Escolha uma resposta para cada pergunta. Clique em <em>Avaliar</em> no final. As explicações aparecem após a avaliação.">Pick an answer for each. Hit <em>Grade</em> at the bottom. Explanations appear after grading.</p>
 
   <div id="quiz-body"></div>
 
