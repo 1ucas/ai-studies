@@ -920,13 +920,13 @@
         </marker>
       </defs>
     </svg>
-    <figcaption>The user sees only the final answer. The model's internal monologue (hundreds–thousands of tokens) is hidden but billed as output tokens.</figcaption>
+    <figcaption data-pt="O usuário vê apenas a resposta final. O monólogo interno do modelo (centenas–milhares de tokens) fica escondido mas é cobrado como tokens de output.">The user sees only the final answer. The model's internal monologue (hundreds–thousands of tokens) is hidden but billed as output tokens.</figcaption>
   </figure>
 
-  <h3>1.6 Mixture of Experts (MoE)</h3>
-  <p>An architectural trick to make models bigger <em>without</em> proportionally more compute per token. Instead of one giant feed-forward block per layer, you have N "expert" blocks plus a small <strong>router</strong> network that picks 1–2 experts to actually run for each token. The model has a huge <em>total</em> parameter count, but only a small <em>active</em> count per forward pass.</p>
-  <p>Example: <strong>Kimi K2.6</strong> is ~1T total / ~32B active per token — a classic MoE. <strong>DeepSeek V4 Pro</strong> has a similar ratio (1.6T total / 49B active) but uses DSA (DeepSeek Sparse Attention) rather than traditional MoE. You get the knowledge breadth of a giant model at the inference cost of a much smaller one. Trade-off: <strong>all expert weights must reside in VRAM at all times</strong>, even those not selected for a given token — so weight residency is higher than a dense model of equivalent compute cost. The flip side is that <em>compute per token is lower</em> (only the active experts run matrix multiplications). Routing can also be uneven: popular experts get overloaded while others sit in VRAM without contributing.</p>
-  <p>Most cheap open-weight models are MoE in 2026. Closed flagship models (GPT-5.x, Claude 4.x, Gemini 3.x) are widely <em>believed</em> to be MoE but the labs do not confirm architecture details.</p>
+  <h3 data-pt="1.6 Mixture of Experts (MoE)">1.6 Mixture of Experts (MoE)</h3>
+  <p data-pt="Um truque arquitetural para deixar modelos maiores <em>sem</em> proporcionalmente mais compute por token. Em vez de um bloco feed-forward gigante por layer, você tem N blocos &quot;expert&quot; mais uma pequena rede <strong>router</strong> que escolhe 1–2 experts para realmente rodar a cada token. O modelo tem uma contagem de parâmetros <em>total</em> enorme, mas apenas uma contagem <em>ativa</em> pequena por forward pass.">An architectural trick to make models bigger <em>without</em> proportionally more compute per token. Instead of one giant feed-forward block per layer, you have N "expert" blocks plus a small <strong>router</strong> network that picks 1–2 experts to actually run for each token. The model has a huge <em>total</em> parameter count, but only a small <em>active</em> count per forward pass.</p>
+  <p data-pt="Exemplo: <strong>Kimi K2.6</strong> é ~1T total / ~32B ativo por token — um MoE clássico. <strong>DeepSeek V4 Pro</strong> tem uma proporção similar (1.6T total / 49B ativo) mas usa DSA (DeepSeek Sparse Attention) em vez de MoE tradicional. Você tem a amplitude de conhecimento de um modelo gigante ao custo de inferência de um muito menor. Trade-off: <strong>todos os pesos dos experts precisam residir na VRAM o tempo todo</strong>, mesmo os não selecionados para um dado token — então a residência de pesos é maior do que um modelo denso de custo computacional equivalente. O lado positivo é que <em>o compute por token é menor</em> (apenas os experts ativos rodam multiplicações de matriz). O routing também pode ser desigual: experts populares ficam sobrecarregados enquanto outros ficam na VRAM sem contribuir.">Example: <strong>Kimi K2.6</strong> is ~1T total / ~32B active per token — a classic MoE. <strong>DeepSeek V4 Pro</strong> has a similar ratio (1.6T total / 49B active) but uses DSA (DeepSeek Sparse Attention) rather than traditional MoE. You get the knowledge breadth of a giant model at the inference cost of a much smaller one. Trade-off: <strong>all expert weights must reside in VRAM at all times</strong>, even those not selected for a given token — so weight residency is higher than a dense model of equivalent compute cost. The flip side is that <em>compute per token is lower</em> (only the active experts run matrix multiplications). Routing can also be uneven: popular experts get overloaded while others sit in VRAM without contributing.</p>
+  <p data-pt="A maioria dos modelos open-weight baratos são MoE em 2026. Modelos flagship fechados (GPT-5.x, Claude 4.x, Gemini 3.x) são amplamente <em>acreditados</em> serem MoE mas os labs não confirmam detalhes de arquitetura.">Most cheap open-weight models are MoE in 2026. Closed flagship models (GPT-5.x, Claude 4.x, Gemini 3.x) are widely <em>believed</em> to be MoE but the labs do not confirm architecture details.</p>
 
   <figure class="diagram">
     <svg viewBox="0 0 680 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Mixture of Experts">
@@ -1006,57 +1006,57 @@
         </marker>
       </defs>
     </svg>
-    <figcaption>A router (small neural net) picks the most relevant 2 experts per token. The other 6 stay dormant. You get the knowledge of all 8 experts at the compute cost of running 2.</figcaption>
+    <figcaption data-pt="Um router (pequena rede neural) escolhe os 2 experts mais relevantes por token. Os outros 6 ficam dormentes. Você tem o conhecimento de todos os 8 experts ao custo de compute de rodar 2.">A router (small neural net) picks the most relevant 2 experts per token. The other 6 stay dormant. You get the knowledge of all 8 experts at the compute cost of running 2.</figcaption>
   </figure>
 
-  <h3>1.7 Classifier</h3>
-  <p>A model (often small) whose job is to assign one of a fixed set of <strong>labels</strong> to an input. "Is this email <code>spam</code> or <code>not-spam</code>?" "Is this user question about <code>billing</code>, <code>technical</code>, or <code>account</code>?" Output is a category (or a probability over categories), not free text.</p>
-  <p>In LLM systems classifiers do the cheap upstream work: <strong>intent detection</strong>, <strong>routing</strong>, <strong>safety filtering</strong>, <strong>relevance scoring</strong>. They can be (a) a fine-tuned small model like DistilBERT/Llama-3.1-8B, (b) a frozen LLM prompted to output a single label, or (c) a classical ML model (logistic regression on embeddings). Big LLMs are overkill — a fine-tuned small classifier is faster, cheaper, and usually more accurate on a fixed taxonomy.</p>
+  <h3 data-pt="1.7 Classifier">1.7 Classifier</h3>
+  <p data-pt="Um modelo (frequentemente pequeno) cujo trabalho é atribuir um de um conjunto fixo de <strong>labels</strong> a um input. &quot;Esse email é <code>spam</code> ou <code>not-spam</code>?&quot; &quot;Essa pergunta do usuário é sobre <code>billing</code>, <code>technical</code> ou <code>account</code>?&quot; O output é uma categoria (ou uma probabilidade sobre categorias), não texto livre.">A model (often small) whose job is to assign one of a fixed set of <strong>labels</strong> to an input. "Is this email <code>spam</code> or <code>not-spam</code>?" "Is this user question about <code>billing</code>, <code>technical</code>, or <code>account</code>?" Output is a category (or a probability over categories), not free text.</p>
+  <p data-pt="Em sistemas LLM, classifiers fazem o trabalho barato de upstream: <strong>detecção de intent</strong>, <strong>routing</strong>, <strong>filtragem de segurança</strong>, <strong>pontuação de relevância</strong>. Podem ser (a) um modelo pequeno fine-tuned como DistilBERT/Llama-3.1-8B, (b) um LLM frozen com prompt para retornar um único label, ou (c) um modelo clássico de ML (regressão logística em embeddings). LLMs grandes são overkill — um classifier pequeno fine-tuned é mais rápido, barato e normalmente mais preciso em uma taxonomia fixa.">In LLM systems classifiers do the cheap upstream work: <strong>intent detection</strong>, <strong>routing</strong>, <strong>safety filtering</strong>, <strong>relevance scoring</strong>. They can be (a) a fine-tuned small model like DistilBERT/Llama-3.1-8B, (b) a frozen LLM prompted to output a single label, or (c) a classical ML model (logistic regression on embeddings). Big LLMs are overkill — a fine-tuned small classifier is faster, cheaper, and usually more accurate on a fixed taxonomy.</p>
 
-  <h3>1.8 Routing (in LLM systems)</h3>
-  <p>The decision of <em>which model</em> (or which tool, or which downstream component) should handle a given request. "Routing" appears at multiple layers:</p>
+  <h3 data-pt="1.8 Routing (em sistemas LLM)">1.8 Routing (in LLM systems)</h3>
+  <p data-pt="A decisão de <em>qual modelo</em> (ou qual tool, ou qual componente downstream) deve tratar um dado request. &quot;Routing&quot; aparece em múltiplas camadas:">The decision of <em>which model</em> (or which tool, or which downstream component) should handle a given request. "Routing" appears at multiple layers:</p>
   <ul>
-    <li><strong>Model routing</strong> — pick which LLM (Haiku vs Sonnet vs Opus). The <a href="#routing">§03</a> topic.</li>
-    <li><strong>Tool routing</strong> — given a request, pick which tool/function the agent should call.</li>
-    <li><strong>Skill routing</strong> — pick which sub-agent or specialized prompt handles this.</li>
-    <li><strong>Expert routing</strong> — inside an MoE model, the router network picks which experts fire for a given token (different layer of abstraction — same word).</li>
+    <li data-pt="<strong>Model routing</strong> — escolher qual LLM (Haiku vs Sonnet vs Opus). O tópico da <a href=&quot;#routing&quot;>§03</a>."><strong>Model routing</strong> — pick which LLM (Haiku vs Sonnet vs Opus). The <a href="#routing">§03</a> topic.</li>
+    <li data-pt="<strong>Tool routing</strong> — dado um request, escolher qual tool/função o agent deve chamar."><strong>Tool routing</strong> — given a request, pick which tool/function the agent should call.</li>
+    <li data-pt="<strong>Skill routing</strong> — escolher qual sub-agent ou prompt especializado lida com isso."><strong>Skill routing</strong> — pick which sub-agent or specialized prompt handles this.</li>
+    <li data-pt="<strong>Expert routing</strong> — dentro de um modelo MoE, a rede router escolhe quais experts disparam para um dado token (nível de abstração diferente — mesma palavra)."><strong>Expert routing</strong> — inside an MoE model, the router network picks which experts fire for a given token (different layer of abstraction — same word).</li>
   </ul>
-  <p>A "router" is usually a classifier (see 1.7) — that's why the two concepts are joined at the hip.</p>
+  <p data-pt="Um &quot;router&quot; geralmente é um classifier (veja 1.7) — é por isso que os dois conceitos estão tão ligados.">A "router" is usually a classifier (see 1.7) — that's why the two concepts are joined at the hip.</p>
 
-  <h3>1.9 Model lab vs Provider vs Inference platform</h3>
-  <p>Three things that often get conflated:</p>
+  <h3 data-pt="1.9 Model lab vs Provider vs Plataforma de inferência">1.9 Model lab vs Provider vs Inference platform</h3>
+  <p data-pt="Três coisas que frequentemente se confundem:">Three things that often get conflated:</p>
   <ul>
-    <li><strong>Model lab</strong> — who trained and owns the model. <em>Anthropic, OpenAI, Google DeepMind, Meta, DeepSeek, Moonshot, Z.ai, Mistral, Alibaba (Qwen).</em></li>
-    <li><strong>First-party provider</strong> — the lab serving its own model via API. <em>api.anthropic.com, api.openai.com, ai.google.dev.</em></li>
-    <li><strong>Third-party inference platform</strong> — a company that hosts <em>other labs'</em> models (usually open-weight) on their infrastructure. <em>Together AI, Fireworks, DeepInfra, Groq, Replicate, OpenRouter.</em></li>
-    <li><strong>Cloud-vendor reseller</strong> — your existing cloud account, with frontier models bolted on. <em>AWS Bedrock, Google Vertex AI, Azure OpenAI Service.</em></li>
+    <li data-pt="<strong>Model lab</strong> — quem treinou e é dono do modelo. <em>Anthropic, OpenAI, Google DeepMind, Meta, DeepSeek, Moonshot, Z.ai, Mistral, Alibaba (Qwen).</em>"><strong>Model lab</strong> — who trained and owns the model. <em>Anthropic, OpenAI, Google DeepMind, Meta, DeepSeek, Moonshot, Z.ai, Mistral, Alibaba (Qwen).</em></li>
+    <li data-pt="<strong>Provider first-party</strong> — o lab servindo seu próprio modelo via API. <em>api.anthropic.com, api.openai.com, ai.google.dev.</em>"><strong>First-party provider</strong> — the lab serving its own model via API. <em>api.anthropic.com, api.openai.com, ai.google.dev.</em></li>
+    <li data-pt="<strong>Plataforma de inferência third-party</strong> — uma empresa que hospeda modelos <em>de outros labs</em> (geralmente open-weight) na sua infraestrutura. <em>Together AI, Fireworks, DeepInfra, Groq, Replicate, OpenRouter.</em>"><strong>Third-party inference platform</strong> — a company that hosts <em>other labs'</em> models (usually open-weight) on their infrastructure. <em>Together AI, Fireworks, DeepInfra, Groq, Replicate, OpenRouter.</em></li>
+    <li data-pt="<strong>Revendedor de cloud</strong> — sua conta cloud existente, com modelos frontier integrados. <em>AWS Bedrock, Google Vertex AI, Azure OpenAI Service.</em>"><strong>Cloud-vendor reseller</strong> — your existing cloud account, with frontier models bolted on. <em>AWS Bedrock, Google Vertex AI, Azure OpenAI Service.</em></li>
   </ul>
-  <p>"Different provider models per sub-task" in the routing pattern (<a href="#routing">§03</a>) means: this step uses an Anthropic-hosted Sonnet; the next uses a Together-hosted Kimi K2.6; the embedding step uses Voyage. Different vendors, one workflow.</p>
+  <p data-pt="&quot;Modelos de provider diferentes por sub-task&quot; no padrão de routing (<a href=&quot;#routing&quot;>§03</a>) significa: esse passo usa um Sonnet hospedado na Anthropic; o próximo usa um Kimi K2.6 hospedado na Together; o passo de embedding usa Voyage. Vendors diferentes, um workflow.">&#8220;Different provider models per sub-task&#8221; in the routing pattern (<a href="#routing">§03</a>) means: this step uses an Anthropic-hosted Sonnet; the next uses a Together-hosted Kimi K2.6; the embedding step uses Voyage. Different vendors, one workflow.</p>
 
-  <h3>1.10 AWS Bedrock & Google Vertex AI — what and why</h3>
-  <p>These are the <strong>cloud-vendor abstractions</strong> on top of "calling an LLM API." Same job, different vendor:</p>
+  <h3 data-pt="1.10 AWS Bedrock &amp; Google Vertex AI — o que são e por quê">1.10 AWS Bedrock & Google Vertex AI — what and why</h3>
+  <p data-pt="Essas são as <strong>abstrações de cloud-vendor</strong> em cima de &quot;chamar uma API de LLM&quot;. Mesmo trabalho, vendor diferente:">These are the <strong>cloud-vendor abstractions</strong> on top of "calling an LLM API." Same job, different vendor:</p>
   <table>
     <thead><tr><th></th><th>AWS Bedrock</th><th>Google Vertex AI</th><th>Azure OpenAI Service</th></tr></thead>
     <tbody>
-      <tr><td>Cloud</td><td>AWS</td><td>Google Cloud (GCP)</td><td>Microsoft Azure</td></tr>
-      <tr><td>Models hosted</td><td>Anthropic, Meta (Llama), Mistral, Cohere, Amazon Nova, DeepSeek, Stability</td><td>Google (Gemini), Anthropic, Meta, Mistral, plus 100+ in Model Garden</td><td>OpenAI (GPT-5.x, embeddings, image/audio models)</td></tr>
-      <tr><td>Auth</td><td>IAM (your existing AWS roles)</td><td>GCP service accounts / IAM</td><td>Azure AD / managed identity</td></tr>
-      <tr><td>Data residency</td><td>Stays in your AWS region; never used for training</td><td>Stays in your GCP region; never used for training</td><td>Stays in your Azure region; never used for training</td></tr>
-      <tr><td>Billing</td><td>Bundled into your AWS invoice</td><td>Bundled into your GCP invoice</td><td>Bundled into your Azure invoice</td></tr>
+      <tr><td data-pt="Cloud">Cloud</td><td>AWS</td><td>Google Cloud (GCP)</td><td>Microsoft Azure</td></tr>
+      <tr><td data-pt="Modelos hospedados">Models hosted</td><td>Anthropic, Meta (Llama), Mistral, Cohere, Amazon Nova, DeepSeek, Stability</td><td>Google (Gemini), Anthropic, Meta, Mistral, plus 100+ in Model Garden</td><td>OpenAI (GPT-5.x, embeddings, image/audio models)</td></tr>
+      <tr><td data-pt="Auth">Auth</td><td data-pt="IAM (suas roles existentes da AWS)">IAM (your existing AWS roles)</td><td data-pt="Service accounts / IAM do GCP">GCP service accounts / IAM</td><td data-pt="Azure AD / managed identity">Azure AD / managed identity</td></tr>
+      <tr><td data-pt="Residência de dados">Data residency</td><td data-pt="Fica na sua região AWS; nunca usado para treinamento">Stays in your AWS region; never used for training</td><td data-pt="Fica na sua região GCP; nunca usado para treinamento">Stays in your GCP region; never used for training</td><td data-pt="Fica na sua região Azure; nunca usado para treinamento">Stays in your Azure region; never used for training</td></tr>
+      <tr><td data-pt="Faturamento">Billing</td><td data-pt="Incluído na sua fatura AWS">Bundled into your AWS invoice</td><td data-pt="Incluído na sua fatura GCP">Bundled into your GCP invoice</td><td data-pt="Incluído na sua fatura Azure">Bundled into your Azure invoice</td></tr>
     </tbody>
   </table>
 
-  <h4>Why they matter in practice</h4>
+  <h4 data-pt="Por que importam na prática">Why they matter in practice</h4>
   <ul>
-    <li><strong>Procurement.</strong> If your company already has a $10M/year AWS commit, Bedrock spend counts against it. No new vendor to onboard — Legal, Finance, Security all say yes faster.</li>
-    <li><strong>Data sovereignty & compliance.</strong> Requests/responses stay inside your cloud VPC and region. HIPAA, SOC 2, FedRAMP boundaries are inherited from the cloud account. Going to <code>api.anthropic.com</code> directly often fails a regulated-industry security review; Bedrock does not.</li>
-    <li><strong>Networking.</strong> Private VPC endpoints — model calls never traverse the public internet. Big for finance, healthcare, government.</li>
-    <li><strong>Unified IAM / observability.</strong> CloudTrail / Cloud Audit Logs records every call. Use the same roles, secrets manager, KMS keys you already use.</li>
-    <li><strong>Multi-model marketplace.</strong> One contract, one SDK, dozens of models. Switching models is a config change, not a procurement cycle.</li>
-    <li><strong>Trade-off:</strong> new model versions usually land on the lab's first-party API days-to-weeks <em>before</em> Bedrock/Vertex. And pricing on these platforms is sometimes ~5% higher than the direct API.</li>
+    <li data-pt="<strong>Procurement.</strong> Se sua empresa já tem um compromisso de $10M/ano na AWS, o gasto no Bedrock conta contra isso. Sem novo vendor para integrar — Jurídico, Financeiro e Segurança dizem sim mais rápido."><strong>Procurement.</strong> If your company already has a $10M/year AWS commit, Bedrock spend counts against it. No new vendor to onboard — Legal, Finance, Security all say yes faster.</li>
+    <li data-pt="<strong>Soberania de dados &amp; compliance.</strong> Requests/responses ficam dentro do seu VPC e região cloud. As fronteiras de HIPAA, SOC 2, FedRAMP são herdadas da conta cloud. Ir direto para <code>api.anthropic.com</code> frequentemente falha em uma revisão de segurança de indústria regulamentada; Bedrock não."><strong>Data sovereignty & compliance.</strong> Requests/responses stay inside your cloud VPC and region. HIPAA, SOC 2, FedRAMP boundaries are inherited from the cloud account. Going to <code>api.anthropic.com</code> directly often fails a regulated-industry security review; Bedrock does not.</li>
+    <li data-pt="<strong>Networking.</strong> Endpoints privados VPC — chamadas ao modelo nunca atravessam a internet pública. Importante para finanças, saúde, governo."><strong>Networking.</strong> Private VPC endpoints — model calls never traverse the public internet. Big for finance, healthcare, government.</li>
+    <li data-pt="<strong>IAM / observabilidade unificados.</strong> CloudTrail / Cloud Audit Logs registra cada chamada. Use os mesmos roles, secrets manager, chaves KMS que você já usa."><strong>Unified IAM / observability.</strong> CloudTrail / Cloud Audit Logs records every call. Use the same roles, secrets manager, KMS keys you already use.</li>
+    <li data-pt="<strong>Marketplace multi-modelo.</strong> Um contrato, um SDK, dezenas de modelos. Trocar de modelo é uma mudança de config, não um ciclo de procurement."><strong>Multi-model marketplace.</strong> One contract, one SDK, dozens of models. Switching models is a config change, not a procurement cycle.</li>
+    <li data-pt="<strong>Trade-off:</strong> novas versões de modelos geralmente chegam na API first-party do lab dias a semanas <em>antes</em> do Bedrock/Vertex. E o preço nessas plataformas às vezes é ~5% maior que a API direta."><strong>Trade-off:</strong> new model versions usually land on the lab's first-party API days-to-weeks <em>before</em> Bedrock/Vertex. And pricing on these platforms is sometimes ~5% higher than the direct API.</li>
   </ul>
 
-  <div class="callout">
+  <div class="callout" data-pt="<strong>Insight chave:</strong> &quot;Para AI empresarial, o modelo raramente é o fator limitante — procurement, residência de dados e IAM são. Bedrock e Vertex existem porque deixam você adotar modelos frontier sem refazer toda a sua postura de compliance.&quot;">
     <strong>Key insight:</strong> "For enterprise AI, the model is rarely the limiting factor — procurement, data residency, and IAM are. Bedrock and Vertex exist because they let you adopt frontier models without re-doing your compliance posture."
   </div>
 </section>
@@ -1064,42 +1064,42 @@
 
 <!-- =================== MODELS & PRICING =================== -->
 <section id="models">
-  <h2><span class="num">02</span> Models & Pricing — the headline numbers</h2>
-  <p>Prices are per <strong>1M tokens</strong>, USD, standard tier (input / output). Caching and batch usually cut 50–90% off input.</p>
+  <h2 data-pt="<span class=&quot;num&quot;>02</span> Modelos &amp; Preços — os números principais"><span class="num">02</span> Models & Pricing — the headline numbers</h2>
+  <p data-pt="Preços por <strong>1M tokens</strong>, USD, tier padrão (input / output). Caching e batch geralmente cortam 50–90% do input.">Prices are per <strong>1M tokens</strong>, USD, standard tier (input / output). Caching and batch usually cut 50–90% off input.</p>
 
-  <h3>Closed-source frontier</h3>
+  <h3 data-pt="Frontier closed-source">Closed-source frontier</h3>
   <table>
-    <thead><tr><th>Model</th><th>Input</th><th>Output</th><th>Sweet spot</th></tr></thead>
+    <thead><tr><th data-pt="Modelo">Model</th><th>Input</th><th>Output</th><th data-pt="Sweet spot">Sweet spot</th></tr></thead>
     <tbody>
-      <tr><td><strong>Claude Opus 4.7</strong></td><td class="price">$5.00</td><td class="price">$25.00</td><td>Newest Opus flagship. Long-horizon agents, deep coding, planning. 1M context window.</td></tr>
-      <tr><td><strong>Claude Opus 4.6</strong></td><td class="price">$5.00</td><td class="price">$25.00</td><td>Mature Opus workhorse. Still very relevant for long-context agents, code review, deep synthesis, and evals pinned before 4.7.</td></tr>
-      <tr><td><strong>Claude Sonnet 4.6</strong></td><td class="price">$3.00</td><td class="price">$15.00</td><td>Workhorse — coding, tool use, agentic flows. 40% cheaper than Opus per token.</td></tr>
-      <tr><td><strong>Claude Haiku 4.5</strong></td><td class="price">$1.00</td><td class="price">$5.00</td><td>High-throughput classification, routing, cheap drafts. 5× cheaper than Opus.</td></tr>
-      <tr><td><strong>GPT-5.5</strong></td><td class="price">$5.00</td><td class="price">$30.00</td><td>OpenAI flagship. Top coding scores. Pro tier is $30/$180 — frontier reasoning only.</td></tr>
-      <tr><td><strong>GPT-5.4</strong></td><td class="price">$2.50</td><td class="price">$15.00</td><td>Mainstream OpenAI default — good general-purpose balance.</td></tr>
-      <tr><td><strong>GPT-5</strong> (base)</td><td class="price">$1.25</td><td class="price">$10.00</td><td>Previous-generation reasoning model. Good fallback when GPT-5.4/5.5 is overkill.</td></tr>
-      <tr><td><strong>Gemini 3.1 Pro</strong></td><td class="price">$2.00</td><td class="price">$12.00</td><td>Long context (≤200K at these rates, doubles after). Top multimodal, agentic + vibe-coding. Preview.</td></tr>
-      <tr><td><strong>Gemini 3 Flash</strong></td><td class="price">$0.50</td><td class="price">$3.00</td><td>Frontier-class intelligence at speed. Strong search/grounding. Preview.</td></tr>
-      <tr><td><strong>Gemini 3.1 Flash-Lite</strong></td><td class="price">$0.25</td><td class="price">$1.50</td><td>High-volume agentic tasks, translation, simple extraction. Cheapest Gemini 3 tier. Stable.</td></tr>
+      <tr><td><strong>Claude Opus 4.7</strong></td><td class="price">$5.00</td><td class="price">$25.00</td><td data-pt="Novo flagship Opus. Agents de longo horizonte, coding profundo, planejamento. 1M context window.">Newest Opus flagship. Long-horizon agents, deep coding, planning. 1M context window.</td></tr>
+      <tr><td><strong>Claude Opus 4.6</strong></td><td class="price">$5.00</td><td class="price">$25.00</td><td data-pt="Opus workhorse maduro. Ainda muito relevante para agents de longo contexto, code review, síntese profunda e evals fixados antes do 4.7.">Mature Opus workhorse. Still very relevant for long-context agents, code review, deep synthesis, and evals pinned before 4.7.</td></tr>
+      <tr><td><strong>Claude Sonnet 4.6</strong></td><td class="price">$3.00</td><td class="price">$15.00</td><td data-pt="Workhorse — coding, tool use, flows agênticos. 40% mais barato que Opus por token.">Workhorse — coding, tool use, agentic flows. 40% cheaper than Opus per token.</td></tr>
+      <tr><td><strong>Claude Haiku 4.5</strong></td><td class="price">$1.00</td><td class="price">$5.00</td><td data-pt="Classificação de alto throughput, routing, drafts baratos. 5× mais barato que Opus.">High-throughput classification, routing, cheap drafts. 5× cheaper than Opus.</td></tr>
+      <tr><td><strong>GPT-5.5</strong></td><td class="price">$5.00</td><td class="price">$30.00</td><td data-pt="Flagship OpenAI. Top em coding. Tier Pro é $30/$180 — só para reasoning frontier.">OpenAI flagship. Top coding scores. Pro tier is $30/$180 — frontier reasoning only.</td></tr>
+      <tr><td><strong>GPT-5.4</strong></td><td class="price">$2.50</td><td class="price">$15.00</td><td data-pt="Padrão mainstream OpenAI — bom equilíbrio geral.">Mainstream OpenAI default — good general-purpose balance.</td></tr>
+      <tr><td><strong>GPT-5</strong> (base)</td><td class="price">$1.25</td><td class="price">$10.00</td><td data-pt="Modelo de reasoning da geração anterior. Bom fallback quando GPT-5.4/5.5 é exagerado.">Previous-generation reasoning model. Good fallback when GPT-5.4/5.5 is overkill.</td></tr>
+      <tr><td><strong>Gemini 3.1 Pro</strong></td><td class="price">$2.00</td><td class="price">$12.00</td><td data-pt="Contexto longo (≤200K nessas taxas, dobra depois). Top multimodal, agêntico + vibe-coding. Preview.">Long context (≤200K at these rates, doubles after). Top multimodal, agentic + vibe-coding. Preview.</td></tr>
+      <tr><td><strong>Gemini 3 Flash</strong></td><td class="price">$0.50</td><td class="price">$3.00</td><td data-pt="Inteligência de classe frontier com velocidade. Forte em search/grounding. Preview.">Frontier-class intelligence at speed. Strong search/grounding. Preview.</td></tr>
+      <tr><td><strong>Gemini 3.1 Flash-Lite</strong></td><td class="price">$0.25</td><td class="price">$1.50</td><td data-pt="Tasks agênticas de alto volume, tradução, extração simples. Tier mais barato do Gemini 3. Estável.">High-volume agentic tasks, translation, simple extraction. Cheapest Gemini 3 tier. Stable.</td></tr>
     </tbody>
   </table>
 
-  <h3>Open-weight / cheap</h3>
+  <h3 data-pt="Open-weight / barato">Open-weight / cheap</h3>
   <table>
-    <thead><tr><th>Model</th><th>Input</th><th>Output</th><th>Notes</th></tr></thead>
+    <thead><tr><th data-pt="Modelo">Model</th><th>Input</th><th>Output</th><th data-pt="Notas">Notes</th></tr></thead>
     <tbody>
-      <tr><td><strong>DeepSeek V4 Flash</strong></td><td class="price">$0.14</td><td class="price">$0.28</td><td>1M context default. Replaces V3 as the budget workhorse. Same price point, meaningfully better quality.</td></tr>
-      <tr><td><strong>DeepSeek V4 Pro</strong></td><td class="price">$1.74</td><td class="price">$3.48</td><td>1.6T total / 49B active. Uses DSA (DeepSeek Sparse Attention), not traditional MoE. Top open-weight overall. Cache-hit input at list price is $0.0145/1M.</td></tr>
-      <tr><td><strong>Kimi K2.6</strong> (Moonshot)</td><td class="price">$0.95</td><td class="price">$4.00</td><td>Open-weight, Modified MIT. State-of-the-art coding agent — ties GPT-5.5 on some coding benchmarks. Cache-hit input is $0.16/1M.</td></tr>
-      <tr><td><strong>GLM 5.1</strong> (Z.ai)</td><td class="price">$1.40</td><td class="price">$4.40</td><td>Open-weight (MIT), 754B params, 200K ctx. Flagship agentic model — SOTA on SWE-Bench Pro (58.4%). Sustains long-horizon coding over 600+ iterations.</td></tr>
+      <tr><td><strong>DeepSeek V4 Flash</strong></td><td class="price">$0.14</td><td class="price">$0.28</td><td data-pt="1M context padrão. Substitui o V3 como workhorse budget. Mesmo preço, qualidade visivelmente melhor.">1M context default. Replaces V3 as the budget workhorse. Same price point, meaningfully better quality.</td></tr>
+      <tr><td><strong>DeepSeek V4 Pro</strong></td><td class="price">$1.74</td><td class="price">$3.48</td><td data-pt="1.6T total / 49B ativo. Usa DSA (DeepSeek Sparse Attention), não MoE tradicional. Top open-weight no geral. Cache-hit input no preço de lista é $0.0145/1M.">1.6T total / 49B active. Uses DSA (DeepSeek Sparse Attention), not traditional MoE. Top open-weight overall. Cache-hit input at list price is $0.0145/1M.</td></tr>
+      <tr><td><strong>Kimi K2.6</strong> (Moonshot)</td><td class="price">$0.95</td><td class="price">$4.00</td><td data-pt="Open-weight, Modified MIT. Agent de coding state-of-the-art — empata com GPT-5.5 em alguns benchmarks de coding. Cache-hit input é $0.16/1M.">Open-weight, Modified MIT. State-of-the-art coding agent — ties GPT-5.5 on some coding benchmarks. Cache-hit input is $0.16/1M.</td></tr>
+      <tr><td><strong>GLM 5.1</strong> (Z.ai)</td><td class="price">$1.40</td><td class="price">$4.40</td><td data-pt="Open-weight (MIT), 754B params, 200K ctx. Flagship agêntico — SOTA no SWE-Bench Pro (58.4%). Sustenta coding de longo horizonte por mais de 600+ iterações.">Open-weight (MIT), 754B params, 200K ctx. Flagship agentic model — SOTA on SWE-Bench Pro (58.4%). Sustains long-horizon coding over 600+ iterations.</td></tr>
     </tbody>
   </table>
 
-  <div class="callout warn">
+  <div class="callout warn" data-pt="<strong>Descontos temporários:</strong> Mantenha preços promocionais fora da comparação base. DeepSeek atualmente lista um desconto de 75% no V4 Pro até 2026-05-31, o que reduz o Pro para $0.435 input / $0.87 output e cache-hit input para $0.003625 por 1M. Trate isso como uma nota de janela de billing, não o preço bruto do modelo.">
     <strong>Temporary discounts:</strong> Keep promotional pricing out of the baseline comparison. DeepSeek currently lists a 75% V4 Pro discount through 2026-05-31, which lowers Pro to $0.435 input / $0.87 output and cache-hit input to $0.003625 per 1M. Treat that as a billing-window note, not the model's raw price.
   </div>
 
-  <div class="callout">
+  <div class="callout" data-pt="<strong>Mental model:</strong> Modelos frontier fechados custam de ~3× a 100× mais que alternativas open-weight dependendo de se você compara contra um modelo open flagship (Kimi/GLM/DeepSeek Pro) ou um tier flash barato. O prêmio compra: confiabilidade de tool-use, coerência de longo horizonte, profundidade multimodal e ecossistema (tools, caches, retrieval hospedado). Para extração em batch ou classificação, o tier open/flash barato ainda vence por uma ordem de magnitude.">
     <strong>Mental model:</strong> Frontier closed models cost anywhere from ~3× to 100× more than open-weight alternatives depending on whether you compare against a flagship open model (Kimi/GLM/DeepSeek Pro) or a cheap flash tier. The premium buys: tool-use reliability, long-horizon coherence, multimodal depth, and ecosystem (tools, caches, hosted retrieval). For batch extraction or classification, the cheap open/flash tier still wins by an order of magnitude.
   </div>
 
@@ -1111,239 +1111,239 @@
       <span><span class="sw" style="background:#7cf0c1"></span>Input</span>
       <span><span class="sw" style="background:#ffb86b"></span>Output</span>
     </div>
-    <figcaption>Open-weight pricing now spans cheap flash models and more expensive flagship open models. DeepSeek Flash is orders cheaper; Kimi/GLM/DeepSeek Pro are still materially below closed frontier pricing. Hover a bar for the exact number.</figcaption>
+    <figcaption data-pt="O preço open-weight agora vai de modelos flash baratos a modelos open flagship mais caros. DeepSeek Flash é ordens de grandeza mais barato; Kimi/GLM/DeepSeek Pro ainda ficam bem abaixo do preço frontier fechado. Passe o mouse em uma barra para o número exato.">Open-weight pricing now spans cheap flash models and more expensive flagship open models. DeepSeek Flash is orders cheaper; Kimi/GLM/DeepSeek Pro are still materially below closed frontier pricing. Hover a bar for the exact number.</figcaption>
   </figure>
 
-  <h3>Cost optimization levers (memorize these)</h3>
+  <h3 data-pt="Alavancas de otimização de custo (decore estas)">Cost optimization levers (memorize these)</h3>
   <ul>
-    <li><strong>Prompt caching:</strong> Up to <strong>90% off input</strong> for repeated context (system prompts, RAG documents). Anthropic, OpenAI, Gemini and several open-model providers support it. Anthropic exposes 5-minute and 1-hour cache write tiers.</li>
-    <li><strong>Batch API:</strong> <strong>50% off</strong> input+output, 24h SLA. Use for evals, offline summarization, bulk classification.</li>
-    <li><strong>Cache-hit pricing</strong> is a major lever on providers that expose it: DeepSeek V4 Pro cache-hit input is $0.0145/1M vs $1.74/1M cache-miss at list price; Kimi K2.6 cache-hit input is $0.16/1M vs $0.95/1M standard input.</li>
-    <li><strong>Context length tiers:</strong> Gemini 3.x and GPT-5.4/5.5 both have long-context pricing cliffs. Gemini 3.1 Pro goes from $2.00 → $4.00/1M input beyond 200K; GPT-5.4/5.5 sessions above ~272K input are priced at 2× input and 1.5× output.</li>
+    <li data-pt="<strong>Prompt caching:</strong> Até <strong>90% off no input</strong> para contexto repetido (system prompts, documentos RAG). Anthropic, OpenAI, Gemini e vários providers de modelos open suportam. Anthropic expõe tiers de escrita de cache de 5 minutos e 1 hora."><strong>Prompt caching:</strong> Up to <strong>90% off input</strong> for repeated context (system prompts, RAG documents). Anthropic, OpenAI, Gemini and several open-model providers support it. Anthropic exposes 5-minute and 1-hour cache write tiers.</li>
+    <li data-pt="<strong>Batch API:</strong> <strong>50% off</strong> input+output, SLA de 24h. Use para evals, sumarização offline, classificação em bulk."><strong>Batch API:</strong> <strong>50% off</strong> input+output, 24h SLA. Use for evals, offline summarization, bulk classification.</li>
+    <li data-pt="<strong>Preço de cache-hit</strong> é uma alavanca importante nos providers que expõem: cache-hit input do DeepSeek V4 Pro é $0.0145/1M vs $1.74/1M de cache-miss no preço de lista; Kimi K2.6 cache-hit input é $0.16/1M vs $0.95/1M de input padrão."><strong>Cache-hit pricing</strong> is a major lever on providers that expose it: DeepSeek V4 Pro cache-hit input is $0.0145/1M vs $1.74/1M cache-miss at list price; Kimi K2.6 cache-hit input is $0.16/1M vs $0.95/1M standard input.</li>
+    <li data-pt="<strong>Tiers de comprimento de contexto:</strong> Gemini 3.x e GPT-5.4/5.5 têm cliffs de preço para contexto longo. Gemini 3.1 Pro vai de $2.00 → $4.00/1M de input além de 200K; sessões GPT-5.4/5.5 acima de ~272K de input são precificadas a 2× de input e 1.5× de output."><strong>Context length tiers:</strong> Gemini 3.x and GPT-5.4/5.5 both have long-context pricing cliffs. Gemini 3.1 Pro goes from $2.00 → $4.00/1M input beyond 200K; GPT-5.4/5.5 sessions above ~272K input are priced at 2× input and 1.5× output.</li>
   </ul>
 </section>
 
 
 <!-- =================== ROUTING =================== -->
 <section id="routing">
-  <h2><span class="num">03</span> Which model for which task <span class="badge" style="background:var(--warn); color:#0b0d10">CORE</span></h2>
-  <p>The single most important question to ask yourself. The 2026 architecture <strong>routes</strong> different requests to different models — you do not pick one model and stick with it. Below is the full decision framework.</p>
+  <h2 data-pt="<span class=&quot;num&quot;>03</span> Qual modelo para qual task <span class=&quot;badge&quot; style=&quot;background:var(--warn); color:#0b0d10&quot;>ESSENCIAL</span>"><span class="num">03</span> Which model for which task <span class="badge" style="background:var(--warn); color:#0b0d10">CORE</span></h2>
+  <p data-pt="A pergunta mais importante para se fazer. A arquitetura de 2026 faz <strong>routing</strong> de diferentes requests para diferentes modelos — você não escolhe um modelo e fica nele. Abaixo está o framework completo de decisão.">The single most important question to ask yourself. The 2026 architecture <strong>routes</strong> different requests to different models — you do not pick one model and stick with it. Below is the full decision framework.</p>
 
-  <h3>3.1 The 4 dimensions that decide the model</h3>
-  <p>Before naming a model, you have to characterize the request along four axes:</p>
+  <h3 data-pt="3.1 As 4 dimensões que decidem o modelo">3.1 The 4 dimensions that decide the model</h3>
+  <p data-pt="Antes de nomear um modelo, você precisa caracterizar o request ao longo de quatro eixos:">Before naming a model, you have to characterize the request along four axes:</p>
   <table>
-    <thead><tr><th>Dimension</th><th>What to ask</th><th>Why it matters</th></tr></thead>
+    <thead><tr><th data-pt="Dimensão">Dimension</th><th data-pt="O que perguntar">What to ask</th><th data-pt="Por que importa">Why it matters</th></tr></thead>
     <tbody>
-      <tr><td><strong>Capability tier</strong></td><td>Does it need frontier reasoning, or is it a routine extract/classify/summarize?</td><td>10× cost gap between Opus and Haiku — most tasks do not need the top tier.</td></tr>
-      <tr><td><strong>Context length</strong></td><td>Tokens in (1K? 50K? 500K?)</td><td>Eliminates models below the threshold; affects pricing tier on Gemini.</td></tr>
-      <tr><td><strong>Latency budget</strong></td><td>Interactive (&lt;2s) vs batch (24h)?</td><td>Reasoning models are slow; batch APIs are 50% cheaper but async.</td></tr>
-      <tr><td><strong>Data sovereignty</strong></td><td>Can the data leave your perimeter?</td><td>If no → open-weight on your infra. If yes → closed frontier is usually cheaper and better.</td></tr>
+      <tr><td data-pt="<strong>Tier de capacidade</strong>"><strong>Capability tier</strong></td><td data-pt="Precisa de reasoning frontier, ou é um extract/classify/summarize de rotina?">Does it need frontier reasoning, or is it a routine extract/classify/summarize?</td><td data-pt="Gap de 10× de custo entre Opus e Haiku — a maioria das tasks não precisa do tier de topo.">10× cost gap between Opus and Haiku — most tasks do not need the top tier.</td></tr>
+      <tr><td data-pt="<strong>Comprimento de contexto</strong>"><strong>Context length</strong></td><td data-pt="Tokens de entrada (1K? 50K? 500K?)">Tokens in (1K? 50K? 500K?)</td><td data-pt="Elimina modelos abaixo do threshold; afeta o tier de preço no Gemini.">Eliminates models below the threshold; affects pricing tier on Gemini.</td></tr>
+      <tr><td data-pt="<strong>Budget de latência</strong>"><strong>Latency budget</strong></td><td data-pt="Interativo (&lt;2s) vs batch (24h)?">Interactive (&lt;2s) vs batch (24h)?</td><td data-pt="Modelos de reasoning são lentos; batch APIs são 50% mais baratas mas assíncronas.">Reasoning models are slow; batch APIs are 50% cheaper but async.</td></tr>
+      <tr><td data-pt="<strong>Soberania de dados</strong>"><strong>Data sovereignty</strong></td><td data-pt="Os dados podem sair do seu perímetro?">Can the data leave your perimeter?</td><td data-pt="Se não → open-weight na sua infra. Se sim → frontier fechado geralmente é mais barato e melhor.">If no → open-weight on your infra. If yes → closed frontier is usually cheaper and better.</td></tr>
     </tbody>
   </table>
 
-  <h3>3.2 The full task → model matrix</h3>
+  <h3 data-pt="3.2 A matriz completa task → modelo">3.2 The full task → model matrix</h3>
   <table>
-    <thead><tr><th>Task</th><th>First choice</th><th>Cheap / OSS alt</th><th>Why</th></tr></thead>
+    <thead><tr><th data-pt="Task">Task</th><th data-pt="Primeira escolha">First choice</th><th data-pt="Alt barata / OSS">Cheap / OSS alt</th><th data-pt="Por quê">Why</th></tr></thead>
     <tbody>
-      <tr><td>Frontier reasoning (math olympiad, novel science, hard logic)</td><td>Claude Opus 4.6/4.7 · GPT-5.5 Pro</td><td>DeepSeek V4 Pro (thinking mode)</td><td>Highest GPQA Diamond / AIME scores. Reasoning models spend extra internal thinking tokens before responding.</td></tr>
-      <tr><td>Agentic coding (multi-step, tool use, long sessions)</td><td>Claude Sonnet 4.6 → escalate to Opus 4.6/4.7</td><td>Kimi K2.6 · DeepSeek V4 Pro</td><td>Anthropic models lead on long-horizon coherence and tool-use reliability — the failure mode that kills agents.</td></tr>
-      <tr><td>One-shot code generation / completion</td><td>GPT-5.5 · Gemini 3.1 Pro</td><td>DeepSeek V4 Pro · Kimi K2.6</td><td>Top SWE-bench / LiveCodeBench scores when you only need one good answer, not a multi-turn agent.</td></tr>
-      <tr><td>Code review / static analysis</td><td>Claude Sonnet 4.6</td><td>DeepSeek V4 Flash</td><td>Strong at spotting subtle bugs, security smells; better self-restraint than GPT (less "rewriting your code unprompted").</td></tr>
-      <tr><td>Long document RAG / 200K+ context extraction</td><td>Gemini 3.1 Pro · Claude Opus 4.6/4.7 · GPT-5.4/5.5 when OpenAI tooling matters</td><td>Gemini 3 Flash · GPT-5</td><td>Native ~1M context options. Beats RAG for corpora that fit, but watch long-context pricing cliffs.</td></tr>
-      <tr><td>High-volume structured extraction (invoices, forms)</td><td>Gemini 3 Flash · Claude Haiku 4.5</td><td>DeepSeek V4 Flash</td><td>Cheap per token + structured output mode + good enough on simple schemas.</td></tr>
-      <tr><td>Classification / intent routing</td><td>Claude Haiku 4.5 · Gemini 3.1 Flash-Lite</td><td>DeepSeek V4 Flash · fine-tuned small open model</td><td>Sub-second latency, $0.14-$1 per 1M input. A fine-tune of Llama 3.1 8B can crush this for pennies.</td></tr>
-      <tr><td>Conversational chat (customer support, FAQ)</td><td>Claude Sonnet 4.6 · GPT-5.4</td><td>GPT-5 · Gemini 3 Flash</td><td>Sonnet has the strongest tone/safety balance; GPT-5.4 is the cheapest mainstream option.</td></tr>
-      <tr><td>Creative writing / marketing copy</td><td>Claude Opus 4.6/4.7 · GPT-5.5</td><td>DeepSeek V4 Flash</td><td>Opus has the best prose quality; GPT-5.5 is more "viral-style." Match to brand voice.</td></tr>
-      <tr><td>Multimodal — images / docs / charts</td><td>Gemini 3.1 Pro</td><td>GPT-5.4 · Claude Sonnet 4.6</td><td>Gemini was natively multimodal-trained from scratch and reads charts/diagrams the best.</td></tr>
-      <tr><td>Multimodal — audio (transcription + understanding)</td><td>Gemini 3.1 Pro</td><td>GPT-5.4 · Whisper + LLM</td><td>Native audio input. Otherwise: Whisper-large-v3 → text → any LLM.</td></tr>
-      <tr><td>Translation</td><td>Gemini 3.1 Pro · GPT-5.4</td><td>Qwen 3 (CJK) · DeepSeek V4 Flash</td><td>Frontier models all do well; Qwen is the strongest open-weight for CJK languages.</td></tr>
-      <tr><td>Summarization (short, factual)</td><td>Gemini 3.1 Flash-Lite · Haiku 4.5</td><td>DeepSeek V4 Flash</td><td>Cheap and fast. Quality plateau hit years ago — no need for a frontier model.</td></tr>
-      <tr><td>Summarization (long-form, nuanced)</td><td>Claude Sonnet 4.6 · Opus 4.6 for high-stakes synthesis</td><td>Gemini 3.1 Pro</td><td>Sonnet preserves nuance and attribution better than the cheaper tier; Opus 4.6 is still a strong choice when the summary must preserve long-range dependencies.</td></tr>
-      <tr><td>Function / tool calling reliability</td><td>Claude Sonnet 4.6 · Opus 4.6/4.7 · GPT-5.4</td><td>Kimi K2.6</td><td>Top tier consistently emits valid JSON / arguments. Open-weight is catching up but still trails on edge cases.</td></tr>
-      <tr><td>On-prem / regulated industry (health, defense, legal)</td><td>Kimi K2.6 · DeepSeek V4 Pro · GLM 5.1</td><td>Llama 3.x · Mistral</td><td>Open weights → self-host on vLLM / SGLang, or use Bedrock / Vertex with VPC isolation.</td></tr>
-      <tr><td>Embeddings</td><td>OpenAI <code>text-embedding-3-large</code> · Voyage 3 · Cohere Embed v4</td><td>BGE-M3 (open)</td><td>Not LLMs — separate models. Voyage and Cohere lead retrieval benchmarks; BGE-M3 is the best free option.</td></tr>
-      <tr><td>Reranking</td><td>Cohere Rerank v3</td><td>BGE-reranker-v2-m3</td><td>Cross-encoder, not an LLM. Adds ~50–150 ms but +25–40% precision.</td></tr>
+      <tr><td data-pt="Reasoning frontier (olimpíada de matemática, ciência nova, lógica difícil)">Frontier reasoning (math olympiad, novel science, hard logic)</td><td>Claude Opus 4.6/4.7 · GPT-5.5 Pro</td><td>DeepSeek V4 Pro (thinking mode)</td><td data-pt="Maiores scores GPQA Diamond / AIME. Modelos de reasoning gastam tokens de thinking interno extra antes de responder.">Highest GPQA Diamond / AIME scores. Reasoning models spend extra internal thinking tokens before responding.</td></tr>
+      <tr><td data-pt="Coding agêntico (multi-step, tool use, sessões longas)">Agentic coding (multi-step, tool use, long sessions)</td><td>Claude Sonnet 4.6 → escalate to Opus 4.6/4.7</td><td>Kimi K2.6 · DeepSeek V4 Pro</td><td data-pt="Modelos Anthropic lideram em coerência de longo horizonte e confiabilidade de tool-use — o modo de falha que mata agents.">Anthropic models lead on long-horizon coherence and tool-use reliability — the failure mode that kills agents.</td></tr>
+      <tr><td data-pt="Geração de código one-shot / completion">One-shot code generation / completion</td><td>GPT-5.5 · Gemini 3.1 Pro</td><td>DeepSeek V4 Pro · Kimi K2.6</td><td data-pt="Top scores SWE-bench / LiveCodeBench quando você precisa só de uma boa resposta, não de um agent multi-turn.">Top SWE-bench / LiveCodeBench scores when you only need one good answer, not a multi-turn agent.</td></tr>
+      <tr><td data-pt="Code review / análise estática">Code review / static analysis</td><td>Claude Sonnet 4.6</td><td>DeepSeek V4 Flash</td><td data-pt="Forte em detectar bugs sutis, cheiros de segurança; melhor auto-contenção que GPT (menos &quot;reescreve seu código sem pedir&quot;).">Strong at spotting subtle bugs, security smells; better self-restraint than GPT (less "rewriting your code unprompted").</td></tr>
+      <tr><td data-pt="RAG de documentos longos / extração de contexto 200K+">Long document RAG / 200K+ context extraction</td><td>Gemini 3.1 Pro · Claude Opus 4.6/4.7 · GPT-5.4/5.5 when OpenAI tooling matters</td><td>Gemini 3 Flash · GPT-5</td><td data-pt="Opções de contexto ~1M nativo. Vence RAG para corpora que cabem, mas fique atento a cliffs de preço de contexto longo.">Native ~1M context options. Beats RAG for corpora that fit, but watch long-context pricing cliffs.</td></tr>
+      <tr><td data-pt="Extração estruturada de alto volume (notas fiscais, formulários)">High-volume structured extraction (invoices, forms)</td><td>Gemini 3 Flash · Claude Haiku 4.5</td><td>DeepSeek V4 Flash</td><td data-pt="Barato por token + modo de structured output + bom o suficiente em schemas simples.">Cheap per token + structured output mode + good enough on simple schemas.</td></tr>
+      <tr><td data-pt="Classificação / routing de intent">Classification / intent routing</td><td>Claude Haiku 4.5 · Gemini 3.1 Flash-Lite</td><td>DeepSeek V4 Flash · fine-tuned small open model</td><td data-pt="Latência abaixo de 1s, $0.14-$1 por 1M de input. Um fine-tune do Llama 3.1 8B pode arrasar nisso por centavos.">Sub-second latency, $0.14-$1 per 1M input. A fine-tune of Llama 3.1 8B can crush this for pennies.</td></tr>
+      <tr><td data-pt="Chat conversacional (suporte ao cliente, FAQ)">Conversational chat (customer support, FAQ)</td><td>Claude Sonnet 4.6 · GPT-5.4</td><td>GPT-5 · Gemini 3 Flash</td><td data-pt="Sonnet tem o melhor equilíbrio de tom/segurança; GPT-5.4 é a opção mainstream mais barata.">Sonnet has the strongest tone/safety balance; GPT-5.4 is the cheapest mainstream option.</td></tr>
+      <tr><td data-pt="Escrita criativa / copy de marketing">Creative writing / marketing copy</td><td>Claude Opus 4.6/4.7 · GPT-5.5</td><td>DeepSeek V4 Flash</td><td data-pt="Opus tem a melhor qualidade de prosa; GPT-5.5 é mais &quot;estilo viral&quot;. Combine com a voz da marca.">Opus has the best prose quality; GPT-5.5 is more "viral-style." Match to brand voice.</td></tr>
+      <tr><td data-pt="Multimodal — imagens / docs / gráficos">Multimodal — images / docs / charts</td><td>Gemini 3.1 Pro</td><td>GPT-5.4 · Claude Sonnet 4.6</td><td data-pt="Gemini foi treinado multimodal nativo do zero e lê gráficos/diagramas melhor.">Gemini was natively multimodal-trained from scratch and reads charts/diagrams the best.</td></tr>
+      <tr><td data-pt="Multimodal — áudio (transcrição + compreensão)">Multimodal — audio (transcription + understanding)</td><td>Gemini 3.1 Pro</td><td>GPT-5.4 · Whisper + LLM</td><td data-pt="Input de áudio nativo. Caso contrário: Whisper-large-v3 → texto → qualquer LLM.">Native audio input. Otherwise: Whisper-large-v3 → text → any LLM.</td></tr>
+      <tr><td data-pt="Tradução">Translation</td><td>Gemini 3.1 Pro · GPT-5.4</td><td>Qwen 3 (CJK) · DeepSeek V4 Flash</td><td data-pt="Modelos frontier todos vão bem; Qwen é o mais forte open-weight para idiomas CJK.">Frontier models all do well; Qwen is the strongest open-weight for CJK languages.</td></tr>
+      <tr><td data-pt="Sumarização (curta, factual)">Summarization (short, factual)</td><td>Gemini 3.1 Flash-Lite · Haiku 4.5</td><td>DeepSeek V4 Flash</td><td data-pt="Barato e rápido. Plateau de qualidade atingido há anos — não precisa de modelo frontier.">Cheap and fast. Quality plateau hit years ago — no need for a frontier model.</td></tr>
+      <tr><td data-pt="Sumarização (longa, com nuance)">Summarization (long-form, nuanced)</td><td>Claude Sonnet 4.6 · Opus 4.6 for high-stakes synthesis</td><td>Gemini 3.1 Pro</td><td data-pt="Sonnet preserva nuances e atribuições melhor que o tier mais barato; Opus 4.6 ainda é uma escolha forte quando o resumo deve preservar dependências de longo alcance.">Sonnet preserves nuance and attribution better than the cheaper tier; Opus 4.6 is still a strong choice when the summary must preserve long-range dependencies.</td></tr>
+      <tr><td data-pt="Confiabilidade de function / tool calling">Function / tool calling reliability</td><td>Claude Sonnet 4.6 · Opus 4.6/4.7 · GPT-5.4</td><td>Kimi K2.6</td><td data-pt="O tier de topo emite consistentemente JSON / argumentos válidos. Open-weight está alcançando mas ainda fica atrás em edge cases.">Top tier consistently emits valid JSON / arguments. Open-weight is catching up but still trails on edge cases.</td></tr>
+      <tr><td data-pt="On-prem / indústria regulamentada (saúde, defesa, jurídico)">On-prem / regulated industry (health, defense, legal)</td><td>Kimi K2.6 · DeepSeek V4 Pro · GLM 5.1</td><td>Llama 3.x · Mistral</td><td data-pt="Open weights → self-host no vLLM / SGLang, ou use Bedrock / Vertex com isolamento VPC.">Open weights → self-host on vLLM / SGLang, or use Bedrock / Vertex with VPC isolation.</td></tr>
+      <tr><td data-pt="Embeddings">Embeddings</td><td>OpenAI <code>text-embedding-3-large</code> · Voyage 3 · Cohere Embed v4</td><td>BGE-M3 (open)</td><td data-pt="Não são LLMs — modelos separados. Voyage e Cohere lideram benchmarks de retrieval; BGE-M3 é a melhor opção gratuita.">Not LLMs — separate models. Voyage and Cohere lead retrieval benchmarks; BGE-M3 is the best free option.</td></tr>
+      <tr><td data-pt="Reranking">Reranking</td><td>Cohere Rerank v3</td><td>BGE-reranker-v2-m3</td><td data-pt="Cross-encoder, não um LLM. Adiciona ~50–150 ms mas +25–40% de precisão.">Cross-encoder, not an LLM. Adds ~50–150 ms but +25–40% precision.</td></tr>
     </tbody>
   </table>
 
-  <h3>3.3 Architectural differences between models</h3>
-  <p>The pricing table tells you what to pay; this table tells you <em>why</em> a model costs what it does and where it shines. Many details (params, exact architecture) are undisclosed by closed-source labs — flagged as <code>?</code>.</p>
+  <h3 data-pt="3.3 Diferenças arquiteturais entre modelos">3.3 Architectural differences between models</h3>
+  <p data-pt="A tabela de preços te diz o quanto pagar; esta tabela te diz <em>por que</em> um modelo custa o que custa e onde ele brilha. Muitos detalhes (params, arquitetura exata) não são divulgados pelos labs closed-source — marcados como <code>?</code>.">The pricing table tells you what to pay; this table tells you <em>why</em> a model costs what it does and where it shines. Many details (params, exact architecture) are undisclosed by closed-source labs — flagged as <code>?</code>.</p>
   <table>
-    <thead><tr><th>Model</th><th>Lab</th><th>Architecture</th><th>Active / Total params</th><th>Context</th><th>Modalities</th><th>Reasoning mode</th><th>Tool use</th><th>Open?</th></tr></thead>
+    <thead><tr><th data-pt="Modelo">Model</th><th data-pt="Lab">Lab</th><th data-pt="Arquitetura">Architecture</th><th data-pt="Params ativos / Total">Active / Total params</th><th data-pt="Contexto">Context</th><th data-pt="Modalidades">Modalities</th><th data-pt="Modo de reasoning">Reasoning mode</th><th data-pt="Tool use">Tool use</th><th data-pt="Aberto?">Open?</th></tr></thead>
     <tbody>
       <tr>
         <td><strong>Claude Opus 4.7</strong></td><td>Anthropic</td>
-        <td>Transformer, dense (?), GQA</td>
-        <td>undisclosed</td>
+        <td data-pt="Transformer, denso (?), GQA">Transformer, dense (?), GQA</td>
+        <td data-pt="não divulgado">undisclosed</td>
         <td>1M</td>
-        <td>Text + vision</td>
-        <td>Extended Thinking (provider-owned, optional)</td>
-        <td>Best-in-class tool reliability</td>
-        <td>Closed</td>
+        <td data-pt="Texto + visão">Text + vision</td>
+        <td data-pt="Extended Thinking (do provider, opcional)">Extended Thinking (provider-owned, optional)</td>
+        <td data-pt="Melhor confiabilidade de tool do mercado">Best-in-class tool reliability</td>
+        <td data-pt="Fechado">Closed</td>
       </tr>
       <tr>
         <td><strong>Claude Opus 4.6</strong></td><td>Anthropic</td>
-        <td>Transformer, dense (?), GQA</td>
-        <td>undisclosed</td>
+        <td data-pt="Transformer, denso (?), GQA">Transformer, dense (?), GQA</td>
+        <td data-pt="não divulgado">undisclosed</td>
         <td>1M</td>
-        <td>Text + vision</td>
-        <td>Adaptive / Extended Thinking</td>
-        <td>Mature Opus-tier agent reliability</td>
-        <td>Closed</td>
+        <td data-pt="Texto + visão">Text + vision</td>
+        <td data-pt="Adaptive / Extended Thinking">Adaptive / Extended Thinking</td>
+        <td data-pt="Confiabilidade de agent tier Opus madura">Mature Opus-tier agent reliability</td>
+        <td data-pt="Fechado">Closed</td>
       </tr>
       <tr>
         <td><strong>Claude Sonnet 4.6</strong></td><td>Anthropic</td>
-        <td>Transformer (?), GQA</td>
-        <td>undisclosed</td>
+        <td data-pt="Transformer (?), GQA">Transformer (?), GQA</td>
+        <td data-pt="não divulgado">undisclosed</td>
         <td>1M</td>
-        <td>Text + vision</td>
+        <td data-pt="Texto + visão">Text + vision</td>
         <td>Extended Thinking</td>
-        <td>Excellent</td>
-        <td>Closed</td>
+        <td data-pt="Excelente">Excellent</td>
+        <td data-pt="Fechado">Closed</td>
       </tr>
       <tr>
         <td><strong>Claude Haiku 4.5</strong></td><td>Anthropic</td>
-        <td>Smaller transformer</td>
-        <td>undisclosed (small)</td>
+        <td data-pt="Transformer menor">Smaller transformer</td>
+        <td data-pt="não divulgado (pequeno)">undisclosed (small)</td>
         <td>~200K</td>
-        <td>Text + vision</td>
-        <td>Optional thinking</td>
-        <td>Good for size</td>
-        <td>Closed</td>
+        <td data-pt="Texto + visão">Text + vision</td>
+        <td data-pt="Thinking opcional">Optional thinking</td>
+        <td data-pt="Bom para o tamanho">Good for size</td>
+        <td data-pt="Fechado">Closed</td>
       </tr>
       <tr>
         <td><strong>GPT-5.5 / 5.5 Pro</strong></td><td>OpenAI</td>
-        <td>MoE (widely believed)</td>
-        <td>undisclosed</td>
+        <td data-pt="MoE (amplamente acreditado)">MoE (widely believed)</td>
+        <td data-pt="não divulgado">undisclosed</td>
         <td>1.05M</td>
-        <td>Text + vision input</td>
-        <td>Reasoning effort + usage counters</td>
-        <td>Top-tier function calling</td>
-        <td>Closed</td>
+        <td data-pt="Texto + visão (input)">Text + vision input</td>
+        <td data-pt="Reasoning effort + contadores de uso">Reasoning effort + usage counters</td>
+        <td data-pt="Function calling de top tier">Top-tier function calling</td>
+        <td data-pt="Fechado">Closed</td>
       </tr>
       <tr>
         <td><strong>GPT-5.4</strong></td><td>OpenAI</td>
-        <td>MoE (?)</td>
-        <td>undisclosed</td>
+        <td data-pt="MoE (?)">MoE (?)</td>
+        <td data-pt="não divulgado">undisclosed</td>
         <td>1.05M</td>
-        <td>Text + vision input</td>
-        <td>Reasoning effort</td>
-        <td>Excellent</td>
-        <td>Closed</td>
+        <td data-pt="Texto + visão (input)">Text + vision input</td>
+        <td data-pt="Reasoning effort">Reasoning effort</td>
+        <td data-pt="Excelente">Excellent</td>
+        <td data-pt="Fechado">Closed</td>
       </tr>
       <tr>
         <td><strong>Gemini 3.1 Pro</strong></td><td>Google DeepMind</td>
-        <td>MoE + long-context attention variants (?)</td>
-        <td>undisclosed</td>
-        <td>1M+ (pricing doubles after 200K)</td>
-        <td>Text + vision + audio + video</td>
-        <td>Thinking mode (token counts/signatures)</td>
-        <td>Strong, native</td>
-        <td>Closed</td>
+        <td data-pt="MoE + variantes de attention de contexto longo (?)">MoE + long-context attention variants (?)</td>
+        <td data-pt="não divulgado">undisclosed</td>
+        <td data-pt="1M+ (preço dobra após 200K)">1M+ (pricing doubles after 200K)</td>
+        <td data-pt="Texto + visão + áudio + vídeo">Text + vision + audio + video</td>
+        <td data-pt="Thinking mode (contagem de tokens/assinaturas)">Thinking mode (token counts/signatures)</td>
+        <td data-pt="Forte, nativo">Strong, native</td>
+        <td data-pt="Fechado">Closed</td>
       </tr>
       <tr>
         <td><strong>Gemini 3 Flash</strong></td><td>Google DeepMind</td>
-        <td>Smaller MoE, distilled (?)</td>
-        <td>undisclosed</td>
+        <td data-pt="MoE menor, destilado (?)">Smaller MoE, distilled (?)</td>
+        <td data-pt="não divulgado">undisclosed</td>
         <td>1M+</td>
-        <td>Text + vision + audio</td>
-        <td>Optional thinking</td>
-        <td>Good</td>
-        <td>Closed</td>
+        <td data-pt="Texto + visão + áudio">Text + vision + audio</td>
+        <td data-pt="Thinking opcional">Optional thinking</td>
+        <td data-pt="Bom">Good</td>
+        <td data-pt="Fechado">Closed</td>
       </tr>
       <tr>
         <td><strong>Gemini 3.1 Flash-Lite</strong></td><td>Google DeepMind</td>
-        <td>Smaller MoE, distilled (?)</td>
-        <td>undisclosed</td>
+        <td data-pt="MoE menor, destilado (?)">Smaller MoE, distilled (?)</td>
+        <td data-pt="não divulgado">undisclosed</td>
         <td>1M+</td>
-        <td>Text + vision</td>
-        <td>No</td>
-        <td>Good for volume</td>
-        <td>Closed</td>
+        <td data-pt="Texto + visão">Text + vision</td>
+        <td data-pt="Não">No</td>
+        <td data-pt="Bom para volume">Good for volume</td>
+        <td data-pt="Fechado">Closed</td>
       </tr>
       <tr>
         <td><strong>DeepSeek V4 Flash</strong></td><td>DeepSeek</td>
-        <td>Token-wise compression + DSA (DeepSeek Sparse Attention)</td>
+        <td data-pt="Compressão token-wise + DSA (DeepSeek Sparse Attention)">Token-wise compression + DSA (DeepSeek Sparse Attention)</td>
         <td>13B active / 284B total</td>
         <td>1M</td>
-        <td>Text</td>
-        <td>Both thinking and non-thinking modes</td>
-        <td>Solid</td>
-        <td>Open weights</td>
+        <td data-pt="Texto">Text</td>
+        <td data-pt="Modos thinking e non-thinking">Both thinking and non-thinking modes</td>
+        <td data-pt="Sólido">Solid</td>
+        <td data-pt="Open weights">Open weights</td>
       </tr>
       <tr>
         <td><strong>DeepSeek V4 Pro</strong></td><td>DeepSeek</td>
-        <td>Token-wise compression + DSA (DeepSeek Sparse Attention)</td>
+        <td data-pt="Compressão token-wise + DSA (DeepSeek Sparse Attention)">Token-wise compression + DSA (DeepSeek Sparse Attention)</td>
         <td>49B active / 1.6T total</td>
         <td>1M</td>
-        <td>Text</td>
-        <td>Both thinking and non-thinking modes</td>
-        <td>Strong, top open-weight</td>
-        <td>Open weights</td>
+        <td data-pt="Texto">Text</td>
+        <td data-pt="Modos thinking e non-thinking">Both thinking and non-thinking modes</td>
+        <td data-pt="Forte, top open-weight">Strong, top open-weight</td>
+        <td data-pt="Open weights">Open weights</td>
       </tr>
       <tr>
         <td><strong>Kimi K2.6</strong></td><td>Moonshot AI</td>
-        <td>MoE, agentic-trained</td>
+        <td data-pt="MoE, treinado para agentes">MoE, agentic-trained</td>
         <td>~32B active / ~1T total</td>
         <td>256K</td>
-        <td>Text + vision (native)</td>
-        <td>Agentic loop</td>
-        <td>State-of-the-art among OSS</td>
-        <td>Open weights (Modified MIT)</td>
+        <td data-pt="Texto + visão (nativo)">Text + vision (native)</td>
+        <td data-pt="Loop agêntico">Agentic loop</td>
+        <td data-pt="State-of-the-art entre OSS">State-of-the-art among OSS</td>
+        <td data-pt="Open weights (Modified MIT)">Open weights (Modified MIT)</td>
       </tr>
       <tr>
         <td><strong>GLM 5.1</strong></td><td>Z.ai / Tsinghua</td>
-        <td>Transformer, dense-ish</td>
+        <td data-pt="Transformer, quase denso">Transformer, dense-ish</td>
         <td>~754B total</td>
         <td>200K</td>
-        <td>Text + vision</td>
-        <td>Optional</td>
-        <td>SOTA agentic coding (SWE-Bench Pro 58.4%)</td>
-        <td>Open weights (MIT)</td>
+        <td data-pt="Texto + visão">Text + vision</td>
+        <td data-pt="Opcional">Optional</td>
+        <td data-pt="SOTA em coding agêntico (SWE-Bench Pro 58.4%)">SOTA agentic coding (SWE-Bench Pro 58.4%)</td>
+        <td data-pt="Open weights (MIT)">Open weights (MIT)</td>
       </tr>
       <tr>
         <td><strong>Qwen 3</strong></td><td>Alibaba</td>
-        <td>Dense + MoE variants</td>
-        <td>varies (0.5B → 235B)</td>
+        <td data-pt="Denso + variantes MoE">Dense + MoE variants</td>
+        <td data-pt="varia (0.5B → 235B)">varies (0.5B → 235B)</td>
         <td>128K–1M</td>
-        <td>Text + vision (some variants)</td>
-        <td>"Thinking" variants exist</td>
-        <td>Good</td>
-        <td>Open weights</td>
+        <td data-pt="Texto + visão (algumas variantes)">Text + vision (some variants)</td>
+        <td data-pt="Variantes &quot;Thinking&quot; existem">"Thinking" variants exist</td>
+        <td data-pt="Bom">Good</td>
+        <td data-pt="Open weights">Open weights</td>
       </tr>
     </tbody>
   </table>
 
-  <h4>How to read this table</h4>
+  <h4 data-pt="Como ler essa tabela">How to read this table</h4>
   <ul>
-    <li><strong>MoE → cheap inference, big memory.</strong> A 1T/32B MoE (e.g. Kimi K2.6) costs about as much to run per token as a 32B dense model — but you need RAM for all 1T at once. DeepSeek V4 goes further: its DSA (DeepSeek Sparse Attention) achieves similar efficiency without traditional expert routing, making V4 Pro (1.6T/49B) cheaper to serve than its parameter count suggests.</li>
-    <li><strong>Long context = attention variant.</strong> When you see "1M context" (Gemini, GPT-5.4/5.5, Opus 4.6/4.7, Sonnet 4.6), the model is not using naive quadratic attention at full cost — it's using cheaper attention/cache strategies. The labs rarely publish exactly what.</li>
-    <li><strong>Reasoning mode is now often a request parameter, not a separate model.</strong> Claude 4.x has extended/adaptive thinking, GPT-5.x has reasoning effort, Gemini 3.x has thinking budgets, and DeepSeek V4 exposes thinking/non-thinking modes.</li>
-    <li><strong>Tool-use quality varies more than raw IQ.</strong> The benchmark gap between Sonnet 4.6 and Kimi K2.6 on raw reasoning is small. The gap on "follows a 12-step tool sequence without going off the rails" is huge — that is where Anthropic still leads.</li>
-    <li><strong>"GQA" / "MLA"</strong> — Grouped-Query Attention (used by Llama, most modern transformers — fewer K/V heads than Q heads → cheaper) and Multi-head Latent Attention (DeepSeek's invention — compresses KV cache, lets them serve 128K context cheaply).</li>
+    <li data-pt="<strong>MoE → inferência barata, memória grande.</strong> Um MoE 1T/32B (e.g. Kimi K2.6) custa aproximadamente o mesmo por token que um modelo denso de 32B — mas você precisa de RAM para todos os 1T de uma vez. DeepSeek V4 vai além: seu DSA (DeepSeek Sparse Attention) alcança eficiência similar sem routing tradicional de experts, tornando o V4 Pro (1.6T/49B) mais barato de servir do que a contagem de parâmetros sugere."><strong>MoE → cheap inference, big memory.</strong> A 1T/32B MoE (e.g. Kimi K2.6) costs about as much to run per token as a 32B dense model — but you need RAM for all 1T at once. DeepSeek V4 goes further: its DSA (DeepSeek Sparse Attention) achieves similar efficiency without traditional expert routing, making V4 Pro (1.6T/49B) cheaper to serve than its parameter count suggests.</li>
+    <li data-pt="<strong>Contexto longo = variante de attention.</strong> Quando você vê &quot;contexto 1M&quot; (Gemini, GPT-5.4/5.5, Opus 4.6/4.7, Sonnet 4.6), o modelo não está usando attention quadrático ingênuo no custo total — está usando estratégias mais baratas de attention/cache. Os labs raramente publicam exatamente o quê."><strong>Long context = attention variant.</strong> When you see "1M context" (Gemini, GPT-5.4/5.5, Opus 4.6/4.7, Sonnet 4.6), the model is not using naive quadratic attention at full cost — it's using cheaper attention/cache strategies. The labs rarely publish exactly what.</li>
+    <li data-pt="<strong>O modo de reasoning agora é frequentemente um parâmetro do request, não um modelo separado.</strong> Claude 4.x tem extended/adaptive thinking, GPT-5.x tem reasoning effort, Gemini 3.x tem thinking budgets, e DeepSeek V4 expõe modos thinking/non-thinking."><strong>Reasoning mode is now often a request parameter, not a separate model.</strong> Claude 4.x has extended/adaptive thinking, GPT-5.x has reasoning effort, Gemini 3.x has thinking budgets, and DeepSeek V4 exposes thinking/non-thinking modes.</li>
+    <li data-pt="<strong>A qualidade do tool-use varia mais do que o QI bruto.</strong> O gap de benchmark entre Sonnet 4.6 e Kimi K2.6 em reasoning bruto é pequeno. O gap em &quot;segue uma sequência de 12 steps de tool sem sair dos trilhos&quot; é enorme — é onde Anthropic ainda lidera."><strong>Tool-use quality varies more than raw IQ.</strong> The benchmark gap between Sonnet 4.6 and Kimi K2.6 on raw reasoning is small. The gap on "follows a 12-step tool sequence without going off the rails" is huge — that is where Anthropic still leads.</li>
+    <li data-pt="<strong>&quot;GQA&quot; / &quot;MLA&quot;</strong> — Grouped-Query Attention (usado por Llama, maioria dos transformers modernos — menos K/V heads que Q heads → mais barato) e Multi-head Latent Attention (invenção do DeepSeek — comprime KV cache, deixa servir contexto de 128K barato)."><strong>"GQA" / "MLA"</strong> — Grouped-Query Attention (used by Llama, most modern transformers — fewer K/V heads than Q heads → cheaper) and Multi-head Latent Attention (DeepSeek's invention — compresses KV cache, lets them serve 128K context cheaply).</li>
   </ul>
 
-  <h3>3.4 Routing patterns you should be able to name</h3>
+  <h3 data-pt="3.4 Padrões de routing que você deve saber nomear">3.4 Routing patterns you should be able to name</h3>
   <ul>
-    <li><strong>Cascade / triage routing</strong> — cheap model answers; if confidence low or a "hard" classifier flags it, escalate to the expensive model. Common shape: <em>Haiku 4.5 → Sonnet 4.6 → Opus 4.6/4.7</em>. Cuts cost 60–80% with minimal quality loss.</li>
-    <li><strong>Task-typed routing</strong> — a classifier (sometimes an LLM, sometimes a fine-tuned small model) tags the request (<code>code</code>, <code>chat</code>, <code>math</code>, <code>vision</code>) and dispatches.</li>
-    <li><strong>Speculative / draft-then-verify</strong> — cheap model drafts, expensive model verifies / edits. Used in agentic coding (e.g. Haiku proposes, Sonnet reviews).</li>
-    <li><strong>Mixture-of-Experts <em>at the orchestration layer</em></strong> — same name as in model architectures, but here it means routing to different <em>provider</em> models per sub-task in a workflow.</li>
-    <li><strong>Provider failover</strong> — primary on Anthropic, fallback to Bedrock-Anthropic or to OpenAI on outage. Tools: OpenRouter, Portkey, LiteLLM.</li>
+    <li data-pt="<strong>Cascade / triage routing</strong> — modelo barato responde; se confiança baixa ou um classifier &quot;difícil&quot; sinaliza, escala para o modelo caro. Forma comum: <em>Haiku 4.5 → Sonnet 4.6 → Opus 4.6/4.7</em>. Reduz custo em 60–80% com perda mínima de qualidade."><strong>Cascade / triage routing</strong> — cheap model answers; if confidence low or a "hard" classifier flags it, escalate to the expensive model. Common shape: <em>Haiku 4.5 → Sonnet 4.6 → Opus 4.6/4.7</em>. Cuts cost 60–80% with minimal quality loss.</li>
+    <li data-pt="<strong>Task-typed routing</strong> — um classifier (às vezes um LLM, às vezes um modelo pequeno fine-tuned) categoriza o request (<code>code</code>, <code>chat</code>, <code>math</code>, <code>vision</code>) e despacha."><strong>Task-typed routing</strong> — a classifier (sometimes an LLM, sometimes a fine-tuned small model) tags the request (<code>code</code>, <code>chat</code>, <code>math</code>, <code>vision</code>) and dispatches.</li>
+    <li data-pt="<strong>Especulativo / draft-then-verify</strong> — modelo barato faz o draft, modelo caro verifica / edita. Usado em coding agêntico (e.g. Haiku propõe, Sonnet revisa)."><strong>Speculative / draft-then-verify</strong> — cheap model drafts, expensive model verifies / edits. Used in agentic coding (e.g. Haiku proposes, Sonnet reviews).</li>
+    <li data-pt="<strong>Mixture-of-Experts <em>na camada de orquestração</em></strong> — mesmo nome que nas arquiteturas de modelo, mas aqui significa routing para diferentes modelos de <em>provider</em> por sub-task em um workflow."><strong>Mixture-of-Experts <em>at the orchestration layer</em></strong> — same name as in model architectures, but here it means routing to different <em>provider</em> models per sub-task in a workflow.</li>
+    <li data-pt="<strong>Provider failover</strong> — primário na Anthropic, fallback para Bedrock-Anthropic ou para OpenAI em caso de outage. Tools: OpenRouter, Portkey, LiteLLM."><strong>Provider failover</strong> — primary on Anthropic, fallback to Bedrock-Anthropic or to OpenAI on outage. Tools: OpenRouter, Portkey, LiteLLM.</li>
   </ul>
 
-  <h3>3.5 Reasoning vs non-reasoning — when each is worth the cost</h3>
-  <p>Reasoning models (Opus 4.6/4.7 extended thinking, GPT-5.5 Pro, DeepSeek V4 Pro thinking mode) burn many extra <em>output</em> tokens on provider-owned internal thinking. Use them when:</p>
+  <h3 data-pt="3.5 Reasoning vs non-reasoning — quando cada um vale o custo">3.5 Reasoning vs non-reasoning — when each is worth the cost</h3>
+  <p data-pt="Modelos de reasoning (Opus 4.6/4.7 extended thinking, GPT-5.5 Pro, DeepSeek V4 Pro thinking mode) queimam muitos tokens de <em>output</em> extras em thinking interno do provider. Use quando:">Reasoning models (Opus 4.6/4.7 extended thinking, GPT-5.5 Pro, DeepSeek V4 Pro thinking mode) burn many extra <em>output</em> tokens on provider-owned internal thinking. Use them when:</p>
   <ul>
-    <li>The task has a <strong>verifiable correct answer</strong> — math, code that must pass tests, logical puzzles.</li>
-    <li>The task is <strong>multi-step planning</strong> where a wrong early step poisons the rest.</li>
-    <li>You can afford 5–30× more output tokens and 2–10× more latency.</li>
+    <li data-pt="A task tem uma <strong>resposta correta verificável</strong> — matemática, código que deve passar em testes, quebra-cabeças lógicos.">The task has a <strong>verifiable correct answer</strong> — math, code that must pass tests, logical puzzles.</li>
+    <li data-pt="A task é <strong>planejamento multi-step</strong> onde um passo errado no início contamina o resto.">The task is <strong>multi-step planning</strong> where a wrong early step poisons the rest.</li>
+    <li data-pt="Você pode arcar com 5–30× mais tokens de output e 2–10× mais latência.">You can afford 5–30× more output tokens and 2–10× more latency.</li>
   </ul>
-  <p>Do <strong>not</strong> use them for chat, summarization, classification, or anywhere the answer is "open-ended" — you pay for thinking you do not need.</p>
+  <p data-pt="<strong>Não</strong> use para chat, sumarização, classificação ou em qualquer lugar onde a resposta é &quot;aberta&quot; — você paga por thinking que não precisa.">Do <strong>not</strong> use them for chat, summarization, classification, or anywhere the answer is "open-ended" — you pay for thinking you do not need.</p>
 
-  <h3>3.6 Concrete cost example (memorize one number)</h3>
+  <h3 data-pt="3.6 Exemplo concreto de custo (decore um número)">3.6 Concrete cost example (memorize one number)</h3>
   <div class="card">
-    <p>A typical agent turn: <strong>10K input tokens + 1K output tokens</strong>. Cost per turn — and projected at 1M turns/month:</p>
+    <p data-pt="Um turn típico de agent: <strong>10K tokens de input + 1K tokens de output</strong>. Custo por turn — e projetado em 1M turns/mês:">A typical agent turn: <strong>10K input tokens + 1K output tokens</strong>. Cost per turn — and projected at 1M turns/month:</p>
     <figure class="diagram" style="position:relative; padding:14px 18px">
       <canvas id="turnChart" width="640" height="360"></canvas>
       <div id="turnTip" class="bar-tooltip"></div>
@@ -1352,12 +1352,12 @@
         <span><span class="sw" style="background:#ffb86b"></span>Mid tier (Sonnet / GPT-5.5)</span>
         <span><span class="sw" style="background:#ff6b8b"></span>Premium (Opus / GPT-5.5 Pro)</span>
       </div>
-      <figcaption>Same workload, 300×+ price spread. At 1M turns/month: <strong>$1.7K → $480K</strong>. This is why routing matters.</figcaption>
+      <figcaption data-pt="Mesmo workload, spread de preço 300×+. Em 1M turns/mês: <strong>$1.7K → $480K</strong>. Por isso routing importa.">Same workload, 300×+ price spread. At 1M turns/month: <strong>$1.7K → $480K</strong>. This is why routing matters.</figcaption>
     </figure>
   </div>
 
-  <h3>3.6b Per-model pricing — May 2026 list rates</h3>
-  <p style="margin-bottom:10px">All figures are <strong>per 1M tokens</strong>, USD, standard (non-batch) tier. Batch and prompt-cache tiers typically cut input cost 50–90%. <span class="small">Click any header to sort.</span></p>
+  <h3 data-pt="3.6b Preços por modelo — taxas de lista de maio 2026">3.6b Per-model pricing — May 2026 list rates</h3>
+  <p style="margin-bottom:10px" data-pt="Todos os valores são <strong>por 1M tokens</strong>, USD, tier padrão (non-batch). Tiers de batch e prompt-cache tipicamente cortam o custo de input em 50–90%. <span class=&quot;small&quot;>Clique em qualquer cabeçalho para ordenar.</span>">All figures are <strong>per 1M tokens</strong>, USD, standard (non-batch) tier. Batch and prompt-cache tiers typically cut input cost 50–90%. <span class="small">Click any header to sort.</span></p>
   <table class="sortable" id="priceTable">
     <thead>
       <tr>
@@ -1495,25 +1495,25 @@
       </tr>
     </tbody>
   </table>
-  <div class="callout" style="margin-top:10px">
+  <div class="callout" style="margin-top:10px" data-pt="<strong>Regra prática:</strong> tokens de output custam 5–8× mais que tokens de input em todo provider — porque a geração é sequencial (um token de cada vez) enquanto o input é processado em paralelo. Por isso modelos de reasoning com thinking interno são tão caros: eles geram silenciosamente milhares de tokens de output antes de responder.">
     <strong>Rule of thumb:</strong> output tokens cost 5–8× more than input tokens across every provider — because generation is sequential (one token at a time) while input is processed in parallel. This is why reasoning models with internal thinking are so expensive: they silently generate thousands of output tokens before answering.
   </div>
 
-  <h3>3.7 Decision flow (the "out loud" version)</h3>
+  <h3 data-pt="3.7 Fluxo de decisão (a versão &quot;em voz alta&quot;)">3.7 Decision flow (the "out loud" version)</h3>
   <ol>
-    <li>Is the data sensitive / regulated? <strong>Yes</strong> → open-weight on your infra. Stop.</li>
-    <li>Does the task fit in &lt; 8K tokens and have a small fixed schema? <strong>Yes</strong> → Haiku 4.5 / Gemini 3.1 Flash-Lite / DeepSeek V4 Flash.</li>
-    <li>Does it need to reason multi-step over code or math? <strong>Yes</strong> → Sonnet 4.6 → Opus 4.6/4.7 / GPT-5.5 Pro / DeepSeek V4 Pro (thinking mode).</li>
-    <li>Is it a long document (&gt; 200K tokens)? <strong>Yes</strong> → Gemini 3.1 Pro / Gemini 3 Flash.</li>
-    <li>Is it multimodal? <strong>Yes</strong> → Gemini 3.1 Pro first.</li>
-    <li>Default agentic coding / tool use → <strong>Sonnet 4.6</strong>.</li>
-    <li>Then ask: can I cache 80% of this prompt? If yes, the choice gets cheaper by 10×.</li>
+    <li data-pt="Os dados são sensíveis / regulados? <strong>Sim</strong> → open-weight na sua infra. Pare.">Is the data sensitive / regulated? <strong>Yes</strong> → open-weight on your infra. Stop.</li>
+    <li data-pt="A task cabe em &lt; 8K tokens e tem um schema fixo pequeno? <strong>Sim</strong> → Haiku 4.5 / Gemini 3.1 Flash-Lite / DeepSeek V4 Flash.">Does the task fit in &lt; 8K tokens and have a small fixed schema? <strong>Yes</strong> → Haiku 4.5 / Gemini 3.1 Flash-Lite / DeepSeek V4 Flash.</li>
+    <li data-pt="Precisa de reasoning multi-step sobre código ou matemática? <strong>Sim</strong> → Sonnet 4.6 → Opus 4.6/4.7 / GPT-5.5 Pro / DeepSeek V4 Pro (thinking mode).">Does it need to reason multi-step over code or math? <strong>Yes</strong> → Sonnet 4.6 → Opus 4.6/4.7 / GPT-5.5 Pro / DeepSeek V4 Pro (thinking mode).</li>
+    <li data-pt="É um documento longo (&gt; 200K tokens)? <strong>Sim</strong> → Gemini 3.1 Pro / Gemini 3 Flash.">Is it a long document (&gt; 200K tokens)? <strong>Yes</strong> → Gemini 3.1 Pro / Gemini 3 Flash.</li>
+    <li data-pt="É multimodal? <strong>Sim</strong> → Gemini 3.1 Pro primeiro.">Is it multimodal? <strong>Yes</strong> → Gemini 3.1 Pro first.</li>
+    <li data-pt="Padrão para coding agêntico / tool use → <strong>Sonnet 4.6</strong>.">Default agentic coding / tool use → <strong>Sonnet 4.6</strong>.</li>
+    <li data-pt="Depois pergunte: posso fazer cache de 80% desse prompt? Se sim, a escolha fica 10× mais barata.">Then ask: can I cache 80% of this prompt? If yes, the choice gets cheaper by 10×.</li>
   </ol>
 
-  <div class="callout warn">
+  <div class="callout warn" data-pt="<strong>Armadilha comum:</strong> Não recomende &quot;o modelo mais inteligente&quot; reflexivamente. Em produção, 80% dos tokens vão para trabalho de <em>rotina</em> — e usar Opus para routing é um erro caro em escala. A resposta certa é quase sempre &quot;eu faria routing — aqui está a cascade.&quot;">
     <strong>Common pitfall:</strong> Do not recommend "the smartest model" reflexively. In production, 80% of tokens go to <em>routine</em> work — and using Opus for routing is a costly mistake at scale. The right answer is almost always "I would route — here is the cascade."
   </div>
-  <div class="callout">
+  <div class="callout" data-pt="<strong>Frase matadora:</strong> &quot;Não existe o melhor modelo. Existe um portfólio. Frontier para os 5% difíceis, tier Sonnet para os 15% agênticos, Haiku/Flash para os 80% de routing, classificação e extração. Routing cost-aware é como você torna produtos de AI lucrativos em 2026.&quot;">
     <strong>Killer line:</strong> "There is no best model. There is a portfolio. Frontier for the hard 5%, Sonnet-tier for the agentic 15%, Haiku/Flash for the 80% that is routing, classification and extraction. Cost-aware routing is how you make AI products profitable in 2026."
   </div>
 </section>
@@ -1521,53 +1521,53 @@
 
 <!-- =================== MODEL INTEGRATION =================== -->
 <section id="model-integration">
-  <h2><span class="num">04</span> Model Integration — the API contract</h2>
-  <p>This is the "how does my app actually talk to the model?" layer. The provider names differ, but production integrations usually have the same shape: send messages + configuration + tools + optional retrieved context; receive text, tool calls, usage, and sometimes reasoning metadata.</p>
+  <h2 data-pt="<span class=&quot;num&quot;>04</span> Integração de Modelos — o contrato da API"><span class="num">04</span> Model Integration — the API contract</h2>
+  <p data-pt="Essa é a camada de &quot;como meu app realmente fala com o modelo?&quot;. Os nomes dos providers diferem, mas integrações em produção geralmente têm o mesmo formato: enviar messages + configuração + tools + contexto recuperado opcional; receber texto, tool calls, uso e às vezes metadados de reasoning.">This is the "how does my app actually talk to the model?" layer. The provider names differ, but production integrations usually have the same shape: send messages + configuration + tools + optional retrieved context; receive text, tool calls, usage, and sometimes reasoning metadata.</p>
 
-  <h3>4.1 Standard endpoints you should recognize</h3>
-  <p>The exact payload shape changes by provider, but these are the endpoint families you will see in production:</p>
+  <h3 data-pt="4.1 Endpoints padrão que você deve reconhecer">4.1 Standard endpoints you should recognize</h3>
+  <p data-pt="O formato exato do payload muda por provider, mas essas são as famílias de endpoint que você verá em produção:">The exact payload shape changes by provider, but these are the endpoint families you will see in production:</p>
   <table>
-    <thead><tr><th>Provider / style</th><th>Endpoint</th><th>Use it for</th><th>Response shape</th></tr></thead>
+    <thead><tr><th data-pt="Provider / estilo">Provider / style</th><th>Endpoint</th><th data-pt="Para que usar">Use it for</th><th data-pt="Formato de resposta">Response shape</th></tr></thead>
     <tbody>
-      <tr><td><strong>OpenAI Responses</strong></td><td><code>POST /v1/responses</code></td><td>Default for modern OpenAI apps: multimodal, tools, file search, MCP, reasoning, state.</td><td><code>output[]</code> items: messages, function calls, reasoning, hosted-tool calls.</td></tr>
-      <tr><td><strong>OpenAI Chat Completions</strong></td><td><code>POST /v1/chat/completions</code></td><td>Stable chat-compatible API; many routers and OSS providers emulate it.</td><td><code>choices[0].message</code>, with optional <code>tool_calls</code>.</td></tr>
-      <tr><td><strong>OpenAI Completions</strong></td><td><code>POST /v1/completions</code></td><td>Legacy prompt-in/text-out completion API. Know it exists; avoid for new agentic work.</td><td><code>choices[].text</code>.</td></tr>
-      <tr><td><strong>Anthropic Messages</strong></td><td><code>POST /v1/messages</code></td><td>Claude chat, tool use, thinking blocks, vision.</td><td><code>content[]</code> blocks and <code>stop_reason</code>.</td></tr>
-      <tr><td><strong>Gemini GenerateContent</strong></td><td><code>POST /v1beta/models/{model}:generateContent</code></td><td>Gemini text/multimodal generation, thinking, function declarations.</td><td><code>candidates[].content.parts[]</code>.</td></tr>
-      <tr><td><strong>OpenAI-compatible OSS providers</strong></td><td><code>/v1/chat/completions</code> mostly</td><td>DeepSeek, Moonshot/Kimi, Z.ai, Together, Fireworks, OpenRouter-style integrations.</td><td>Usually OpenAI chat-compatible; tool/reasoning extras vary.</td></tr>
+      <tr><td><strong>OpenAI Responses</strong></td><td><code>POST /v1/responses</code></td><td data-pt="Padrão para apps modernos OpenAI: multimodal, tools, file search, MCP, reasoning, estado.">Default for modern OpenAI apps: multimodal, tools, file search, MCP, reasoning, state.</td><td data-pt="Items <code>output[]</code>: messages, function calls, reasoning, hosted-tool calls."><code>output[]</code> items: messages, function calls, reasoning, hosted-tool calls.</td></tr>
+      <tr><td><strong>OpenAI Chat Completions</strong></td><td><code>POST /v1/chat/completions</code></td><td data-pt="API chat-compatível estável; muitos routers e providers OSS a emulam.">Stable chat-compatible API; many routers and OSS providers emulate it.</td><td data-pt="<code>choices[0].message</code>, com <code>tool_calls</code> opcional."><code>choices[0].message</code>, with optional <code>tool_calls</code>.</td></tr>
+      <tr><td><strong>OpenAI Completions</strong></td><td><code>POST /v1/completions</code></td><td data-pt="API de completion legada prompt-in/texto-out. Saiba que existe; evite para trabalho agêntico novo.">Legacy prompt-in/text-out completion API. Know it exists; avoid for new agentic work.</td><td data-pt="<code>choices[].text</code>."><code>choices[].text</code>.</td></tr>
+      <tr><td><strong>Anthropic Messages</strong></td><td><code>POST /v1/messages</code></td><td data-pt="Chat Claude, tool use, blocos de thinking, visão.">Claude chat, tool use, thinking blocks, vision.</td><td data-pt="Blocos <code>content[]</code> e <code>stop_reason</code>."><code>content[]</code> blocks and <code>stop_reason</code>.</td></tr>
+      <tr><td><strong>Gemini GenerateContent</strong></td><td><code>POST /v1beta/models/{model}:generateContent</code></td><td data-pt="Geração de texto/multimodal Gemini, thinking, function declarations.">Gemini text/multimodal generation, thinking, function declarations.</td><td data-pt="<code>candidates[].content.parts[]</code>."><code>candidates[].content.parts[]</code>.</td></tr>
+      <tr><td><strong>OpenAI-compatible OSS providers</strong></td><td><code>/v1/chat/completions</code> mostly</td><td data-pt="DeepSeek, Moonshot/Kimi, Z.ai, Together, Fireworks, integrações estilo OpenRouter.">DeepSeek, Moonshot/Kimi, Z.ai, Together, Fireworks, OpenRouter-style integrations.</td><td data-pt="Geralmente compatível com OpenAI chat; extras de tool/reasoning variam.">Usually OpenAI chat-compatible; tool/reasoning extras vary.</td></tr>
     </tbody>
   </table>
 
-  <div class="callout">
+  <div class="callout" data-pt="<strong>Mental model de endpoints:</strong> <code>/completions</code> é a velha completion de prompt, <code>/chat/completions</code> é chat baseado em messages, <code>/responses</code> é a API mais nova de itens/eventos tipados da OpenAI, Anthropic chama seu endpoint de chat de <code>/messages</code>, e Gemini chama a mesma ideia de <code>generateContent</code>.">
     <strong>Endpoint mental model:</strong> <code>/completions</code> is old prompt completion, <code>/chat/completions</code> is message-based chat, <code>/responses</code> is OpenAI's newer typed item/event API, Anthropic calls its chat endpoint <code>/messages</code>, and Gemini calls the same idea <code>generateContent</code>.
   </div>
 
-  <h3>4.2 The request envelope</h3>
-  <p>A model API request is not just a prompt string. Treat it as a typed contract:</p>
+  <h3 data-pt="4.2 O envelope de request">4.2 The request envelope</h3>
+  <p data-pt="Um request de API de modelo não é apenas uma string de prompt. Trate como um contrato tipado:">A model API request is not just a prompt string. Treat it as a typed contract:</p>
   <table>
-    <thead><tr><th>Field</th><th>What it carries</th><th>Production note</th></tr></thead>
+    <thead><tr><th data-pt="Campo">Field</th><th data-pt="O que carrega">What it carries</th><th data-pt="Nota de produção">Production note</th></tr></thead>
     <tbody>
-      <tr><td><code>model</code></td><td>Which model snapshot or alias to run.</td><td>Pin versions for eval-sensitive flows; aliases can change behavior.</td></tr>
-      <tr><td><code>input</code> / <code>messages</code> / <code>contents</code></td><td>User text, prior assistant turns, images/files, and retrieved context.</td><td>Everything here spends input tokens unless cached or stored server-side.</td></tr>
-      <tr><td><code>instructions</code> / <code>system</code></td><td>Developer policy, role, style, safety rules, output contract.</td><td>Keep stable system prompts cacheable and versioned.</td></tr>
-      <tr><td><code>tools</code></td><td>Function schemas, hosted tools, MCP connectors, file search.</td><td>Descriptions are part of the prompt. Bad schemas create bad tool calls.</td></tr>
-      <tr><td><code>reasoning</code> / <code>thinkingConfig</code> / <code>thinking</code></td><td>How much hidden or visible reasoning the model may spend.</td><td>Counts as generated output cost even when the raw thinking is hidden.</td></tr>
-      <tr><td><code>text.format</code> / <code>response_format</code></td><td>Schema for the final answer when you want JSON from the model itself.</td><td>Use this for final structured answers; use tool calling for app actions.</td></tr>
-      <tr><td><code>stream</code></td><td>Whether text/tool-call deltas arrive incrementally.</td><td>Needed for good UX and for long tool arguments, but complicates parsing.</td></tr>
+      <tr><td><code>model</code></td><td data-pt="Qual snapshot ou alias de modelo executar.">Which model snapshot or alias to run.</td><td data-pt="Fixe versões para flows sensíveis a eval; aliases podem mudar o comportamento.">Pin versions for eval-sensitive flows; aliases can change behavior.</td></tr>
+      <tr><td><code>input</code> / <code>messages</code> / <code>contents</code></td><td data-pt="Texto do usuário, turns anteriores do assistente, imagens/arquivos e contexto recuperado.">User text, prior assistant turns, images/files, and retrieved context.</td><td data-pt="Tudo aqui gasta tokens de input a menos que seja cacheado ou armazenado no lado do servidor.">Everything here spends input tokens unless cached or stored server-side.</td></tr>
+      <tr><td><code>instructions</code> / <code>system</code></td><td data-pt="Política do desenvolvedor, papel, estilo, regras de segurança, contrato de output.">Developer policy, role, style, safety rules, output contract.</td><td data-pt="Mantenha system prompts estáveis cacheáveis e versionados.">Keep stable system prompts cacheable and versioned.</td></tr>
+      <tr><td><code>tools</code></td><td data-pt="Schemas de função, tools hospedadas, conectores MCP, file search.">Function schemas, hosted tools, MCP connectors, file search.</td><td data-pt="Descrições são parte do prompt. Schemas ruins criam tool calls ruins.">Descriptions are part of the prompt. Bad schemas create bad tool calls.</td></tr>
+      <tr><td><code>reasoning</code> / <code>thinkingConfig</code> / <code>thinking</code></td><td data-pt="Quanto de reasoning oculto ou visível o modelo pode gastar.">How much hidden or visible reasoning the model may spend.</td><td data-pt="Conta como custo de output gerado mesmo quando o thinking bruto está oculto.">Counts as generated output cost even when the raw thinking is hidden.</td></tr>
+      <tr><td><code>text.format</code> / <code>response_format</code></td><td data-pt="Schema para a resposta final quando você quer JSON do próprio modelo.">Schema for the final answer when you want JSON from the model itself.</td><td data-pt="Use para respostas estruturadas finais; use tool calling para ações do app.">Use this for final structured answers; use tool calling for app actions.</td></tr>
+      <tr><td><code>stream</code></td><td data-pt="Se deltas de texto/tool-call chegam incrementalmente.">Whether text/tool-call deltas arrive incrementally.</td><td data-pt="Necessário para boa UX e para argumentos longos de tool, mas complica o parsing.">Needed for good UX and for long tool arguments, but complicates parsing.</td></tr>
     </tbody>
   </table>
 
-  <h3>4.3 The output envelope</h3>
-  <p>The important production habit is to parse the response as typed data, not as "the model's string." A single response can contain final text, one or more tool calls, hosted-tool calls, safety/refusal metadata, usage, and reasoning artifacts.</p>
+  <h3 data-pt="4.3 O envelope de output">4.3 The output envelope</h3>
+  <p data-pt="O hábito importante em produção é parsear a resposta como dados tipados, não como &quot;a string do modelo&quot;. Uma única resposta pode conter texto final, uma ou mais tool calls, hosted-tool calls, metadados de segurança/recusa, uso e artefatos de reasoning.">The important production habit is to parse the response as typed data, not as "the model's string." A single response can contain final text, one or more tool calls, hosted-tool calls, safety/refusal metadata, usage, and reasoning artifacts.</p>
   <table>
-    <thead><tr><th>Output part</th><th>Where it appears</th><th>What to do with it</th></tr></thead>
+    <thead><tr><th data-pt="Parte do output">Output part</th><th data-pt="Onde aparece">Where it appears</th><th data-pt="O que fazer com isso">What to do with it</th></tr></thead>
     <tbody>
-      <tr><td><strong>Final text</strong></td><td>OpenAI <code>message/output_text</code>; Anthropic <code>text</code> block; Gemini <code>text</code> part.</td><td>Render to the user, store in conversation history, and include in later turns if you manage context manually.</td></tr>
-      <tr><td><strong>Tool call request</strong></td><td>OpenAI <code>function_call</code> or chat <code>tool_calls</code>; Anthropic <code>tool_use</code>; Gemini <code>functionCall</code>.</td><td>Validate, authorize, execute in your app, then send a matching tool result back.</td></tr>
-      <tr><td><strong>Tool result</strong></td><td>Not generated by the model; generated by your app and sent in the next request.</td><td>Return the result with the provider's call id / tool-use id so the model can continue.</td></tr>
-      <tr><td><strong>Reasoning/thinking metadata</strong></td><td>OpenAI usage + reasoning items; Anthropic <code>thinking</code> blocks/signatures; Gemini thought counts/signatures.</td><td>Log counts for cost, and preserve provider-owned items exactly when continuing a tool loop.</td></tr>
-      <tr><td><strong>Usage</strong></td><td><code>usage</code> / <code>usage_metadata</code>.</td><td>Track input, cached input, output, reasoning/thought tokens, latency, and cost.</td></tr>
-      <tr><td><strong>Stop / finish reason</strong></td><td>OpenAI status/finish reason; Anthropic <code>stop_reason</code>; Gemini finish reason.</td><td>Branch on <code>tool_use</code>, <code>max_tokens</code>, safety stop, or normal end turn.</td></tr>
+      <tr><td data-pt="<strong>Texto final</strong>"><strong>Final text</strong></td><td>OpenAI <code>message/output_text</code>; Anthropic <code>text</code> block; Gemini <code>text</code> part.</td><td data-pt="Renderize para o usuário, armazene no histórico de conversa e inclua em turns posteriores se você gerencia o contexto manualmente.">Render to the user, store in conversation history, and include in later turns if you manage context manually.</td></tr>
+      <tr><td data-pt="<strong>Requisição de tool call</strong>"><strong>Tool call request</strong></td><td>OpenAI <code>function_call</code> or chat <code>tool_calls</code>; Anthropic <code>tool_use</code>; Gemini <code>functionCall</code>.</td><td data-pt="Valide, autorize, execute no seu app, depois envie um tool result correspondente de volta.">Validate, authorize, execute in your app, then send a matching tool result back.</td></tr>
+      <tr><td data-pt="<strong>Tool result</strong>"><strong>Tool result</strong></td><td data-pt="Não gerado pelo modelo; gerado pelo seu app e enviado no próximo request.">Not generated by the model; generated by your app and sent in the next request.</td><td data-pt="Retorne o resultado com o call id / tool-use id do provider para que o modelo possa continuar.">Return the result with the provider's call id / tool-use id so the model can continue.</td></tr>
+      <tr><td data-pt="<strong>Metadados de reasoning/thinking</strong>"><strong>Reasoning/thinking metadata</strong></td><td>OpenAI usage + reasoning items; Anthropic <code>thinking</code> blocks/signatures; Gemini thought counts/signatures.</td><td data-pt="Registre contagens para custo e preserve itens do provider exatamente ao continuar um tool loop.">Log counts for cost, and preserve provider-owned items exactly when continuing a tool loop.</td></tr>
+      <tr><td data-pt="<strong>Uso</strong>"><strong>Usage</strong></td><td><code>usage</code> / <code>usage_metadata</code>.</td><td data-pt="Rastreie tokens de input, input cacheado, output, tokens de reasoning/thought, latência e custo.">Track input, cached input, output, reasoning/thought tokens, latency, and cost.</td></tr>
+      <tr><td data-pt="<strong>Razão de stop / finish</strong>"><strong>Stop / finish reason</strong></td><td>OpenAI status/finish reason; Anthropic <code>stop_reason</code>; Gemini finish reason.</td><td data-pt="Ramifique em <code>tool_use</code>, <code>max_tokens</code>, parada de segurança ou fim normal de turn.">Branch on <code>tool_use</code>, <code>max_tokens</code>, safety stop, or normal end turn.</td></tr>
     </tbody>
   </table>
 
@@ -1605,60 +1605,60 @@ next_request_input = [
 ]
 </code></pre>
 
-  <h3>4.4 Context flow: how input + output feed the next call</h3>
-  <p>Every multi-turn app is either <strong>stateful</strong> or <strong>stateless</strong>:</p>
+  <h3 data-pt="4.4 Fluxo de contexto: como input + output alimentam a próxima chamada">4.4 Context flow: how input + output feed the next call</h3>
+  <p data-pt="Todo app multi-turn é <strong>stateful</strong> ou <strong>stateless</strong>:">Every multi-turn app is either <strong>stateful</strong> or <strong>stateless</strong>:</p>
   <ul>
-    <li><strong>Stateful:</strong> provider stores prior turns. You pass a conversation/response id such as OpenAI's <code>previous_response_id</code>. Easier, but you depend on provider-side state.</li>
-    <li><strong>Stateless:</strong> your app stores the conversation. On each request you send the relevant prior user messages, assistant outputs, tool calls, tool results, and retrieved context.</li>
+    <li data-pt="<strong>Stateful:</strong> o provider armazena turns anteriores. Você passa um id de conversa/response como o <code>previous_response_id</code> da OpenAI. Mais fácil, mas você depende do estado no lado do provider."><strong>Stateful:</strong> provider stores prior turns. You pass a conversation/response id such as OpenAI's <code>previous_response_id</code>. Easier, but you depend on provider-side state.</li>
+    <li data-pt="<strong>Stateless:</strong> seu app armazena a conversa. Em cada request você envia as messages anteriores relevantes do usuário, outputs do assistente, tool calls, tool results e contexto recuperado."><strong>Stateless:</strong> your app stores the conversation. On each request you send the relevant prior user messages, assistant outputs, tool calls, tool results, and retrieved context.</li>
   </ul>
-  <p>The safe stateless loop is: <strong>user input → model output items → tool results → model final answer → next user input</strong>. Do not summarize or mutate provider-owned reasoning/signature blocks in the middle of a tool loop; several APIs require those blocks exactly as returned.</p>
+  <p data-pt="O loop stateless seguro é: <strong>input do usuário → itens de output do modelo → tool results → resposta final do modelo → próximo input do usuário</strong>. Não sumarize ou mude blocos de reasoning/signature do provider no meio de um tool loop; várias APIs exigem esses blocos exatamente como retornados.">The safe stateless loop is: <strong>user input → model output items → tool results → model final answer → next user input</strong>. Do not summarize or mutate provider-owned reasoning/signature blocks in the middle of a tool loop; several APIs require those blocks exactly as returned.</p>
 
-  <div class="callout">
+  <div class="callout" data-pt="<strong>Regra de contexto:</strong> O output do assistente não é só texto de exibição. Pode ser estado de protocolo obrigatório. Se você jogar fora ids de tool-call, itens de reasoning, thought signatures ou ordenação de content-blocks, a próxima chamada API pode falhar ou raciocinar pior.">
     <strong>Context rule:</strong> The assistant output is not just display text. It may be required protocol state. If you throw away tool-call ids, reasoning items, thought signatures, or content-block ordering, the next API call can fail or reason worse.
   </div>
 
-  <h3>4.5 Reasoning / thinking tokens in API responses</h3>
-  <p>Do not assume "thinking" means the same wire behavior everywhere. The common rule is: <strong>thinking costs output tokens</strong>; the provider decides whether you can see it, summarize it, or only count it.</p>
+  <h3 data-pt="4.5 Tokens de reasoning / thinking em respostas de API">4.5 Reasoning / thinking tokens in API responses</h3>
+  <p data-pt="Não assuma que &quot;thinking&quot; significa o mesmo comportamento de wire em todo lugar. A regra comum é: <strong>thinking custa tokens de output</strong>; o provider decide se você pode ver, sumarizar ou apenas contar.">Do not assume "thinking" means the same wire behavior everywhere. The common rule is: <strong>thinking costs output tokens</strong>; the provider decides whether you can see it, summarize it, or only count it.</p>
   <table>
-    <thead><tr><th>Provider</th><th>How you enable it</th><th>What comes back</th><th>What you must preserve</th></tr></thead>
+    <thead><tr><th data-pt="Provider">Provider</th><th data-pt="Como habilitar">How you enable it</th><th data-pt="O que volta">What comes back</th><th data-pt="O que você deve preservar">What you must preserve</th></tr></thead>
     <tbody>
       <tr>
         <td><strong>OpenAI Responses API</strong></td>
         <td><code>reasoning: { effort: "none|minimal|low|medium|high|xhigh" }</code> depending on model</td>
-        <td>Raw reasoning is not exposed. Usage includes <code>output_tokens_details.reasoning_tokens</code>; some models can return reasoning summaries or encrypted reasoning items.</td>
-        <td>When tool calls happen, pass back reasoning items returned since the last user message, or use <code>previous_response_id</code>.</td>
+        <td data-pt="Reasoning bruto não é exposto. Uso inclui <code>output_tokens_details.reasoning_tokens</code>; alguns modelos podem retornar resumos de reasoning ou itens criptografados.">Raw reasoning is not exposed. Usage includes <code>output_tokens_details.reasoning_tokens</code>; some models can return reasoning summaries or encrypted reasoning items.</td>
+        <td data-pt="Quando tool calls acontecem, passe de volta os itens de reasoning retornados desde a última message do usuário, ou use <code>previous_response_id</code>.">When tool calls happen, pass back reasoning items returned since the last user message, or use <code>previous_response_id</code>.</td>
       </tr>
       <tr>
         <td><strong>Anthropic Claude</strong></td>
         <td><code>thinking: { type: "enabled", budget_tokens: ... }</code></td>
-        <td><code>thinking</code> content blocks followed by <code>text</code> blocks; summaries/encryption vary by model/version.</td>
-        <td>With tool use, pass the complete unmodified <code>thinking</code> blocks back for the last assistant message.</td>
+        <td data-pt="Blocos de conteúdo <code>thinking</code> seguidos de blocos <code>text</code>; resumos/criptografia variam por modelo/versão."><code>thinking</code> content blocks followed by <code>text</code> blocks; summaries/encryption vary by model/version.</td>
+        <td data-pt="Com tool use, passe de volta os blocos <code>thinking</code> completos e não modificados para a última message do assistente.">With tool use, pass the complete unmodified <code>thinking</code> blocks back for the last assistant message.</td>
       </tr>
       <tr>
         <td><strong>Gemini</strong></td>
         <td><code>generationConfig.thinkingConfig.thinkingBudget</code></td>
-        <td>Usage metadata includes fields such as <code>thoughtsTokenCount</code>. Thinking may also produce encrypted thought signatures.</td>
-        <td>When function calling or REST history rewriting is involved, pass signatures/parts back exactly as received.</td>
+        <td data-pt="Metadados de uso incluem campos como <code>thoughtsTokenCount</code>. Thinking pode também produzir thought signatures criptografadas.">Usage metadata includes fields such as <code>thoughtsTokenCount</code>. Thinking may also produce encrypted thought signatures.</td>
+        <td data-pt="Quando function calling ou reescrita de histórico REST está envolvida, passe signatures/partes de volta exatamente como recebidos.">When function calling or REST history rewriting is involved, pass signatures/parts back exactly as received.</td>
       </tr>
     </tbody>
   </table>
 
-  <div class="callout warn">
+  <div class="callout warn" data-pt="<strong>Resposta segura para entrevista:</strong> &quot;Thinking tokens são tokens gerados. OpenAI expõe a contagem em uso, Anthropic expõe blocos/signatures de thinking, Gemini expõe contagens/signatures de tokens de thought. Em todos os casos, afetam contexto, latência e custo.&quot;">
     <strong>Interview-safe answer:</strong> "Thinking tokens are generated tokens. OpenAI exposes the count in usage, Anthropic exposes thinking blocks/signatures, Gemini exposes thought token counts/signatures. In all cases, they affect context, latency, and cost."
   </div>
 
-  <h3>4.6 Tool calling is a loop, not magic</h3>
-  <p>The model never executes your function. It emits a structured request; your app validates it, runs the function, then sends the result back so the model can continue.</p>
+  <h3 data-pt="4.6 Tool calling é um loop, não mágica">4.6 Tool calling is a loop, not magic</h3>
+  <p data-pt="O modelo nunca executa sua função. Ele emite um request estruturado; seu app o valida, executa a função, depois envia o resultado de volta para que o modelo possa continuar.">The model never executes your function. It emits a structured request; your app validates it, runs the function, then sends the result back so the model can continue.</p>
   <ol>
-    <li><strong>Declare tools</strong> with name, description, and JSON Schema / OpenAPI-style parameters.</li>
-    <li><strong>Receive tool calls</strong> from the model with a tool name, arguments, and call id.</li>
-    <li><strong>Execute in your app</strong> after auth, validation, idempotency checks, and audit logging.</li>
-    <li><strong>Return tool results</strong> using the provider's call id field.</li>
-    <li><strong>Continue</strong> until the model returns final text or another tool call.</li>
+    <li data-pt="<strong>Declare tools</strong> com nome, descrição e parâmetros no estilo JSON Schema / OpenAPI."><strong>Declare tools</strong> with name, description, and JSON Schema / OpenAPI-style parameters.</li>
+    <li data-pt="<strong>Receba tool calls</strong> do modelo com nome da tool, argumentos e call id."><strong>Receive tool calls</strong> from the model with a tool name, arguments, and call id.</li>
+    <li data-pt="<strong>Execute no seu app</strong> após auth, validação, verificações de idempotência e audit logging."><strong>Execute in your app</strong> after auth, validation, idempotency checks, and audit logging.</li>
+    <li data-pt="<strong>Retorne tool results</strong> usando o campo call id do provider."><strong>Return tool results</strong> using the provider's call id field.</li>
+    <li data-pt="<strong>Continue</strong> até o modelo retornar texto final ou outra tool call."><strong>Continue</strong> until the model returns final text or another tool call.</li>
   </ol>
 
   <table>
-    <thead><tr><th>Provider</th><th>Declare</th><th>Model returns</th><th>You return</th></tr></thead>
+    <thead><tr><th data-pt="Provider">Provider</th><th data-pt="Declare">Declare</th><th data-pt="Modelo retorna">Model returns</th><th data-pt="Você retorna">You return</th></tr></thead>
     <tbody>
       <tr>
         <td><strong>OpenAI</strong></td>
@@ -1675,8 +1675,8 @@ next_request_input = [
       <tr>
         <td><strong>Gemini</strong></td>
         <td><code>tools.functionDeclarations</code></td>
-        <td><code>functionCall</code> part with name and args</td>
-        <td><code>functionResponse</code> part</td>
+        <td data-pt="part <code>functionCall</code> com nome e args"><code>functionCall</code> part with name and args</td>
+        <td data-pt="part <code>functionResponse</code>"><code>functionResponse</code> part</td>
       </tr>
     </tbody>
   </table>
@@ -1722,19 +1722,19 @@ const final = await client.responses.create({
 });
 </code></pre>
 
-  <div class="callout">
+  <div class="callout" data-pt="<strong>Function calling vs MCP:</strong> Function calling é o formato de API por request. MCP é um protocolo para descobrir e invocar tools entre clientes. Na prática, um modelo OpenAI/Claude/Gemini pode chamar uma tool que seu app implementa diretamente, ou uma tool exposta através de um servidor MCP (<a href=&quot;#mcp&quot;>§07</a>).">
     <strong>Function calling vs MCP:</strong> Function calling is the per-request API shape. MCP is a protocol for discovering and invoking tools across clients. In practice, an OpenAI/Claude/Gemini model may call a tool that your app implements directly, or a tool exposed through an MCP server (<a href="#mcp">§07</a>).
   </div>
 
-  <h3>4.7 How RAG vectors enter the API</h3>
-  <p>You usually do <strong>not</strong> send raw vectors to the generation model. Vectors live in the retrieval layer. The model receives the retrieved text, metadata, and citations.</p>
+  <h3 data-pt="4.7 Como vetores RAG entram na API">4.7 How RAG vectors enter the API</h3>
+  <p data-pt="Você geralmente <strong>não</strong> envia vetores brutos para o modelo de geração. Vetores vivem na camada de retrieval. O modelo recebe o texto recuperado, metadados e citações.">You usually do <strong>not</strong> send raw vectors to the generation model. Vectors live in the retrieval layer. The model receives the retrieved text, metadata, and citations.</p>
 
-  <h4>External vector database pattern</h4>
+  <h4 data-pt="Padrão de banco de dados vetorial externo">External vector database pattern</h4>
   <ol>
-    <li><strong>Ingest:</strong> split documents into chunks; call an embeddings API; store <code>{ id, vector, text, metadata }</code> in Pinecone, Weaviate, Qdrant, pgvector, Elasticsearch, etc.</li>
-    <li><strong>Query:</strong> embed the user's question using the same embedding model family.</li>
-    <li><strong>Retrieve:</strong> vector search + BM25/hybrid + rerank top results.</li>
-    <li><strong>Generate:</strong> send the top snippets as normal input text: source title, URL/file id, chunk text, and citation id.</li>
+    <li data-pt="<strong>Ingest:</strong> dividir documentos em chunks; chamar uma API de embeddings; armazenar <code>{ id, vector, text, metadata }</code> no Pinecone, Weaviate, Qdrant, pgvector, Elasticsearch, etc."><strong>Ingest:</strong> split documents into chunks; call an embeddings API; store <code>{ id, vector, text, metadata }</code> in Pinecone, Weaviate, Qdrant, pgvector, Elasticsearch, etc.</li>
+    <li data-pt="<strong>Query:</strong> fazer embedding da pergunta do usuário usando a mesma família de modelo de embedding."><strong>Query:</strong> embed the user's question using the same embedding model family.</li>
+    <li data-pt="<strong>Retrieve:</strong> vector search + BM25/hybrid + rerank dos resultados top."><strong>Retrieve:</strong> vector search + BM25/hybrid + rerank top results.</li>
+    <li data-pt="<strong>Gerar:</strong> enviar os snippets do topo como texto de input normal: título da fonte, URL/file id, texto do chunk e id de citação."><strong>Generate:</strong> send the top snippets as normal input text: source title, URL/file id, chunk text, and citation id.</li>
   </ol>
 
 <pre><code>const queryEmbedding = await embeddings.create({
@@ -1759,23 +1759,23 @@ await client.responses.create({
 });
 </code></pre>
 
-  <h4>Hosted file-search pattern</h4>
-  <p>Some providers manage the vector store for you. In OpenAI's Responses API, for example, you upload files into a vector store, then pass a hosted tool config such as <code>{ type: "file_search", vector_store_ids: ["vs_123"] }</code>. The model can call the file-search tool, and you can optionally ask the API to include the retrieved results in the response for debugging/evals.</p>
+  <h4 data-pt="Padrão de file-search hospedado">Hosted file-search pattern</h4>
+  <p data-pt="Alguns providers gerenciam o vector store para você. Na API de Responses da OpenAI, por exemplo, você faz upload de arquivos em um vector store e passa uma config de tool hospedada como <code>{ type: &quot;file_search&quot;, vector_store_ids: [&quot;vs_123&quot;] }</code>. O modelo pode chamar a tool de file-search, e você pode opcionalmente pedir à API para incluir os resultados recuperados na resposta para debugging/evals.">Some providers manage the vector store for you. In OpenAI's Responses API, for example, you upload files into a vector store, then pass a hosted tool config such as <code>{ type: "file_search", vector_store_ids: ["vs_123"] }</code>. The model can call the file-search tool, and you can optionally ask the API to include the retrieved results in the response for debugging/evals.</p>
 
-  <div class="callout warn">
+  <div class="callout warn" data-pt="<strong>Armadilha comum:</strong> RAG não é &quot;enviar embeddings para o LLM&quot;. É &quot;usar embeddings para escolher texto, depois enviar o texto escolhido para o LLM&quot;. A única exceção é uma tool de retrieval gerenciada pelo provider, onde você envia um id de vector-store e deixa o provider cuidar do retrieval.">
     <strong>Common pitfall:</strong> RAG is not "send embeddings to the LLM." It is "use embeddings to choose text, then send the chosen text to the LLM." The only exception is a provider-managed retrieval tool, where you send a vector-store id and let the provider handle retrieval.
   </div>
 
-  <h3>4.8 What to log from every model call</h3>
+  <h3 data-pt="4.8 O que logar de cada chamada de modelo">4.8 What to log from every model call</h3>
   <ul>
-    <li><strong>Request id</strong> from provider headers/response metadata for support and incident debugging.</li>
-    <li><strong>Model version</strong>, prompt/template version, tool schema version, and retrieval index version.</li>
-    <li><strong>Usage:</strong> input, cached input, visible output, reasoning/thinking tokens, total tokens, latency.</li>
-    <li><strong>Tool trace:</strong> tool name, args hash, auth principal, result status, retry count, duration.</li>
-    <li><strong>Retrieval trace:</strong> query, embedding model, top-K ids, reranker scores, source ids actually cited.</li>
+    <li data-pt="<strong>Request id</strong> dos headers/metadados de resposta do provider para debugging de suporte e incidentes."><strong>Request id</strong> from provider headers/response metadata for support and incident debugging.</li>
+    <li data-pt="<strong>Versão do modelo</strong>, versão do prompt/template, versão do schema de tool e versão do índice de retrieval."><strong>Model version</strong>, prompt/template version, tool schema version, and retrieval index version.</li>
+    <li data-pt="<strong>Uso:</strong> input, input cacheado, output visível, tokens de reasoning/thinking, total de tokens, latência."><strong>Usage:</strong> input, cached input, visible output, reasoning/thinking tokens, total tokens, latency.</li>
+    <li data-pt="<strong>Trace de tool:</strong> nome da tool, hash de args, principal de auth, status do resultado, contagem de retry, duração."><strong>Tool trace:</strong> tool name, args hash, auth principal, result status, retry count, duration.</li>
+    <li data-pt="<strong>Trace de retrieval:</strong> query, modelo de embedding, ids top-K, scores do reranker, ids de fonte realmente citados."><strong>Retrieval trace:</strong> query, embedding model, top-K ids, reranker scores, source ids actually cited.</li>
   </ul>
 
-  <div class="callout">
+  <div class="callout" data-pt="<strong>Regra de produção:</strong> &quot;A API de modelo é um event loop com billing. Trate cada item de resposta como dados tipados, preserve itens de reasoning/signature do provider e torne tools/retrieval observáveis o suficiente para replay.&quot;">
     <strong>Production rule:</strong> "The model API is an event loop with billing. Treat every response item as typed data, preserve provider-owned reasoning/signature items, and make tools/retrieval observable enough to replay."
   </div>
 </section>
@@ -1783,16 +1783,16 @@ await client.responses.create({
 
 <!-- =================== OPEN SOURCE =================== -->
 <section id="oss">
-  <h2><span class="num">05</span> Open-source alternatives — what's actually competitive</h2>
+  <h2 data-pt="<span class=&quot;num&quot;>05</span> Alternativas open-source — o que é realmente competitivo"><span class="num">05</span> Open-source alternatives — what's actually competitive</h2>
   <ul>
-    <li><strong>Kimi K2.6 (Moonshot AI)</strong> — released Apr 2026, Modified MIT license. Native multimodal agentic model. Coding parity with GPT-5.5 on several benchmarks at ~88% lower cost.</li>
-    <li><strong>DeepSeek V4</strong> — the price/performance reference. V4 Flash for general work ($0.14/$0.28), V4 Pro for top-tier open-weight quality (49B active / 1.6T total, DSA architecture) with an optional thinking mode for reasoning. 1M context default across the line.</li>
-    <li><strong>GLM 5.1 (Z.ai / Tsinghua)</strong> — 754B params, MIT license, 200K ctx. Flagship agentic model; SOTA on SWE-Bench Pro (58.4%) and CyberGym (68.7%). Sustains optimization over 600+ iterations where other models plateau. Available on HuggingFace, vLLM, SGLang, and api.z.ai.</li>
-    <li><strong>Llama / Mistral families</strong> — broad ecosystem, fine-tunable, on every inference provider.</li>
-    <li><strong>Qwen 3</strong> (Alibaba) — strong multilingual, competitive coding.</li>
+    <li data-pt="<strong>Kimi K2.6 (Moonshot AI)</strong> — lançado em abr 2026, licença Modified MIT. Modelo agêntico multimodal nativo. Paridade de coding com GPT-5.5 em vários benchmarks a ~88% de custo menor."><strong>Kimi K2.6 (Moonshot AI)</strong> — released Apr 2026, Modified MIT license. Native multimodal agentic model. Coding parity with GPT-5.5 on several benchmarks at ~88% lower cost.</li>
+    <li data-pt="<strong>DeepSeek V4</strong> — a referência de preço/performance. V4 Flash para trabalho geral ($0.14/$0.28), V4 Pro para qualidade open-weight de topo (49B ativo / 1.6T total, arquitetura DSA) com um modo thinking opcional para reasoning. 1M context padrão em toda a linha."><strong>DeepSeek V4</strong> — the price/performance reference. V4 Flash for general work ($0.14/$0.28), V4 Pro for top-tier open-weight quality (49B active / 1.6T total, DSA architecture) with an optional thinking mode for reasoning. 1M context default across the line.</li>
+    <li data-pt="<strong>GLM 5.1 (Z.ai / Tsinghua)</strong> — 754B params, licença MIT, 200K ctx. Flagship agêntico; SOTA no SWE-Bench Pro (58.4%) e CyberGym (68.7%). Sustenta otimização por mais de 600+ iterações onde outros modelos plateiam. Disponível no HuggingFace, vLLM, SGLang e api.z.ai."><strong>GLM 5.1 (Z.ai / Tsinghua)</strong> — 754B params, MIT license, 200K ctx. Flagship agentic model; SOTA on SWE-Bench Pro (58.4%) and CyberGym (68.7%). Sustains optimization over 600+ iterations where other models plateau. Available on HuggingFace, vLLM, SGLang, and api.z.ai.</li>
+    <li data-pt="<strong>Famílias Llama / Mistral</strong> — ecossistema amplo, fine-tunable, em todo provider de inferência."><strong>Llama / Mistral families</strong> — broad ecosystem, fine-tunable, on every inference provider.</li>
+    <li data-pt="<strong>Qwen 3</strong> (Alibaba) — forte em multilingual, coding competitivo."><strong>Qwen 3</strong> (Alibaba) — strong multilingual, competitive coding.</li>
   </ul>
 
-  <div class="callout">
+  <div class="callout" data-pt="<strong>Por que isso importa:</strong> Ferramentas internas em uma empresa muitas vezes não podem enviar dados de clientes para OpenAI/Anthropic. Open-weight + um provider de inferência gerenciado (Together, Fireworks, DeepInfra, Groq) ou vLLM self-hosted é a resposta realista. Conheça esse vocabulário.">
     <strong>Why this matters:</strong> Internal tools at a company often can't ship customer data to OpenAI/Anthropic. Open-weight + a managed inference provider (Together, Fireworks, DeepInfra, Groq) or self-hosted vLLM is the realistic answer. Know that vocabulary.
   </div>
 </section>
@@ -1800,99 +1800,99 @@ await client.responses.create({
 
 <!-- =================== MEMORY =================== -->
 <section id="memory">
-  <h2><span class="num">06</span> Memory types in AI agents</h2>
-  <p>Drawn from cognitive science. <strong>Four types</strong> — know them all.</p>
+  <h2 data-pt="<span class=&quot;num&quot;>06</span> Tipos de memória em AI agents"><span class="num">06</span> Memory types in AI agents</h2>
+  <p data-pt="Extraído da ciência cognitiva. <strong>Quatro tipos</strong> — conheça todos.">Drawn from cognitive science. <strong>Four types</strong> — know them all.</p>
 
   <div class="grid2">
     <div class="card">
-      <h4>Short-term / Working / In-context</h4>
-      <p>Everything inside the current context window. Like RAM — gone when the session ends. Cheap, fast, limited.</p>
-      <p class="small">Examples: current conversation, this turn's tool outputs, scratchpad.</p>
+      <h4 data-pt="Short-term / Working / In-context">Short-term / Working / In-context</h4>
+      <p data-pt="Tudo dentro do context window atual. Como RAM — some quando a sessão termina. Barato, rápido, limitado.">Everything inside the current context window. Like RAM — gone when the session ends. Cheap, fast, limited.</p>
+      <p class="small" data-pt="Exemplos: conversa atual, outputs de tool deste turn, rascunho.">Examples: current conversation, this turn's tool outputs, scratchpad.</p>
     </div>
     <div class="card">
-      <h4>Episodic (long-term)</h4>
-      <p>Specific past <em>experiences</em> with temporal context. "Last Tuesday Lucas asked me to refactor X."</p>
-      <p class="small">Storage: vector DB for semantic search + event log for ground truth.</p>
+      <h4 data-pt="Episódica (longo prazo)">Episodic (long-term)</h4>
+      <p data-pt="<em>Experiências</em> passadas específicas com contexto temporal. &quot;Na terça passada Lucas me pediu para refatorar X.&quot;">Specific past <em>experiences</em> with temporal context. "Last Tuesday Lucas asked me to refactor X."</p>
+      <p class="small" data-pt="Armazenamento: vector DB para busca semântica + event log para ground truth.">Storage: vector DB for semantic search + event log for ground truth.</p>
     </div>
     <div class="card">
-      <h4>Semantic (long-term)</h4>
-      <p>Factual knowledge, decoupled from when you learned it. "Lucas's preferred language is C#."</p>
-      <p class="small">Storage: structured DB for facts + vector DB for concept embeddings.</p>
+      <h4 data-pt="Semântica (longo prazo)">Semantic (long-term)</h4>
+      <p data-pt="Conhecimento factual, desacoplado de quando você aprendeu. &quot;A linguagem preferida de Lucas é C#.&quot;">Factual knowledge, decoupled from when you learned it. "Lucas's preferred language is C#."</p>
+      <p class="small" data-pt="Armazenamento: DB estruturado para fatos + vector DB para embeddings de conceitos.">Storage: structured DB for facts + vector DB for concept embeddings.</p>
     </div>
     <div class="card">
-      <h4>Procedural (long-term)</h4>
-      <p>"How to do things." Workflows, tool sequences, learned policies. Often encoded in the system prompt / agent definition itself.</p>
-      <p class="small">Storage: system prompts, fine-tuned weights, skill files.</p>
+      <h4 data-pt="Procedural (longo prazo)">Procedural (long-term)</h4>
+      <p data-pt="&quot;Como fazer as coisas.&quot; Workflows, sequências de tool, políticas aprendidas. Frequentemente codificado no system prompt / definição do agent.">"How to do things." Workflows, tool sequences, learned policies. Often encoded in the system prompt / agent definition itself.</p>
+      <p class="small" data-pt="Armazenamento: system prompts, pesos fine-tuned, skill files.">Storage: system prompts, fine-tuned weights, skill files.</p>
     </div>
   </div>
 
-  <h3>Architecture in 2026</h3>
+  <h3 data-pt="Arquitetura em 2026">Architecture in 2026</h3>
   <ul>
-    <li><strong>Vector memory</strong> = retrieves semantically similar items.</li>
-    <li><strong>Graph memory</strong> = retrieves relationally connected items. Production-grade by early 2026 (was experimental in 2024).</li>
-    <li><strong>Memory compression:</strong> the "fundamental cognitive step" of moving short-term → long-term. Filter signal from conversational noise.</li>
-    <li>Frameworks: <code>mem0</code>, <code>Letta</code> (formerly MemGPT), <code>Zep</code>, Redis-based stores.</li>
+    <li data-pt="<strong>Memória vetorial</strong> = recupera itens semanticamente similares."><strong>Vector memory</strong> = retrieves semantically similar items.</li>
+    <li data-pt="<strong>Memória em grafo</strong> = recupera itens relacionalmente conectados. Pronta para produção no início de 2026 (era experimental em 2024)."><strong>Graph memory</strong> = retrieves relationally connected items. Production-grade by early 2026 (was experimental in 2024).</li>
+    <li data-pt="<strong>Compressão de memória:</strong> o &quot;passo cognitivo fundamental&quot; de mover short-term → long-term. Filtre sinal do ruído conversacional."><strong>Memory compression:</strong> the "fundamental cognitive step" of moving short-term → long-term. Filter signal from conversational noise.</li>
+    <li data-pt="Frameworks: <code>mem0</code>, <code>Letta</code> (antes MemGPT), <code>Zep</code>, stores baseadas em Redis.">Frameworks: <code>mem0</code>, <code>Letta</code> (formerly MemGPT), <code>Zep</code>, Redis-based stores.</li>
   </ul>
 </section>
 
 
 <!-- =================== MCP =================== -->
 <section id="mcp">
-  <h2><span class="num">07</span> Custom MCP — Model Context Protocol</h2>
-  <p>MCP is the "USB-C for AI" — a standardized protocol (Anthropic, late 2024, now broadly adopted) for letting any LLM client talk to any tool/data source.</p>
+  <h2 data-pt="<span class=&quot;num&quot;>07</span> MCP Customizado — Model Context Protocol"><span class="num">07</span> Custom MCP — Model Context Protocol</h2>
+  <p data-pt="MCP é o &quot;USB-C para AI&quot; — um protocolo padronizado (Anthropic, final de 2024, agora amplamente adotado) para deixar qualquer cliente LLM falar com qualquer tool/fonte de dados.">MCP is the "USB-C for AI" — a standardized protocol (Anthropic, late 2024, now broadly adopted) for letting any LLM client talk to any tool/data source.</p>
 
-  <h3>If you already know REST APIs, here is the analogy</h3>
-  <p>A REST API exposes <strong>resources</strong> at URLs (<code>GET /users/42</code>) so that <em>humans writing code</em> can integrate with your system. Each client (web app, mobile app, partner backend) writes its own integration: pick endpoints, parse responses, handle auth, retry on failures.</p>
-  <p>An <strong>MCP server</strong> exposes <strong>tools, resources and prompts</strong> over a standard protocol so that <em>any LLM client</em> can integrate with your system <strong>without writing client code</strong>. The LLM discovers what is available, reads the schemas, and decides at runtime which tool to call.</p>
-  <p>Same idea — "expose capabilities so something else can call them" — but the caller is an LLM agent, the discovery is automatic, and the contract is uniform across every AI tool in your stack (Claude Desktop, Claude Code, Cursor, Windsurf, Codex, etc).</p>
+  <h3 data-pt="Se você já conhece REST APIs, aqui está a analogia">If you already know REST APIs, here is the analogy</h3>
+  <p data-pt="Uma REST API expõe <strong>recursos</strong> em URLs (<code>GET /users/42</code>) para que <em>humanos escrevendo código</em> possam se integrar ao seu sistema. Cada cliente (web app, mobile app, backend de parceiro) escreve sua própria integração: escolhe endpoints, parseia respostas, trata auth, faz retry em falhas.">A REST API exposes <strong>resources</strong> at URLs (<code>GET /users/42</code>) so that <em>humans writing code</em> can integrate with your system. Each client (web app, mobile app, partner backend) writes its own integration: pick endpoints, parse responses, handle auth, retry on failures.</p>
+  <p data-pt="Um <strong>servidor MCP</strong> expõe <strong>tools, recursos e prompts</strong> sobre um protocolo padrão para que <em>qualquer cliente LLM</em> possa se integrar ao seu sistema <strong>sem escrever código de cliente</strong>. O LLM descobre o que está disponível, lê os schemas e decide em runtime qual tool chamar.">An <strong>MCP server</strong> exposes <strong>tools, resources and prompts</strong> over a standard protocol so that <em>any LLM client</em> can integrate with your system <strong>without writing client code</strong>. The LLM discovers what is available, reads the schemas, and decides at runtime which tool to call.</p>
+  <p data-pt="Mesma ideia — &quot;expor capacidades para que algo mais as chame&quot; — mas o chamador é um agente LLM, a descoberta é automática e o contrato é uniforme em toda tool AI na sua stack (Claude Desktop, Claude Code, Cursor, Windsurf, Codex, etc).">Same idea — "expose capabilities so something else can call them" — but the caller is an LLM agent, the discovery is automatic, and the contract is uniform across every AI tool in your stack (Claude Desktop, Claude Code, Cursor, Windsurf, Codex, etc).</p>
 
-  <h3>REST vs MCP — side-by-side</h3>
+  <h3 data-pt="REST vs MCP — lado a lado">REST vs MCP — side-by-side</h3>
   <table>
-    <thead><tr><th>Aspect</th><th>REST API</th><th>MCP Server</th></tr></thead>
+    <thead><tr><th data-pt="Aspecto">Aspect</th><th>REST API</th><th>MCP Server</th></tr></thead>
     <tbody>
-      <tr><td><strong>Audience</strong></td><td>Developers writing client code</td><td>LLM agents at runtime</td></tr>
-      <tr><td><strong>Discovery</strong></td><td>Out-of-band (docs, OpenAPI, Postman collection)</td><td>In-band — client calls <code>tools/list</code>, gets JSON schemas back</td></tr>
-      <tr><td><strong>Wire format</strong></td><td>HTTP + JSON (or XML, form-encoded…)</td><td>JSON-RPC 2.0 over stdio or Streamable HTTP</td></tr>
-      <tr><td><strong>Verbs</strong></td><td>GET, POST, PUT, PATCH, DELETE</td><td>Tool calls (POST-like), Resource reads (GET-like), Prompt fetches</td></tr>
-      <tr><td><strong>Statelessness</strong></td><td>Each request stands alone</td><td>Session-oriented — server keeps a connection, can push notifications</td></tr>
-      <tr><td><strong>Schema language</strong></td><td>OpenAPI / JSON Schema (optional)</td><td>JSON Schema (mandatory, used for tool argument validation by the LLM)</td></tr>
-      <tr><td><strong>Auth</strong></td><td>API keys, OAuth, JWT — many flavors</td><td>OAuth 2.1 in the spec; for stdio servers, runs as you locally</td></tr>
-      <tr><td><strong>How a caller decides what to invoke</strong></td><td>Developer reads docs, hardcodes the call</td><td>LLM reads the tool description + schema and decides at runtime</td></tr>
-      <tr><td><strong>Versioning</strong></td><td><code>/v1/</code>, <code>/v2/</code> in URL</td><td>Server advertises capability versions in the handshake</td></tr>
-      <tr><td><strong>Streaming</strong></td><td>SSE, WebSockets — depends on endpoint</td><td>Streamable HTTP can use SSE for server-to-client streaming and notifications</td></tr>
-      <tr><td><strong>Integration cost per client</strong></td><td>Linear — every new client writes its own glue</td><td>~Zero — every MCP-aware tool gets it for free once the server exists</td></tr>
-      <tr><td><strong>Best for</strong></td><td>Stable contracts between systems written by humans</td><td>Surfacing capabilities to AI tools / agents</td></tr>
+      <tr><td data-pt="<strong>Audiência</strong>"><strong>Audience</strong></td><td data-pt="Desenvolvedores escrevendo código de cliente">Developers writing client code</td><td data-pt="Agentes LLM em runtime">LLM agents at runtime</td></tr>
+      <tr><td data-pt="<strong>Descoberta</strong>"><strong>Discovery</strong></td><td data-pt="Out-of-band (docs, OpenAPI, coleção Postman)">Out-of-band (docs, OpenAPI, Postman collection)</td><td data-pt="In-band — cliente chama <code>tools/list</code>, recebe schemas JSON de volta">In-band — client calls <code>tools/list</code>, gets JSON schemas back</td></tr>
+      <tr><td data-pt="<strong>Formato de wire</strong>"><strong>Wire format</strong></td><td data-pt="HTTP + JSON (ou XML, form-encoded…)">HTTP + JSON (or XML, form-encoded…)</td><td data-pt="JSON-RPC 2.0 sobre stdio ou Streamable HTTP">JSON-RPC 2.0 over stdio or Streamable HTTP</td></tr>
+      <tr><td data-pt="<strong>Verbos</strong>"><strong>Verbs</strong></td><td data-pt="GET, POST, PUT, PATCH, DELETE">GET, POST, PUT, PATCH, DELETE</td><td data-pt="Tool calls (tipo POST), leituras de Resource (tipo GET), fetches de Prompt">Tool calls (POST-like), Resource reads (GET-like), Prompt fetches</td></tr>
+      <tr><td data-pt="<strong>Statelessness</strong>"><strong>Statelessness</strong></td><td data-pt="Cada request está sozinho">Each request stands alone</td><td data-pt="Orientado a sessão — servidor mantém uma conexão, pode enviar notificações">Session-oriented — server keeps a connection, can push notifications</td></tr>
+      <tr><td data-pt="<strong>Linguagem de schema</strong>"><strong>Schema language</strong></td><td data-pt="OpenAPI / JSON Schema (opcional)">OpenAPI / JSON Schema (optional)</td><td data-pt="JSON Schema (obrigatório, usado para validação de argumentos de tool pelo LLM)">JSON Schema (mandatory, used for tool argument validation by the LLM)</td></tr>
+      <tr><td data-pt="<strong>Auth</strong>"><strong>Auth</strong></td><td data-pt="API keys, OAuth, JWT — muitos formatos">API keys, OAuth, JWT — many flavors</td><td data-pt="OAuth 2.1 na spec; para servidores stdio, roda como você localmente">OAuth 2.1 in the spec; for stdio servers, runs as you locally</td></tr>
+      <tr><td data-pt="<strong>Como um chamador decide o que invocar</strong>"><strong>How a caller decides what to invoke</strong></td><td data-pt="Desenvolvedor lê docs, hardcode a chamada">Developer reads docs, hardcodes the call</td><td data-pt="LLM lê a descrição + schema da tool e decide em runtime">LLM reads the tool description + schema and decides at runtime</td></tr>
+      <tr><td data-pt="<strong>Versionamento</strong>"><strong>Versioning</strong></td><td data-pt="<code>/v1/</code>, <code>/v2/</code> na URL"><code>/v1/</code>, <code>/v2/</code> in URL</td><td data-pt="Servidor anuncia versões de capacidade no handshake">Server advertises capability versions in the handshake</td></tr>
+      <tr><td data-pt="<strong>Streaming</strong>"><strong>Streaming</strong></td><td data-pt="SSE, WebSockets — depende do endpoint">SSE, WebSockets — depends on endpoint</td><td data-pt="Streamable HTTP pode usar SSE para streaming server-to-client e notificações">Streamable HTTP can use SSE for server-to-client streaming and notifications</td></tr>
+      <tr><td data-pt="<strong>Custo de integração por cliente</strong>"><strong>Integration cost per client</strong></td><td data-pt="Linear — cada novo cliente escreve seu próprio glue">Linear — every new client writes its own glue</td><td data-pt="~Zero — toda tool MCP-aware ganha de graça uma vez que o servidor existe">~Zero — every MCP-aware tool gets it for free once the server exists</td></tr>
+      <tr><td data-pt="<strong>Melhor para</strong>"><strong>Best for</strong></td><td data-pt="Contratos estáveis entre sistemas escritos por humanos">Stable contracts between systems written by humans</td><td data-pt="Surfacing de capacidades para tools / agents AI">Surfacing capabilities to AI tools / agents</td></tr>
     </tbody>
   </table>
 
-  <div class="callout">
+  <div class="callout" data-pt="<strong>Mental model:</strong> REST é &quot;uma API para código&quot;. MCP é &quot;uma API para LLMs&quot;. Você absolutamente pode <em>embrulhar</em> uma REST API existente em um servidor MCP — e é exatamente isso que a maioria dos MCPs em produção faz (o Jira MCP, GitHub MCP, Linear MCP são todos wrappers finos sobre suas respectivas APIs REST/GraphQL, reembalados com descrições e schemas LLM-friendly).">
     <strong>Mental model:</strong> REST is "an API for code." MCP is "an API for LLMs." You can absolutely <em>wrap</em> an existing REST API in an MCP server — and that is exactly what most production MCPs do (the Jira MCP, GitHub MCP, Linear MCP are all thin wrappers over their respective REST/GraphQL APIs, repackaged with LLM-friendly descriptions and schemas).
   </div>
 
-  <h3>What MCP adds that REST does not</h3>
+  <h3 data-pt="O que MCP adiciona que REST não tem">What MCP adds that REST does not</h3>
   <ul>
-    <li><strong>Self-describing tools.</strong> The LLM asks "what can you do?" and gets back tool names, descriptions, and argument schemas it can validate against. No human reads OpenAPI first.</li>
-    <li><strong>One integration → every AI client.</strong> Build the Jira MCP once; Claude Desktop, Claude Code, Cursor, Codex, Windsurf all use it.</li>
-    <li><strong>Resources are LLM-aware.</strong> A resource is a "thing the LLM can pull into context" — not just "data returned from a call." The protocol distinguishes that.</li>
-    <li><strong>Prompts as a first-class primitive.</strong> The server can ship reusable prompt templates (e.g. <code>/review-pr</code>) — REST has no analog.</li>
-    <li><strong>Session and notifications.</strong> Server can push updates (e.g. "this resource changed, refresh"). REST needs WebSockets or polling for that.</li>
+    <li data-pt="<strong>Tools auto-descritivas.</strong> O LLM pergunta &quot;o que você pode fazer?&quot; e recebe de volta nomes de tool, descrições e schemas de argumento que pode validar. Nenhum humano lê OpenAPI primeiro."><strong>Self-describing tools.</strong> The LLM asks "what can you do?" and gets back tool names, descriptions, and argument schemas it can validate against. No human reads OpenAPI first.</li>
+    <li data-pt="<strong>Uma integração → todo cliente AI.</strong> Construa o Jira MCP uma vez; Claude Desktop, Claude Code, Cursor, Codex, Windsurf todos usam."><strong>One integration → every AI client.</strong> Build the Jira MCP once; Claude Desktop, Claude Code, Cursor, Codex, Windsurf all use it.</li>
+    <li data-pt="<strong>Resources são LLM-aware.</strong> Um resource é uma &quot;coisa que o LLM pode puxar para o contexto&quot; — não apenas &quot;dados retornados de uma chamada&quot;. O protocolo distingue isso."><strong>Resources are LLM-aware.</strong> A resource is a "thing the LLM can pull into context" — not just "data returned from a call." The protocol distinguishes that.</li>
+    <li data-pt="<strong>Prompts como primitivo de primeira classe.</strong> O servidor pode enviar templates de prompt reutilizáveis (e.g. <code>/review-pr</code>) — REST não tem análogo."><strong>Prompts as a first-class primitive.</strong> The server can ship reusable prompt templates (e.g. <code>/review-pr</code>) — REST has no analog.</li>
+    <li data-pt="<strong>Sessão e notificações.</strong> Servidor pode enviar atualizações (e.g. &quot;este resource mudou, atualize&quot;). REST precisa de WebSockets ou polling para isso."><strong>Session and notifications.</strong> Server can push updates (e.g. "this resource changed, refresh"). REST needs WebSockets or polling for that.</li>
   </ul>
 
-  <h3>Three primitives an MCP server can expose</h3>
+  <h3 data-pt="Três primitivos que um servidor MCP pode expor">Three primitives an MCP server can expose</h3>
   <ul>
-    <li><strong>Tools</strong> — functions the LLM can call (write actions, queries).</li>
-    <li><strong>Resources</strong> — file-like read-only data the client can fetch.</li>
-    <li><strong>Prompts</strong> — pre-written templates users can invoke.</li>
+    <li data-pt="<strong>Tools</strong> — funções que o LLM pode chamar (ações de escrita, queries)."><strong>Tools</strong> — functions the LLM can call (write actions, queries).</li>
+    <li data-pt="<strong>Resources</strong> — dados read-only tipo arquivo que o cliente pode buscar."><strong>Resources</strong> — file-like read-only data the client can fetch.</li>
+    <li data-pt="<strong>Prompts</strong> — templates pré-escritos que usuários podem invocar."><strong>Prompts</strong> — pre-written templates users can invoke.</li>
   </ul>
 
-  <h3>Transport</h3>
+  <h3 data-pt="Transport">Transport</h3>
   <ul>
-    <li><strong>stdio</strong> — local subprocess. Used for desktop apps (Claude Desktop, Cursor, Claude Code locally).</li>
-    <li><strong>Streamable HTTP</strong> — remote, scalable. For cloud-deployed servers, multi-tenant. It replaced the older standalone HTTP+SSE transport; SSE may still appear inside Streamable HTTP for server-to-client streaming.</li>
-    <li>Wire format: <strong>JSON-RPC 2.0</strong> over either transport.</li>
+    <li data-pt="<strong>stdio</strong> — subprocesso local. Usado para apps desktop (Claude Desktop, Cursor, Claude Code localmente)."><strong>stdio</strong> — local subprocess. Used for desktop apps (Claude Desktop, Cursor, Claude Code locally).</li>
+    <li data-pt="<strong>Streamable HTTP</strong> — remoto, escalável. Para servidores cloud-deployed, multi-tenant. Substituiu o antigo transport standalone HTTP+SSE; SSE pode ainda aparecer dentro do Streamable HTTP para streaming server-to-client."><strong>Streamable HTTP</strong> — remote, scalable. For cloud-deployed servers, multi-tenant. It replaced the older standalone HTTP+SSE transport; SSE may still appear inside Streamable HTTP for server-to-client streaming.</li>
+    <li data-pt="Formato de wire: <strong>JSON-RPC 2.0</strong> sobre qualquer transport.">Wire format: <strong>JSON-RPC 2.0</strong> over either transport.</li>
   </ul>
 
-  <h3>Minimal TypeScript MCP server (sketch)</h3>
+  <h3 data-pt="Servidor MCP TypeScript mínimo (esboço)">Minimal TypeScript MCP server (sketch)</h3>
 <pre><code>import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { z } from "zod";
