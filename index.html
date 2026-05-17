@@ -359,6 +359,7 @@
   .settings-row-icon svg{width:18px; height:18px}
   .settings-row-icon.is-concepts{background:#1aa37a}
   .settings-row-icon.is-models{background:#e08a3a}
+  .settings-row-icon.is-harness{background:#b14068}
   .settings-row-icon.is-components{background:#3b82f6}
   .settings-row-icon.is-execution{background:#8b6dd3}
   .settings-row-icon.is-tooling{background:#d65b95}
@@ -494,6 +495,20 @@
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 v4 M12 18 v4 M2 12 h4 M18 12 h4 M5 5 l3 3 M16 16 l3 3 M5 19 l3 -3 M16 8 l3 -3"/></svg>
             </span>
             <span class="settings-row-label">Open-Source Alternatives</span>
+            <svg class="settings-row-chevron" viewBox="0 0 9 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 2 L7 7 L2 12"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="settings-section">
+        <h3 class="settings-section-title">Harness</h3>
+        <p class="settings-section-lead">The runtime loop wrapped around the model. A stateless model call becomes an agent when something else manages context, invokes tools, and decides when to stop.</p>
+        <div class="settings-group">
+          <a class="settings-row" href="#/harness" data-section="harness">
+            <span class="settings-row-icon is-harness">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3.2"/><path d="M12 3 v3 M12 18 v3 M3 12 h3 M18 12 h3 M5.6 5.6 l2.1 2.1 M16.3 16.3 l2.1 2.1 M5.6 18.4 l2.1 -2.1 M16.3 7.7 l2.1 -2.1"/></svg>
+            </span>
+            <span class="settings-row-label">Agent harness &amp; runtime loop</span>
             <svg class="settings-row-chevron" viewBox="0 0 9 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 2 L7 7 L2 12"/></svg>
           </a>
         </div>
@@ -2407,9 +2422,130 @@ await server.connect(new StdioServerTransport());
 </section>
 
 
+<!-- =================== HARNESS =================== -->
+<section id="harness">
+  <h2><span class="num">16</span> Harness — the runtime around the model</h2>
+  <p>A <strong>model</strong> is a stateless request/response endpoint: prompt in, tokens out. A <strong>harness</strong> is the software loop wrapped around it that makes that endpoint behave like an agent — assembling context, calling the model, parsing the response, executing any tool calls, and deciding when to stop. Claude Code, Cursor, Codex, Cline, Aider — these are all harnesses. The model is the engine; the harness is the chassis, transmission, and steering.</p>
+
+  <div class="callout">
+    <strong>Mental model:</strong> "model" + "harness" + "system prompt + tools + permissions" = an <em>agent</em>. Same harness, different system prompt and toolset, different agent. Same model, different harness, completely different product.
+  </div>
+
+  <h3>The agent loop</h3>
+  <figure class="diagram">
+    <svg viewBox="0 0 660 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Agent harness loop">
+      <text x="330" y="22" text-anchor="middle" class="svg-label" font-weight="600" font-size="14">Harness loop — input → context → model → tools → repeat</text>
+
+      <!-- User input -->
+      <rect x="20" y="60" width="120" height="44" rx="6" fill="#1d242e" stroke="#82b8ff" stroke-width="1.5"/>
+      <text x="80" y="80" text-anchor="middle" class="svg-label">User input</text>
+      <text x="80" y="95" text-anchor="middle" class="svg-mute" font-size="10">+ slash commands</text>
+
+      <!-- Context assembly -->
+      <rect x="170" y="60" width="160" height="44" rx="6" fill="#1d242e" stroke="#7cf0c1" stroke-width="1.5"/>
+      <text x="250" y="80" text-anchor="middle" class="svg-label">Context assembly</text>
+      <text x="250" y="95" text-anchor="middle" class="svg-mute" font-size="10">system + tools + memory + RAG</text>
+
+      <!-- Model call -->
+      <rect x="360" y="60" width="120" height="44" rx="6" fill="#1d242e" stroke="#ffb86b" stroke-width="2"/>
+      <text x="420" y="80" text-anchor="middle" class="svg-label">Model call</text>
+      <text x="420" y="95" text-anchor="middle" class="svg-mute" font-size="10">stream tokens</text>
+
+      <!-- Parse output -->
+      <rect x="510" y="60" width="130" height="44" rx="6" fill="#1d242e" stroke="#7cf0c1" stroke-width="1.5"/>
+      <text x="575" y="80" text-anchor="middle" class="svg-label">Parse output</text>
+      <text x="575" y="95" text-anchor="middle" class="svg-mute" font-size="10">text · tool · thinking</text>
+
+      <!-- Decide -->
+      <polygon points="510,160 575,140 640,160 575,200" fill="#1d242e" stroke="#e2c9ff" stroke-width="1.5"/>
+      <text x="575" y="170" text-anchor="middle" class="svg-label" font-size="11">stop_reason?</text>
+
+      <!-- Tool execution -->
+      <rect x="310" y="220" width="220" height="50" rx="6" fill="#1d242e" stroke="#ff6b8b" stroke-width="1.5"/>
+      <text x="420" y="240" text-anchor="middle" class="svg-label">Tool execution</text>
+      <text x="420" y="256" text-anchor="middle" class="svg-mute" font-size="10">permissions · sandbox · timeouts</text>
+
+      <!-- Final output -->
+      <rect x="40" y="220" width="200" height="50" rx="6" fill="#1d242e" stroke="#7cf0c1" stroke-width="1.5"/>
+      <text x="140" y="240" text-anchor="middle" class="svg-label">Final answer to user</text>
+      <text x="140" y="256" text-anchor="middle" class="svg-mute" font-size="10">+ side effects, logs</text>
+
+      <!-- Edges -->
+      <line x1="140" y1="82" x2="166" y2="82" stroke="#5a6678" stroke-width="1.5" marker-end="url(#arrH)"/>
+      <line x1="330" y1="82" x2="356" y2="82" stroke="#5a6678" stroke-width="1.5" marker-end="url(#arrH)"/>
+      <line x1="480" y1="82" x2="506" y2="82" stroke="#5a6678" stroke-width="1.5" marker-end="url(#arrH)"/>
+      <line x1="575" y1="104" x2="575" y2="138" stroke="#5a6678" stroke-width="1.5" marker-end="url(#arrH)"/>
+
+      <!-- stop_reason="end_turn" branch -->
+      <path d="M 510 170 Q 360 170 240 232" fill="none" stroke="#7cf0c1" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#arrH)"/>
+      <text x="350" y="160" text-anchor="middle" class="svg-mute" font-size="10">end_turn</text>
+
+      <!-- stop_reason="tool_use" branch -->
+      <line x1="575" y1="200" x2="520" y2="220" stroke="#ff6b8b" stroke-width="1.5" marker-end="url(#arrH)"/>
+      <text x="600" y="218" class="svg-mute" font-size="10">tool_use</text>
+
+      <!-- Loop back -->
+      <path d="M 310 245 Q 200 245 200 150 Q 200 104 250 104" fill="none" stroke="#ff6b8b" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#arrH)"/>
+      <text x="195" y="180" text-anchor="middle" class="svg-mute" font-size="10">tool_result</text>
+      <text x="195" y="194" text-anchor="middle" class="svg-mute" font-size="10">→ next turn</text>
+
+      <defs>
+        <marker id="arrH" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+          <path d="M0,0 L9,5 L0,10 Z" fill="#5a6678"/>
+        </marker>
+      </defs>
+    </svg>
+    <figcaption>The harness owns everything outside the model call: assembling context, deciding what's in scope, executing tool calls under policy, and re-entering the loop with their results. The model only ever sees one turn at a time.</figcaption>
+  </figure>
+
+  <h3>What a harness actually owns</h3>
+  <ul>
+    <li><strong>Context assembly</strong> — pick the system prompt, format tool schemas, prune old messages, inject memory and RAG snippets, attach files. The hard part of agent quality lives here.</li>
+    <li><strong>Model call mechanics</strong> — streaming, retries, fallbacks (route to a cheaper model first, escalate on failure), prompt caching, preserving provider-required fields (<code>thinking</code> blocks, <code>previous_response_id</code>).</li>
+    <li><strong>Output parsing</strong> — separate user-visible text from tool calls from internal thinking; handle partial streams; surface stop reasons.</li>
+    <li><strong>Tool execution</strong> — validate arguments, check permissions, sandbox or timeout, capture stdout/stderr, summarize large results before feeding them back.</li>
+    <li><strong>Loop control</strong> — when to continue, when to stop, iteration caps, recovery from bad tool calls.</li>
+    <li><strong>Side effects &amp; observability</strong> — write files, post to GitHub, emit traces, log token usage, redact secrets.</li>
+    <li><strong>UX surface</strong> — slash commands, hooks, subagents, approval prompts, status lines.</li>
+  </ul>
+
+  <h3>Harness vs framework vs agent — disambiguation</h3>
+  <table>
+    <thead><tr><th>Term</th><th>What it is</th><th>Examples</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Model</strong></td><td>The weights. Request/response only. No memory across calls.</td><td>Claude Opus 4.7, GPT-5.5, Kimi K2.6</td></tr>
+      <tr><td><strong>Harness</strong></td><td>A running product/runtime that wraps the model in a loop and exposes a usable surface.</td><td>Claude Code, Cursor, Codex, Cline, Aider, ChatGPT</td></tr>
+      <tr><td><strong>Agent SDK / framework</strong></td><td>A toolkit for <em>building</em> harnesses. Provides the loop, tool plumbing, primitives.</td><td>Claude Agent SDK, OpenAI Agents SDK, LangGraph, Pydantic AI, CrewAI</td></tr>
+      <tr><td><strong>Agent</strong></td><td>A configured instance — harness + model + system prompt + tools — pointed at a job.</td><td>"the PR-review agent", a subagent inside Claude Code</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Build vs extend vs buy</h3>
+  <ul>
+    <li><strong>Extend an existing harness</strong> — first instinct for coding agents. Claude Code, Cursor, and Codex are extensible via <em>MCP servers</em>, <em>subagents</em>, <em>hooks</em>, <em>slash commands</em>, and <em>skills</em>. Rebuilding the loop yourself just to add a tool is wasted work.</li>
+    <li><strong>Build with an SDK</strong> — when you need an agent embedded inside your own product (a support bot, an internal ops agent, a CI step). Claude Agent SDK or OpenAI Agents SDK give you the loop, tool execution, and streaming for free; you bring the system prompt and tools.</li>
+    <li><strong>Build from scratch on raw API calls</strong> — only when you need very tight control over context, custom turn structure, or a non-standard tool protocol. Most teams who try this end up reinventing a worse SDK.</li>
+    <li><strong>Use a graph framework</strong> (LangGraph, LlamaIndex Workflows) when the agent is actually a fixed DAG of steps, not a free-form loop. See <a href="#dag">§10</a>.</li>
+  </ul>
+
+  <h3>Common harness pitfalls</h3>
+  <ul>
+    <li><strong>Dropping <code>thinking</code> blocks on continuations.</strong> Anthropic requires the last assistant message's thinking blocks be passed back on tool-use turns; strip them and you get errors or degraded reasoning.</li>
+    <li><strong>Returning raw tool output.</strong> A 350KB JSON blob in <code>tool_result</code> dilutes attention, evicts cached prefixes, and crosses long-context pricing tiers. Summarize before you echo. See <a href="#evals">§11</a>.</li>
+    <li><strong>Unbounded loops.</strong> "Keep going until the model says stop" without an iteration cap is how agents burn $50 in tokens overnight.</li>
+    <li><strong>No permission boundary.</strong> If the model can write files, hit prod APIs, or push to git without a confirmation gate, the blast radius of a single hallucination is the whole repo.</li>
+    <li><strong>Stateless tool execution.</strong> Each tool call needs an idempotency story — retries on transient failures, no double-charging, no double-posting.</li>
+    <li><strong>Conversation history as the only memory.</strong> Pure scrollback hits the context ceiling fast. Add summarization, episodic memory, or external state for anything multi-session. See <a href="#memory">§06</a>.</li>
+  </ul>
+
+  <h3>2026 nuance</h3>
+  <p>Harnesses are converging on a small set of conventions: MCP for tools, subagents for parallelism and context isolation, hooks for deterministic policy enforcement, skills for reusable procedural knowledge. Choosing a harness in 2026 is mostly choosing a UX (terminal vs IDE vs web vs autonomous) and an extension model — the underlying loop is no longer the differentiator.</p>
+</section>
+
+
 <!-- =================== QUIZ =================== -->
 <section id="quiz">
-  <h2><span class="num">16</span> Knowledge check — graded quiz</h2>
+  <h2><span class="num">17</span> Knowledge check — graded quiz</h2>
   <p class="small">Pick an answer for each. Hit <em>Grade</em> at the bottom. Explanations appear after grading.</p>
 
   <div id="quiz-body"></div>
@@ -3278,6 +3414,18 @@ const questions = [
     ],
     correct: 1,
     explain: "Resources are file-like, read-only things the client can pull into the LLM's context (a doc, a page, a query result). Tools are callable functions (often side-effectful). Splitting them lets clients render \"attach this resource\" affordances and lets servers apply stricter policy on actions vs reads."
+  },
+  {
+    difficulty: "hard",
+    q: "Your team wants to ship an internal coding agent that lives in the terminal. Someone proposes \"let's build our own harness from scratch on raw Anthropic API calls so we have full control.\" What's the strongest counter-argument?",
+    opts: [
+      "The Anthropic API doesn't support tool use, so a custom harness can't work",
+      "Existing coding harnesses (Claude Code, Codex, Cursor) already solve the hard problems — streaming, tool-use loops, permission gates, MCP, hooks, subagents, context management — and expose those problems as extension points; rebuilding the loop usually means reinventing a worse version of an SDK instead of focusing on the system prompt and tools that actually differentiate your agent",
+      "Custom harnesses violate Anthropic's terms of service",
+      "Raw API calls can't return tool results, so you'd need a vector database"
+    ],
+    correct: 1,
+    explain: "The model is a stateless request/response endpoint; the harness is the loop around it. Mature harnesses already ship streaming, retries, tool-use continuation (including preserving thinking blocks), permission prompts, MCP integration, hooks, and subagents. For an internal coding agent the right primitives are MCP servers, subagents, hooks, and slash commands — not a from-scratch loop. Build-from-scratch only makes sense when you genuinely need non-standard turn structure or deep embedding inside another product."
   },
   {
     difficulty: "hard",
