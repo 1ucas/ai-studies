@@ -2961,243 +2961,402 @@ const questions = [
   // ---- Main Concepts ----
   {
     q: "Which best describes a 'token' in LLM systems?",
+    q_pt: "O que melhor descreve um 'token' em sistemas LLM?",
     opts: [
       "A single character",
       "A whole word",
       "A chunk of ~3–4 characters; the unit the model reads/writes and is billed on",
       "A 512-bit cryptographic identifier"
     ],
+    opts_pt: [
+      "Um único caractere",
+      "Uma palavra inteira",
+      "Um pedaço de ~3–4 caracteres; a unidade que o modelo lê/escreve e que é cobrada",
+      "Um identificador criptográfico de 512 bits"
+    ],
     correct: 2,
-    explain: "Tokens are the model's unit of input/output. ~3–4 chars on average in English. Pricing, context windows, and generation all happen one token at a time. The tokenizer that splits text → tokens can change your bill even when the visible text looks similar."
+    explain: "Tokens are the model's unit of input/output. ~3–4 chars on average in English. Pricing, context windows, and generation all happen one token at a time. The tokenizer that splits text → tokens can change your bill even when the visible text looks similar.",
+    explain_pt: "Tokens são a unidade de input/output do modelo. ~3–4 chars em média em inglês. Pricing, context windows e geração — tudo acontece um token por vez. O tokenizador que divide texto → tokens pode mudar sua conta mesmo quando o texto visível parece igual."
   },
   {
     q: "Which paper introduced the Transformer architecture used by every modern LLM?",
+    q_pt: "Qual paper introduziu a arquitetura Transformer usada por todo LLM moderno?",
     opts: [
       "Deep Residual Learning (ResNet, 2015)",
       "Attention Is All You Need (2017)",
       "GPT-3: Language Models are Few-Shot Learners (2020)",
       "BERT: Pre-training of Deep Bidirectional Transformers (2018)"
     ],
+    opts_pt: [
+      "Deep Residual Learning (ResNet, 2015)",
+      "Attention Is All You Need (2017)",
+      "GPT-3: Language Models are Few-Shot Learners (2020)",
+      "BERT: Pre-training of Deep Bidirectional Transformers (2018)"
+    ],
     correct: 1,
-    explain: "Vaswani et al., 'Attention Is All You Need' (2017). Replaced RNN/LSTM with parallelizable attention — that made training on internet-scale data feasible."
+    explain: "Vaswani et al., 'Attention Is All You Need' (2017). Replaced RNN/LSTM with parallelizable attention — that made training on internet-scale data feasible.",
+    explain_pt: "Vaswani et al., 'Attention Is All You Need' (2017). Substituiu RNN/LSTM por attention paralelizável — isso tornou o treinamento em dados de escala internet viável."
   },
   {
     q: "What does the attention mechanism do inside a transformer?",
+    q_pt: "O que o mecanismo de attention faz dentro de um transformer?",
     opts: [
       "Compresses the model weights to fit in GPU memory",
       "Lets each token weight how much every other token in the sequence matters when producing its next representation, via Query/Key/Value vectors",
       "Caches API responses to reduce cost",
       "Decides which expert to route a token to in MoE models"
     ],
+    opts_pt: [
+      "Comprime os pesos do modelo para caber na memória da GPU",
+      "Permite que cada token pese o quanto cada outro token na sequência importa ao produzir sua próxima representação, via vetores Query/Key/Value",
+      "Faz cache de respostas de API para reduzir custo",
+      "Decide para qual expert rotear um token em modelos MoE"
+    ],
     correct: 1,
-    explain: "Each token produces Q, K, V. The current token's Q is dotted with all other tokens' K → attention scores → weighted sum of V. Naive attention is O(n²) in sequence length — that's why long context is hard."
+    explain: "Each token produces Q, K, V. The current token's Q is dotted with all other tokens' K → attention scores → weighted sum of V. Naive attention is O(n²) in sequence length — that's why long context is hard.",
+    explain_pt: "Cada token produz Q, K, V. O Q do token atual é multiplicado pelo K de todos os outros tokens → attention scores → soma ponderada de V. Attention ingênuo é O(n²) no comprimento da sequência — é por isso que contexto longo é difícil."
   },
   {
     q: "Why do reasoning models (Opus 4.6/4.7 Extended Thinking, GPT-5.5 Pro, DeepSeek V4 Pro thinking mode) cost so much more per request than non-reasoning models?",
+    q_pt: "Por que modelos de raciocínio (Opus 4.6/4.7 Extended Thinking, GPT-5.5 Pro, modo thinking do DeepSeek V4 Pro) custam muito mais por request do que modelos sem raciocínio?",
     opts: [
       "They run on more expensive GPUs",
       "They generate large amounts of internal thinking tokens you pay for but never see as raw reasoning",
       "They use a separate paid subscription",
       "They charge by latency, not by token"
     ],
+    opts_pt: [
+      "Rodam em GPUs mais caras",
+      "Geram grandes quantidades de tokens de thinking interno pelos quais você paga mas nunca vê o raciocínio bruto",
+      "Usam uma assinatura paga separada",
+      "Cobram por latência, não por token"
+    ],
     correct: 1,
-    explain: "Reasoning models emit provider-owned internal thinking before the polished answer. Those hidden tokens are usually billed as output and reported in usage counters. Net: 5–30× the output token count vs the same prompt to a non-reasoning model."
+    explain: "Reasoning models emit provider-owned internal thinking before the polished answer. Those hidden tokens are usually billed as output and reported in usage counters. Net: 5–30× the output token count vs the same prompt to a non-reasoning model.",
+    explain_pt: "Modelos de raciocínio emitem thinking interno (de propriedade do provider) antes da resposta polida. Esses tokens ocultos geralmente são cobrados como output e reportados nos contadores de uso. No total: 5–30× a contagem de tokens de output vs o mesmo prompt num modelo sem raciocínio."
   },
   {
     q: "Mixture of Experts (MoE) — what does '~32B active / ~1T total' mean for Kimi K2.6?",
+    q_pt: "Mixture of Experts (MoE) — o que '~32B ativo / ~1T total' significa para o Kimi K2.6?",
     opts: [
       "32 billion users, 1 trillion requests served",
       "The model has ~1T parameters total, but only ~32B are activated per token via a router network — so inference cost ≈ a 32B dense model",
       "32B input parameters, 1T output parameters",
       "It's a typo — MoE models have a single parameter count"
     ],
+    opts_pt: [
+      "32 bilhões de usuários, 1 trilhão de requests atendidos",
+      "O modelo tem ~1T parâmetros no total, mas apenas ~32B são ativados por token via uma rede de roteamento — então custo de inferência ≈ modelo denso de 32B",
+      "32B parâmetros de input, 1T parâmetros de output",
+      "É um erro de digitação — modelos MoE têm uma única contagem de parâmetros"
+    ],
     correct: 1,
-    explain: "MoE = many 'expert' feed-forward blocks per layer + a router that picks 1–2 experts per token. You get the knowledge of a huge model at the inference cost of a small one. Trade-off: you still need RAM for all ~1T. Note: DeepSeek V4 achieves similar efficiency via DSA (Sparse Attention) rather than traditional MoE."
+    explain: "MoE = many 'expert' feed-forward blocks per layer + a router that picks 1–2 experts per token. You get the knowledge of a huge model at the inference cost of a small one. Trade-off: you still need RAM for all ~1T. Note: DeepSeek V4 achieves similar efficiency via DSA (Sparse Attention) rather than traditional MoE.",
+    explain_pt: "MoE = muitos blocos feed-forward 'especialistas' por camada + um roteador que escolhe 1–2 experts por token. Você tem o conhecimento de um modelo enorme ao custo de inferência de um pequeno. Trade-off: você ainda precisa de RAM para todos os ~1T. Nota: o DeepSeek V4 alcança eficiência similar via DSA (Sparse Attention), não MoE tradicional."
   },
   {
     q: "In an LLM pipeline, what is a 'classifier'?",
+    q_pt: "Em um pipeline LLM, o que é um 'classifier'?",
     opts: [
       "Any LLM that answers in plain text",
       "A (usually small) model that assigns one of a fixed set of labels to its input — used for intent detection, routing, safety filtering",
       "The component that ranks search results",
       "A vector database index"
     ],
+    opts_pt: [
+      "Qualquer LLM que responde em texto simples",
+      "Um modelo (geralmente pequeno) que atribui um de um conjunto fixo de labels ao seu input — usado para detecção de intenção, routing, filtro de segurança",
+      "O componente que ranqueia resultados de busca",
+      "Um índice de banco de dados vetorial"
+    ],
     correct: 1,
-    explain: "Classifiers output a category, not free text. They're how routers decide: 'is this billing/technical/account?' A fine-tuned small model usually beats a big LLM on a fixed taxonomy — faster, cheaper, often more accurate."
+    explain: "Classifiers output a category, not free text. They're how routers decide: 'is this billing/technical/account?' A fine-tuned small model usually beats a big LLM on a fixed taxonomy — faster, cheaper, often more accurate.",
+    explain_pt: "Classifiers produzem uma categoria, não texto livre. É como os roteadores decidem: 'isso é cobrança/técnico/conta?' Um modelo pequeno fine-tunado geralmente supera um LLM grande numa taxonomia fixa — mais rápido, mais barato, frequentemente mais preciso."
   },
   {
     q: "What does 'routing' refer to in an LLM application?",
+    q_pt: "O que 'routing' significa em uma aplicação LLM?",
     opts: [
       "The HTTP path to your API endpoint",
       "The decision of which model (or tool, or sub-agent) should handle a given request — usually made by a classifier",
       "Network configuration between regions",
       "The order in which prompts are versioned"
     ],
+    opts_pt: [
+      "O caminho HTTP para seu endpoint de API",
+      "A decisão de qual modelo (ou ferramenta, ou sub-agente) deve lidar com um determinado request — geralmente feita por um classifier",
+      "Configuração de rede entre regiões",
+      "A ordem em que os prompts são versionados"
+    ],
     correct: 1,
-    explain: "Routing = pick the right downstream component (model, tool, skill, sub-agent) for the request. The classifier deciding 'use Haiku' vs 'escalate to Opus' is a router. Cascade routing is the most common pattern."
+    explain: "Routing = pick the right downstream component (model, tool, skill, sub-agent) for the request. The classifier deciding 'use Haiku' vs 'escalate to Opus' is a router. Cascade routing is the most common pattern.",
+    explain_pt: "Routing = escolher o componente downstream certo (modelo, ferramenta, skill, sub-agente) para o request. O classifier decidindo 'usa Haiku' vs 'escala para Opus' é um roteador. Cascade routing é o padrão mais comum."
   },
   {
     q: "Your team uses Together AI to host Kimi K2.6 plus Anthropic for Sonnet. In this setup what is Together AI?",
+    q_pt: "Seu time usa Together AI para hospedar Kimi K2.6 e Anthropic para Sonnet. Nesse setup, o que é Together AI?",
     opts: [
       "The model lab that trained Kimi K2.6",
       "A third-party inference platform that hosts other labs' (usually open-weight) models on its own infrastructure",
       "A cloud-vendor reseller equivalent to Bedrock",
       "A prompt-versioning tool"
     ],
+    opts_pt: [
+      "O laboratório de modelos que treinou o Kimi K2.6",
+      "Uma plataforma de inferência de terceiros que hospeda modelos de outros laboratórios (geralmente open-weight) na sua própria infraestrutura",
+      "Um revendedor de cloud equivalente ao Bedrock",
+      "Uma ferramenta de versionamento de prompt"
+    ],
     correct: 1,
-    explain: "Model lab = who trained it (Moonshot AI, Anthropic). First-party provider = the lab serving its own API. Third-party inference platform = Together / Fireworks / DeepInfra / Groq / Replicate / OpenRouter — they host other labs' weights. Different roles."
+    explain: "Model lab = who trained it (Moonshot AI, Anthropic). First-party provider = the lab serving its own API. Third-party inference platform = Together / Fireworks / DeepInfra / Groq / Replicate / OpenRouter — they host other labs' weights. Different roles.",
+    explain_pt: "Lab de modelos = quem treinou (Moonshot AI, Anthropic). Provider first-party = o lab servindo sua própria API. Plataforma de inferência de terceiros = Together / Fireworks / DeepInfra / Groq / Replicate / OpenRouter — eles hospedam os pesos de outros labs. Papéis diferentes."
   },
   {
     q: "Why do enterprises route Claude requests through AWS Bedrock instead of calling api.anthropic.com directly?",
+    q_pt: "Por que empresas roteiam requests do Claude pelo AWS Bedrock em vez de chamar api.anthropic.com diretamente?",
     opts: [
       "Bedrock is the only place that supports Claude",
       "Bedrock inherits the AWS account's IAM, VPC, KMS, audit logging, data residency and procurement contract — so adopting Claude doesn't require re-doing the compliance posture",
       "Bedrock is significantly cheaper than the direct API",
       "Bedrock is faster because it runs in CloudFront"
     ],
+    opts_pt: [
+      "Bedrock é o único lugar que suporta Claude",
+      "Bedrock herda o IAM, VPC, KMS, logging de auditoria, residência de dados e contrato de procurement da conta AWS — então adotar Claude não exige refazer a postura de compliance",
+      "Bedrock é significativamente mais barato que a API direta",
+      "Bedrock é mais rápido porque roda no CloudFront"
+    ],
     correct: 1,
-    explain: "The model is rarely the limiting factor — procurement, data residency and IAM are. Bedrock / Vertex / Azure OpenAI inherit the cloud account's compliance boundary, which is why regulated industries default to them despite slightly higher prices and slower model rollout."
+    explain: "The model is rarely the limiting factor — procurement, data residency and IAM are. Bedrock / Vertex / Azure OpenAI inherit the cloud account's compliance boundary, which is why regulated industries default to them despite slightly higher prices and slower model rollout.",
+    explain_pt: "O modelo raramente é o fator limitante — procurement, residência de dados e IAM são. Bedrock / Vertex / Azure OpenAI herdam o limite de compliance da conta cloud, e é por isso que indústrias reguladas recorrem a eles apesar de preços ligeiramente mais altos e rollout de modelos mais lento."
   },
 
   // ---- Pricing ----
   {
     q: "Which Claude model is positioned as the cheapest tier, for high-throughput routing and classification?",
+    q_pt: "Qual modelo Claude é posicionado como o tier mais barato, para routing e classificação de alto volume?",
     opts: ["Opus 4.7", "Sonnet 4.6", "Haiku 4.5", "Claude Mythos Preview"],
+    opts_pt: ["Opus 4.7", "Sonnet 4.6", "Haiku 4.5", "Claude Mythos Preview"],
     correct: 2,
-    explain: "Haiku 4.5 sits at $1/$5 per 1M — 5× cheaper than Opus. Use it for routing, classification, drafts."
+    explain: "Haiku 4.5 sits at $1/$5 per 1M — 5× cheaper than Opus. Use it for routing, classification, drafts.",
+    explain_pt: "Haiku 4.5 fica em $1/$5 por 1M — 5× mais barato que Opus. Use-o para routing, classificação, rascunhos."
   },
   {
     q: "GPT-5.5 standard tier costs:",
+    q_pt: "O tier standard do GPT-5.5 custa:",
     opts: ["$1.25 / $10.00 per 1M", "$2.50 / $15.00 per 1M", "$5.00 / $30.00 per 1M", "$30 / $180 per 1M"],
+    opts_pt: ["$1.25 / $10.00 por 1M", "$2.50 / $15.00 por 1M", "$5.00 / $30.00 por 1M", "$30 / $180 por 1M"],
     correct: 2,
-    explain: "$5/$30 standard. $30/$180 is GPT-5.5 Pro. $1.25/$10 is base GPT-5. $2.50/$15 is GPT-5.4."
+    explain: "$5/$30 standard. $30/$180 is GPT-5.5 Pro. $1.25/$10 is base GPT-5. $2.50/$15 is GPT-5.4.",
+    explain_pt: "$5/$30 standard. $30/$180 é GPT-5.5 Pro. $1.25/$10 é GPT-5 base. $2.50/$15 é GPT-5.4."
   },
   {
     q: "Which is an open-weight model with state-of-the-art coding performance released April 2026?",
+    q_pt: "Qual é o modelo open-weight com performance de ponta em coding lançado em abril de 2026?",
     opts: ["Claude Sonnet 4.6", "Gemini 3.1 Pro", "Kimi K2.6", "GPT-5.4"],
+    opts_pt: ["Claude Sonnet 4.6", "Gemini 3.1 Pro", "Kimi K2.6", "GPT-5.4"],
     correct: 2,
-    explain: "Kimi K2.6 from Moonshot AI, Modified MIT license, ties GPT-5.5 on some coding benchmarks at ~88% lower cost."
+    explain: "Kimi K2.6 from Moonshot AI, Modified MIT license, ties GPT-5.5 on some coding benchmarks at ~88% lower cost.",
+    explain_pt: "Kimi K2.6 da Moonshot AI, licença MIT modificada, empata com GPT-5.5 em alguns benchmarks de coding com ~88% menos custo."
   },
   {
     q: "Prompt caching with Anthropic gives you how much discount on cached input tokens?",
+    q_pt: "O prompt caching da Anthropic te dá quanto de desconto em tokens de input cacheados?",
     opts: ["10%", "50%", "Up to 90%", "Free (100%)"],
+    opts_pt: ["10%", "50%", "Até 90%", "Grátis (100%)"],
     correct: 2,
-    explain: "Up to 90% off on cached input. Batch processing gives a separate 50% discount on input+output."
+    explain: "Up to 90% off on cached input. Batch processing gives a separate 50% discount on input+output.",
+    explain_pt: "Até 90% de desconto no input cacheado. Batch processing dá um desconto separado de 50% em input+output."
   },
 
   // ---- Routing patterns ----
   {
     q: "The 'cascade' routing pattern works how?",
+    q_pt: "Como funciona o padrão de routing 'cascade'?",
     opts: [
       "Send every request to all models in parallel and vote",
       "Cheap model answers first; if confidence is low or a hard-classifier flags it, escalate to the more expensive tier (e.g. Haiku → Sonnet → Opus)",
       "Use the cheapest available model that has tokens left in your monthly quota",
       "Fine-tune a custom model on every request"
     ],
+    opts_pt: [
+      "Envia cada request para todos os modelos em paralelo e vota",
+      "Modelo barato responde primeiro; se a confiança é baixa ou um hard-classifier sinaliza, escala para o tier mais caro (ex.: Haiku → Sonnet → Opus)",
+      "Usa o modelo mais barato disponível que ainda tem tokens na cota mensal",
+      "Fine-tuna um modelo customizado em cada request"
+    ],
     correct: 1,
-    explain: "Cascade / triage routing. Most production tokens are routine — cheap models answer 70–80% of them. Only the hard residual escalates. Cuts cost dramatically with minimal quality loss."
+    explain: "Cascade / triage routing. Most production tokens are routine — cheap models answer 70–80% of them. Only the hard residual escalates. Cuts cost dramatically with minimal quality loss.",
+    explain_pt: "Routing em cascata / triagem. A maioria dos tokens de produção é rotineira — modelos baratos respondem 70–80% deles. Apenas o resíduo difícil escala. Corta custo drasticamente com perda mínima de qualidade."
   },
   {
     q: "Your team needs an internal AI coding assistant but cannot send proprietary source code to OpenAI or Anthropic. Best default architecture?",
+    q_pt: "Seu time precisa de um assistente de código IA interno mas não pode enviar código-fonte proprietário para OpenAI ou Anthropic. Melhor arquitetura padrão?",
     opts: [
       "Use GPT-5.5 with extra system-prompt disclaimers",
       "Self-host or use a managed inference provider for an open-weight model (Kimi K2.6, DeepSeek V4, GLM 5.1)",
       "Fine-tune a small local model from scratch",
       "Wait — there are no production-quality open-weight options"
     ],
+    opts_pt: [
+      "Use GPT-5.5 com disclaimers extras no system prompt",
+      "Auto-hospede ou use um provider de inferência gerenciado para um modelo open-weight (Kimi K2.6, DeepSeek V4, GLM 5.1)",
+      "Fine-tune um modelo local pequeno do zero",
+      "Espere — não há opções open-weight de qualidade de produção"
+    ],
     correct: 1,
-    explain: "Open-weight models (Kimi K2.6, DeepSeek V4 Pro, GLM 5.1) are competitive on coding. Run them via Together / Fireworks / DeepInfra / Groq, self-host on vLLM, or use Bedrock / Vertex with VPC isolation. Data stays in your perimeter."
+    explain: "Open-weight models (Kimi K2.6, DeepSeek V4 Pro, GLM 5.1) are competitive on coding. Run them via Together / Fireworks / DeepInfra / Groq, self-host on vLLM, or use Bedrock / Vertex with VPC isolation. Data stays in your perimeter.",
+    explain_pt: "Modelos open-weight (Kimi K2.6, DeepSeek V4 Pro, GLM 5.1) são competitivos em coding. Rode-os via Together / Fireworks / DeepInfra / Groq, auto-hospede no vLLM, ou use Bedrock / Vertex com isolamento de VPC. Os dados ficam no seu perímetro."
   },
 
   // ---- Model integration ----
   {
     q: "In OpenAI's Responses API, where do hidden reasoning tokens show up?",
+    q_pt: "Na Responses API da OpenAI, onde aparecem os tokens de raciocínio ocultos?",
     opts: [
       "As raw chain-of-thought text in the final answer",
       "In usage metadata, under output token details such as reasoning_tokens; they are billed as output but raw reasoning is not exposed",
       "Only in server logs, never in the API response",
       "As input tokens, because reasoning happens before generation"
     ],
+    opts_pt: [
+      "Como texto bruto de chain-of-thought na resposta final",
+      "Nos metadados de uso, em detalhes de tokens de output como reasoning_tokens; são cobrados como output mas o raciocínio bruto não é exposto",
+      "Apenas em logs de servidor, nunca na resposta da API",
+      "Como tokens de input, porque o raciocínio acontece antes da geração"
+    ],
     correct: 1,
-    explain: "Reasoning tokens are generated tokens. OpenAI exposes the count in the response usage object, but not the raw hidden reasoning text. For tool loops, preserve reasoning items or use previous_response_id so the model can continue correctly."
+    explain: "Reasoning tokens are generated tokens. OpenAI exposes the count in the response usage object, but not the raw hidden reasoning text. For tool loops, preserve reasoning items or use previous_response_id so the model can continue correctly.",
+    explain_pt: "Tokens de raciocínio são tokens gerados. A OpenAI expõe a contagem no objeto de uso da resposta, mas não o texto de raciocínio oculto bruto. Para loops de ferramenta, preserve os itens de raciocínio ou use previous_response_id para o modelo continuar corretamente."
   },
   {
     q: "What is the correct RAG integration pattern for a normal external vector database?",
+    q_pt: "Qual é o padrão correto de integração RAG para um banco de dados vetorial externo normal?",
     opts: [
       "Send raw embedding vectors directly to the chat model in the prompt",
       "Embed chunks and queries, retrieve matching chunks from the vector DB, then send the selected text + metadata to the model",
       "Fine-tune the model on every new document before each answer",
       "Put the vector database credentials in the system prompt"
     ],
+    opts_pt: [
+      "Envie vetores de embedding brutos diretamente para o modelo de chat no prompt",
+      "Embute chunks e queries, recupera chunks correspondentes do banco vetorial, depois envia o texto selecionado + metadados para o modelo",
+      "Fine-tuna o modelo em cada novo documento antes de cada resposta",
+      "Coloque as credenciais do banco vetorial no system prompt"
+    ],
     correct: 1,
-    explain: "Vectors live in the retrieval layer. The generation model usually receives plain text snippets, source metadata, and citation ids. Hosted file-search tools are the exception: you pass a vector-store id and the provider handles retrieval."
+    explain: "Vectors live in the retrieval layer. The generation model usually receives plain text snippets, source metadata, and citation ids. Hosted file-search tools are the exception: you pass a vector-store id and the provider handles retrieval.",
+    explain_pt: "Vetores vivem na camada de recuperação. O modelo de geração geralmente recebe snippets de texto simples, metadados de fonte e IDs de citação. Ferramentas de busca de arquivos hospedadas são a exceção: você passa um vector-store id e o provider cuida da recuperação."
   },
   {
     q: "What is the basic tool-calling loop?",
+    q_pt: "Qual é o loop básico de tool-calling?",
     opts: [
       "The model directly executes your production function",
       "Declare tool schemas; model returns a tool call and arguments; your app validates/executes; your app returns the tool result with the call id",
       "Send a REST endpoint URL and let the model discover the OpenAPI spec by itself",
       "Use embeddings to convert every tool result into a vector"
     ],
+    opts_pt: [
+      "O modelo executa diretamente sua função de produção",
+      "Declare schemas de ferramentas; modelo retorna uma chamada de ferramenta e argumentos; seu app valida/executa; seu app retorna o resultado da ferramenta com o call id",
+      "Envie uma URL de endpoint REST e deixe o modelo descobrir o spec OpenAPI sozinho",
+      "Use embeddings para converter cada resultado de ferramenta em um vetor"
+    ],
     correct: 1,
-    explain: "Tool calling is a typed back-and-forth. The model proposes a call; your application owns execution, validation, authorization, retries, and audit logs. Then you return the result in the provider's required tool-result shape."
+    explain: "Tool calling is a typed back-and-forth. The model proposes a call; your application owns execution, validation, authorization, retries, and audit logs. Then you return the result in the provider's required tool-result shape.",
+    explain_pt: "Tool calling é uma troca tipada. O modelo propõe uma chamada; sua aplicação é dona da execução, validação, autorização, retries e logs de auditoria. Depois você retorna o resultado no formato de tool-result exigido pelo provider."
   },
 
   // ---- Memory ----
   {
     q: "Which is NOT one of the four standard memory types for an AI agent?",
+    q_pt: "Qual NÃO é um dos quatro tipos padrão de memória para um agente de IA?",
     opts: ["Episodic", "Semantic", "Procedural", "Adversarial"],
+    opts_pt: ["Episódica", "Semântica", "Procedural", "Adversarial"],
     correct: 3,
-    explain: "The four are working/short-term, episodic, semantic, procedural. 'Adversarial' is not a memory type."
+    explain: "The four are working/short-term, episodic, semantic, procedural. 'Adversarial' is not a memory type.",
+    explain_pt: "Os quatro tipos são working/curto-prazo, episódica, semântica, procedural. 'Adversarial' não é um tipo de memória."
   },
 
   // ---- Evals ----
   {
     q: "What's the key difference between an eval and a benchmark?",
+    q_pt: "Qual é a diferença principal entre um eval e um benchmark?",
     opts: [
       "Evals are public, benchmarks are private",
       "Benchmarks compare models in isolation; evals measure your app at a specific task",
       "Evals are for training, benchmarks are for inference",
       "Benchmarks use humans, evals use LLMs"
     ],
+    opts_pt: [
+      "Evals são públicos, benchmarks são privados",
+      "Benchmarks comparam modelos de forma isolada; evals medem seu app em uma tarefa específica",
+      "Evals são para treinamento, benchmarks são para inferência",
+      "Benchmarks usam humanos, evals usam LLMs"
+    ],
     correct: 1,
-    explain: "Benchmarks (MMLU, SWE-bench) compare model capabilities. Evals test your specific application against your specific success criteria — and grow with every production regression."
+    explain: "Benchmarks (MMLU, SWE-bench) compare model capabilities. Evals test your specific application against your specific success criteria — and grow with every production regression.",
+    explain_pt: "Benchmarks (MMLU, SWE-bench) comparam capacidades de modelos. Evals testam sua aplicação específica contra seus critérios específicos de sucesso — e crescem com cada regressão em produção."
   },
 
   // ---- MCP ----
   {
     q: "What are the three primitive types an MCP server can expose?",
+    q_pt: "Quais são os três tipos primitivos que um servidor MCP pode expor?",
     opts: [
       "Models, Prompts, Datasets",
       "Tools, Resources, Prompts",
       "Functions, Files, Variables",
       "Endpoints, Schemas, Handlers"
     ],
+    opts_pt: [
+      "Models, Prompts, Datasets",
+      "Tools, Resources, Prompts",
+      "Functions, Files, Variables",
+      "Endpoints, Schemas, Handlers"
+    ],
     correct: 1,
-    explain: "Tools (callable functions), Resources (readable file-like data), Prompts (templates). Wire: JSON-RPC 2.0 over stdio or Streamable HTTP."
+    explain: "Tools (callable functions), Resources (readable file-like data), Prompts (templates). Wire: JSON-RPC 2.0 over stdio or Streamable HTTP.",
+    explain_pt: "Tools (funções chamáveis), Resources (dados legíveis semelhantes a arquivos), Prompts (templates). Protocolo: JSON-RPC 2.0 via stdio ou Streamable HTTP."
   },
   {
     q: "Best analogy: REST is to MCP as ___ is to ___?",
+    q_pt: "Melhor analogia: REST está para MCP assim como ___ está para ___?",
     opts: [
       "Frontend is to backend",
       "An API for code is to an API for LLMs",
       "Synchronous is to asynchronous",
       "Open source is to closed source"
     ],
+    opts_pt: [
+      "Frontend está para backend",
+      "Uma API para código está para uma API para LLMs",
+      "Síncrono está para assíncrono",
+      "Open source está para closed source"
+    ],
     correct: 1,
-    explain: "REST exposes capabilities for human-written client code (developer reads docs, hardcodes calls). MCP exposes capabilities for LLM agents that discover and invoke them at runtime. Many production MCP servers are just LLM-friendly wrappers over existing REST APIs."
+    explain: "REST exposes capabilities for human-written client code (developer reads docs, hardcodes calls). MCP exposes capabilities for LLM agents that discover and invoke them at runtime. Many production MCP servers are just LLM-friendly wrappers over existing REST APIs.",
+    explain_pt: "REST expõe capacidades para código de cliente escrito por humanos (desenvolvedor lê docs, hardcoda chamadas). MCP expõe capacidades para agentes LLM que as descobrem e invocam em tempo de execução. Muitos servidores MCP em produção são apenas wrappers amigáveis para LLM sobre APIs REST existentes."
   },
   {
     q: "A common question to think through: 'we already have function-calling — why bother with MCP?' Best answer:",
+    q_pt: "Uma pergunta comum: 'já temos function-calling — por que se preocupar com MCP?' Melhor resposta:",
     opts: [
       "MCP is faster than function-calling",
       "MCP is a standardized protocol so one server can serve many clients (Claude, Cursor, Codex) with shared auth, rate-limiting, and audit logging in one place",
       "Function-calling is being deprecated",
       "MCP is required for prompt caching"
     ],
+    opts_pt: [
+      "MCP é mais rápido que function-calling",
+      "MCP é um protocolo padronizado para que um servidor possa servir muitos clientes (Claude, Cursor, Codex) com auth, rate-limiting e logging de auditoria compartilhados em um lugar",
+      "Function-calling está sendo depreciado",
+      "MCP é necessário para prompt caching"
+    ],
     correct: 1,
-    explain: "Function-calling works — per client. MCP's value is standardization: build the integration once, every MCP-aware client uses it, and you centralize auth/policy/logging instead of duplicating across each AI tool."
+    explain: "Function-calling works — per client. MCP's value is standardization: build the integration once, every MCP-aware client uses it, and you centralize auth/policy/logging instead of duplicating across each AI tool.",
+    explain_pt: "Function-calling funciona — por cliente. O valor do MCP é a padronização: construa a integração uma vez, todo cliente compatível com MCP usa, e você centraliza auth/política/logging em vez de duplicar em cada ferramenta de IA."
   },
 
   // ---- RAG ----
