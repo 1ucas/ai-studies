@@ -1910,27 +1910,27 @@ server.tool(
 await server.connect(new StdioServerTransport());
 </code></pre>
 
-  <h3>SDKs available</h3>
+  <h3 data-pt="SDKs disponíveis">SDKs available</h3>
   <ul>
-    <li><strong>Python</strong> — <code>mcp</code> (official). Most popular.</li>
-    <li><strong>TypeScript</strong> — <code>@modelcontextprotocol/sdk</code>.</li>
-    <li><strong>C#</strong> — official Microsoft SDK (good news for you given your background).</li>
-    <li>Java, Go, Rust — community.</li>
+    <li data-pt="<strong>Python</strong> — <code>mcp</code> (oficial). O mais popular."><strong>Python</strong> — <code>mcp</code> (official). Most popular.</li>
+    <li data-pt="<strong>TypeScript</strong> — <code>@modelcontextprotocol/sdk</code>."><strong>TypeScript</strong> — <code>@modelcontextprotocol/sdk</code>.</li>
+    <li data-pt="<strong>C#</strong> — SDK oficial da Microsoft (boa notícia dado o seu background)."><strong>C#</strong> — official Microsoft SDK (good news for you given your background).</li>
+    <li data-pt="Java, Go, Rust — comunidade.">Java, Go, Rust — community.</li>
   </ul>
 
-  <h3>When to build one</h3>
+  <h3 data-pt="Quando construir um">When to build one</h3>
   <ul>
-    <li>You have an internal system (Jira, internal DB, monorepo CLI) that you want every AI tool (Claude Code, Cursor, Codex) to access uniformly.</li>
-    <li>You want auth, rate-limiting, audit-logging on tool calls in one place.</li>
-    <li>Compare to: plain function-calling — works, but every client needs its own integration.</li>
+    <li data-pt="Você tem um sistema interno (Jira, DB interno, CLI de monorepo) que quer que toda tool AI (Claude Code, Cursor, Codex) acesse de forma uniforme.">You have an internal system (Jira, internal DB, monorepo CLI) that you want every AI tool (Claude Code, Cursor, Codex) to access uniformly.</li>
+    <li data-pt="Você quer auth, rate-limiting, audit-logging em tool calls em um lugar só.">You want auth, rate-limiting, audit-logging on tool calls in one place.</li>
+    <li data-pt="Compare com: plain function-calling — funciona, mas cada cliente precisa da sua própria integração.">Compare to: plain function-calling — works, but every client needs its own integration.</li>
   </ul>
 </section>
 
 
 <!-- =================== RAG =================== -->
 <section id="rag">
-  <h2><span class="num">08</span> RAG — Retrieval Augmented Generation</h2>
-  <p>"Pre-pend relevant context to the prompt." The naive version fails 40% of the time at retrieval — the 2026 stack is hybrid + reranked + sometimes graph.</p>
+  <h2 data-pt="<span class=&quot;num&quot;>08</span> RAG — Retrieval Augmented Generation"><span class="num">08</span> RAG — Retrieval Augmented Generation</h2>
+  <p data-pt="&quot;Pré-adicionar contexto relevante ao prompt.&quot; A versão ingênua falha 40% das vezes no retrieval — a stack de 2026 é hybrid + reranked + às vezes grafo.">"Pre-pend relevant context to the prompt." The naive version fails 40% of the time at retrieval — the 2026 stack is hybrid + reranked + sometimes graph.</p>
 
   <figure class="diagram">
     <svg viewBox="0 0 680 290" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="RAG pipeline">
@@ -1993,28 +1993,28 @@ await server.connect(new StdioServerTransport());
         <marker id="arrR7" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L9,5 L0,10 Z" fill="#ff6b8b"/></marker>
       </defs>
     </svg>
-    <figcaption>Hybrid (vector + BM25) catches both semantic and exact-keyword matches. RRF merges. A cross-encoder reranker then deeply re-scores the top-50 against the query — the single biggest quality win.</figcaption>
+    <figcaption data-pt="Hybrid (vector + BM25) captura tanto correspondências semânticas quanto exatas de palavras-chave. RRF mescla. Um reranker cross-encoder depois re-pontua profundamente o top-50 contra a query — o maior ganho de qualidade isolado.">Hybrid (vector + BM25) catches both semantic and exact-keyword matches. RRF merges. A cross-encoder reranker then deeply re-scores the top-50 against the query — the single biggest quality win.</figcaption>
   </figure>
 
-  <h3>The modern stack</h3>
+  <h3 data-pt="A stack moderna">The modern stack</h3>
   <ol>
-    <li><strong>Chunking</strong> — semantic / sliding-window chunks (300–800 tokens). Track parent doc.</li>
-    <li><strong>Embedding</strong> — dense vectors (OpenAI <code>text-embedding-3-large</code>, Cohere, BGE, Voyage).</li>
-    <li><strong>Hybrid retrieval</strong> — BM25 keyword + vector similarity in parallel, fused with <strong>Reciprocal Rank Fusion (RRF)</strong>. <em>The single biggest quality win</em> over naive.</li>
-    <li><strong>Reranking</strong> — top-50 → cross-encoder reranker (Cohere Rerank, BGE-reranker) → top-5. Highest-ROI step. +25–40% precision.</li>
-    <li><strong>Generation</strong> — pass top-K + query to LLM. Cite sources.</li>
-    <li><strong>Eval</strong> — RAGAS metrics (faithfulness, context precision, answer relevance).</li>
+    <li data-pt="<strong>Chunking</strong> — chunks semânticos / sliding-window (300–800 tokens). Rastreie o doc pai."><strong>Chunking</strong> — semantic / sliding-window chunks (300–800 tokens). Track parent doc.</li>
+    <li data-pt="<strong>Embedding</strong> — vetores densos (OpenAI <code>text-embedding-3-large</code>, Cohere, BGE, Voyage)."><strong>Embedding</strong> — dense vectors (OpenAI <code>text-embedding-3-large</code>, Cohere, BGE, Voyage).</li>
+    <li data-pt="<strong>Retrieval híbrido</strong> — keyword BM25 + similaridade vetorial em paralelo, fundidos com <strong>Reciprocal Rank Fusion (RRF)</strong>. <em>O maior ganho de qualidade isolado</em> sobre o ingênuo."><strong>Hybrid retrieval</strong> — BM25 keyword + vector similarity in parallel, fused with <strong>Reciprocal Rank Fusion (RRF)</strong>. <em>The single biggest quality win</em> over naive.</li>
+    <li data-pt="<strong>Reranking</strong> — top-50 → reranker cross-encoder (Cohere Rerank, BGE-reranker) → top-5. Etapa de maior ROI. +25–40% de precisão."><strong>Reranking</strong> — top-50 → cross-encoder reranker (Cohere Rerank, BGE-reranker) → top-5. Highest-ROI step. +25–40% precision.</li>
+    <li data-pt="<strong>Geração</strong> — passe top-K + query para o LLM. Cite as fontes."><strong>Generation</strong> — pass top-K + query to LLM. Cite sources.</li>
+    <li data-pt="<strong>Eval</strong> — métricas RAGAS (faithfulness, context precision, answer relevance)."><strong>Eval</strong> — RAGAS metrics (faithfulness, context precision, answer relevance).</li>
   </ol>
 
-  <h3>When RAG vs alternatives</h3>
+  <h3 data-pt="Quando RAG vs alternativas">When RAG vs alternatives</h3>
   <ul>
-    <li><strong>RAG</strong> — knowledge changes often, large corpus, need citations.</li>
-    <li><strong>Long context</strong> (Gemini 1M, etc.) — small enough corpus to fit; cost permits.</li>
-    <li><strong>Fine-tuning</strong> — style/format, not facts. Don't use fine-tuning for fresh data.</li>
-    <li><strong>GraphRAG</strong> — multi-hop questions over a structured domain.</li>
+    <li data-pt="<strong>RAG</strong> — conhecimento muda frequentemente, corpus grande, precisa de citações."><strong>RAG</strong> — knowledge changes often, large corpus, need citations.</li>
+    <li data-pt="<strong>Contexto longo</strong> (Gemini 1M, etc.) — corpus pequeno o suficiente para caber; custo permite."><strong>Long context</strong> (Gemini 1M, etc.) — small enough corpus to fit; cost permits.</li>
+    <li data-pt="<strong>Fine-tuning</strong> — estilo/formato, não fatos. Não use fine-tuning para dados frescos."><strong>Fine-tuning</strong> — style/format, not facts. Don't use fine-tuning for fresh data.</li>
+    <li data-pt="<strong>GraphRAG</strong> — perguntas multi-hop sobre um domínio estruturado."><strong>GraphRAG</strong> — multi-hop questions over a structured domain.</li>
   </ul>
 
-  <div class="callout">
+  <div class="callout" data-pt="<strong>Slogan:</strong> &quot;Em 2026, retrieval é o gargalo, não a geração. Hybrid + rerank é o padrão.&quot; Não vá atrás de coisas mais sofisticadas (HyDE, multi-query, agentic RAG) até medir scores RAGAS e provar que precisa.">
     <strong>Bumper sticker:</strong> "In 2026, retrieval is the bottleneck, not generation. Hybrid + rerank is the default." Don't reach for fancier (HyDE, multi-query, agentic RAG) until you've measured RAGAS scores and proved you need it.
   </div>
 </section>
