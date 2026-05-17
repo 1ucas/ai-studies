@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI Study Guide — May 2026</title>
+<title data-pt="Guia de Estudos de IA — Maio de 2026">AI Study Guide — May 2026</title>
 <style>
   :root{
     --bg:#0b0d10; --panel:#12161c; --panel2:#171c24; --line:#222a35;
@@ -109,6 +109,28 @@
   .bar-tooltip{position:absolute; padding:6px 10px; background:#1d242e; border:1px solid var(--line);
     border-radius:6px; font-size:12px; color:var(--text); pointer-events:none; transform:translate(-50%,-100%);
     white-space:nowrap; opacity:0; transition:opacity .15s}
+  /* ============ Language toggle (EN / PT-BR) ============ */
+  .lang-toggle{
+    position:fixed; top:12px; right:14px; z-index:60;
+    display:inline-flex; align-items:center; gap:5px;
+    padding:6px 11px;
+    background:rgba(18,22,28,.92); backdrop-filter:blur(10px);
+    border:1px solid var(--line); border-radius:99px;
+    color:var(--text); cursor:pointer;
+    font:600 11.5px -apple-system,BlinkMacSystemFont,"SF Pro Text",system-ui,sans-serif;
+    letter-spacing:.06em; transition:border-color .15s, background .15s;
+  }
+  .lang-toggle:hover{border-color:var(--accent); background:rgba(23,28,36,.96)}
+  .lang-toggle:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+  .lang-toggle svg{width:12px; height:12px; opacity:.7; color:var(--muted)}
+  .lang-toggle .lang-code{padding:0 2px}
+  .lang-toggle .lang-on{color:var(--accent)}
+  .lang-toggle .lang-off{color:var(--muted); opacity:.7}
+  .lang-toggle .lang-sep{color:var(--muted); opacity:.4; margin:0 1px}
+  @media (max-width:760px){
+    .lang-toggle{top:10px; right:10px; padding:5px 9px; font-size:11px; gap:4px}
+    .lang-toggle svg{width:11px; height:11px}
+  }
   @media (max-width:1100px){
     .wrap{grid-template-columns:230px minmax(0,1fr)}
     main{padding:28px; max-width:none}
@@ -441,178 +463,190 @@
 </head>
 <body id="top">
 
+<!-- ============== Language toggle (EN / PT-BR) ============== -->
+<button class="lang-toggle" type="button" data-lang-toggle aria-label="Switch to Portuguese">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <circle cx="12" cy="12" r="9"/>
+    <path d="M3 12 h18"/>
+    <path d="M12 3 a14 16 0 0 1 0 18 a14 16 0 0 1 0 -18"/>
+  </svg>
+  <span class="lang-code lang-en lang-on">EN</span>
+  <span class="lang-sep">·</span>
+  <span class="lang-code lang-pt lang-off">PT</span>
+</button>
+
 <!-- ============== HOME VIEW (iOS Settings-style menu) ============== -->
 <div class="view view-home" data-view="home">
   <div class="home-inner">
     <header class="home-hero">
-      <span class="badge">Study · ~4 hour skim · ~6–8 hour deep read</span>
-      <h1>AI Cheat Sheet</h1>
-      <p class="lead">Everything you need on model economics, agent plumbing, and the SDD / MCP / RAG vocabulary that's essential to master as a software engineer working with AI. Numbers are May 2026 list prices — they will move, the relationships won't.</p>
+      <span class="badge" data-pt="Estudo · ~4h de leitura rápida · ~6–8h de leitura profunda">Study · ~4 hour skim · ~6–8 hour deep read</span>
+      <h1 data-pt="Guia Rápido de IA">AI Cheat Sheet</h1>
+      <p class="lead" data-pt="Tudo o que você precisa sobre economia de modelos, encanamento de agents e o vocabulário de SDD / MCP / RAG essencial para dominar como engenheiro de software trabalhando com IA. Os números são preços de tabela de Maio de 2026 — eles vão mudar, as relações entre eles não.">Everything you need on model economics, agent plumbing, and the SDD / MCP / RAG vocabulary that's essential to master as a software engineer working with AI. Numbers are May 2026 list prices — they will move, the relationships won't.</p>
     </header>
 
     <div class="settings-list">
 
       <div class="settings-section">
-        <h3 class="settings-section-title">Main Concepts</h3>
-        <p class="settings-section-lead">The vocabulary. If you can't fluently use these words, the rest of the guide reads as noise.</p>
+        <h3 class="settings-section-title" data-pt="Conceitos Principais">Main Concepts</h3>
+        <p class="settings-section-lead" data-pt="O vocabulário. Se você não consegue usar essas palavras com fluência, o resto do guia vira ruído.">The vocabulary. If you can't fluently use these words, the rest of the guide reads as noise.</p>
         <div class="settings-group">
           <a class="settings-row" href="#/concepts" data-section="concepts">
             <span class="settings-row-icon is-concepts">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12 h8 M12 8 v8"/></svg>
             </span>
-            <span class="settings-row-label">Vocabulary &amp; fundamentals</span>
+            <span class="settings-row-label" data-pt="Vocabulário e fundamentos">Vocabulary &amp; fundamentals</span>
             <svg class="settings-row-chevron" viewBox="0 0 9 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 2 L7 7 L2 12"/></svg>
           </a>
         </div>
       </div>
 
       <div class="settings-section">
-        <h3 class="settings-section-title">Models</h3>
+        <h3 class="settings-section-title" data-pt="Modelos">Models</h3>
         <div class="settings-group">
           <a class="settings-row" href="#/models" data-section="models">
             <span class="settings-row-icon is-models">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="6" rx="1.5"/><rect x="3" y="14" width="12" height="6" rx="1.5"/><path d="M7 7 h.01 M7 17 h.01"/></svg>
             </span>
-            <span class="settings-row-label">Models &amp; Pricing</span>
+            <span class="settings-row-label" data-pt="Modelos e Preços">Models &amp; Pricing</span>
             <svg class="settings-row-chevron" viewBox="0 0 9 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 2 L7 7 L2 12"/></svg>
           </a>
           <a class="settings-row" href="#/routing" data-section="routing">
             <span class="settings-row-icon is-models">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6 h6 l3 4 h7"/><path d="M4 18 h6 l3 -4"/><circle cx="20" cy="10" r="2"/><circle cx="20" cy="14" r="2"/></svg>
             </span>
-            <span class="settings-row-label">Model Routing</span>
+            <span class="settings-row-label" data-pt="Roteamento de Modelos">Model Routing</span>
             <svg class="settings-row-chevron" viewBox="0 0 9 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 2 L7 7 L2 12"/></svg>
           </a>
           <a class="settings-row" href="#/model-integration" data-section="model-integration">
             <span class="settings-row-icon is-models">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4 h12 v6 h-12 z"/><path d="M6 14 h12 v6 h-12 z"/><path d="M12 10 v4"/></svg>
             </span>
-            <span class="settings-row-label">Model Integration</span>
+            <span class="settings-row-label" data-pt="Integração de Modelos">Model Integration</span>
             <svg class="settings-row-chevron" viewBox="0 0 9 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 2 L7 7 L2 12"/></svg>
           </a>
           <a class="settings-row" href="#/oss" data-section="oss">
             <span class="settings-row-icon is-models">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 v4 M12 18 v4 M2 12 h4 M18 12 h4 M5 5 l3 3 M16 16 l3 3 M5 19 l3 -3 M16 8 l3 -3"/></svg>
             </span>
-            <span class="settings-row-label">Open-Source Alternatives</span>
+            <span class="settings-row-label" data-pt="Alternativas Open-Source">Open-Source Alternatives</span>
             <svg class="settings-row-chevron" viewBox="0 0 9 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 2 L7 7 L2 12"/></svg>
           </a>
         </div>
       </div>
 
       <div class="settings-section">
-        <h3 class="settings-section-title">Harness</h3>
-        <p class="settings-section-lead">The runtime loop wrapped around the model. A stateless model call becomes an agent when something else manages context, invokes tools, and decides when to stop.</p>
+        <h3 class="settings-section-title" data-pt="Harness">Harness</h3>
+        <p class="settings-section-lead" data-pt="O loop de runtime envolvendo o modelo. Uma chamada stateless de modelo vira agent quando outra coisa gerencia contexto, invoca tools e decide quando parar.">The runtime loop wrapped around the model. A stateless model call becomes an agent when something else manages context, invokes tools, and decides when to stop.</p>
         <div class="settings-group">
           <a class="settings-row" href="#/harness" data-section="harness">
             <span class="settings-row-icon is-harness">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3.2"/><path d="M12 3 v3 M12 18 v3 M3 12 h3 M18 12 h3 M5.6 5.6 l2.1 2.1 M16.3 16.3 l2.1 2.1 M5.6 18.4 l2.1 -2.1 M16.3 7.7 l2.1 -2.1"/></svg>
             </span>
-            <span class="settings-row-label">Agent harness &amp; runtime loop</span>
+            <span class="settings-row-label" data-pt="Agent harness e loop de runtime">Agent harness &amp; runtime loop</span>
             <svg class="settings-row-chevron" viewBox="0 0 9 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 2 L7 7 L2 12"/></svg>
           </a>
         </div>
       </div>
 
       <div class="settings-section">
-        <h3 class="settings-section-title">LLM Components</h3>
-        <p class="settings-section-lead">The plumbing around the model: how it remembers, how it reaches tools, how it retrieves grounding data, and how its work is scheduled.</p>
+        <h3 class="settings-section-title" data-pt="Componentes de LLM">LLM Components</h3>
+        <p class="settings-section-lead" data-pt="O encanamento ao redor do modelo: como ele se lembra, como acessa tools, como recupera dados de grounding e como o trabalho é agendado.">The plumbing around the model: how it remembers, how it reaches tools, how it retrieves grounding data, and how its work is scheduled.</p>
         <div class="settings-group">
           <a class="settings-row" href="#/memory" data-section="memory">
             <span class="settings-row-icon is-components">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="5" width="16" height="14" rx="2"/><path d="M8 5 v14 M16 5 v14"/></svg>
             </span>
-            <span class="settings-row-label">Memory Types</span>
+            <span class="settings-row-label" data-pt="Tipos de Memória">Memory Types</span>
             <svg class="settings-row-chevron" viewBox="0 0 9 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 2 L7 7 L2 12"/></svg>
           </a>
           <a class="settings-row" href="#/mcp" data-section="mcp">
             <span class="settings-row-icon is-components">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="12" cy="18" r="2.5"/><path d="M7.5 7.5 L11 16 M16.5 7.5 L13 16 M8 6 h8"/></svg>
             </span>
-            <span class="settings-row-label">MCP — Tools Protocol</span>
+            <span class="settings-row-label" data-pt="MCP — Protocolo de Tools">MCP — Tools Protocol</span>
             <svg class="settings-row-chevron" viewBox="0 0 9 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 2 L7 7 L2 12"/></svg>
           </a>
           <a class="settings-row" href="#/rag" data-section="rag">
             <span class="settings-row-icon is-components">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="2.5"/><path d="M4 5 v6 c0 1.4 3.6 2.5 8 2.5 s8 -1.1 8 -2.5 v-6"/><path d="M4 11 v6 c0 1.4 3.6 2.5 8 2.5 s8 -1.1 8 -2.5 v-6"/></svg>
             </span>
-            <span class="settings-row-label">RAG</span>
+            <span class="settings-row-label" data-pt="RAG">RAG</span>
             <svg class="settings-row-chevron" viewBox="0 0 9 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 2 L7 7 L2 12"/></svg>
           </a>
           <a class="settings-row" href="#/research-graph" data-section="research-graph">
             <span class="settings-row-icon is-components">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="2"/><circle cx="18" cy="6" r="2"/><circle cx="12" cy="18" r="2"/><circle cx="6" cy="14" r="2"/><path d="M6 8 v4 M8 6 h8 M7.5 7.5 L11 16 M16.5 7.5 L13 16 M7 14 h3"/></svg>
             </span>
-            <span class="settings-row-label">Research Graph</span>
+            <span class="settings-row-label" data-pt="Grafo de Pesquisa">Research Graph</span>
             <svg class="settings-row-chevron" viewBox="0 0 9 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 2 L7 7 L2 12"/></svg>
           </a>
           <a class="settings-row" href="#/dag" data-section="dag">
             <span class="settings-row-icon is-components">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="6" height="6" rx="1"/><rect x="15" y="3" width="6" height="6" rx="1"/><rect x="9" y="15" width="6" height="6" rx="1"/><path d="M6 9 L11 15 M18 9 L13 15"/></svg>
             </span>
-            <span class="settings-row-label">DAG</span>
+            <span class="settings-row-label" data-pt="DAG">DAG</span>
             <svg class="settings-row-chevron" viewBox="0 0 9 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 2 L7 7 L2 12"/></svg>
           </a>
         </div>
       </div>
 
       <div class="settings-section">
-        <h3 class="settings-section-title">Tech Execution</h3>
-        <p class="settings-section-lead">How you actually run LLMs in production: evaluating quality, versioning prompts, and driving codegen with executable specs.</p>
+        <h3 class="settings-section-title" data-pt="Execução Técnica">Tech Execution</h3>
+        <p class="settings-section-lead" data-pt="Como você de fato roda LLMs em produção: avaliando qualidade, versionando prompts e dirigindo codegen com specs executáveis.">How you actually run LLMs in production: evaluating quality, versioning prompts, and driving codegen with executable specs.</p>
         <div class="settings-group">
           <a class="settings-row" href="#/evals" data-section="evals">
             <span class="settings-row-icon is-execution">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12 l2 2 l4 -4"/><circle cx="12" cy="12" r="9"/></svg>
             </span>
-            <span class="settings-row-label">Evals vs Benchmarks</span>
+            <span class="settings-row-label" data-pt="Evals vs Benchmarks">Evals vs Benchmarks</span>
             <svg class="settings-row-chevron" viewBox="0 0 9 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 2 L7 7 L2 12"/></svg>
           </a>
           <a class="settings-row" href="#/prompts" data-section="prompts">
             <span class="settings-row-icon is-execution">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4 h12 l4 4 v12 h-16 z"/><path d="M8 12 h8 M8 16 h6"/></svg>
             </span>
-            <span class="settings-row-label">Prompt Versioning</span>
+            <span class="settings-row-label" data-pt="Versionamento de Prompts">Prompt Versioning</span>
             <svg class="settings-row-chevron" viewBox="0 0 9 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 2 L7 7 L2 12"/></svg>
           </a>
           <a class="settings-row" href="#/sdd" data-section="sdd">
             <span class="settings-row-icon is-execution">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4 h16 v16 h-16 z"/><path d="M8 9 l3 3 l-3 3 M14 15 h3"/></svg>
             </span>
-            <span class="settings-row-label">Spec-Driven Dev</span>
+            <span class="settings-row-label" data-pt="Spec-Driven Dev">Spec-Driven Dev</span>
             <svg class="settings-row-chevron" viewBox="0 0 9 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 2 L7 7 L2 12"/></svg>
           </a>
         </div>
       </div>
 
       <div class="settings-section">
-        <h3 class="settings-section-title">Community Tooling</h3>
-        <p class="settings-section-lead">Trusted, fast-growing tools the AI engineering community has settled around — the shipping-grade implementations of the patterns above.</p>
+        <h3 class="settings-section-title" data-pt="Tooling da Comunidade">Community Tooling</h3>
+        <p class="settings-section-lead" data-pt="Ferramentas confiáveis e em rápido crescimento nas quais a comunidade de engenharia de IA se firmou — implementações production-grade dos padrões acima.">Trusted, fast-growing tools the AI engineering community has settled around — the shipping-grade implementations of the patterns above.</p>
         <div class="settings-group">
           <a class="settings-row" href="#/tooling" data-section="tooling">
             <span class="settings-row-icon is-tooling">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3 a4 4 0 1 0 3 7 l4.3 4.3 l-2 2 l-4.3 -4.3 a4 4 0 0 0 -7 -3 l3 3 l-1.4 1.4 l-3 -3 a4 4 0 0 0 7.4 -7.4 z"/></svg>
             </span>
-            <span class="settings-row-label">Trusted tooling overview</span>
+            <span class="settings-row-label" data-pt="Visão geral de tooling confiável">Trusted tooling overview</span>
             <svg class="settings-row-chevron" viewBox="0 0 9 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 2 L7 7 L2 12"/></svg>
           </a>
           <a class="settings-row" href="#/context7" data-section="context7">
             <span class="settings-row-icon is-tooling">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5 h16 v14 h-16 z"/><path d="M8 9 h8 M8 13 h8 M8 17 h5"/></svg>
             </span>
-            <span class="settings-row-label">Context7 deep-dive</span>
+            <span class="settings-row-label" data-pt="Context7 a fundo">Context7 deep-dive</span>
             <svg class="settings-row-chevron" viewBox="0 0 9 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 2 L7 7 L2 12"/></svg>
           </a>
         </div>
       </div>
 
       <div class="settings-section">
-        <h3 class="settings-section-title">Quiz</h3>
+        <h3 class="settings-section-title" data-pt="Quiz">Quiz</h3>
         <div class="settings-group">
           <a class="settings-row" href="#/quiz" data-section="quiz">
             <span class="settings-row-icon is-quiz">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 9 a3 3 0 1 1 4 2.8 c-1 .4 -1 1.2 -1 2.2"/><circle cx="12" cy="18" r=".6" fill="currentColor"/><circle cx="12" cy="12" r="10"/></svg>
             </span>
-            <span class="settings-row-label">Take the quiz</span>
+            <span class="settings-row-label" data-pt="Fazer o quiz">Take the quiz</span>
             <svg class="settings-row-chevron" viewBox="0 0 9 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 2 L7 7 L2 12"/></svg>
           </a>
         </div>
@@ -627,7 +661,7 @@
   <header class="detail-header">
     <button class="detail-back-btn" type="button" data-back aria-label="Back to menu">
       <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 2 L4 7 L9 12"/></svg>
-      <span>Menu</span>
+      <span data-pt="Menu">Menu</span>
     </button>
     <h1 class="detail-title" data-detail-title>Detail</h1>
     <span aria-hidden="true"></span>
@@ -636,15 +670,15 @@
 
 <!-- =================== MAIN CONCEPTS =================== -->
 <section id="concepts">
-  <h2><span class="num">01</span> Main Concepts — the vocabulary first</h2>
-  <p>Anchor terms you'll see thrown around in the rest of the guide and in the study. Each is 2–4 sentences — enough to use the word fluently without faking it.</p>
+  <h2 data-pt="<span class=&quot;num&quot;>01</span> Conceitos Principais — o vocabulário primeiro"><span class="num">01</span> Main Concepts — the vocabulary first</h2>
+  <p data-pt="Termos âncora que você vai ver jogados por aí no resto do guia e no estudo. Cada um tem 2–4 frases — suficiente para usar a palavra com fluência sem fingir.">Anchor terms you'll see thrown around in the rest of the guide and in the study. Each is 2–4 sentences — enough to use the word fluently without faking it.</p>
 
-  <h3>1.1 Token</h3>
-  <p>The unit an LLM reads and writes. Roughly a chunk of 3–4 characters in English (a short word, or a piece of a long word). "Hello, world!" is about 4 tokens. Models are <strong>priced per token</strong>, have <strong>context windows measured in tokens</strong>, and <strong>generate one token at a time</strong>. The <em>tokenizer</em> is the (deterministic) algorithm that splits text into tokens — and different tokenizers can change your bill even when the visible text looks identical.</p>
+  <h3 data-pt="1.1 Token">1.1 Token</h3>
+  <p data-pt="A unidade que uma LLM lê e escreve. Aproximadamente um chunk de 3–4 caracteres em inglês (uma palavra curta, ou um pedaço de uma palavra longa). &quot;Hello, world!&quot; tem cerca de 4 tokens. Os modelos têm <strong>preço por token</strong>, têm <strong>context windows medidos em tokens</strong>, e <strong>geram um token de cada vez</strong>. O <em>tokenizer</em> é o algoritmo (determinístico) que divide o texto em tokens — e tokenizers diferentes podem mudar sua fatura mesmo quando o texto visível parece idêntico.">The unit an LLM reads and writes. Roughly a chunk of 3–4 characters in English (a short word, or a piece of a long word). "Hello, world!" is about 4 tokens. Models are <strong>priced per token</strong>, have <strong>context windows measured in tokens</strong>, and <strong>generate one token at a time</strong>. The <em>tokenizer</em> is the (deterministic) algorithm that splits text into tokens — and different tokenizers can change your bill even when the visible text looks identical.</p>
 
-  <h3>1.2 Transformer</h3>
-  <p>The neural-network architecture that powers every modern LLM (GPT, Claude, Gemini, Llama, DeepSeek, Kimi — all transformers). Introduced in the 2017 paper <em>"Attention Is All You Need."</em> Replaced the older RNN/LSTM approach. The transformer's superpower is that it processes all tokens in a sequence <strong>in parallel</strong> (instead of one-at-a-time like RNNs), which is what made training on internet-scale data feasible.</p>
-  <p>A transformer is built out of stacked "blocks." Each block does two things: <strong>attention</strong> (look at relevant other tokens) and a <strong>feed-forward layer</strong> (process each token independently). Stack ~30–100 of those blocks, train on trillions of tokens, and you have an LLM.</p>
+  <h3 data-pt="1.2 Transformer">1.2 Transformer</h3>
+  <p data-pt="A arquitetura de rede neural que alimenta toda LLM moderna (GPT, Claude, Gemini, Llama, DeepSeek, Kimi — todos transformers). Introduzida no paper de 2017 <em>&quot;Attention Is All You Need.&quot;</em> Substituiu a abordagem mais antiga de RNN/LSTM. O superpoder do transformer é processar todos os tokens em uma sequência <strong>em paralelo</strong> (ao invés de um de cada vez como RNNs), o que tornou possível o treinamento em dados em escala de internet.">The neural-network architecture that powers every modern LLM (GPT, Claude, Gemini, Llama, DeepSeek, Kimi — all transformers). Introduced in the 2017 paper <em>"Attention Is All You Need."</em> Replaced the older RNN/LSTM approach. The transformer's superpower is that it processes all tokens in a sequence <strong>in parallel</strong> (instead of one-at-a-time like RNNs), which is what made training on internet-scale data feasible.</p>
+  <p data-pt="Um transformer é construído a partir de &quot;blocos&quot; empilhados. Cada bloco faz duas coisas: <strong>attention</strong> (olha para outros tokens relevantes) e uma <strong>feed-forward layer</strong> (processa cada token independentemente). Empilhe ~30–100 desses blocos, treine em trilhões de tokens, e você tem uma LLM.">A transformer is built out of stacked "blocks." Each block does two things: <strong>attention</strong> (look at relevant other tokens) and a <strong>feed-forward layer</strong> (process each token independently). Stack ~30–100 of those blocks, train on trillions of tokens, and you have an LLM.</p>
 
   <figure class="diagram">
     <svg viewBox="0 0 640 480" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Transformer architecture">
@@ -725,13 +759,13 @@
       <span><span class="sw" style="background:#ffb86b"></span>Feed-Forward (processes each token alone)</span>
       <span><span class="sw" style="background:#82b8ff"></span>Embeddings (tokens → vectors)</span>
     </div>
-    <figcaption>Each <em>block</em> is Attention → Feed-Forward. Information flows upward, one token-position per column. Stack many blocks and the model can learn deep abstractions.</figcaption>
+    <figcaption data-pt="Cada <em>bloco</em> é Attention → Feed-Forward. A informação flui para cima, uma posição de token por coluna. Empilhe muitos blocos e o modelo aprende abstrações profundas.">Each <em>block</em> is Attention → Feed-Forward. Information flows upward, one token-position per column. Stack many blocks and the model can learn deep abstractions.</figcaption>
   </figure>
 
-  <h3>1.3 Attention</h3>
-  <p>The mechanism inside a transformer that lets each token "look at" other tokens in the sequence and weight how much each one matters. When the model is generating the next word after "The cat sat on the …", attention is what lets it look back at "cat" and "sat" — and weight them more heavily than filler words — when deciding the next token.</p>
-  <p>Concretely: every token produces three vectors — Query (Q), Key (K), Value (V). The Query of the current token is compared (dot product) against the Keys of all other tokens to produce attention scores. Those scores weight the Values, which get summed → the token's new representation. <em>"Self-attention"</em> means tokens attend to other tokens in the same sequence.</p>
-  <p>Attention is also the <strong>most expensive part</strong> of a transformer. Naive attention is O(n²) in the sequence length — double the context, 4× the cost. Variants like <em>Flash Attention</em>, <em>sliding-window attention</em> (Mistral), <em>Multi-Query Attention</em> (PaLM), <em>Grouped-Query Attention</em> (Llama 3), and <em>linear attention</em> (Mamba/RWKV hybrids) all try to reduce that cost. Modern long-context models (Gemini 1M+) almost certainly use a mix of these.</p>
+  <h3 data-pt="1.3 Attention">1.3 Attention</h3>
+  <p data-pt="O mecanismo dentro de um transformer que permite a cada token &quot;olhar&quot; para outros tokens na sequência e ponderar o quanto cada um importa. Quando o modelo está gerando a próxima palavra depois de &quot;The cat sat on the …&quot;, o attention é o que permite que ele olhe para trás para &quot;cat&quot; e &quot;sat&quot; — e os pondere mais do que palavras de preenchimento — ao decidir o próximo token.">The mechanism inside a transformer that lets each token "look at" other tokens in the sequence and weight how much each one matters. When the model is generating the next word after "The cat sat on the …", attention is what lets it look back at "cat" and "sat" — and weight them more heavily than filler words — when deciding the next token.</p>
+  <p data-pt="Concretamente: cada token produz três vetores — Query (Q), Key (K), Value (V). A Query do token atual é comparada (dot product) contra as Keys de todos os outros tokens para produzir attention scores. Esses scores ponderam os Values, que são somados → a nova representação do token. <em>&quot;Self-attention&quot;</em> significa que tokens prestam atenção a outros tokens na mesma sequência.">Concretely: every token produces three vectors — Query (Q), Key (K), Value (V). The Query of the current token is compared (dot product) against the Keys of all other tokens to produce attention scores. Those scores weight the Values, which get summed → the token's new representation. <em>"Self-attention"</em> means tokens attend to other tokens in the same sequence.</p>
+  <p data-pt="Attention também é a <strong>parte mais cara</strong> de um transformer. Attention ingênuo é O(n²) no comprimento da sequência — dobra o contexto, 4× o custo. Variantes como <em>Flash Attention</em>, <em>sliding-window attention</em> (Mistral), <em>Multi-Query Attention</em> (PaLM), <em>Grouped-Query Attention</em> (Llama 3) e <em>linear attention</em> (híbridos Mamba/RWKV) tentam reduzir esse custo. Modelos modernos de contexto longo (Gemini 1M+) quase certamente usam uma mistura disso.">Attention is also the <strong>most expensive part</strong> of a transformer. Naive attention is O(n²) in the sequence length — double the context, 4× the cost. Variants like <em>Flash Attention</em>, <em>sliding-window attention</em> (Mistral), <em>Multi-Query Attention</em> (PaLM), <em>Grouped-Query Attention</em> (Llama 3), and <em>linear attention</em> (Mamba/RWKV hybrids) all try to reduce that cost. Modern long-context models (Gemini 1M+) almost certainly use a mix of these.</p>
 
   <figure class="diagram">
     <svg viewBox="0 -36 680 396" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Self-attention example">
@@ -815,20 +849,20 @@
         <text x="14" y="55" class="svg-mute">why labs invent variants: Flash Attention, GQA / MQA, MLA (DeepSeek), sliding window, linear attention.</text>
       </g>
     </svg>
-    <figcaption>The current token ("sat") asks every other token how relevant it is, then mixes their information weighted by those scores. The Q/K/V vectors are <em>learned</em> projections of each token's embedding.</figcaption>
+    <figcaption data-pt="O token atual (&quot;sat&quot;) pergunta a cada outro token o quão relevante ele é, depois mistura as informações deles ponderadas por esses scores. Os vetores Q/K/V são projeções <em>aprendidas</em> do embedding de cada token.">The current token ("sat") asks every other token how relevant it is, then mixes their information weighted by those scores. The Q/K/V vectors are <em>learned</em> projections of each token's embedding.</figcaption>
   </figure>
 
-  <h3>1.4 Context window</h3>
-  <p>The maximum number of tokens the model can see in a single request — input + output combined (or sometimes counted separately, varies by provider). When you hear "Gemini has a 1M context window," it means the model can hold ~1 million tokens of input. Bigger window → more documents/code/conversation history you can shove in without RAG.</p>
+  <h3 data-pt="1.4 Context window">1.4 Context window</h3>
+  <p data-pt="O número máximo de tokens que o modelo pode ver em uma única request — input + output combinados (ou às vezes contados separadamente, varia por provider). Quando você ouve &quot;Gemini tem um context window de 1M&quot;, significa que o modelo pode guardar ~1 milhão de tokens de input. Janela maior → mais documentos/código/histórico de conversa que você pode enfiar sem RAG.">The maximum number of tokens the model can see in a single request — input + output combined (or sometimes counted separately, varies by provider). When you hear "Gemini has a 1M context window," it means the model can hold ~1 million tokens of input. Bigger window → more documents/code/conversation history you can shove in without RAG.</p>
 
-  <h3>1.5 Chain-of-Thought (CoT)</h3>
-  <p>The model's intermediate "thinking" — written out step-by-step before producing a final answer. Introduced as a prompting trick in 2022 ("Let's think step by step…") and now baked into <strong>reasoning models</strong> as a built-in behavior. Three flavors to know:</p>
+  <h3 data-pt="1.5 Chain-of-Thought (CoT)">1.5 Chain-of-Thought (CoT)</h3>
+  <p data-pt="O &quot;pensamento&quot; intermediário do modelo — escrito passo a passo antes de produzir uma resposta final. Introduzido como truque de prompting em 2022 (&quot;Let's think step by step…&quot;) e agora incorporado nos <strong>reasoning models</strong> como comportamento nativo. Três variantes para conhecer:">The model's intermediate "thinking" — written out step-by-step before producing a final answer. Introduced as a prompting trick in 2022 ("Let's think step by step…") and now baked into <strong>reasoning models</strong> as a built-in behavior. Three flavors to know:</p>
   <ul>
-    <li><strong>Prompted CoT</strong> — you ask the model to think step by step. Works on any model.</li>
-    <li><strong>Visible reasoning</strong> — the model emits step-by-step reasoning into the response (you and the user see it).</li>
-    <li><strong>Hidden / provider-owned "thinking"</strong> — used by OpenAI reasoning, Claude extended/adaptive thinking, Gemini Thinking, and DeepSeek V4 Pro thinking mode. The model spends extra generated tokens on internal reasoning; providers may hide it, summarize it, encrypt/sign it, or expose special thinking blocks. You pay for those thinking tokens — that is why reasoning models can cost 5–30× more in output.</li>
+    <li data-pt="<strong>CoT com prompt</strong> — você pede ao modelo para pensar passo a passo. Funciona em qualquer modelo."><strong>Prompted CoT</strong> — you ask the model to think step by step. Works on any model.</li>
+    <li data-pt="<strong>Reasoning visível</strong> — o modelo emite raciocínio passo a passo na resposta (você e o usuário veem)."><strong>Visible reasoning</strong> — the model emits step-by-step reasoning into the response (you and the user see it).</li>
+    <li data-pt="<strong>Hidden / provider-owned &quot;thinking&quot;</strong> — usado pelo OpenAI reasoning, Claude extended/adaptive thinking, Gemini Thinking e DeepSeek V4 Pro thinking mode. O modelo gasta tokens gerados extras em raciocínio interno; os providers podem esconder, resumir, criptografar/assinar ou expor thinking blocks especiais. Você paga por esses thinking tokens — por isso reasoning models podem custar 5–30× mais em output."><strong>Hidden / provider-owned "thinking"</strong> — used by OpenAI reasoning, Claude extended/adaptive thinking, Gemini Thinking, and DeepSeek V4 Pro thinking mode. The model spends extra generated tokens on internal reasoning; providers may hide it, summarize it, encrypt/sign it, or expose special thinking blocks. You pay for those thinking tokens — that is why reasoning models can cost 5–30× more in output.</li>
   </ul>
-  <p>Why it works: writing intermediate steps gives the model more "compute" to reach the right answer (it allocates more forward passes to harder questions). Why it costs: you are literally paying for thousands of extra output tokens you never see.</p>
+  <p data-pt="Por que funciona: escrever etapas intermediárias dá ao modelo mais &quot;compute&quot; para chegar na resposta certa (ele aloca mais forward passes para questões mais difíceis). Por que custa: você está literalmente pagando por milhares de tokens de output extras que nunca vai ver.">Why it works: writing intermediate steps gives the model more "compute" to reach the right answer (it allocates more forward passes to harder questions). Why it costs: you are literally paying for thousands of extra output tokens you never see.</p>
 
   <figure class="diagram">
     <svg viewBox="0 0 680 290" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Chain-of-thought">
@@ -2604,11 +2638,14 @@ await server.connect(new StdioServerTransport());
   const titleEl = document.querySelector('[data-detail-title]');
   const sections = document.querySelectorAll('main.detail-content > section');
 
-  // Build label map from the home-menu rows so titles stay in sync with copy.
-  const labels = {};
-  document.querySelectorAll('.settings-row[data-section]').forEach(a => {
-    labels[a.dataset.section] = a.querySelector('.settings-row-label').textContent.trim();
-  });
+  // Read label fresh each time so it reflects the current language.
+  function getLabel(id) {
+    const row = document.querySelector(`.settings-row[data-section="${id}"]`);
+    return row ? row.querySelector('.settings-row-label').textContent.trim() : '';
+  }
+  function siteTitle() {
+    return document.documentElement.dataset.lang === 'pt' ? 'Guia de IA' : 'AI Cheat Sheet';
+  }
 
   function parseHash() {
     const m = location.hash.match(/^#\/?([\w-]+)?/);
@@ -2620,7 +2657,7 @@ await server.connect(new StdioServerTransport());
     if (!id) {
       home.hidden = false;
       detail.hidden = true;
-      document.title = 'AI Cheat Sheet';
+      document.title = siteTitle();
       window.scrollTo(0, 0);
       return;
     }
@@ -2630,12 +2667,16 @@ await server.connect(new StdioServerTransport());
       return;
     }
     sections.forEach(s => s.classList.toggle('is-active', s.id === id));
-    titleEl.textContent = labels[id] || (target.querySelector('h2')?.textContent || '').replace(/^\s*\d+\s*/, '').trim();
-    document.title = (labels[id] || 'Detail') + ' · AI Cheat Sheet';
+    const label = getLabel(id);
+    titleEl.textContent = label || (target.querySelector('h2')?.textContent || '').replace(/^\s*\d+\s*/, '').trim();
+    document.title = (label || 'Detail') + ' · ' + siteTitle();
     home.hidden = true;
     detail.hidden = false;
     window.scrollTo(0, 0);
   }
+
+  // Re-apply current route after language changes so titles refresh.
+  window.addEventListener('langchange', () => applyRoute());
 
   // Direction-aware View Transitions for iOS-style push/pop.
   // Click handlers set an explicit direction; browser back/forward falls back to inference.
@@ -3495,6 +3536,64 @@ function reset() {
   document.querySelectorAll('.explain').forEach(e => e.classList.remove('show'));
   document.getElementById('score').textContent = '';
 }
+
+/* ============== Language toggle (EN / PT-BR) ============== */
+(function () {
+  const STORAGE_KEY = 'ai-cheat-sheet-lang';
+  const root = document.documentElement;
+  const btn = document.querySelector('[data-lang-toggle]');
+  if (!btn) return;
+
+  const enSpan = btn.querySelector('.lang-en');
+  const ptSpan = btn.querySelector('.lang-pt');
+  const titleEl = document.querySelector('title');
+  const enTitle = titleEl ? titleEl.textContent : '';
+
+  // Cache the original (English) innerHTML for every translatable element so we
+  // can restore it on toggle-back. WeakMap keeps it tied to the element lifetime.
+  const cache = new WeakMap();
+  function snapshot() {
+    document.querySelectorAll('[data-pt]').forEach(el => {
+      if (!cache.has(el)) cache.set(el, el.innerHTML);
+    });
+  }
+
+  function applyLang(lang) {
+    snapshot();
+    document.querySelectorAll('[data-pt]').forEach(el => {
+      const original = cache.get(el);
+      el.innerHTML = (lang === 'pt') ? el.dataset.pt : original;
+    });
+    if (titleEl) {
+      const pt = titleEl.dataset.pt;
+      document.title = (lang === 'pt' && pt) ? pt : enTitle;
+    }
+    root.lang = (lang === 'pt') ? 'pt-BR' : 'en';
+    root.dataset.lang = lang;
+    enSpan.classList.toggle('lang-on', lang === 'en');
+    enSpan.classList.toggle('lang-off', lang !== 'en');
+    ptSpan.classList.toggle('lang-on', lang === 'pt');
+    ptSpan.classList.toggle('lang-off', lang !== 'pt');
+    btn.setAttribute('aria-label', lang === 'pt' ? 'Mudar para inglês' : 'Switch to Portuguese');
+    try { localStorage.setItem(STORAGE_KEY, lang); } catch (e) {}
+    window.dispatchEvent(new Event('langchange'));
+  }
+
+  // Expose for re-application after dynamic DOM updates (e.g. quiz render).
+  window.__applyLang = () => applyLang(root.dataset.lang || 'en');
+
+  btn.addEventListener('click', () => {
+    const current = root.dataset.lang || 'en';
+    applyLang(current === 'en' ? 'pt' : 'en');
+  });
+
+  let initial = 'en';
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved === 'pt' || saved === 'en') initial = saved;
+  } catch (e) {}
+  applyLang(initial);
+})();
 </script>
 </body>
 </html>
