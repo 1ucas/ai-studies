@@ -494,7 +494,7 @@
 <div class="view view-home" data-view="home">
   <div class="home-inner">
     <header class="home-hero">
-      <span class="badge" data-pt="Estudo · 17 tópicos · quiz de 46 perguntas · ~5–6h leitura rápida · ~10–12h estudo profundo">Study · 17 topics · 46-question quiz · ~5–6 hour skim · ~10–12 hour deep study</span>
+      <span class="badge" data-pt="Estudo · 18 tópicos · quiz de 46 perguntas · ~5–6h leitura rápida · ~10–12h estudo profundo">Study · 18 topics · 46-question quiz · ~5–6 hour skim · ~10–12 hour deep study</span>
       <h1 data-pt="Guia Rápido de IA">AI Cheat Sheet</h1>
       <p class="lead" data-pt="Tudo o que você precisa sobre economia de modelos, encanamento de agents e o vocabulário de SDD / MCP / RAG essencial para dominar como engenheiro de software trabalhando com IA. Os números são preços de tabela de Maio de 2026 — eles vão mudar, as relações entre eles não.">Everything you need on model economics, agent plumbing, and the SDD / MCP / RAG vocabulary that's essential to master as a software engineer working with AI. Numbers are May 2026 list prices — they will move, the relationships won't.</p>
     </header>
@@ -586,6 +586,13 @@
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="2.5"/><path d="M4 5 v6 c0 1.4 3.6 2.5 8 2.5 s8 -1.1 8 -2.5 v-6"/><path d="M4 11 v6 c0 1.4 3.6 2.5 8 2.5 s8 -1.1 8 -2.5 v-6"/></svg>
             </span>
             <span class="settings-row-label" data-pt="RAG">RAG</span>
+            <svg class="settings-row-chevron" viewBox="0 0 9 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 2 L7 7 L2 12"/></svg>
+          </a>
+          <a class="settings-row" href="#/llm-wiki-okf" data-section="llm-wiki-okf">
+            <span class="settings-row-icon is-components">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4 h11 a3 3 0 0 1 3 3 v13 h-11 a3 3 0 0 0 -3 3 z"/><path d="M18 20 h2 v-13 a3 3 0 0 0 -3 -3 h-2"/><path d="M8 9 h6 M8 13 h6"/></svg>
+            </span>
+            <span class="settings-row-label" data-pt="LLM-wiki e Open Knowledge Format">LLM-wiki &amp; Open Knowledge Format</span>
             <svg class="settings-row-chevron" viewBox="0 0 9 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 2 L7 7 L2 12"/></svg>
           </a>
           <a class="settings-row" href="#/research-graph" data-section="research-graph">
@@ -730,6 +737,7 @@
         <li><a href="#memory" data-pt="Tipos de Memória">Memory Types</a></li>
         <li><a href="#mcp" data-pt="MCP — Protocolo de Tools">MCP — Tools Protocol</a></li>
         <li><a href="#rag">RAG</a></li>
+        <li><a href="#llm-wiki-okf" data-pt="LLM-wiki e Open Knowledge Format">LLM-wiki &amp; Open Knowledge Format</a></li>
         <li><a href="#research-graph" data-pt="Grafo de Pesquisa">Research Graph</a></li>
         <li><a href="#dag">DAG</a></li>
       </ol>
@@ -804,7 +812,7 @@
   </header>
   <main class="detail-content">
     <header class="hero desktop-hero">
-      <span class="badge" data-pt="Estudo · 17 tópicos · quiz de 46 perguntas · ~5–6h leitura rápida · ~10–12h estudo profundo">Study · 17 topics · 46-question quiz · ~5–6 hour skim · ~10–12 hour deep study</span>
+      <span class="badge" data-pt="Estudo · 18 tópicos · quiz de 46 perguntas · ~5–6h leitura rápida · ~10–12h estudo profundo">Study · 18 topics · 46-question quiz · ~5–6 hour skim · ~10–12 hour deep study</span>
       <h1 data-pt="Guia de Estudos de IA — Cheat Sheet">AI Study Guide — Cheat Sheet</h1>
       <p class="lead" data-pt="Tudo o que você precisa sobre economia de modelos, encanamento de agents e o vocabulário de SDD / MCP / RAG essencial para dominar como engenheiro de software trabalhando com IA. Os números são preços de tabela de Maio de 2026 — eles vão mudar, as relações entre eles não.">Everything you need on model economics, agent plumbing, and the SDD / MCP / RAG vocabulary that's essential to master as a software engineer working with AI. Numbers are May 2026 list prices — they will move, the relationships won't.</p>
     </header>
@@ -2161,9 +2169,59 @@ await server.connect(new StdioServerTransport());
 </section>
 
 
+<!-- =================== LLM-WIKI & OKF =================== -->
+<section id="llm-wiki-okf">
+  <h2 data-pt="<span class=&quot;num&quot;>09</span> LLM-wiki e Open Knowledge Format"><span class="num">09</span> LLM-wiki &amp; Open Knowledge Format</h2>
+  <p data-pt="Um <strong>LLM-wiki</strong> é uma base de conhecimento persistente, em texto simples, que um agent mantém para outros agents e humanos. O <strong>Open Knowledge Format (OKF)</strong> transforma esse padrão informal em um formato portátil e vendor-neutral: uma árvore de arquivos Markdown, com metadados YAML e links normais entre conceitos.">An <strong>LLM-wiki</strong> is a persistent, plain-text knowledge base that an agent maintains for other agents and humans. The <strong>Open Knowledge Format (OKF)</strong> turns that informal pattern into a portable, vendor-neutral format: a tree of Markdown files with YAML metadata and ordinary links between concepts.</p>
+
+  <h3 data-pt="O problema que resolve">The problem it solves</h3>
+  <p data-pt="Conhecimento operacional costuma ficar espalhado entre schemas, runbooks, tickets, código e memória tribal. Colocar tudo em um prompt gigante é caro e fica obsoleto; prender esse contexto a um banco ou SDK proprietário dificulta reutilizá-lo. Um bundle OKF mantém o conhecimento legível, versionável em Git e consumível por diferentes agents sem tradução específica por vendor.">Operational knowledge is usually scattered across schemas, runbooks, tickets, code, and tribal memory. Putting all of it into one giant prompt is expensive and goes stale; locking that context into a proprietary database or SDK makes it hard to reuse. An OKF bundle keeps knowledge human-readable, Git-versionable, and consumable by different agents without vendor-specific translation.</p>
+
+  <h3 data-pt="Estrutura mínima de um bundle OKF v0.1">Minimal OKF v0.1 bundle</h3>
+  <pre><code>knowledge/
+├── index.md
+├── log.md
+├── metrics/
+│   └── monthly-active-users.md
+└── systems/
+    └── billing-api.md
+
+---
+type: metric
+title: Monthly active users
+owners: [growth-data]
+status: active
+---
+
+# Monthly active users
+Calculated from authenticated product events.
+See [Billing API](../systems/billing-api.md).</code></pre>
+
+  <h3 data-pt="Regras e campos importantes">Important rules and fields</h3>
+  <ul>
+    <li data-pt="Cada documento de conceito é um arquivo <code>.md</code> UTF-8 e precisa de frontmatter YAML com um <code>type</code> não vazio. O schema é aberto: campos como <code>title</code>, <code>owners</code>, <code>status</code> e tags podem ser adicionados conforme o domínio.">Each concept document is a UTF-8 <code>.md</code> file and needs YAML frontmatter with a non-empty <code>type</code>. The schema is open: fields such as <code>title</code>, <code>owners</code>, <code>status</code>, and tags may be added for the domain.</li>
+    <li data-pt="<code>index.md</code> orienta a navegação e <code>log.md</code> registra mudanças. Esses nomes são reservados e não contam como documentos de conceito."><code>index.md</code> guides navigation and <code>log.md</code> records changes. Those names are reserved and do not count as concept documents.</li>
+    <li data-pt="Links Markdown comuns formam um grafo de conhecimento portátil. O caminho do arquivo funciona como identidade estável do conceito.">Ordinary Markdown links form a portable knowledge graph. The file path acts as the concept's stable identity.</li>
+    <li data-pt="O formato não exige banco vetorial, registry central, SDK ou runtime. Validação, busca e atualização são responsabilidades das ferramentas que produzem e consomem o bundle.">The format requires no vector database, central registry, SDK, or runtime. Validation, search, and updates belong to the tools that produce and consume the bundle.</li>
+  </ul>
+
+  <h3 data-pt="Como se encaixa na stack">How it fits into the stack</h3>
+  <ul>
+    <li data-pt="<strong>RAG:</strong> OKF organiza o corpus; RAG seleciona quais páginas ou trechos entram no contexto. OKF não substitui retrieval."><strong>RAG:</strong> OKF organizes the corpus; RAG selects which pages or passages enter context. OKF does not replace retrieval.</li>
+    <li data-pt="<strong>GraphRAG:</strong> links e tipos explícitos fornecem uma base natural para traversal e retrieval multi-hop."><strong>GraphRAG:</strong> explicit links and types provide a natural base for traversal and multi-hop retrieval.</li>
+    <li data-pt="<strong>MCP:</strong> um servidor MCP pode expor busca, leitura e atualização de bundles OKF para qualquer harness compatível."><strong>MCP:</strong> an MCP server can expose OKF bundle search, reading, and updates to any compatible harness.</li>
+    <li data-pt="<strong>Evals:</strong> meça cobertura, freshness, links quebrados, precisão de retrieval e fidelidade das respostas ao bundle."><strong>Evals:</strong> measure coverage, freshness, broken links, retrieval precision, and answer faithfulness to the bundle.</li>
+  </ul>
+
+  <div class="callout" data-pt="<strong>Modelo mental:</strong> LLM-wiki é o padrão de trabalho — agents compilam e mantêm conhecimento vivo. OKF é o contrato de arquivo que permite mover esse conhecimento entre ferramentas. Veja a <a href=&quot;https://cloud.google.com/blog/products/data-analytics/how-the-open-knowledge-format-can-improve-data-sharing&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;>introdução do Google Cloud</a> e a <a href=&quot;https://github.com/GoogleCloudPlatform/knowledge-catalog/blob/main/okf/SPEC.md&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;>spec v0.1</a>.">
+    <strong>Mental model:</strong> LLM-wiki is the working pattern — agents compile and maintain living knowledge. OKF is the file contract that lets that knowledge move between tools. See the <a href="https://cloud.google.com/blog/products/data-analytics/how-the-open-knowledge-format-can-improve-data-sharing" target="_blank" rel="noopener noreferrer">Google Cloud introduction</a> and the <a href="https://github.com/GoogleCloudPlatform/knowledge-catalog/blob/main/okf/SPEC.md" target="_blank" rel="noopener noreferrer">v0.1 spec</a>.
+  </div>
+</section>
+
+
 <!-- =================== RESEARCH GRAPH =================== -->
 <section id="research-graph">
-  <h2 data-pt="<span class=&quot;num&quot;>09</span> Grafo de Pesquisa (Research Graph)"><span class="num">09</span> Grafo de Pesquisa (Research Graph)</h2>
+  <h2 data-pt="<span class=&quot;num&quot;>10</span> Grafo de Pesquisa (Research Graph)"><span class="num">10</span> Grafo de Pesquisa (Research Graph)</h2>
   <p data-pt="&quot;Research graph&quot; aparece em dois contextos relacionados — certifique-se de poder distingui-los.">"Research graph" shows up in two related contexts — make sure you can distinguish them.</p>
 
   <h3 data-pt="1. Agents de Deep Research (o &quot;research graph&quot; como workflow)">1. Deep Research agents (the "research graph" as workflow)</h3>
@@ -2191,7 +2249,7 @@ await server.connect(new StdioServerTransport());
 
 <!-- =================== DAG =================== -->
 <section id="dag">
-  <h2 data-pt="<span class=&quot;num&quot;>10</span> DAG — Directed Acyclic Graph"><span class="num">10</span> DAG — Directed Acyclic Graph</h2>
+  <h2 data-pt="<span class=&quot;num&quot;>11</span> DAG — Directed Acyclic Graph"><span class="num">11</span> DAG — Directed Acyclic Graph</h2>
   <p data-pt="Um grafo de nós + arestas direcionadas <strong>sem ciclos</strong>. No mundo de agents AI, nós são chamadas LLM / tools / retrievers / branches; arestas são dependências. Sem ciclos = execução sempre termina.">A graph of nodes + directed edges with <strong>no cycles</strong>. In AI agent land, nodes are LLM calls / tools / retrievers / branches; edges are dependencies. No cycles = execution always terminates.</p>
 
   <figure class="diagram">
@@ -2297,7 +2355,7 @@ await server.connect(new StdioServerTransport());
 
 <!-- =================== EVALS =================== -->
 <section id="evals">
-  <h2 data-pt="<span class=&quot;num&quot;>11</span> Evals vs Benchmarks — e como construir cada um"><span class="num">11</span> Evals vs Benchmarks — and how to build each</h2>
+  <h2 data-pt="<span class=&quot;num&quot;>12</span> Evals vs Benchmarks — e como construir cada um"><span class="num">12</span> Evals vs Benchmarks — and how to build each</h2>
 
   <table>
     <thead><tr><th></th><th data-pt="Benchmarks">Benchmarks</th><th data-pt="Evals">Evals</th></tr></thead>
@@ -2348,7 +2406,7 @@ await server.connect(new StdioServerTransport());
 
 <!-- =================== PROMPTS =================== -->
 <section id="prompts">
-  <h2 data-pt="<span class=&quot;num&quot;>12</span> Versionamento de Prompts"><span class="num">12</span> Prompt Versioning</h2>
+  <h2 data-pt="<span class=&quot;num&quot;>13</span> Versionamento de Prompts"><span class="num">13</span> Prompt Versioning</h2>
   <p data-pt="Trate prompts como <strong>artefatos de produção versionados</strong>, igual a código. PromptOps é a camada de DevOps que falta no mundo de IA.">Treat prompts as <strong>versioned production artifacts</strong>, same as code. PromptOps is the missing DevOps layer of AI.</p>
 
   <h3 data-pt="O que uma ferramenta de versionamento oferece">What a versioning tool gives you</h3>
@@ -2384,7 +2442,7 @@ await server.connect(new StdioServerTransport());
 
 <!-- =================== SDD =================== -->
 <section id="sdd">
-  <h2 data-pt="<span class=&quot;num&quot;>13</span> Desenvolvimento Orientado por Spec (SDD)"><span class="num">13</span> Spec-Driven Development (SDD)</h2>
+  <h2 data-pt="<span class=&quot;num&quot;>14</span> Desenvolvimento Orientado por Spec (SDD)"><span class="num">14</span> Spec-Driven Development (SDD)</h2>
   <p data-pt="&quot;Inversão da estrutura de poder: as specs não servem mais ao código — o código serve às specs.&quot; Specs viram artefatos executáveis que controlam a geração de código por IA.">"Inversion of the power structure: specifications no longer serve code — code serves specifications." Specs become executable artifacts that gate AI codegen.</p>
 
   <h3 data-pt="As quatro (às vezes cinco) fases">The four (sometimes five) phases</h3>
@@ -2431,7 +2489,7 @@ await server.connect(new StdioServerTransport());
 
 <!-- =================== COMMUNITY TOOLING — OVERVIEW =================== -->
 <section id="tooling">
-  <h2 data-pt="<span class=&quot;num&quot;>14</span> Ferramentas da comunidade — o que realmente usar"><span class="num">14</span> Community tooling — what to actually reach for</h2>
+  <h2 data-pt="<span class=&quot;num&quot;>15</span> Ferramentas da comunidade — o que realmente usar"><span class="num">15</span> Community tooling — what to actually reach for</h2>
   <p data-pt="Sete ferramentas em torno das quais a comunidade de engenharia de IA se consolidou em 2026. Cada uma corresponde a uma seção acima: é a camada do &quot;o que você instalaria de verdade na segunda-feira?&quot;.">Seven tools the AI engineering community has settled around in 2026. Each one corresponds to a section above: this is the "what would you actually install on Monday?" layer.</p>
 
   <div class="tool-grid" id="toolGrid">
@@ -2570,7 +2628,7 @@ await server.connect(new StdioServerTransport());
 
 <!-- =================== CONTEXT7 =================== -->
 <section id="context7">
-  <h2 data-pt="<span class=&quot;num&quot;>15</span> O que é o Context7?"><span class="num">15</span> What is Context7?</h2>
+  <h2 data-pt="<span class=&quot;num&quot;>16</span> O que é o Context7?"><span class="num">16</span> What is Context7?</h2>
   <p data-pt="<strong>Context7</strong> é um servidor MCP (feito pela <strong>Upstash</strong>) que serve <em>documentação de bibliotecas atualizada e por versão específica</em> nas suas ferramentas de código com IA — Cursor, Claude Code, Windsurf, OpenCode, qualquer coisa que fale MCP."><strong>Context7</strong> is an MCP server (built by <strong>Upstash</strong>) that serves <em>up-to-date, version-specific library documentation</em> into your AI coding tools — Cursor, Claude Code, Windsurf, OpenCode, anything that speaks MCP.</p>
 
   <h3 data-pt="O problema que ele resolve">The problem it solves</h3>
@@ -2603,7 +2661,7 @@ await server.connect(new StdioServerTransport());
 
 <!-- =================== HARNESS =================== -->
 <section id="harness">
-  <h2 data-pt="<span class=&quot;num&quot;>16</span> Harness — o runtime em torno do modelo"><span class="num">16</span> Harness — the runtime around the model</h2>
+  <h2 data-pt="<span class=&quot;num&quot;>17</span> Harness — o runtime em torno do modelo"><span class="num">17</span> Harness — the runtime around the model</h2>
   <p data-pt="Um <strong>modelo</strong> é um endpoint stateless de request/response: prompt entra, tokens saem. Um <strong>harness</strong> é o loop de software em volta dele que faz esse endpoint se comportar como um agente — montando contexto, chamando o modelo, parseando a resposta, executando chamadas de ferramentas, e decidindo quando parar. Claude Code, Cursor, Codex, Cline, Aider — esses são todos harnesses. O modelo é o motor; o harness é o chassi, a transmissão e a direção.">A <strong>model</strong> is a stateless request/response endpoint: prompt in, tokens out. A <strong>harness</strong> is the software loop wrapped around it that makes that endpoint behave like an agent — assembling context, calling the model, parsing the response, executing any tool calls, and deciding when to stop. Claude Code, Cursor, Codex, Cline, Aider — these are all harnesses. The model is the engine; the harness is the chassis, transmission, and steering.</p>
 
   <div class="callout" data-pt="<strong>Modelo mental:</strong> &quot;modelo&quot; + &quot;harness&quot; + &quot;system prompt + ferramentas + permissões&quot; = um <em>agente</em>. Mesmo harness, system prompt e toolset diferentes, agente diferente. Mesmo modelo, harness diferente, produto completamente diferente.">
@@ -2724,7 +2782,7 @@ await server.connect(new StdioServerTransport());
 
 <!-- =================== QUIZ =================== -->
 <section id="quiz">
-  <h2><span class="num">17</span> <span data-quiz-h2>Knowledge check — graded quiz</span></h2>
+  <h2><span class="num">18</span> <span data-quiz-h2>Knowledge check — graded quiz</span></h2>
   <p class="small" data-quiz-intro>Pick an answer for each. Hit <em>Grade</em> at the bottom. Explanations appear after grading.</p>
 
   <div id="quiz-body"></div>
