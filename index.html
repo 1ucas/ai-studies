@@ -1184,7 +1184,7 @@
   <h3 data-pt="1.9 Model lab vs Provider vs Plataforma de inferência">1.9 Model lab vs Provider vs Inference platform</h3>
   <p data-pt="Três coisas que frequentemente se confundem:">Three things that often get conflated:</p>
   <ul>
-    <li data-pt="<strong>Model lab</strong> — quem treinou e é dono do modelo. <em>Anthropic, OpenAI, Google DeepMind, Meta, DeepSeek, Moonshot, Z.ai, Mistral, Alibaba (Qwen).</em>"><strong>Model lab</strong> — who trained and owns the model. <em>Anthropic, OpenAI, Google DeepMind, Meta, DeepSeek, Moonshot, Z.ai, Mistral, Alibaba (Qwen).</em></li>
+    <li data-pt="<strong>Model lab</strong> — quem treinou e é dono do modelo. <em>Anthropic, OpenAI, Google DeepMind, xAI, NVIDIA, Meta, DeepSeek, Moonshot, Z.ai, Mistral, Alibaba (Qwen).</em>"><strong>Model lab</strong> — who trained and owns the model. <em>Anthropic, OpenAI, Google DeepMind, xAI, NVIDIA, Meta, DeepSeek, Moonshot, Z.ai, Mistral, Alibaba (Qwen).</em></li>
     <li data-pt="<strong>Provider first-party</strong> — o lab servindo seu próprio modelo via API. <em>api.anthropic.com, api.openai.com, ai.google.dev.</em>"><strong>First-party provider</strong> — the lab serving its own model via API. <em>api.anthropic.com, api.openai.com, ai.google.dev.</em></li>
     <li data-pt="<strong>Plataforma de inferência third-party</strong> — uma empresa que hospeda modelos <em>de outros labs</em> (geralmente open-weight) na sua infraestrutura. <em>Together AI, Fireworks, DeepInfra, Groq, Replicate, OpenRouter.</em>"><strong>Third-party inference platform</strong> — a company that hosts <em>other labs'</em> models (usually open-weight) on their infrastructure. <em>Together AI, Fireworks, DeepInfra, Groq, Replicate, OpenRouter.</em></li>
     <li data-pt="<strong>Revendedor de cloud</strong> — sua conta cloud existente, com modelos frontier integrados. <em>AWS Bedrock, Google Vertex AI, Azure OpenAI Service.</em>"><strong>Cloud-vendor reseller</strong> — your existing cloud account, with frontier models bolted on. <em>AWS Bedrock, Google Vertex AI, Azure OpenAI Service.</em></li>
@@ -1237,6 +1237,7 @@
       <tr><td><strong>GPT-5.6 Terra</strong></td><td class="price">$2.50</td><td class="price">$15.00</td><td data-pt="Padrão mainstream OpenAI — bom equilíbrio geral. 1M context.">Mainstream OpenAI default — good general-purpose balance. 1M context.</td></tr>
       <tr><td><strong>GPT-5.6 Luna</strong></td><td class="price">$1.00</td><td class="price">$6.00</td><td data-pt="Tier barato da família 5.6 — ainda com 1M context. Substitui o GPT-5 base como fallback econômico.">Cheap tier of the 5.6 family — still 1M context. Replaces base GPT-5 as the budget fallback.</td></tr>
       <tr><td><strong>GPT-5.5 Pro</strong></td><td class="price">$30.00</td><td class="price">$180.00</td><td data-pt="Só para reasoning frontier onde custo não importa. O GPT-5.5 standard ($5/$30) segue disponível ao lado da família 5.6.">Frontier reasoning only, where cost doesn't matter. Standard GPT-5.5 ($5/$30) remains available alongside the 5.6 family.</td></tr>
+      <tr><td><strong>Grok 4.5</strong> (xAI)</td><td class="price">$2.00</td><td class="price">$6.00</td><td data-pt="Lançado 8 jul 2026. #1 em tool use agêntico (Artificial Analysis); SWE-Bench Pro 64.7. Dial de reasoning effort por chamada, 500K ctx, cache-hit input $0.50. Preço agressivo para o nível.">Launched Jul 8, 2026. #1 on agentic tool use (Artificial Analysis); SWE-Bench Pro 64.7. Per-call reasoning effort dial, 500K ctx, cache-hit input $0.50. Aggressive pricing for the tier.</td></tr>
       <tr><td><strong>Gemini 3.5 Flash</strong></td><td class="price">$1.50</td><td class="price">$9.00</td><td data-pt="Lançado no I/O 2026: supera o 3.1 Pro em coding/agêntico por ~40% menos, ~4× mais rápido. Multimodal completo, 1M context.">Launched at I/O 2026: beats 3.1 Pro on coding/agentic at ~40% less, ~4× faster. Fully multimodal, 1M context.</td></tr>
       <tr><td><strong>Gemini 3.1 Pro</strong></td><td class="price">$2.00</td><td class="price">$12.00</td><td data-pt="Contexto longo (≤200K nessas taxas, depois $4/$18). Top multimodal, agêntico + vibe-coding.">Long context (≤200K at these rates, then $4/$18). Top multimodal, agentic + vibe-coding.</td></tr>
       <tr><td><strong>Gemini 3 Flash</strong></td><td class="price">$0.50</td><td class="price">$3.00</td><td data-pt="Inteligência de classe frontier com velocidade. Forte em search/grounding.">Frontier-class intelligence at speed. Strong search/grounding.</td></tr>
@@ -1253,6 +1254,7 @@
       <tr><td><strong>Kimi K3</strong> (Moonshot)</td><td class="price">$3.00</td><td class="price">$15.00</td><td data-pt="2.8T params — o maior modelo open-weight já lançado (jul 2026; pesos publicados no fim de julho). MoE de 896 experts, 16 ativos/token. Multimodal, 1M ctx. Top-3 geral no GDPval-AA, #1 na arena WebDev. Cache-hit input é $0.30/1M.">2.8T params — the largest open-weight model ever released (Jul 2026; weights publishing late July). 896-expert MoE, 16 active/token. Multimodal, 1M ctx. Top-3 overall on GDPval-AA, #1 on the WebDev arena. Cache-hit input is $0.30/1M.</td></tr>
       <tr><td><strong>GLM 5.2</strong> (Z.ai)</td><td class="price">$1.40</td><td class="price">$4.40</td><td data-pt="Open-weight, 1M ctx / 131K output. Supera o GPT-5.5 no SWE-Bench Pro (62.1 vs 58.6). Feito para trabalho agêntico de longo horizonte — sessões autônomas de várias horas.">Open-weight, 1M ctx / 131K output. Beats GPT-5.5 on SWE-Bench Pro (62.1 vs 58.6). Built for long-horizon agentic work — multi-hour autonomous sessions.</td></tr>
       <tr><td><strong>Qwen 3.6</strong> (Alibaba)</td><td class="price">~$0.40</td><td class="price">~$2.40</td><td data-pt="Família open-weight (MoE 35B-A3B + denso 27B). Forte em multilingual/CJK. O flagship de reasoning Qwen 3.7 Max ($2.50/$7.50) é closed-weight.">Open-weight family (35B-A3B MoE + dense 27B). Strong multilingual/CJK. The Qwen 3.7 Max reasoning flagship ($2.50/$7.50) is closed-weight.</td></tr>
+      <tr><td><strong>Nemotron 3</strong> (NVIDIA)</td><td class="price">~$0.10</td><td class="price">~$0.50</td><td data-pt="Família open dos EUA em três tamanhos: Nano (30B-A3B, ~$0.05 de input, grátis em alguns providers), Super (preços mostrados) e Ultra (jun 2026 — inteligência open-weight líder dos EUA, inferência ~5× mais rápida). Foco em eficiência agêntica.">US open family in three sizes: Nano (30B-A3B, ~$0.05 input, free on some providers), Super (prices shown), and Ultra (Jun 2026 — leading US open-weight intelligence, ~5× faster inference). Agentic-efficiency focused.</td></tr>
     </tbody>
   </table>
 
@@ -1309,11 +1311,11 @@
     <tbody>
       <tr><td data-pt="Reasoning frontier (olimpíada de matemática, ciência nova, lógica difícil)">Frontier reasoning (math olympiad, novel science, hard logic)</td><td>Claude Fable 5 · GPT-5.6 Sol Max · GPT-5.5 Pro</td><td>Kimi K3 · DeepSeek V4 Pro (thinking mode)</td><td data-pt="Maiores scores GPQA Diamond / AIME. Modelos de reasoning gastam tokens de thinking interno extra antes de responder.">Highest GPQA Diamond / AIME scores. Reasoning models spend extra internal thinking tokens before responding.</td></tr>
       <tr><td data-pt="Coding agêntico (multi-step, tool use, sessões longas)">Agentic coding (multi-step, tool use, long sessions)</td><td>Claude Sonnet 5 → escalate to Opus 4.8 / Fable 5</td><td>Kimi K3 · GLM 5.2</td><td data-pt="Modelos Anthropic lideram em coerência de longo horizonte e confiabilidade de tool-use — o modo de falha que mata agents.">Anthropic models lead on long-horizon coherence and tool-use reliability — the failure mode that kills agents.</td></tr>
-      <tr><td data-pt="Geração de código one-shot / completion">One-shot code generation / completion</td><td>GPT-5.6 Sol · Gemini 3.5 Flash</td><td>GLM 5.2 · DeepSeek V4 Pro</td><td data-pt="Top scores SWE-bench / LiveCodeBench quando você precisa só de uma boa resposta, não de um agent multi-turn.">Top SWE-bench / LiveCodeBench scores when you only need one good answer, not a multi-turn agent.</td></tr>
+      <tr><td data-pt="Geração de código one-shot / completion">One-shot code generation / completion</td><td>GPT-5.6 Sol · Grok 4.5</td><td>GLM 5.2 · DeepSeek V4 Pro</td><td data-pt="Top scores SWE-bench / LiveCodeBench quando você precisa só de uma boa resposta, não de um agent multi-turn.">Top SWE-bench / LiveCodeBench scores when you only need one good answer, not a multi-turn agent.</td></tr>
       <tr><td data-pt="Code review / análise estática">Code review / static analysis</td><td>Claude Sonnet 5</td><td>GLM 5.2 · DeepSeek V4 Flash</td><td data-pt="Forte em detectar bugs sutis, cheiros de segurança; melhor auto-contenção que GPT (menos &quot;reescreve seu código sem pedir&quot;).">Strong at spotting subtle bugs, security smells; better self-restraint than GPT (less "rewriting your code unprompted").</td></tr>
       <tr><td data-pt="RAG de documentos longos / extração de contexto 200K+">Long document RAG / 200K+ context extraction</td><td>Gemini 3.1 Pro · Claude Opus 4.8 · GPT-5.6 when OpenAI tooling matters</td><td>Gemini 3 Flash · GPT-5.6 Luna</td><td data-pt="Opções de contexto ~1M nativo. Vence RAG para corpora que cabem, mas fique atento a cliffs de preço de contexto longo.">Native ~1M context options. Beats RAG for corpora that fit, but watch long-context pricing cliffs.</td></tr>
       <tr><td data-pt="Extração estruturada de alto volume (notas fiscais, formulários)">High-volume structured extraction (invoices, forms)</td><td>Gemini 3 Flash · Claude Haiku 4.5</td><td>DeepSeek V4 Flash</td><td data-pt="Barato por token + modo de structured output + bom o suficiente em schemas simples.">Cheap per token + structured output mode + good enough on simple schemas.</td></tr>
-      <tr><td data-pt="Classificação / routing de intent">Classification / intent routing</td><td>Claude Haiku 4.5 · Gemini 3.1 Flash-Lite</td><td>DeepSeek V4 Flash · fine-tuned small open model</td><td data-pt="Latência abaixo de 1s, $0.14-$1 por 1M de input. Um fine-tune de um Qwen 3.6 pequeno pode arrasar nisso por centavos.">Sub-second latency, $0.14-$1 per 1M input. A fine-tune of a small Qwen 3.6 can crush this for pennies.</td></tr>
+      <tr><td data-pt="Classificação / routing de intent">Classification / intent routing</td><td>Claude Haiku 4.5 · Gemini 3.1 Flash-Lite</td><td>DeepSeek V4 Flash · Nemotron 3 Nano</td><td data-pt="Latência abaixo de 1s, $0.14-$1 por 1M de input. Um fine-tune de um Qwen 3.6 pequeno ou Nemotron 3 Nano pode arrasar nisso por centavos.">Sub-second latency, $0.14-$1 per 1M input. A fine-tune of a small Qwen 3.6 or Nemotron 3 Nano can crush this for pennies.</td></tr>
       <tr><td data-pt="Chat conversacional (suporte ao cliente, FAQ)">Conversational chat (customer support, FAQ)</td><td>Claude Sonnet 5 · GPT-5.6 Terra</td><td>GPT-5.6 Luna · Gemini 3 Flash</td><td data-pt="Sonnet tem o melhor equilíbrio de tom/segurança; GPT-5.6 Terra é a opção mainstream mais barata.">Sonnet has the strongest tone/safety balance; GPT-5.6 Terra is the cheapest mainstream option.</td></tr>
       <tr><td data-pt="Escrita criativa / copy de marketing">Creative writing / marketing copy</td><td>Claude Opus 4.8 · GPT-5.6 Sol</td><td>Kimi K3 · DeepSeek V4 Flash</td><td data-pt="Opus 4.8 tem prosa notavelmente mais clara e calorosa que gerações anteriores; GPT-5.6 é mais &quot;estilo viral&quot;. Combine com a voz da marca.">Opus 4.8 has notably clearer, warmer prose than prior generations; GPT-5.6 is more "viral-style." Match to brand voice.</td></tr>
       <tr><td data-pt="Multimodal — imagens / docs / gráficos">Multimodal — images / docs / charts</td><td>Gemini 3.5 Flash · Gemini 3.1 Pro</td><td>Kimi K3 · Claude Sonnet 5</td><td data-pt="Gemini foi treinado multimodal nativo do zero e lê gráficos/diagramas melhor. Kimi K3 é a primeira opção open multimodal de verdade.">Gemini was natively multimodal-trained from scratch and reads charts/diagrams the best. Kimi K3 is the first genuinely multimodal open option.</td></tr>
@@ -1321,8 +1323,8 @@
       <tr><td data-pt="Tradução">Translation</td><td>Gemini 3.1 Pro · GPT-5.6 Terra</td><td>Qwen 3.6 (CJK) · DeepSeek V4 Flash</td><td data-pt="Modelos frontier todos vão bem; Qwen é o mais forte open-weight para idiomas CJK.">Frontier models all do well; Qwen is the strongest open-weight for CJK languages.</td></tr>
       <tr><td data-pt="Sumarização (curta, factual)">Summarization (short, factual)</td><td>Gemini 3.1 Flash-Lite · Haiku 4.5</td><td>DeepSeek V4 Flash</td><td data-pt="Barato e rápido. Plateau de qualidade atingido há anos — não precisa de modelo frontier.">Cheap and fast. Quality plateau hit years ago — no need for a frontier model.</td></tr>
       <tr><td data-pt="Sumarização (longa, com nuance)">Summarization (long-form, nuanced)</td><td>Claude Sonnet 5 · Opus 4.8 for high-stakes synthesis</td><td>Gemini 3.5 Flash</td><td data-pt="Sonnet preserva nuances e atribuições melhor que o tier mais barato; Opus 4.8 quando o resumo deve preservar dependências de longo alcance.">Sonnet preserves nuance and attribution better than the cheaper tier; Opus 4.8 when the summary must preserve long-range dependencies.</td></tr>
-      <tr><td data-pt="Confiabilidade de function / tool calling">Function / tool calling reliability</td><td>Claude Sonnet 5 · Opus 4.8 · GPT-5.6 Sol</td><td>Kimi K3</td><td data-pt="O tier de topo emite consistentemente JSON / argumentos válidos. Open-weight está alcançando mas ainda fica atrás em edge cases.">Top tier consistently emits valid JSON / arguments. Open-weight is catching up but still trails on edge cases.</td></tr>
-      <tr><td data-pt="On-prem / indústria regulamentada (saúde, defesa, jurídico)">On-prem / regulated industry (health, defense, legal)</td><td>Kimi K3 · DeepSeek V4 Pro · GLM 5.2</td><td>Qwen 3.6 · Llama / Mistral</td><td data-pt="Open weights → self-host no vLLM / SGLang, ou use Bedrock / Vertex com isolamento VPC.">Open weights → self-host on vLLM / SGLang, or use Bedrock / Vertex with VPC isolation.</td></tr>
+      <tr><td data-pt="Confiabilidade de function / tool calling">Function / tool calling reliability</td><td>Claude Sonnet 5 · Opus 4.8 · Grok 4.5</td><td>Kimi K3</td><td data-pt="O tier de topo emite consistentemente JSON / argumentos válidos. Open-weight está alcançando mas ainda fica atrás em edge cases.">Top tier consistently emits valid JSON / arguments. Open-weight is catching up but still trails on edge cases.</td></tr>
+      <tr><td data-pt="On-prem / indústria regulamentada (saúde, defesa, jurídico)">On-prem / regulated industry (health, defense, legal)</td><td>Kimi K3 · DeepSeek V4 Pro · GLM 5.2</td><td>Nemotron 3 · Qwen 3.6 · Llama / Mistral</td><td data-pt="Open weights → self-host no vLLM / SGLang, ou use Bedrock / Vertex com isolamento VPC.">Open weights → self-host on vLLM / SGLang, or use Bedrock / Vertex with VPC isolation.</td></tr>
       <tr><td data-pt="Embeddings">Embeddings</td><td>OpenAI <code>text-embedding-3-large</code> · Voyage 3 · Cohere Embed v4</td><td>BGE-M3 (open)</td><td data-pt="Não são LLMs — modelos separados. Voyage e Cohere lideram benchmarks de retrieval; BGE-M3 é a melhor opção gratuita.">Not LLMs — separate models. Voyage and Cohere lead retrieval benchmarks; BGE-M3 is the best free option.</td></tr>
       <tr><td data-pt="Reranking">Reranking</td><td>Cohere Rerank v3</td><td>BGE-reranker-v2-m3</td><td data-pt="Cross-encoder, não um LLM. Adiciona ~50–150 ms mas +25–40% de precisão.">Cross-encoder, not an LLM. Adds ~50–150 ms but +25–40% precision.</td></tr>
     </tbody>
@@ -1391,6 +1393,16 @@
         <td data-pt="Texto + visão (input)">Text + vision input</td>
         <td data-pt="Reasoning effort">Reasoning effort</td>
         <td data-pt="Excelente">Excellent</td>
+        <td data-pt="Fechado">Closed</td>
+      </tr>
+      <tr>
+        <td><strong>Grok 4.5</strong></td><td>xAI</td>
+        <td data-pt="MoE (?)">MoE (?)</td>
+        <td data-pt="não divulgado">undisclosed</td>
+        <td>500K</td>
+        <td data-pt="Texto + visão">Text + vision</td>
+        <td data-pt="Dial de reasoning effort por chamada">Per-call reasoning effort dial</td>
+        <td data-pt="#1 em tool use agêntico (Artificial Analysis)">#1 on agentic tool use (Artificial Analysis)</td>
         <td data-pt="Fechado">Closed</td>
       </tr>
       <tr>
@@ -1473,6 +1485,16 @@
         <td data-pt="Bom">Good</td>
         <td data-pt="Open weights">Open weights</td>
       </tr>
+      <tr>
+        <td><strong>Nemotron 3</strong></td><td>NVIDIA</td>
+        <td data-pt="Híbrido Mamba-Transformer, otimizado para eficiência">Hybrid Mamba-Transformer, efficiency-optimized</td>
+        <td data-pt="Nano 30B-A3B · Super ~100B · Ultra ~500B">Nano 30B-A3B · Super ~100B · Ultra ~500B</td>
+        <td>~1M (Nano)</td>
+        <td data-pt="Texto (+omni no Nano)">Text (+omni on Nano)</td>
+        <td data-pt="Variantes de reasoning">Reasoning variants</td>
+        <td data-pt="Bom; feito para agents de alto volume">Good; built for high-volume agents</td>
+        <td data-pt="Open weights">Open weights</td>
+      </tr>
     </tbody>
   </table>
 
@@ -1533,6 +1555,14 @@
     </thead>
     <tbody>
       <!-- Cheap / budget -->
+      <tr>
+        <td><strong>Nemotron 3 Super</strong></td>
+        <td>NVIDIA</td>
+        <td><span class="tag good">budget</span></td>
+        <td class="price">$0.10</td>
+        <td class="price">$0.50</td>
+        <td>5×</td>
+      </tr>
       <tr>
         <td><strong>DeepSeek V4 Flash</strong></td>
         <td>DeepSeek</td>
@@ -1597,6 +1627,14 @@
         <td class="price">$1.00</td>
         <td class="price">$5.00</td>
         <td>5×</td>
+      </tr>
+      <tr>
+        <td><strong>Grok 4.5</strong></td>
+        <td>xAI</td>
+        <td><span class="tag warn">mid</span></td>
+        <td class="price">$2.00</td>
+        <td class="price">$6.00</td>
+        <td>3×</td>
       </tr>
       <tr>
         <td><strong>Gemini 3.5 Flash</strong></td>
@@ -1967,6 +2005,7 @@ await client.responses.create({
     <li data-pt="<strong>DeepSeek V4</strong> — a referência de preço/performance, GA oficial em meados de julho. V4 Flash para trabalho geral ($0.14/$0.28), V4 Pro para qualidade de topo com orçamento ($0.435/$0.87; 49B ativo / 1.6T total, arquitetura DSA) com um modo thinking opcional. 1M context padrão em toda a linha. Novidade: preço por horário de pico (2× off-peak)."><strong>DeepSeek V4</strong> — the price/performance reference, officially GA mid-July. V4 Flash for general work ($0.14/$0.28), V4 Pro for top quality on a budget ($0.435/$0.87; 49B active / 1.6T total, DSA architecture) with an optional thinking mode. 1M context default across the line. New: peak-hour pricing (2× off-peak).</li>
     <li data-pt="<strong>GLM 5.2 (Z.ai / Tsinghua)</strong> — lançado jun 2026, licença MIT, 1M ctx / 131K output. Flagship agêntico; supera o GPT-5.5 no SWE-Bench Pro (62.1 vs 58.6) e no FrontierSWE. Feito para trabalho autônomo de longo horizonte — sessões de várias horas. Disponível no HuggingFace, vLLM, SGLang e api.z.ai."><strong>GLM 5.2 (Z.ai / Tsinghua)</strong> — released Jun 2026, MIT license, 1M ctx / 131K output. Flagship agentic model; beats GPT-5.5 on SWE-Bench Pro (62.1 vs 58.6) and FrontierSWE. Built for long-horizon autonomous work — multi-hour sessions. Available on HuggingFace, vLLM, SGLang, and api.z.ai.</li>
     <li data-pt="<strong>Qwen 3.6</strong> (Alibaba) — família open-weight (MoE 35B-A3B + denso 27B, abr 2026). Forte em multilingual/CJK, coding competitivo. O flagship de reasoning <strong>Qwen 3.7 Max</strong> (mai 2026, $2.50/$7.50) é closed-weight — cuidado para não confundir os dois."><strong>Qwen 3.6</strong> (Alibaba) — open-weight family (35B-A3B MoE + dense 27B, Apr 2026). Strong multilingual/CJK, competitive coding. The <strong>Qwen 3.7 Max</strong> reasoning flagship (May 2026, $2.50/$7.50) is closed-weight — don't confuse the two.</li>
+    <li data-pt="<strong>Nemotron 3 (NVIDIA)</strong> — a aposta open dos EUA. Três tamanhos: Nano (30B-A3B híbrido Mamba2-Transformer MoE, 1M ctx, dez 2025), Super (~100B, mar 2026) e Ultra (~500B, jun 2026 — inteligência open-weight líder dos EUA, inferência ~5× mais rápida). Extremamente barato de servir (Nano a ~$0.05/1M de input, grátis em alguns providers) — ideal para frotas de agents de alto volume."><strong>Nemotron 3 (NVIDIA)</strong> — the US open bet. Three sizes: Nano (30B-A3B hybrid Mamba2-Transformer MoE, 1M ctx, Dec 2025), Super (~100B, Mar 2026), and Ultra (~500B, Jun 2026 — leading US open-weight intelligence, ~5× faster inference). Extremely cheap to serve (Nano at ~$0.05/1M input, free on some providers) — ideal for high-volume agent fleets.</li>
     <li data-pt="<strong>Famílias Llama / Mistral</strong> — ecossistema amplo, fine-tunable, em todo provider de inferência."><strong>Llama / Mistral families</strong> — broad ecosystem, fine-tunable, on every inference provider.</li>
   </ul>
 
@@ -3111,6 +3150,7 @@ See [Billing API](../systems/billing-api.md).</code></pre>
 /* ============== price-per-1M chart (log scale, side-by-side input/output) ============== */
 (function () {
   const data = [
+    { name: "Nemotron 3 Super", i: 0.10, o: 0.50,  tag: "oss" },
     { name: "DeepSeek V4 Flash", i: 0.14, o: 0.28,  tag: "oss" },
     { name: "Gemini 3.1 F-Lite",i: 0.25, o: 1.50,  tag: "cheap" },
     { name: "DeepSeek V4 Pro",  i: 0.435, o: 0.87, tag: "oss" },
@@ -3119,6 +3159,7 @@ See [Billing API](../systems/billing-api.md).</code></pre>
     { name: "Claude Haiku 4.5", i: 1.00, o: 5.00,  tag: "cheap" },
     { name: "GLM 5.2",          i: 1.40, o: 4.40,  tag: "oss" },
     { name: "Gemini 3.5 Flash", i: 1.50, o: 9.00,  tag: "cheap" },
+    { name: "Grok 4.5",         i: 2.00, o: 6.00,  tag: "mid" },
     { name: "Gemini 3.1 Pro",   i: 2.00, o: 12.00, tag: "mid" },
     { name: "GPT-5.6 Terra",    i: 2.50, o: 15.00, tag: "mid" },
     { name: "Kimi K3",          i: 3.00, o: 15.00, tag: "oss" },
@@ -3202,11 +3243,13 @@ See [Billing API](../systems/billing-api.md).</code></pre>
 /* ============== per-turn cost chart ============== */
 (function () {
   const data = [
+    { name: "Nemotron 3 Super",   cost: 0.0015,  tier: "cheap" },
     { name: "DeepSeek V4 Flash",  cost: 0.00168, tier: "cheap" },
     { name: "Gemini 3.1 F-Lite", cost: 0.004,   tier: "cheap" },
     { name: "DeepSeek V4 Pro",   cost: 0.00522, tier: "cheap" },
     { name: "Claude Haiku 4.5",  cost: 0.015,  tier: "cheap" },
     { name: "GLM 5.2",           cost: 0.0184, tier: "cheap" },
+    { name: "Grok 4.5",          cost: 0.026,  tier: "mid" },
     { name: "Claude Sonnet 5",   cost: 0.045,  tier: "mid" },
     { name: "Kimi K3",           cost: 0.045,  tier: "mid" },
     { name: "Claude Opus 4.8",   cost: 0.075,  tier: "premium" },
