@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title data-pt="Guia de Estudos de IA — Julho de 2026">AI Study Guide — July 2026</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='5' fill='%230b0d10'/%3E%3Cg fill='none' stroke='%237cf0c1' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 3 L3 7.5 l9 4.5 l9-4.5 z'/%3E%3Cpath d='M3 16.5 l9 4.5 l9-4.5'/%3E%3Cpath d='M3 12 l9 4.5 l9-4.5'/%3E%3C/g%3E%3C/svg%3E">
 <style>
   :root{
     --bg:#0b0d10; --panel:#12161c; --panel2:#171c24; --line:#222a35;
@@ -474,9 +475,138 @@
     .settings-row{padding:13px 14px}
     .settings-row-label{font-size:15.5px}
   }
+
+  /* ============ Engagement layer — journey, streaks, quiz results ============ */
+  .scroll-progress{position:fixed; top:0; left:0; right:0; height:3px; z-index:70; pointer-events:none}
+  .scroll-progress i{display:block; height:100%; width:0;
+    background:linear-gradient(90deg,var(--accent),var(--link),var(--accent2));
+    border-radius:0 2px 2px 0}
+  #confettiCanvas{position:fixed; inset:0; z-index:90; pointer-events:none}
+
+  /* journey card */
+  .journey-slot{margin:0 0 30px}
+  .view-home .journey-slot{margin:0 0 6px}
+  .journey-card{
+    display:flex; align-items:center; gap:22px; padding:18px 22px;
+    background:
+      radial-gradient(600px 160px at 0% 0%, rgba(124,240,193,.06), transparent 60%),
+      var(--panel);
+    border:1px solid var(--line); border-radius:14px;
+  }
+  .j-ring{position:relative; width:88px; height:88px; flex:none}
+  .j-ring svg{width:88px; height:88px; transform:rotate(-90deg)}
+  .j-ring .ring-bg{fill:none; stroke:#1d242e; stroke-width:8}
+  .j-ring .ring-fg{fill:none; stroke:var(--accent); stroke-width:8; stroke-linecap:round;
+    transition:stroke-dashoffset .8s cubic-bezier(.3,.7,.3,1)}
+  .j-ring.mid .ring-fg{stroke:var(--accent2)}
+  .j-ring.low .ring-fg{stroke:var(--bad)}
+  .j-ring .j-pct{position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+    font-weight:700; font-size:18px; color:var(--text); font-variant-numeric:tabular-nums}
+  .j-info{flex:1; min-width:0}
+  .j-level{font-weight:700; font-size:16px; letter-spacing:-.01em}
+  .j-stats{display:flex; gap:8px 16px; flex-wrap:wrap; margin-top:6px; font-size:12.5px; color:var(--muted)}
+  .j-stats b{color:var(--text); font-variant-numeric:tabular-nums}
+  .j-ach{display:flex; gap:7px; margin-top:10px; flex-wrap:wrap}
+  .j-ach span{font-size:17px; filter:grayscale(1); opacity:.28; transition:filter .3s, opacity .3s, transform .3s; cursor:default}
+  .j-ach span.on{filter:none; opacity:1}
+  .j-continue{
+    display:inline-flex; align-items:center; gap:7px; margin-top:12px;
+    padding:8px 15px; background:var(--accent); color:#0b0d10; border-radius:8px;
+    font-weight:600; font-size:13px; transition:filter .15s, transform .1s;
+  }
+  .j-continue:hover{filter:brightness(1.1); text-decoration:none}
+  .j-continue:active{transform:translateY(1px)}
+  .j-continue.all-done{background:var(--pill); color:var(--accent); border:1px solid rgba(124,240,193,.4)}
+  @media (max-width:760px){
+    .journey-card{gap:16px; padding:15px 16px}
+    .j-ring, .j-ring svg{width:74px; height:74px}
+    .j-ring .j-pct{font-size:15px}
+    .j-level{font-size:15px}
+  }
+
+  /* sidebar progress */
+  .nav-progress{margin:-6px 4px 16px; font-size:11px; color:var(--muted)}
+  .nav-progress b{color:var(--text); font-variant-numeric:tabular-nums}
+  .nav-progress .np-bar{height:4px; background:var(--panel2); border-radius:99px; overflow:hidden; margin-top:6px}
+  .nav-progress .np-bar i{display:block; height:100%; width:0; border-radius:99px;
+    background:linear-gradient(90deg,var(--accent),var(--link)); transition:width .5s ease}
+  .area-items a.is-done::after{content:"✓"; color:var(--good); font-weight:700; margin-left:6px}
+  .settings-row.is-done .settings-row-label::after{content:" ✓"; color:var(--good); font-weight:700}
+
+  /* section complete button */
+  .section-complete-wrap{margin:28px 0 4px}
+  .section-complete{
+    display:inline-flex; align-items:center; gap:10px; padding:10px 18px;
+    border-radius:99px; border:1px dashed #39434f; background:var(--panel);
+    color:var(--muted); cursor:pointer; transition:border-color .18s, color .18s, background .18s, transform .1s;
+    font:600 13.5px -apple-system,BlinkMacSystemFont,"SF Pro Text",system-ui,sans-serif;
+  }
+  .section-complete:hover{border-color:var(--accent); color:var(--text)}
+  .section-complete:active{transform:scale(.98)}
+  .section-complete .sc-ic{
+    width:20px; height:20px; flex:none; border-radius:50%; border:2px solid currentColor;
+    display:flex; align-items:center; justify-content:center; transition:all .18s;
+  }
+  .section-complete .sc-ic svg{width:11px; height:11px; opacity:0; transition:opacity .18s}
+  .section-complete.done{border:1px solid rgba(74,222,128,.5); background:rgba(74,222,128,.08); color:var(--good)}
+  .section-complete.done .sc-ic{background:var(--good); border-color:var(--good); color:#0b0d10}
+  .section-complete.done .sc-ic svg{opacity:1}
+
+  /* achievement toasts */
+  .toast-host{position:fixed; bottom:20px; left:50%; transform:translateX(-50%); z-index:85;
+    display:flex; flex-direction:column; gap:10px; align-items:center; pointer-events:none; width:max-content; max-width:92vw}
+  .ach-toast{
+    display:flex; align-items:center; gap:13px; padding:12px 20px 12px 15px;
+    background:rgba(18,22,28,.97); border:1px solid rgba(124,240,193,.45); border-radius:12px;
+    box-shadow:0 14px 44px rgba(0,0,0,.55);
+    animation:toast-in .38s cubic-bezier(.2,.9,.3,1.15) both;
+  }
+  .ach-toast.hide{animation:toast-out .3s ease both}
+  .ach-toast .at-emoji{font-size:26px; line-height:1}
+  .ach-toast .at-kicker{font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--accent); font-weight:700}
+  .ach-toast .at-title{font-weight:700; font-size:14px; color:var(--text)}
+  @keyframes toast-in{from{opacity:0; transform:translateY(18px) scale(.92)} to{opacity:1; transform:none}}
+  @keyframes toast-out{to{opacity:0; transform:translateY(12px)}}
+
+  /* quiz tracker + results */
+  .quiz-tracker{
+    position:sticky; top:10px; z-index:6;
+    display:flex; align-items:center; gap:14px; padding:9px 15px; margin:16px 0;
+    background:rgba(16,20,26,.92); backdrop-filter:blur(10px);
+    border:1px solid var(--line); border-radius:10px;
+    font-size:12.5px; color:var(--muted);
+  }
+  .quiz-tracker b{color:var(--text); font-variant-numeric:tabular-nums}
+  .quiz-tracker .qt-bar{flex:1; height:6px; background:var(--panel2); border-radius:99px; overflow:hidden}
+  .quiz-tracker .qt-bar i{display:block; height:100%; width:0; border-radius:99px;
+    background:linear-gradient(90deg,var(--accent),var(--link)); transition:width .25s ease}
+  @media (max-width:760px){.quiz-tracker{top:66px}}
+  .quiz-results{
+    margin:22px 0 0; padding:24px;
+    border:1px solid var(--line); border-radius:14px;
+    background:linear-gradient(180deg,#10141a 0%, #0b0d10 100%);
+    animation:pop-in .4s ease both;
+  }
+  @keyframes pop-in{from{opacity:0; transform:translateY(14px)} to{opacity:1; transform:none}}
+  .qr-top{display:flex; align-items:center; gap:24px; flex-wrap:wrap}
+  .qr-mood{font-size:17px; font-weight:700}
+  .qr-sub{font-size:13px; color:var(--muted); margin-top:5px}
+  .qr-sub .new-best{color:var(--accent2); font-weight:700}
+  .qr-cats-title{font-size:12px; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); margin:22px 0 12px; font-weight:600}
+  .qr-cats{display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:12px 26px}
+  .qr-cat{font-size:12.5px}
+  .qr-cat .qc-head{display:flex; justify-content:space-between; gap:10px; color:var(--muted); margin-bottom:5px}
+  .qr-cat .qc-head b{color:var(--text); font-variant-numeric:tabular-nums}
+  .qr-cat .qc-bar{height:6px; background:var(--panel2); border-radius:99px; overflow:hidden}
+  .qr-cat .qc-bar i{display:block; height:100%; width:0; border-radius:99px; transition:width .7s cubic-bezier(.3,.7,.3,1)}
 </style>
 </head>
 <body id="top">
+
+<!-- ============== Engagement overlays ============== -->
+<div class="scroll-progress" aria-hidden="true"><i id="scrollFill"></i></div>
+<canvas id="confettiCanvas" aria-hidden="true"></canvas>
+<div class="toast-host" id="toastHost" aria-live="polite"></div>
 
 <!-- ============== Language toggle (EN / PT-BR) ============== -->
 <button class="lang-toggle" type="button" data-lang-toggle aria-label="Switch to Portuguese">
@@ -498,6 +628,8 @@
       <h1 data-pt="Guia Rápido de IA">AI Cheat Sheet</h1>
       <p class="lead" data-pt="Tudo o que você precisa sobre economia de modelos, encanamento de agents e o vocabulário de SDD / MCP / RAG essencial para dominar como engenheiro de software trabalhando com IA. Os números são preços de tabela de Julho de 2026 — eles vão mudar, as relações entre eles não.">Everything you need on model economics, agent plumbing, and the SDD / MCP / RAG vocabulary that's essential to master as a software engineer working with AI. Numbers are July 2026 list prices — they will move, the relationships won't.</p>
     </header>
+
+    <div class="journey-slot" id="journeyHome"></div>
 
     <div class="settings-list">
 
@@ -700,6 +832,8 @@
       </h1>
     </a>
 
+    <div class="nav-progress" id="navProgress"></div>
+
     <div class="nav-group">
       <button class="area-toggle is-concepts" aria-expanded="true" aria-controls="desktop-g-concepts">
         <svg class="area-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -825,6 +959,8 @@
       <h1 data-pt="Guia de Estudos de IA — Cheat Sheet">AI Study Guide — Cheat Sheet</h1>
       <p class="lead" data-pt="Tudo o que você precisa sobre economia de modelos, encanamento de agents e o vocabulário de SDD / MCP / RAG essencial para dominar como engenheiro de software trabalhando com IA. Os números são preços de tabela de Julho de 2026 — eles vão mudar, as relações entre eles não.">Everything you need on model economics, agent plumbing, and the SDD / MCP / RAG vocabulary that's essential to master as a software engineer working with AI. Numbers are July 2026 list prices — they will move, the relationships won't.</p>
     </header>
+
+    <div class="journey-slot" id="journeyDesktop"></div>
 
 <!-- =================== MAIN CONCEPTS =================== -->
 <section id="concepts">
@@ -2884,6 +3020,8 @@ See [Billing API](../systems/billing-api.md).</code></pre>
   <h2><span class="num">19</span> <span data-quiz-h2>Knowledge check — graded quiz</span></h2>
   <p class="small" data-quiz-intro>Pick an answer for each. Hit <em>Grade</em> at the bottom. Explanations appear after grading.</p>
 
+  <div class="quiz-tracker" id="quizTracker"></div>
+
   <div id="quiz-body"></div>
 
   <div class="quiz-actions">
@@ -2891,6 +3029,8 @@ See [Billing API](../systems/billing-api.md).</code></pre>
     <button class="btn secondary" onclick="reset()" data-pt="Resetar">Reset</button>
     <div id="score"></div>
   </div>
+
+  <div id="quizResults"></div>
 </section>
 
 </main>
@@ -4336,16 +4476,19 @@ window.addEventListener('langchange', () => {
 function grade() {
   const t = QUIZ_I18N[currentQuizLang()];
   let score = 0;
+  const perQ = [];
   questions.forEach((qq, i) => {
     const opts = document.querySelectorAll(`label[data-i="${i}"]`);
     const picked = document.querySelector(`input[name="q${i}"]:checked`);
     opts.forEach(o => o.classList.remove('correct','wrong'));
     opts[qq.correct].classList.add('correct');
+    let ok = false;
     if (picked) {
       const j = +picked.value;
-      if (j === qq.correct) score++;
+      if (j === qq.correct) { score++; ok = true; }
       else opts[j].classList.add('wrong');
     }
+    perQ.push(ok);
     document.getElementById(`exp-${i}`).classList.add('show');
   });
   const total = questions.length;
@@ -4354,13 +4497,383 @@ function grade() {
   const mood = pct>=85 ? t.moodReady : pct>=65 ? t.moodClose : t.moodMore;
   el.textContent = t.score(score, total, pct) + mood;
   el.style.color = pct>=85?'var(--good)':pct>=65?'var(--accent2)':'var(--bad)';
+  if (window.StudyJourney) StudyJourney.onGrade(score, total, perQ);
 }
 function reset() {
   document.querySelectorAll('input[type=radio]').forEach(r => r.checked = false);
   document.querySelectorAll('.opt').forEach(o => o.classList.remove('correct','wrong'));
   document.querySelectorAll('.explain').forEach(e => e.classList.remove('show'));
   document.getElementById('score').textContent = '';
+  if (window.StudyJourney) StudyJourney.onReset();
 }
+
+/* ============== Study Journey — progress, streaks, achievements, celebrations ============== */
+(function () {
+  const KEY = 'ai-study-journey-v1';
+  const root = document.documentElement;
+  const reduceMotion = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---- persistent state ---- */
+  function loadState() {
+    try { return JSON.parse(localStorage.getItem(KEY)) || null; } catch (e) { return null; }
+  }
+  const state = Object.assign({ done: {}, days: [], quiz: null, ach: {} }, loadState() || {});
+  function save() { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {} }
+
+  const fmtDay = d => d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+  const today = fmtDay(new Date());
+  if (!state.days.includes(today)) { state.days.push(today); state.days = state.days.slice(-90); save(); }
+
+  function streak() {
+    const set = new Set(state.days);
+    let n = 0; const d = new Date();
+    while (set.has(fmtDay(d))) { n++; d.setDate(d.getDate() - 1); }
+    return n;
+  }
+
+  /* ---- topics ---- */
+  const topicSections = Array.from(document.querySelectorAll('main.detail-content > section')).filter(s => s.id !== 'quiz');
+  const topicIds = topicSections.map(s => s.id);
+  const doneCount = () => topicIds.filter(id => state.done[id]).length;
+  const quizPassed = () => !!(state.quiz && state.quiz.pct >= 70);
+  const totalUnits = topicIds.length + 1; // topics + quiz
+  const unitsDone = () => doneCount() + (quizPassed() ? 1 : 0);
+  const pct = () => Math.round(100 * unitsDone() / totalUnits);
+
+  function topicLabel(id) {
+    const el = document.querySelector(`.settings-row[data-section="${id}"] .settings-row-label`);
+    return el ? el.textContent.trim() : id;
+  }
+
+  /* ---- i18n ---- */
+  const I = {
+    en: {
+      mark: 'Mark topic as studied', undone: 'Studied — tap to undo',
+      topics: 'topics', streakLbl: (n) => n === 1 ? 'day streak' : 'day streak', quizBest: 'quiz best',
+      start: 'Start studying', cont: 'Continue', reviewQuiz: 'All topics studied — take the quiz!',
+      allDone: 'Guide complete — review the quiz', unlocked: 'Achievement unlocked',
+      answered: (a, tt) => `<b>${a}</b>&nbsp;/&nbsp;${tt} answered`,
+      breakdown: 'Your score by area', newBest: '★ New personal best!',
+      best: b => `Personal best: ${b}%`, firstRun: 'First attempt — this is your baseline.',
+      levels: ['🌱 Newcomer', '📖 Apprentice', '⚙️ Practitioner', '🛠️ AI Engineer', '🏗️ AI Architect', '🏆 Guide Master'],
+      cats: { concepts: 'Core concepts', models: 'Models & pricing', agents: 'Agents & plumbing',
+              knowledge: 'RAG & knowledge', practice: 'Engineering practice', tooling: 'Tooling', deep: 'Deep-dive mix' }
+    },
+    pt: {
+      mark: 'Marcar tópico como estudado', undone: 'Estudado — toque para desfazer',
+      topics: 'tópicos', streakLbl: (n) => n === 1 ? 'dia seguido' : 'dias seguidos', quizBest: 'melhor quiz',
+      start: 'Começar a estudar', cont: 'Continuar', reviewQuiz: 'Todos os tópicos estudados — faça o quiz!',
+      allDone: 'Guia completo — revise o quiz', unlocked: 'Conquista desbloqueada',
+      answered: (a, tt) => `<b>${a}</b>&nbsp;/&nbsp;${tt} respondidas`,
+      breakdown: 'Sua nota por área', newBest: '★ Novo recorde pessoal!',
+      best: b => `Recorde pessoal: ${b}%`, firstRun: 'Primeira tentativa — essa é sua linha de base.',
+      levels: ['🌱 Iniciante', '📖 Aprendiz', '⚙️ Praticante', '🛠️ Engenheiro de IA', '🏗️ Arquiteto de IA', '🏆 Mestre do Guia'],
+      cats: { concepts: 'Conceitos', models: 'Modelos e preços', agents: 'Agents e orquestração',
+              knowledge: 'RAG e conhecimento', practice: 'Prática de engenharia', tooling: 'Tooling', deep: 'Mix aprofundado' }
+    }
+  };
+  const t = () => I[root.dataset.lang === 'pt' ? 'pt' : 'en'];
+  const lvlOf = p => p === 0 ? 0 : p < 25 ? 1 : p < 50 ? 2 : p < 75 ? 3 : p < 100 ? 4 : 5;
+
+  /* ---- confetti ---- */
+  const canvas = document.getElementById('confettiCanvas');
+  const cctx = canvas.getContext('2d');
+  const COLORS = ['#7cf0c1', '#ffb86b', '#82b8ff', '#ff6b8b', '#e2c9ff', '#ffe27a'];
+  let parts = [], rafId = null;
+  function sizeCanvas() { canvas.width = innerWidth; canvas.height = innerHeight; }
+  function tick() {
+    cctx.clearRect(0, 0, canvas.width, canvas.height);
+    parts = parts.filter(p => p.life > 0);
+    parts.forEach(p => {
+      p.vy += 0.16; p.vx *= 0.99; p.x += p.vx; p.y += p.vy; p.rot += p.vr; p.life--;
+      cctx.save();
+      cctx.globalAlpha = Math.min(1, p.life / 30);
+      cctx.translate(p.x, p.y); cctx.rotate(p.rot);
+      cctx.fillStyle = p.color;
+      cctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size * 0.6);
+      cctx.restore();
+    });
+    if (parts.length) rafId = requestAnimationFrame(tick);
+    else { cctx.clearRect(0, 0, canvas.width, canvas.height); rafId = null; }
+  }
+  function burst(x, y, n) {
+    if (reduceMotion()) return;
+    sizeCanvas();
+    for (let i = 0; i < n; i++) {
+      const ang = Math.random() * Math.PI * 2, sp = 2 + Math.random() * 6;
+      parts.push({
+        x, y, vx: Math.cos(ang) * sp, vy: Math.sin(ang) * sp - 3.5,
+        rot: Math.random() * Math.PI, vr: (Math.random() - 0.5) * 0.3,
+        size: 5 + Math.random() * 6, life: 70 + Math.random() * 50,
+        color: COLORS[(Math.random() * COLORS.length) | 0]
+      });
+    }
+    if (!rafId) rafId = requestAnimationFrame(tick);
+  }
+  function celebrate() {
+    if (reduceMotion()) return;
+    burst(innerWidth * 0.5, innerHeight * 0.35, 90);
+    setTimeout(() => burst(innerWidth * 0.22, innerHeight * 0.3, 70), 220);
+    setTimeout(() => burst(innerWidth * 0.78, innerHeight * 0.3, 70), 440);
+  }
+
+  /* ---- achievement toasts ---- */
+  const toastHost = document.getElementById('toastHost');
+  const toastQueue = []; let toasting = false;
+  function toast(emoji, title) {
+    toastQueue.push({ emoji, title });
+    if (!toasting) nextToast();
+  }
+  function nextToast() {
+    const item = toastQueue.shift();
+    if (!item) { toasting = false; return; }
+    toasting = true;
+    const el = document.createElement('div');
+    el.className = 'ach-toast';
+    el.innerHTML = `<span class="at-emoji">${item.emoji}</span><span><span class="at-kicker">${t().unlocked}</span><br><span class="at-title">${item.title}</span></span>`;
+    toastHost.appendChild(el);
+    setTimeout(() => el.classList.add('hide'), 3100);
+    setTimeout(() => { el.remove(); nextToast(); }, 3450);
+  }
+
+  const ACH = [
+    { id: 'first',    emoji: '🚀', test: () => doneCount() >= 1,  en: 'First topic down!', pt: 'Primeiro tópico concluído!' },
+    { id: 'five',     emoji: '🔥', test: () => doneCount() >= 5,  en: 'On a roll — 5 topics', pt: 'Embalado — 5 tópicos' },
+    { id: 'half',     emoji: '⛰️', test: () => doneCount() >= Math.ceil(topicIds.length / 2), en: 'Over halfway there', pt: 'Mais da metade do caminho' },
+    { id: 'alltopics',emoji: '🎓', test: () => topicIds.length > 0 && doneCount() === topicIds.length, en: 'All topics studied!', pt: 'Todos os tópicos estudados!' },
+    { id: 'quizpass', emoji: '✅', test: () => !!state.quiz && state.quiz.pct >= 70, en: 'Quiz passed — 70%+', pt: 'Quiz aprovado — 70%+' },
+    { id: 'quizace',  emoji: '🏅', test: () => !!state.quiz && state.quiz.pct >= 85, en: 'Quiz ace — 85%+', pt: 'Craque do quiz — 85%+' },
+    { id: 'streak3',  emoji: '📆', test: () => streak() >= 3, en: '3-day study streak', pt: '3 dias seguidos de estudo' },
+    { id: 'complete', emoji: '🏆', test: () => unitsDone() === totalUnits, en: 'Guide 100% complete!', pt: 'Guia 100% completo!' }
+  ];
+  function checkAch(opts) {
+    const silent = opts && opts.silent;
+    ACH.forEach(a => {
+      if (!state.ach[a.id] && a.test()) {
+        state.ach[a.id] = Date.now(); save();
+        if (!silent) toast(a.emoji, root.dataset.lang === 'pt' ? a.pt : a.en);
+      }
+    });
+  }
+
+  /* ---- section "mark as studied" buttons ---- */
+  topicSections.forEach(sec => {
+    const wrap = document.createElement('div');
+    wrap.className = 'section-complete-wrap';
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'section-complete';
+    btn.dataset.topic = sec.id;
+    btn.addEventListener('click', () => {
+      const nowDone = !state.done[sec.id];
+      if (nowDone) state.done[sec.id] = Date.now(); else delete state.done[sec.id];
+      save();
+      if (nowDone) {
+        const r = btn.getBoundingClientRect();
+        burst(r.left + r.width / 2, r.top + r.height / 2, 45);
+        if (doneCount() === topicIds.length) celebrate();
+      }
+      checkAch();
+      renderAll();
+    });
+    wrap.appendChild(btn);
+    sec.appendChild(wrap);
+  });
+
+  function renderButtons() {
+    document.querySelectorAll('.section-complete').forEach(btn => {
+      const done = !!state.done[btn.dataset.topic];
+      btn.classList.toggle('done', done);
+      btn.innerHTML = `<span class="sc-ic"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6.5 L4.8 9.2 L10 3"/></svg></span>${done ? t().undone : t().mark}`;
+      btn.setAttribute('aria-pressed', String(done));
+    });
+  }
+
+  /* ---- journey card (home + desktop hero) ---- */
+  function ringSvg(p, tone) {
+    const C = (2 * Math.PI * 36).toFixed(1);
+    const off = (C * (1 - p / 100)).toFixed(1);
+    return `<div class="j-ring ${tone || ''}"><svg viewBox="0 0 86 86" aria-hidden="true">
+      <circle class="ring-bg" cx="43" cy="43" r="36"/>
+      <circle class="ring-fg" cx="43" cy="43" r="36" stroke-dasharray="${C}" stroke-dashoffset="${off}"/>
+    </svg><span class="j-pct">${p}%</span></div>`;
+  }
+
+  function journeyHTML() {
+    const p = pct(), L = t();
+    const next = topicIds.find(id => !state.done[id]);
+    const target = next ? '#/' + next : '#/quiz';
+    const label = next
+      ? (doneCount() === 0 ? L.start : `${L.cont}: ${topicLabel(next)}`)
+      : (quizPassed() ? L.allDone : L.reviewQuiz);
+    const achRow = ACH.map(a =>
+      `<span class="${state.ach[a.id] ? 'on' : ''}" title="${root.dataset.lang === 'pt' ? a.pt : a.en}">${a.emoji}</span>`
+    ).join('');
+    const st = streak();
+    const quizStat = state.quiz ? state.quiz.pct + '%' : '—';
+    return `<div class="journey-card">
+      ${ringSvg(p)}
+      <div class="j-info">
+        <div class="j-level">${L.levels[lvlOf(p)]}</div>
+        <div class="j-stats">
+          <span>📚 <b>${doneCount()}/${topicIds.length}</b> ${L.topics}</span>
+          <span>🔥 <b>${st}</b> ${L.streakLbl(st)}</span>
+          <span>🧠 ${L.quizBest}: <b>${quizStat}</b></span>
+        </div>
+        <div class="j-ach">${achRow}</div>
+        <a class="j-continue${next ? '' : ' all-done'}" href="${target}">${label} <span aria-hidden="true">→</span></a>
+      </div>
+    </div>`;
+  }
+
+  function renderJourney() {
+    const html = journeyHTML();
+    const home = document.getElementById('journeyHome');
+    const desk = document.getElementById('journeyDesktop');
+    if (home) home.innerHTML = html;
+    if (desk) desk.innerHTML = html;
+  }
+
+  /* ---- nav + home-row ticks ---- */
+  function renderNav() {
+    const np = document.getElementById('navProgress');
+    if (np) np.innerHTML = `<span><b>${doneCount()}/${topicIds.length}</b> ${t().topics} · ${pct()}%</span><div class="np-bar"><i style="width:${pct()}%"></i></div>`;
+    const isDone = id => id === 'quiz' ? quizPassed() : !!state.done[id];
+    document.querySelectorAll('.desktop-side .area-items a[href^="#"]').forEach(a => {
+      a.classList.toggle('is-done', isDone(a.getAttribute('href').slice(1)));
+    });
+    document.querySelectorAll('.settings-row[data-section]').forEach(r => {
+      r.classList.toggle('is-done', isDone(r.dataset.section));
+    });
+  }
+
+  /* ---- quiz tracker ---- */
+  const trackerEl = document.getElementById('quizTracker');
+  function renderTracker() {
+    if (!trackerEl || typeof questions === 'undefined') return;
+    const total = questions.length;
+    const answered = document.querySelectorAll('#quiz-body input:checked').length;
+    const w = total ? Math.round(100 * answered / total) : 0;
+    trackerEl.innerHTML = `<span>${t().answered(answered, total)}</span><div class="qt-bar"><i style="width:${w}%"></i></div>`;
+  }
+  const quizBody = document.getElementById('quiz-body');
+  if (quizBody) quizBody.addEventListener('change', renderTracker);
+
+  /* ---- quiz results panel ---- */
+  // Category of each question by index, mirroring the grouped order of the questions array.
+  const QCAT_SPEC = [['concepts', 9], ['models', 6], ['models', 2], ['models', 3], ['agents', 1], ['practice', 1],
+                     ['agents', 3], ['knowledge', 2], ['agents', 1], ['practice', 1], ['tooling', 1], ['deep', 18]];
+  const catOf = [];
+  QCAT_SPEC.forEach(([g, n]) => { for (let k = 0; k < n; k++) catOf.push(g); });
+
+  const resultsEl = document.getElementById('quizResults');
+
+  function renderResults(score, total, p, perQ, isBest, prevBest) {
+    if (!resultsEl) return;
+    const L = t();
+    const mood = QUIZ_I18N[root.dataset.lang === 'pt' ? 'pt' : 'en'];
+    const tone = p >= 85 ? '' : p >= 65 ? 'mid' : 'low';
+    const moodTxt = p >= 85 ? mood.moodReady : p >= 65 ? mood.moodClose : mood.moodMore;
+
+    let cats = '';
+    if (catOf.length === total) {
+      const agg = {};
+      perQ.forEach((ok, i) => {
+        const g = catOf[i];
+        (agg[g] = agg[g] || { ok: 0, n: 0 });
+        agg[g].n++; if (ok) agg[g].ok++;
+      });
+      cats = Object.keys(L.cats).filter(g => agg[g]).map(g => {
+        const { ok, n } = agg[g];
+        const cp = Math.round(100 * ok / n);
+        const color = cp >= 85 ? 'var(--good)' : cp >= 60 ? 'var(--accent2)' : 'var(--bad)';
+        return `<div class="qr-cat">
+          <div class="qc-head"><span>${L.cats[g]}</span><b>${ok}/${n}</b></div>
+          <div class="qc-bar"><i data-w="${cp}" style="background:${color}"></i></div>
+        </div>`;
+      }).join('');
+    }
+
+    const bestLine = isBest
+      ? (prevBest >= 0 ? `<span class="new-best">${L.newBest}</span> ${L.best(p)}` : L.firstRun)
+      : L.best(state.quiz.pct);
+
+    resultsEl.innerHTML = `<div class="quiz-results">
+      <div class="qr-top">
+        ${ringSvg(p, tone)}
+        <div>
+          <div class="qr-mood">${moodTxt}</div>
+          <div class="qr-sub">${score} / ${total} · ${bestLine}</div>
+        </div>
+      </div>
+      ${cats ? `<div class="qr-cats-title">${L.breakdown}</div><div class="qr-cats">${cats}</div>` : ''}
+    </div>`;
+
+    // animate ring + bars from zero
+    const fg = resultsEl.querySelector('.ring-fg');
+    if (fg) {
+      const target = fg.getAttribute('stroke-dashoffset');
+      fg.setAttribute('stroke-dashoffset', fg.getAttribute('stroke-dasharray'));
+      requestAnimationFrame(() => requestAnimationFrame(() => fg.setAttribute('stroke-dashoffset', target)));
+    }
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      resultsEl.querySelectorAll('.qc-bar i').forEach(b => { b.style.width = b.dataset.w + '%'; });
+    }));
+    resultsEl.firstElementChild.scrollIntoView({ behavior: reduceMotion() ? 'auto' : 'smooth', block: 'nearest' });
+  }
+
+  let lastGrade = null;
+  function onGrade(score, total, perQ) {
+    const p = Math.round(100 * score / total);
+    const prevBest = state.quiz ? state.quiz.pct : -1;
+    const isBest = p > prevBest;
+    if (isBest) state.quiz = { pct: p, score, total, at: today };
+    save();
+    checkAch();
+    lastGrade = { score, total, p, perQ, isBest, prevBest };
+    renderAll();
+    renderResults(score, total, p, perQ, isBest, prevBest);
+    if (p >= 85) celebrate();
+  }
+  function onReset() {
+    lastGrade = null;
+    if (resultsEl) resultsEl.innerHTML = '';
+    renderTracker();
+  }
+
+  /* ---- master render ---- */
+  function renderAll() {
+    renderButtons();
+    renderJourney();
+    renderNav();
+    renderTracker();
+  }
+
+  window.StudyJourney = { onGrade, onReset };
+
+  // Language switch re-renders the quiz body (clearing selections + grading),
+  // so drop any stale results panel and re-render everything in the new language.
+  window.addEventListener('langchange', () => {
+    lastGrade = null;
+    if (resultsEl) resultsEl.innerHTML = '';
+    renderAll();
+  });
+
+  /* ---- reading progress bar ---- */
+  const scrollFill = document.getElementById('scrollFill');
+  function updScroll() {
+    if (!scrollFill) return;
+    const h = document.documentElement;
+    const max = h.scrollHeight - innerHeight;
+    scrollFill.style.width = (max > 0 ? Math.min(100, Math.max(0, h.scrollTop / max * 100)) : 0) + '%';
+  }
+  addEventListener('scroll', updScroll, { passive: true });
+  addEventListener('resize', updScroll, { passive: true });
+
+  checkAch({ silent: true });
+  renderAll();
+  updScroll();
+})();
 
 /* ============== Language toggle (EN / PT-BR) ============== */
 (function () {
