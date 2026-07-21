@@ -1392,7 +1392,7 @@
       <tr><td><strong>GPT-5.6 Luna</strong></td><td class="price">$1.00</td><td class="price">$6.00</td><td data-pt="Tier barato da família 5.6 — ainda com 1M context. Substitui o GPT-5 base como fallback econômico.">Cheap tier of the 5.6 family — still 1M context. Replaces base GPT-5 as the budget fallback.</td></tr>
       <tr><td><strong>GPT-5.5 Pro</strong></td><td class="price">$30.00</td><td class="price">$180.00</td><td data-pt="Só para reasoning frontier onde custo não importa. O GPT-5.5 standard ($5/$30) segue disponível ao lado da família 5.6.">Frontier reasoning only, where cost doesn't matter. Standard GPT-5.5 ($5/$30) remains available alongside the 5.6 family.</td></tr>
       <tr><td><strong>Grok 4.5</strong> (xAI)</td><td class="price">$2.00</td><td class="price">$6.00</td><td data-pt="Lançado 8 jul 2026. #1 em tool use agêntico (Artificial Analysis); SWE-Bench Pro 64.7. Dial de reasoning effort por chamada, 500K ctx, cache-hit input $0.50. Preço agressivo para o nível.">Launched Jul 8, 2026. #1 on agentic tool use (Artificial Analysis); SWE-Bench Pro 64.7. Per-call reasoning effort dial, 500K ctx, cache-hit input $0.50. Aggressive pricing for the tier.</td></tr>
-      <tr><td><strong>Gemini 3.5 Flash</strong></td><td class="price">$1.50</td><td class="price">$9.00</td><td data-pt="O Gemini de fronteira do Google (I/O 2026). Melhor multimodal (texto/visão/áudio/vídeo), lê gráficos/diagramas melhor que qualquer um, 1M context, rápido e agêntico. Preço de input dobra acima de 200K de length.">Google's frontier Gemini (I/O 2026). Best-in-class multimodal (text/vision/audio/video), reads charts/diagrams better than anyone, 1M context, fast and agentic. Input price doubles above 200K length.</td></tr>
+      <tr><td><strong>Gemini 3.6 Flash</strong></td><td class="price">$1.50</td><td class="price">$7.50</td><td data-pt="O Gemini de fronteira do Google (lançado 21 jul 2026, substitui o 3.5 Flash). Melhor multimodal, lê gráficos/docs melhor que qualquer um, 1M context. 17% menos tokens de output que o 3.5 e saltos grandes em coding/agêntico (DeepSWE 49 vs 37). Preço de input dobra acima de 200K de length.">Google's frontier Gemini (launched Jul 21 2026, replaces 3.5 Flash). Best-in-class multimodal, reads charts/docs better than anyone, 1M context. 17% fewer output tokens than 3.5 and big coding/agentic jumps (DeepSWE 49 vs 37). Input price doubles above 200K length.</td></tr>
     </tbody>
   </table>
 
@@ -1433,7 +1433,7 @@
     <li data-pt="<strong>Prompt caching:</strong> Até <strong>90% off no input</strong> para contexto repetido (system prompts, documentos RAG). Anthropic, OpenAI, Gemini e vários providers de modelos open suportam. Anthropic expõe tiers de escrita de cache de 5 minutos e 1 hora."><strong>Prompt caching:</strong> Up to <strong>90% off input</strong> for repeated context (system prompts, RAG documents). Anthropic, OpenAI, Gemini and several open-model providers support it. Anthropic exposes 5-minute and 1-hour cache write tiers.</li>
     <li data-pt="<strong>Batch API:</strong> <strong>50% off</strong> input+output, SLA de 24h. Use para evals, sumarização offline, classificação em bulk."><strong>Batch API:</strong> <strong>50% off</strong> input+output, 24h SLA. Use for evals, offline summarization, bulk classification.</li>
     <li data-pt="<strong>Preço de cache-hit</strong> é uma alavanca importante nos providers que expõem: cache-hit input do DeepSeek V4 Pro é $0.003625/1M vs $0.435/1M de cache-miss; Kimi K3 cache-hit input é $0.30/1M vs $3.00/1M de input padrão — 10× de desconto."><strong>Cache-hit pricing</strong> is a major lever on providers that expose it: DeepSeek V4 Pro cache-hit input is $0.003625/1M vs $0.435/1M cache-miss; Kimi K3 cache-hit input is $0.30/1M vs $3.00/1M standard input — a 10× discount.</li>
-    <li data-pt="<strong>Tiers de comprimento de contexto:</strong> Gemini e GPT-5.6 têm cliffs de preço para contexto longo. O Gemini 3.5 Flash vai de $1.50 → $3.00/1M de input além de 200K; requests GPT-5.6 acima de ~272K de input são precificados a 2× de input e 1.5× de output."><strong>Context length tiers:</strong> Gemini and GPT-5.6 both have long-context pricing cliffs. Gemini 3.5 Flash goes from $1.50 → $3.00/1M input beyond 200K; GPT-5.6 requests above ~272K input are priced at 2× input and 1.5× output.</li>
+    <li data-pt="<strong>Tiers de comprimento de contexto:</strong> Gemini e GPT-5.6 têm cliffs de preço para contexto longo. O Gemini 3.6 Flash vai de $1.50 → $3.00/1M de input além de 200K; requests GPT-5.6 acima de ~272K de input são precificados a 2× de input e 1.5× de output."><strong>Context length tiers:</strong> Gemini and GPT-5.6 both have long-context pricing cliffs. Gemini 3.6 Flash goes from $1.50 → $3.00/1M input beyond 200K; GPT-5.6 requests above ~272K input are priced at 2× input and 1.5× output.</li>
     <li data-pt="<strong>Preço por horário (novo em 2026):</strong> A DeepSeek cobra 2× durante janelas de pico do horário de Pequim. Se seu workload é batch, agendar para off-peak corta a fatura pela metade."><strong>Time-of-day pricing (new in 2026):</strong> DeepSeek charges 2× during Beijing-time peak windows. If your workload is batch, scheduling it off-peak halves the bill.</li>
   </ul>
 
@@ -1462,8 +1462,8 @@
     <figcaption data-pt="Coding reordena o ranking: os modelos Anthropic (Opus 4.8, Sonnet 5, Fable 5) e o GPT-5.6 Sol lideram em coerência agêntica de longo horizonte, enquanto GLM 5.2 e Kimi K3 são os open-weight que sobem mais — o GLM foi feito exatamente para sessões de coding autônomas.">Coding reshuffles the ranking: the Anthropic models (Opus 4.8, Sonnet 5, Fable 5) and GPT-5.6 Sol lead on long-horizon agentic coherence, while GLM 5.2 and Kimi K3 climb highest among open-weight — GLM was purpose-built for autonomous coding sessions.</figcaption>
   </figure>
 
-  <div class="callout" data-pt="<strong>Como ler os três eixos juntos:</strong> preço, inteligência e coding raramente concordam. O Gemini 3.5 Flash é barato e forte em multimodal mas fica no meio do pelotão em coding puro; o GLM 5.2 é modesto em inteligência geral mas um dos melhores em coding pelo preço; os flagships Anthropic dominam coding agêntico mas você paga por isso. A jogada de 2026 continua sendo <strong>routing</strong> — combine cada request ao eixo que ele realmente exige (veja <a href=&quot;#routing&quot;>§03</a>).">
-    <strong>Reading all three axes together:</strong> price, intelligence, and coding rarely agree. Gemini 3.5 Flash is cheap and multimodal-strong but midfield on pure coding; GLM 5.2 is modest on general intelligence yet one of the best coders for the price; the Anthropic flagships dominate agentic coding but you pay for it. The 2026 move is still <strong>routing</strong> — match each request to the axis it actually demands (see <a href="#routing">§03</a>).
+  <div class="callout" data-pt="<strong>Como ler os três eixos juntos:</strong> preço, inteligência e coding raramente concordam. O Gemini 3.6 Flash é barato, forte em multimodal e agora bem mais competitivo em coding; o GLM 5.2 é modesto em inteligência geral mas um dos melhores em coding pelo preço; os flagships Anthropic dominam coding agêntico mas você paga por isso. A jogada de 2026 continua sendo <strong>routing</strong> — combine cada request ao eixo que ele realmente exige (veja <a href=&quot;#routing&quot;>§03</a>).">
+    <strong>Reading all three axes together:</strong> price, intelligence, and coding rarely agree. Gemini 3.6 Flash is cheap, multimodal-strong and now much more competitive on coding; GLM 5.2 is modest on general intelligence yet one of the best coders for the price; the Anthropic flagships dominate agentic coding but you pay for it. The 2026 move is still <strong>routing</strong> — match each request to the axis it actually demands (see <a href="#routing">§03</a>).
   </div>
 </section>
 
@@ -1493,16 +1493,16 @@
       <tr><td data-pt="Coding agêntico (multi-step, tool use, sessões longas)">Agentic coding (multi-step, tool use, long sessions)</td><td>Claude Sonnet 5 → escalate to Opus 4.8 / Fable 5</td><td>Kimi K3 · GLM 5.2</td><td data-pt="Modelos Anthropic lideram em coerência de longo horizonte e confiabilidade de tool-use — o modo de falha que mata agents.">Anthropic models lead on long-horizon coherence and tool-use reliability — the failure mode that kills agents.</td></tr>
       <tr><td data-pt="Geração de código one-shot / completion">One-shot code generation / completion</td><td>GPT-5.6 Sol · Grok 4.5</td><td>GLM 5.2 · DeepSeek V4 Pro</td><td data-pt="Top scores SWE-bench / LiveCodeBench quando você precisa só de uma boa resposta, não de um agent multi-turn.">Top SWE-bench / LiveCodeBench scores when you only need one good answer, not a multi-turn agent.</td></tr>
       <tr><td data-pt="Code review / análise estática">Code review / static analysis</td><td>Claude Sonnet 5</td><td>GLM 5.2 · DeepSeek V4 Flash</td><td data-pt="Forte em detectar bugs sutis, cheiros de segurança; melhor auto-contenção que GPT (menos &quot;reescreve seu código sem pedir&quot;).">Strong at spotting subtle bugs, security smells; better self-restraint than GPT (less "rewriting your code unprompted").</td></tr>
-      <tr><td data-pt="RAG de documentos longos / extração de contexto 200K+">Long document RAG / 200K+ context extraction</td><td>Gemini 3.5 Flash · Claude Opus 4.8 · GPT-5.6 when OpenAI tooling matters</td><td>GPT-5.6 Luna · DeepSeek V4 Flash</td><td data-pt="Opções de contexto ~1M nativo. Vence RAG para corpora que cabem, mas fique atento a cliffs de preço de contexto longo.">Native ~1M context options. Beats RAG for corpora that fit, but watch long-context pricing cliffs.</td></tr>
-      <tr><td data-pt="Extração estruturada de alto volume (notas fiscais, formulários)">High-volume structured extraction (invoices, forms)</td><td>Gemini 3.5 Flash · Claude Haiku 4.5</td><td>DeepSeek V4 Flash</td><td data-pt="Barato por token + modo de structured output + bom o suficiente em schemas simples.">Cheap per token + structured output mode + good enough on simple schemas.</td></tr>
+      <tr><td data-pt="RAG de documentos longos / extração de contexto 200K+">Long document RAG / 200K+ context extraction</td><td>Gemini 3.6 Flash · Claude Opus 4.8 · GPT-5.6 when OpenAI tooling matters</td><td>GPT-5.6 Luna · DeepSeek V4 Flash</td><td data-pt="Opções de contexto ~1M nativo. Vence RAG para corpora que cabem, mas fique atento a cliffs de preço de contexto longo.">Native ~1M context options. Beats RAG for corpora that fit, but watch long-context pricing cliffs.</td></tr>
+      <tr><td data-pt="Extração estruturada de alto volume (notas fiscais, formulários)">High-volume structured extraction (invoices, forms)</td><td>Gemini 3.6 Flash · Claude Haiku 4.5</td><td>DeepSeek V4 Flash</td><td data-pt="Barato por token + modo de structured output + bom o suficiente em schemas simples.">Cheap per token + structured output mode + good enough on simple schemas.</td></tr>
       <tr><td data-pt="Classificação / routing de intent">Classification / intent routing</td><td>Claude Haiku 4.5 · GPT-5.6 Luna</td><td>DeepSeek V4 Flash · Nemotron 3 Nano</td><td data-pt="Latência abaixo de 1s, $0.14-$1 por 1M de input. Um fine-tune de um Qwen 3.8 pequeno ou Nemotron 3 Nano pode arrasar nisso por centavos.">Sub-second latency, $0.14-$1 per 1M input. A fine-tune of a small Qwen 3.8 or Nemotron 3 Nano can crush this for pennies.</td></tr>
-      <tr><td data-pt="Chat conversacional (suporte ao cliente, FAQ)">Conversational chat (customer support, FAQ)</td><td>Claude Sonnet 5 · GPT-5.6 Terra</td><td>GPT-5.6 Luna · Gemini 3.5 Flash</td><td data-pt="Sonnet tem o melhor equilíbrio de tom/segurança; GPT-5.6 Terra é a opção mainstream mais barata.">Sonnet has the strongest tone/safety balance; GPT-5.6 Terra is the cheapest mainstream option.</td></tr>
+      <tr><td data-pt="Chat conversacional (suporte ao cliente, FAQ)">Conversational chat (customer support, FAQ)</td><td>Claude Sonnet 5 · GPT-5.6 Terra</td><td>GPT-5.6 Luna · Gemini 3.6 Flash</td><td data-pt="Sonnet tem o melhor equilíbrio de tom/segurança; GPT-5.6 Terra é a opção mainstream mais barata.">Sonnet has the strongest tone/safety balance; GPT-5.6 Terra is the cheapest mainstream option.</td></tr>
       <tr><td data-pt="Escrita criativa / copy de marketing">Creative writing / marketing copy</td><td>Claude Opus 4.8 · GPT-5.6 Sol</td><td>Kimi K3 · DeepSeek V4 Flash</td><td data-pt="Opus 4.8 tem prosa notavelmente mais clara e calorosa que gerações anteriores; GPT-5.6 é mais &quot;estilo viral&quot;. Combine com a voz da marca.">Opus 4.8 has notably clearer, warmer prose than prior generations; GPT-5.6 is more "viral-style." Match to brand voice.</td></tr>
-      <tr><td data-pt="Multimodal — imagens / docs / gráficos">Multimodal — images / docs / charts</td><td>Gemini 3.5 Flash</td><td>Kimi K3 · Claude Sonnet 5</td><td data-pt="Gemini foi treinado multimodal nativo do zero e lê gráficos/diagramas melhor. Kimi K3 é a primeira opção open multimodal de verdade.">Gemini was natively multimodal-trained from scratch and reads charts/diagrams the best. Kimi K3 is the first genuinely multimodal open option.</td></tr>
-      <tr><td data-pt="Multimodal — áudio (transcrição + compreensão)">Multimodal — audio (transcription + understanding)</td><td>Gemini 3.5 Flash</td><td>Whisper + LLM</td><td data-pt="Input de áudio nativo. Caso contrário: Whisper-large-v3 → texto → qualquer LLM.">Native audio input. Otherwise: Whisper-large-v3 → text → any LLM.</td></tr>
-      <tr><td data-pt="Tradução">Translation</td><td>Gemini 3.5 Flash · GPT-5.6 Terra</td><td>Qwen 3.8 (CJK) · DeepSeek V4 Flash</td><td data-pt="Modelos frontier todos vão bem; Qwen é o mais forte open-weight para idiomas CJK.">Frontier models all do well; Qwen is the strongest open-weight for CJK languages.</td></tr>
+      <tr><td data-pt="Multimodal — imagens / docs / gráficos">Multimodal — images / docs / charts</td><td>Gemini 3.6 Flash</td><td>Kimi K3 · Claude Sonnet 5</td><td data-pt="Gemini foi treinado multimodal nativo do zero e lê gráficos/diagramas melhor. Kimi K3 é a primeira opção open multimodal de verdade.">Gemini was natively multimodal-trained from scratch and reads charts/diagrams the best. Kimi K3 is the first genuinely multimodal open option.</td></tr>
+      <tr><td data-pt="Multimodal — áudio (transcrição + compreensão)">Multimodal — audio (transcription + understanding)</td><td>Gemini 3.6 Flash</td><td>Whisper + LLM</td><td data-pt="Input de áudio nativo. Caso contrário: Whisper-large-v3 → texto → qualquer LLM.">Native audio input. Otherwise: Whisper-large-v3 → text → any LLM.</td></tr>
+      <tr><td data-pt="Tradução">Translation</td><td>Gemini 3.6 Flash · GPT-5.6 Terra</td><td>Qwen 3.8 (CJK) · DeepSeek V4 Flash</td><td data-pt="Modelos frontier todos vão bem; Qwen é o mais forte open-weight para idiomas CJK.">Frontier models all do well; Qwen is the strongest open-weight for CJK languages.</td></tr>
       <tr><td data-pt="Sumarização (curta, factual)">Summarization (short, factual)</td><td>Claude Haiku 4.5 · GPT-5.6 Luna</td><td>DeepSeek V4 Flash</td><td data-pt="Barato e rápido. Plateau de qualidade atingido há anos — não precisa de modelo frontier.">Cheap and fast. Quality plateau hit years ago — no need for a frontier model.</td></tr>
-      <tr><td data-pt="Sumarização (longa, com nuance)">Summarization (long-form, nuanced)</td><td>Claude Sonnet 5 · Opus 4.8 for high-stakes synthesis</td><td>Gemini 3.5 Flash</td><td data-pt="Sonnet preserva nuances e atribuições melhor que o tier mais barato; Opus 4.8 quando o resumo deve preservar dependências de longo alcance.">Sonnet preserves nuance and attribution better than the cheaper tier; Opus 4.8 when the summary must preserve long-range dependencies.</td></tr>
+      <tr><td data-pt="Sumarização (longa, com nuance)">Summarization (long-form, nuanced)</td><td>Claude Sonnet 5 · Opus 4.8 for high-stakes synthesis</td><td>Gemini 3.6 Flash</td><td data-pt="Sonnet preserva nuances e atribuições melhor que o tier mais barato; Opus 4.8 quando o resumo deve preservar dependências de longo alcance.">Sonnet preserves nuance and attribution better than the cheaper tier; Opus 4.8 when the summary must preserve long-range dependencies.</td></tr>
       <tr><td data-pt="Confiabilidade de function / tool calling">Function / tool calling reliability</td><td>Claude Sonnet 5 · Opus 4.8 · Grok 4.5</td><td>Kimi K3</td><td data-pt="O tier de topo emite consistentemente JSON / argumentos válidos. Open-weight está alcançando mas ainda fica atrás em edge cases.">Top tier consistently emits valid JSON / arguments. Open-weight is catching up but still trails on edge cases.</td></tr>
       <tr><td data-pt="On-prem / indústria regulamentada (saúde, defesa, jurídico)">On-prem / regulated industry (health, defense, legal)</td><td>Kimi K3 · DeepSeek V4 Pro · GLM 5.2</td><td>Nemotron 3 · Qwen 3.8 · Llama / Mistral</td><td data-pt="Open weights → self-host no vLLM / SGLang, ou use Bedrock / Vertex com isolamento VPC.">Open weights → self-host on vLLM / SGLang, or use Bedrock / Vertex with VPC isolation.</td></tr>
       <tr><td data-pt="Embeddings">Embeddings</td><td>OpenAI <code>text-embedding-3-large</code> · Voyage 3 · Cohere Embed v4</td><td>BGE-M3 (open)</td><td data-pt="Não são LLMs — modelos separados. Voyage e Cohere lideram benchmarks de retrieval; BGE-M3 é a melhor opção gratuita.">Not LLMs — separate models. Voyage and Cohere lead retrieval benchmarks; BGE-M3 is the best free option.</td></tr>
@@ -1586,13 +1586,13 @@
         <td data-pt="Fechado">Closed</td>
       </tr>
       <tr>
-        <td><strong>Gemini 3.5 Flash</strong></td><td>Google DeepMind</td>
+        <td><strong>Gemini 3.6 Flash</strong></td><td>Google DeepMind</td>
         <td data-pt="MoE destilado, otimizado para velocidade (?)">Distilled MoE, speed-optimized (?)</td>
         <td data-pt="não divulgado">undisclosed</td>
         <td>1M</td>
         <td data-pt="Texto + visão + áudio + vídeo">Text + vision + audio + video</td>
         <td data-pt="Thinking mode">Thinking mode</td>
-        <td data-pt="Forte — top multimodal, contexto longo nativo, ~4× mais rápido">Strong — top multimodal, native long-context, ~4× faster</td>
+        <td data-pt="Forte — top multimodal, agêntico e eficiente em tokens (17% menos output que o 3.5), saltos em coding (DeepSWE 49 vs 37)">Strong — top multimodal, agentic and token-efficient (17% fewer output tokens than 3.5), big coding jumps (DeepSWE 49 vs 37)</td>
         <td data-pt="Fechado">Closed</td>
       </tr>
       <tr>
@@ -1781,12 +1781,12 @@
         <td>3×</td>
       </tr>
       <tr>
-        <td><strong>Gemini 3.5 Flash</strong></td>
+        <td><strong>Gemini 3.6 Flash</strong></td>
         <td>Google</td>
         <td><span class="tag warn">mid</span></td>
         <td class="price">$1.50</td>
-        <td class="price">$9.00</td>
-        <td>6×</td>
+        <td class="price">$7.50</td>
+        <td>5×</td>
       </tr>
       <tr>
         <td><strong>GPT-5.6 Terra</strong></td>
@@ -1856,8 +1856,8 @@
     <li data-pt="Os dados são sensíveis / regulados? <strong>Sim</strong> → open-weight na sua infra. Pare.">Is the data sensitive / regulated? <strong>Yes</strong> → open-weight on your infra. Stop.</li>
     <li data-pt="A task cabe em &lt; 8K tokens e tem um schema fixo pequeno? <strong>Sim</strong> → Haiku 4.5 / GPT-5.6 Luna / DeepSeek V4 Flash.">Does the task fit in &lt; 8K tokens and have a small fixed schema? <strong>Yes</strong> → Haiku 4.5 / GPT-5.6 Luna / DeepSeek V4 Flash.</li>
     <li data-pt="Precisa de reasoning multi-step sobre código ou matemática? <strong>Sim</strong> → Sonnet 5 → Opus 4.8 / Fable 5 / GPT-5.6 Sol Max / DeepSeek V4 Pro (thinking mode).">Does it need to reason multi-step over code or math? <strong>Yes</strong> → Sonnet 5 → Opus 4.8 / Fable 5 / GPT-5.6 Sol Max / DeepSeek V4 Pro (thinking mode).</li>
-    <li data-pt="É um documento longo (&gt; 200K tokens)? <strong>Sim</strong> → Gemini 3.5 Flash / Claude Opus 4.8.">Is it a long document (&gt; 200K tokens)? <strong>Yes</strong> → Gemini 3.5 Flash / Claude Opus 4.8.</li>
-    <li data-pt="É multimodal? <strong>Sim</strong> → Gemini 3.5 Flash primeiro.">Is it multimodal? <strong>Yes</strong> → Gemini 3.5 Flash first.</li>
+    <li data-pt="É um documento longo (&gt; 200K tokens)? <strong>Sim</strong> → Gemini 3.6 Flash / Claude Opus 4.8.">Is it a long document (&gt; 200K tokens)? <strong>Yes</strong> → Gemini 3.6 Flash / Claude Opus 4.8.</li>
+    <li data-pt="É multimodal? <strong>Sim</strong> → Gemini 3.6 Flash primeiro.">Is it multimodal? <strong>Yes</strong> → Gemini 3.6 Flash first.</li>
     <li data-pt="Padrão para coding agêntico / tool use → <strong>Sonnet 5</strong>.">Default agentic coding / tool use → <strong>Sonnet 5</strong>.</li>
     <li data-pt="Depois pergunte: posso fazer cache de 80% desse prompt? Se sim, a escolha fica 10× mais barata.">Then ask: can I cache 80% of this prompt? If yes, the choice gets cheaper by 10×.</li>
   </ol>
@@ -2375,7 +2375,7 @@ await client.responses.create({
   <p data-pt="O segundo passo da evolução. Quando o prompting de turno único deu lugar a agents multi-turno, a superfície otimizável cresceu do prompt para <strong>tudo que o modelo vê numa chamada</strong> — instruções de sistema, schemas de tools, documentos recuperados, histórico de mensagens, memória. Context engineering é curar esse conjunto de tokens e decidir o que fica de fora. O modelo não tem memória entre requests; tudo que ele &quot;sabe&quot; num turno é o que o harness montou. Contexto é um orçamento com três custos: dinheiro (tokens de input), latência (prefill) e qualidade (atenção diluída).">The second step of the evolution. When single-turn prompting gave way to multi-turn agents, the optimizable surface expanded from the prompt to <strong>everything the model sees on a call</strong> — system instructions, tool schemas, retrieved documents, message history, memory. Context engineering is curating that set of tokens and deciding what stays out. The model has no memory between requests; everything it "knows" in a turn is what the harness assembled. Context is a budget with three costs: money (input tokens), latency (prefill), and quality (diluted attention).</p>
 
   <h3 data-pt="9.1 Window vs length — e por que cliffs de preço importam">9.1 Window vs length — and why pricing cliffs matter</h3>
-  <p data-pt="A <strong>context window</strong> é a capacidade rígida do modelo (1M tokens no Claude 5, GPT-5.6, Gemini, Kimi K3). O <strong>context length</strong> é quanto você realmente enviou num request. Tiers de preço e comportamento do KV-cache dependem do <em>length</em>: o Gemini 3.5 Flash dobra o preço de input acima de 200K; GPT-5.6 cobra 2× input / 1.5× output acima de ~272K. Um agent que deixa o histórico crescer sem podar atravessa esses cliffs silenciosamente.">The <strong>context window</strong> is the model's hard capacity (1M tokens on Claude 5, GPT-5.6, Gemini, Kimi K3). <strong>Context length</strong> is how much you actually sent on a request. Pricing tiers and KV-cache behavior depend on <em>length</em>: Gemini 3.5 Flash doubles input price above 200K; GPT-5.6 charges 2× input / 1.5× output above ~272K. An agent that lets history grow unpruned crosses those cliffs silently.</p>
+  <p data-pt="A <strong>context window</strong> é a capacidade rígida do modelo (1M tokens no Claude 5, GPT-5.6, Gemini, Kimi K3). O <strong>context length</strong> é quanto você realmente enviou num request. Tiers de preço e comportamento do KV-cache dependem do <em>length</em>: o Gemini 3.6 Flash dobra o preço de input acima de 200K; GPT-5.6 cobra 2× input / 1.5× output acima de ~272K. Um agent que deixa o histórico crescer sem podar atravessa esses cliffs silenciosamente.">The <strong>context window</strong> is the model's hard capacity (1M tokens on Claude 5, GPT-5.6, Gemini, Kimi K3). <strong>Context length</strong> is how much you actually sent on a request. Pricing tiers and KV-cache behavior depend on <em>length</em>: Gemini 3.6 Flash doubles input price above 200K; GPT-5.6 charges 2× input / 1.5× output above ~272K. An agent that lets history grow unpruned crosses those cliffs silently.</p>
 
   <h3 data-pt="9.2 Prompt caching — a mecânica por trás dos 90% de desconto">9.2 Prompt caching — the mechanics behind the 90% discount</h3>
   <p data-pt="Caching é um <strong>match de prefixo</strong>: o provider guarda o KV cache (os vetores key/value já computados) do seu prefixo na GPU. Num cache hit, o passo caro de prefill é pulado para o prefixo — só o sufixo novo é processado. Por isso o desconto é real (~90% na Anthropic, 10× na Kimi/DeepSeek) e por isso os TTLs existem (5 min / 1 h na Anthropic): VRAM é cara e o cache é despejado.">Caching is a <strong>prefix match</strong>: the provider pins the KV cache (the already-computed key/value vectors) of your prefix in GPU memory. On a cache hit, the expensive prefill step is skipped for the prefix — only the new suffix gets processed. That's why the discount is real (~90% at Anthropic, 10× at Kimi/DeepSeek) and why TTLs exist (5 min / 1 h at Anthropic): VRAM is expensive and caches get evicted.</p>
@@ -3380,7 +3380,7 @@ See [Billing API](../systems/billing-api.md).</code></pre>
     { name: "GPT-5.6 Luna",     i: 1.00, o: 6.00,  tag: "mid" },
     { name: "Claude Haiku 4.5", i: 1.00, o: 5.00,  tag: "cheap" },
     { name: "GLM 5.2",          i: 1.40, o: 4.40,  tag: "oss" },
-    { name: "Gemini 3.5 Flash", i: 1.50, o: 9.00,  tag: "cheap" },
+    { name: "Gemini 3.6 Flash", i: 1.50, o: 7.50,  tag: "cheap" },
     { name: "Grok 4.5",         i: 2.00, o: 6.00,  tag: "mid" },
     { name: "GPT-5.6 Terra",    i: 2.50, o: 15.00, tag: "mid" },
     { name: "Kimi K3",          i: 3.00, o: 15.00, tag: "oss" },
@@ -3564,7 +3564,7 @@ See [Billing API](../systems/billing-api.md).</code></pre>
     { name: "GPT-5.5 Pro",      score: 70, open: false },
     { name: "Grok 4.5",         score: 69, open: false },
     { name: "Kimi K3",          score: 68, open: true  },
-    { name: "Gemini 3.5 Flash", score: 66, open: false },
+    { name: "Gemini 3.6 Flash", score: 67, open: false },
     { name: "Claude Sonnet 5",  score: 65, open: false },
     { name: "DeepSeek V4 Pro",  score: 64, open: true  },
     { name: "GPT-5.6 Terra",    score: 63, open: false }
@@ -3577,9 +3577,9 @@ See [Billing API](../systems/billing-api.md).</code></pre>
     { name: "Grok 4.5",         score: 69, open: false },
     { name: "GLM 5.2",          score: 67, open: true  },
     { name: "Kimi K3",          score: 66, open: true  },
+    { name: "Gemini 3.6 Flash", score: 66, open: false },
     { name: "GPT-5.5 Pro",      score: 65, open: false },
-    { name: "DeepSeek V4 Pro",  score: 64, open: true  },
-    { name: "Gemini 3.5 Flash", score: 62, open: false }
+    { name: "DeepSeek V4 Pro",  score: 64, open: true  }
   ];
 
   function drawIndexChart(canvasId, tipId, data, unitLabel) {
@@ -3868,8 +3868,8 @@ const questions = [
   {
     q: "Which July 2026 release is the largest open-weight model ever shipped (2.8T params), scoring top-3 overall on GDPval-AA?",
     q_pt: "Qual lançamento de julho de 2026 é o maior modelo open-weight já publicado (2.8T params), com top-3 geral no GDPval-AA?",
-    opts: ["Claude Sonnet 5", "Gemini 3.5 Flash", "Kimi K3", "GPT-5.6 Terra"],
-    opts_pt: ["Claude Sonnet 5", "Gemini 3.5 Flash", "Kimi K3", "GPT-5.6 Terra"],
+    opts: ["Claude Sonnet 5", "Gemini 3.6 Flash", "Kimi K3", "GPT-5.6 Terra"],
+    opts_pt: ["Claude Sonnet 5", "Gemini 3.6 Flash", "Kimi K3", "GPT-5.6 Terra"],
     correct: 2,
     explain: "Kimi K3 from Moonshot AI: 2.8T-param MoE (16 of 896 experts active), multimodal, 1M context, #1 on the WebDev preference arena. Notably it prices like a closed frontier model ($3/$15) — the open/closed price gap is closing from both ends.",
     explain_pt: "Kimi K3 da Moonshot AI: MoE de 2.8T params (16 de 896 experts ativos), multimodal, 1M de contexto, #1 na arena de preferência WebDev. Detalhe: tem preço de modelo frontier fechado ($3/$15) — o gap de preço open/fechado está fechando pelos dois lados."
@@ -4326,13 +4326,13 @@ const questions = [
     q_pt: "GraphRAG vs RAG vetorial híbrido: qual cenário de produção favorece mais fortemente o GraphRAG?",
     opts: [
       "FAQ search over a 5K-document help center where exact wording matters",
-      "Q&A over a 200K-token product spec that fits in Gemini 3.5 Flash's context",
+      "Q&A over a 200K-token product spec that fits in Gemini 3.6 Flash's context",
       "\"Which directors who worked with Studio A between 2018-2022 also collaborated with Studio B before 2018?\" over a film-industry corpus",
       "Code search across a monorepo for a single function definition"
     ],
     opts_pt: [
       "Busca em FAQ sobre uma central de ajuda com 5K documentos onde a redação exata importa",
-      "Q&A sobre uma spec de produto de 200K tokens que cabe no contexto do Gemini 3.5 Flash",
+      "Q&A sobre uma spec de produto de 200K tokens que cabe no contexto do Gemini 3.6 Flash",
       "\"Quais diretores que trabalharam com o Estúdio A entre 2018-2022 também colaboraram com o Estúdio B antes de 2018?\" sobre um corpus da indústria cinematográfica",
       "Busca de código num monorepo por uma definição de função única"
     ],
@@ -4577,8 +4577,8 @@ const questions = [
       "Context length se aplica somente a modelos de reasoning"
     ],
     correct: 1,
-    explain: "Window is capacity; length is usage. Providers like Gemini 3.5 Flash and GPT-5.6 have pricing cliffs that trigger at certain <em>lengths</em> (200K for Gemini, ~272K for GPT-5.x), and KV cache decisions depend on length, not window size.",
-    explain_pt: "Window é capacidade; length é uso. Providers como Gemini 3.5 Flash e GPT-5.6 têm pricing cliffs que disparam em certos <em>lengths</em> (200K para o Gemini, ~272K para o GPT-5.x), e decisões de KV cache dependem do length, não do tamanho da window."
+    explain: "Window is capacity; length is usage. Providers like Gemini 3.6 Flash and GPT-5.6 have pricing cliffs that trigger at certain <em>lengths</em> (200K for Gemini, ~272K for GPT-5.x), and KV cache decisions depend on length, not window size.",
+    explain_pt: "Window é capacidade; length é uso. Providers como Gemini 3.6 Flash e GPT-5.6 têm pricing cliffs que disparam em certos <em>lengths</em> (200K para o Gemini, ~272K para o GPT-5.x), e decisões de KV cache dependem do length, não do tamanho da window."
   }
 ];
 
