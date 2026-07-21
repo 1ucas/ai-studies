@@ -1715,7 +1715,7 @@
 
     <figure class="diagram" style="position:relative">
     <div style="font-size:13px; color:var(--accent); text-align:center; margin-bottom:8px; font-weight:600">Price per 1M tokens — input vs output (log scale)</div>
-    <canvas id="priceChart" width="640" height="340"></canvas>
+    <canvas id="priceChart" width="820" height="430"></canvas>
     <div id="priceTip" class="bar-tooltip"></div>
     <div class="legend">
       <span><span class="sw" style="background:#7cf0c1"></span>Input</span>
@@ -1728,7 +1728,7 @@
   <div class="card">
     <p data-pt="Um turn típico de agent: <strong>10K tokens de input + 1K tokens de output</strong>. Custo por turn — e projetado em 1M turns/mês:">A typical agent turn: <strong>10K input tokens + 1K output tokens</strong>. Cost per turn — and projected at 1M turns/month:</p>
     <figure class="diagram" style="position:relative; padding:14px 18px">
-      <canvas id="turnChart" width="640" height="360"></canvas>
+      <canvas id="turnChart" width="760" height="430"></canvas>
       <div id="turnTip" class="bar-tooltip"></div>
       <div class="legend">
         <span><span class="sw" style="background:#7cf0c1"></span>Cheap tier (Haiku / Flash / DeepSeek)</span>
@@ -1761,7 +1761,7 @@
   <p data-pt="Os mesmos 16 modelos, rankeados pelo Artificial Analysis Coding Index (Terminal-Bench v2.1 + SciCode).">The same 16 models, ranked by the Artificial Analysis Coding Index (Terminal-Bench v2.1 + SciCode).</p>
   <figure class="diagram" style="position:relative">
     <div style="font-size:13px; color:var(--accent); text-align:center; margin-bottom:8px; font-weight:600">Top 10 — Artificial Analysis Coding Index (Terminal-Bench v2.1 · SciCode)</div>
-    <canvas id="codingChart" width="660" height="330"></canvas>
+    <canvas id="codingChart" width="680" height="400"></canvas>
     <div id="codingTip" class="bar-tooltip"></div>
     <div class="legend">
       <span><span class="sw" style="background:#82b8ff"></span><span data-pt="Closed / fechado">Closed-source</span></span>
@@ -3370,51 +3370,51 @@ See [Billing API](../systems/billing-api.md).</code></pre>
   if (!c) return;
   const ctx = c.getContext('2d');
   const W = c.width, H = c.height;
-  const padL = 130, padR = 20, padT = 18, padB = 28;
+  const padL = 46, padR = 14, padT = 16, padB = 130;
   const innerW = W - padL - padR;
   const innerH = H - padT - padB;
-  const minV = 0.1, maxV = 60;
-  const xOf = v => padL + (Math.log10(v) - Math.log10(minV)) / (Math.log10(maxV) - Math.log10(minV)) * innerW;
-  const rowH = innerH / data.length;
-  const barH = rowH * 0.35;
+  const minV = 0.1, maxV = 60, baseY = padT + innerH;
+  const yOf = v => baseY - (Math.log10(v) - Math.log10(minV)) / (Math.log10(maxV) - Math.log10(minV)) * innerH;
+  const n = data.length;
+  const slot = innerW / n;
+  const bw = Math.min(11, slot * 0.30);
 
   ctx.clearRect(0,0,W,H);
-  // gridlines + axis labels
   ctx.font = '11px -apple-system, sans-serif';
-  ctx.fillStyle = '#8a94a3';
-  ctx.strokeStyle = '#222a35';
-  ctx.lineWidth = 1;
+  // horizontal gridlines + $ axis labels
   [0.1, 0.3, 1, 3, 10, 30].forEach(t => {
-    const x = xOf(t);
-    ctx.beginPath();
-    ctx.moveTo(x, padT);
-    ctx.lineTo(x, H - padB);
-    ctx.stroke();
-    ctx.fillText('$' + t, x - 8, H - 10);
+    const y = yOf(t);
+    ctx.strokeStyle = '#222a35'; ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(padL, y); ctx.lineTo(W - padR, y); ctx.stroke();
+    ctx.fillStyle = '#8a94a3'; ctx.textAlign = 'right'; ctx.textBaseline = 'middle';
+    ctx.fillText('$' + t, padL - 6, y);
   });
 
   const bars = [];
   data.forEach((d, i) => {
-    const y = padT + i * rowH + rowH / 2;
-    // label
-    ctx.fillStyle = '#e6ebf2';
-    ctx.font = '11.5px -apple-system, sans-serif';
-    ctx.textAlign = 'right';
-    ctx.fillText(d.name, padL - 8, y + 4);
-    ctx.textAlign = 'left';
-
+    const cx = padL + slot * i + slot / 2;
+    const gap = 2;
+    const xi = cx - bw - gap / 2;
+    const xo = cx + gap / 2;
     // input bar
-    const xi0 = xOf(minV);
-    const xi1 = xOf(d.i);
+    let y = yOf(d.i), h = baseY - y;
     ctx.fillStyle = '#7cf0c1';
-    ctx.fillRect(xi0, y - barH - 1, xi1 - xi0, barH);
-    bars.push({ x:xi0, y:y - barH - 1, w:xi1-xi0, h:barH, label:`${d.name} input · $${d.i}/1M` });
-
+    ctx.fillRect(xi, y, bw, h);
+    bars.push({ x:xi, y, w:bw, h, label:`${d.name} input · $${d.i}/1M` });
     // output bar
-    const xo1 = xOf(d.o);
+    y = yOf(d.o); h = baseY - y;
     ctx.fillStyle = '#ffb86b';
-    ctx.fillRect(xi0, y + 1, xo1 - xi0, barH);
-    bars.push({ x:xi0, y:y + 1, w:xo1-xi0, h:barH, label:`${d.name} output · $${d.o}/1M` });
+    ctx.fillRect(xo, y, bw, h);
+    bars.push({ x:xo, y, w:bw, h, label:`${d.name} output · $${d.o}/1M` });
+    // rotated x-axis label
+    ctx.save();
+    ctx.translate(cx, baseY + 8);
+    ctx.rotate(-Math.PI / 4);
+    ctx.fillStyle = '#c7ced9';
+    ctx.font = '10.5px -apple-system, sans-serif';
+    ctx.textAlign = 'right'; ctx.textBaseline = 'middle';
+    ctx.fillText(d.name, 0, 0);
+    ctx.restore();
   });
 
   const tip = document.getElementById('priceTip');
@@ -3460,51 +3460,50 @@ See [Billing API](../systems/billing-api.md).</code></pre>
   if (!c) return;
   const ctx = c.getContext('2d');
   const W = c.width, H = c.height;
-  const padL = 150, padR = 110, padT = 20, padB = 28;
+  const padL = 52, padR = 14, padT = 16, padB = 128;
   const innerW = W - padL - padR;
   const innerH = H - padT - padB;
-  const minV = 0.001, maxV = 0.6;
-  const xOf = v => padL + (Math.log10(v) - Math.log10(minV)) / (Math.log10(maxV) - Math.log10(minV)) * innerW;
-  const rowH = innerH / data.length;
-  const barH = rowH * 0.55;
+  const minV = 0.001, maxV = 0.6, baseY = padT + innerH;
+  const yOf = v => baseY - (Math.log10(v) - Math.log10(minV)) / (Math.log10(maxV) - Math.log10(minV)) * innerH;
+  const n = data.length;
+  const slot = innerW / n;
+  const barW = Math.min(30, slot * 0.55);
 
   ctx.clearRect(0,0,W,H);
   ctx.font = '11px -apple-system, sans-serif';
-  ctx.fillStyle = '#8a94a3';
-  ctx.strokeStyle = '#222a35';
-  ctx.lineWidth = 1;
+  // horizontal gridlines + $ axis labels
   [0.001, 0.003, 0.01, 0.03, 0.1, 0.3].forEach(t => {
-    const x = xOf(t);
-    ctx.beginPath();
-    ctx.moveTo(x, padT);
-    ctx.lineTo(x, H - padB);
-    ctx.stroke();
-    ctx.fillText('$' + t.toFixed(t<0.01?4:3), x - 14, H - 10);
+    const y = yOf(t);
+    ctx.strokeStyle = '#222a35'; ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(padL, y); ctx.lineTo(W - padR, y); ctx.stroke();
+    ctx.fillStyle = '#8a94a3'; ctx.textAlign = 'right'; ctx.textBaseline = 'middle';
+    ctx.fillText('$' + t.toFixed(t<0.01?4:3), padL - 6, y);
   });
-  ctx.fillText('per turn ($)', padL + innerW/2 - 30, H - 0);
 
   const bars = [];
   data.forEach((d, i) => {
-    const y = padT + i * rowH + rowH/2 - barH/2;
-    ctx.fillStyle = '#e6ebf2';
-    ctx.font = '12px -apple-system, sans-serif';
-    ctx.textAlign = 'right';
-    ctx.fillText(d.name, padL - 10, y + barH/2 + 4);
-    ctx.textAlign = 'left';
-
-    const x0 = xOf(minV);
-    const x1 = xOf(d.cost);
+    const cx = padL + slot * i + slot / 2;
+    const x = cx - barW / 2;
+    const y = yOf(d.cost), h = baseY - y;
     ctx.fillStyle = colors[d.tier];
-    ctx.fillRect(x0, y, x1 - x0, barH);
-
-    // monthly cost annotation on right
+    ctx.fillRect(x, y, barW, h);
+    // per-turn value atop
+    ctx.fillStyle = '#e6ebf2';
+    ctx.font = '10px -apple-system, sans-serif';
+    ctx.textAlign = 'center'; ctx.textBaseline = 'bottom';
+    ctx.fillText('$' + d.cost.toFixed(d.cost < 0.01 ? 4 : 3), cx, y - 2);
+    // rotated x-axis label
+    ctx.save();
+    ctx.translate(cx, baseY + 8);
+    ctx.rotate(-Math.PI / 4);
+    ctx.fillStyle = '#c7ced9';
+    ctx.font = '10.5px -apple-system, sans-serif';
+    ctx.textAlign = 'right'; ctx.textBaseline = 'middle';
+    ctx.fillText(d.name, 0, 0);
+    ctx.restore();
     const monthly = d.cost * 1_000_000;
-    ctx.fillStyle = '#8a94a3';
-    ctx.font = '11.5px -apple-system, sans-serif';
-    ctx.fillText('$' + Math.round(monthly).toLocaleString() + '/mo', x1 + 8, y + barH/2 + 4);
-
     bars.push({
-      x:x0, y, w:x1-x0, h:barH,
+      x, y, w:barW, h,
       label:`${d.name} · $${d.cost.toFixed(4)}/turn · $${Math.round(monthly).toLocaleString()}/mo @1M turns`
     });
   });
@@ -3555,67 +3554,59 @@ See [Billing API](../systems/billing-api.md).</code></pre>
     if (!c) return;
     const ctx = c.getContext('2d');
     const W = c.width, H = c.height;
-    const padL = 138, padR = 44, padT = 14, padB = 26;
+    const padL = 40, padR = 14, padT = 24, padB = 132;
     const innerW = W - padL - padR;
     const innerH = H - padT - padB;
-    const maxV = 100;
-    const xOf = v => padL + (v / maxV) * innerW;
-    const rowH = innerH / data.length;
-    const barH = Math.min(18, rowH * 0.62);
+    const maxV = 100, baseY = padT + innerH;
+    const yOf = v => baseY - (v / maxV) * innerH;
+    const n = data.length;
+    const slot = innerW / n;
+    const barW = Math.min(42, slot * 0.6);
 
     ctx.clearRect(0, 0, W, H);
-    // gridlines + axis labels
     ctx.font = '11px -apple-system, sans-serif';
-    ctx.strokeStyle = '#222a35';
-    ctx.lineWidth = 1;
+    // horizontal gridlines + axis labels
     [0, 25, 50, 75, 100].forEach(t => {
-      const x = xOf(t);
-      ctx.beginPath();
-      ctx.moveTo(x, padT);
-      ctx.lineTo(x, H - padB);
-      ctx.stroke();
-      ctx.fillStyle = '#8a94a3';
-      ctx.textAlign = 'center';
-      ctx.fillText(String(t), x, H - 9);
+      const y = yOf(t);
+      ctx.strokeStyle = '#222a35'; ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.moveTo(padL, y); ctx.lineTo(W - padR, y); ctx.stroke();
+      ctx.fillStyle = '#8a94a3'; ctx.textAlign = 'right'; ctx.textBaseline = 'middle';
+      ctx.fillText(String(t), padL - 6, y);
     });
 
     const bars = [];
     data.forEach((d, i) => {
-      const y = padT + i * rowH + rowH / 2;
-      // rank + label
-      ctx.fillStyle = '#5a6678';
-      ctx.font = '10.5px -apple-system, sans-serif';
-      ctx.textAlign = 'left';
-      ctx.fillText('#' + (i + 1), 8, y + 4);
-      ctx.fillStyle = '#e6ebf2';
-      ctx.font = '11.5px -apple-system, sans-serif';
-      ctx.textAlign = 'right';
-      ctx.fillText(d.name, padL - 8, y + 4);
-      ctx.textAlign = 'left';
-
-      // bar
-      const x0 = xOf(0);
-      const x1 = xOf(d.score);
+      const cx = padL + slot * i + slot / 2;
+      const x = cx - barW / 2;
+      const y = yOf(d.score), h = baseY - y;
+      // bar (rounded top)
       ctx.fillStyle = d.open ? OPEN : CLOSED;
-      // rounded right end
-      const r = Math.min(4, barH / 2);
-      const by = y - barH / 2;
+      const r = Math.min(4, barW / 2);
       ctx.beginPath();
-      ctx.moveTo(x0, by);
-      ctx.lineTo(x1 - r, by);
-      ctx.arcTo(x1, by, x1, by + r, r);
-      ctx.lineTo(x1, by + barH - r);
-      ctx.arcTo(x1, by + barH, x1 - r, by + barH, r);
-      ctx.lineTo(x0, by + barH);
+      ctx.moveTo(x, y + r);
+      ctx.arcTo(x, y, x + r, y, r);
+      ctx.lineTo(x + barW - r, y);
+      ctx.arcTo(x + barW, y, x + barW, y + r, r);
+      ctx.lineTo(x + barW, baseY);
+      ctx.lineTo(x, baseY);
       ctx.closePath();
       ctx.fill();
-
-      // score label at bar end
+      // score atop
       ctx.fillStyle = '#e6ebf2';
-      ctx.font = '700 11.5px -apple-system, sans-serif';
-      ctx.fillText(String(d.score), x1 + 7, y + 4);
+      ctx.font = '700 11px -apple-system, sans-serif';
+      ctx.textAlign = 'center'; ctx.textBaseline = 'bottom';
+      ctx.fillText(String(d.score), cx, y - 2);
+      // rotated rank + name label
+      ctx.save();
+      ctx.translate(cx, baseY + 8);
+      ctx.rotate(-Math.PI / 4);
+      ctx.fillStyle = '#c7ced9';
+      ctx.font = '11px -apple-system, sans-serif';
+      ctx.textAlign = 'right'; ctx.textBaseline = 'middle';
+      ctx.fillText(`${i + 1}. ${d.name}`, 0, 0);
+      ctx.restore();
 
-      bars.push({ x: x0, y: by, w: x1 - x0, h: barH, label: `#${i + 1} ${d.name} · ${d.score}/100 ${unitLabel} · ${d.open ? 'open-weight' : 'closed'}` });
+      bars.push({ x, y, w: barW, h, label: `#${i + 1} ${d.name} · ${d.score}/100 ${unitLabel} · ${d.open ? 'open-weight' : 'closed'}` });
     });
 
     const tip = document.getElementById(tipId);
