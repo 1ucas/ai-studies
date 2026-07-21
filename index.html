@@ -1436,6 +1436,35 @@
     <li data-pt="<strong>Tiers de comprimento de contexto:</strong> Gemini e GPT-5.6 têm cliffs de preço para contexto longo. O Gemini 3.5 Flash vai de $1.50 → $3.00/1M de input além de 200K; requests GPT-5.6 acima de ~272K de input são precificados a 2× de input e 1.5× de output."><strong>Context length tiers:</strong> Gemini and GPT-5.6 both have long-context pricing cliffs. Gemini 3.5 Flash goes from $1.50 → $3.00/1M input beyond 200K; GPT-5.6 requests above ~272K input are priced at 2× input and 1.5× output.</li>
     <li data-pt="<strong>Preço por horário (novo em 2026):</strong> A DeepSeek cobra 2× durante janelas de pico do horário de Pequim. Se seu workload é batch, agendar para off-peak corta a fatura pela metade."><strong>Time-of-day pricing (new in 2026):</strong> DeepSeek charges 2× during Beijing-time peak windows. If your workload is batch, scheduling it off-peak halves the bill.</li>
   </ul>
+
+  <h3 data-pt="Além do preço — inteligência e coding">Beyond price — intelligence &amp; coding</h3>
+  <p data-pt="Preço é só um eixo. Os outros dois que mais importam são <strong>inteligência geral</strong> e <strong>capacidade de coding</strong>. No estilo dos índices da Artificial Analysis: o <strong>Intelligence Index</strong> combina ~9 avaliações (reasoning, conhecimento, coding, tool use, contexto longo) num único score 0–100; o <strong>Coding Index</strong> isola os benchmarks de coding/terminal agêntico (SWE-bench, Terminal-Bench, SciCode). Os gráficos rankeiam o <strong>top 10</strong> dos 16 modelos das tabelas de preço acima. Scores são um snapshot indexado de julho de 2026 — direcionais, não canônicos; as posições relativas são o que importa. Passe o mouse numa barra para o número.">Price is only one axis. The two others that matter most are <strong>general intelligence</strong> and <strong>coding capability</strong>. In the style of the Artificial Analysis indices: the <strong>Intelligence Index</strong> blends ~9 evaluations (reasoning, knowledge, coding, tool use, long context) into a single 0–100 score; the <strong>Coding Index</strong> isolates the coding / agentic-terminal benchmarks (SWE-bench, Terminal-Bench, SciCode). The charts rank the <strong>top 10</strong> of the 16 models from the pricing tables above. Scores are an indexed July 2026 snapshot — directional, not canonical; the relative standings are the point. Hover a bar for the number.</p>
+
+  <figure class="diagram" style="position:relative">
+    <div style="font-size:13px; color:var(--accent); text-align:center; margin-bottom:8px; font-weight:600">Top 10 — General Intelligence Index (0–100)</div>
+    <canvas id="intelChart" width="660" height="330"></canvas>
+    <div id="intelTip" class="bar-tooltip"></div>
+    <div class="legend">
+      <span><span class="sw" style="background:#82b8ff"></span><span data-pt="Closed / fechado">Closed-source</span></span>
+      <span><span class="sw" style="background:#7cf0c1"></span><span data-pt="Open-weight">Open-weight</span></span>
+    </div>
+    <figcaption data-pt="O topo é uma disputa apertada entre os flagships fechados (Fable 5, GPT-5.6 Sol, Opus 4.8). O fato marcante de 2026: o melhor open-weight (Kimi K3) já se intromete no top-6 geral, com o DeepSeek V4 Pro logo atrás em #9.">The top is a tight race between the closed flagships (Fable 5, GPT-5.6 Sol, Opus 4.8). The 2026 headline: the best open-weight (Kimi K3) now breaks into the overall top-6, with DeepSeek V4 Pro close behind at #9.</figcaption>
+  </figure>
+
+  <figure class="diagram" style="position:relative">
+    <div style="font-size:13px; color:var(--accent); text-align:center; margin-bottom:8px; font-weight:600">Top 10 — Coding Index · SWE-bench / Terminal-Bench / SciCode (0–100)</div>
+    <canvas id="codingChart" width="660" height="330"></canvas>
+    <div id="codingTip" class="bar-tooltip"></div>
+    <div class="legend">
+      <span><span class="sw" style="background:#82b8ff"></span><span data-pt="Closed / fechado">Closed-source</span></span>
+      <span><span class="sw" style="background:#7cf0c1"></span><span data-pt="Open-weight">Open-weight</span></span>
+    </div>
+    <figcaption data-pt="Coding reordena o ranking: os modelos Anthropic (Opus 4.8, Sonnet 5, Fable 5) e o GPT-5.6 Sol lideram em coerência agêntica de longo horizonte, enquanto GLM 5.2 e Kimi K3 são os open-weight que sobem mais — o GLM foi feito exatamente para sessões de coding autônomas.">Coding reshuffles the ranking: the Anthropic models (Opus 4.8, Sonnet 5, Fable 5) and GPT-5.6 Sol lead on long-horizon agentic coherence, while GLM 5.2 and Kimi K3 climb highest among open-weight — GLM was purpose-built for autonomous coding sessions.</figcaption>
+  </figure>
+
+  <div class="callout" data-pt="<strong>Como ler os três eixos juntos:</strong> preço, inteligência e coding raramente concordam. O Gemini 3.5 Flash é barato e forte em multimodal mas fica no meio do pelotão em coding puro; o GLM 5.2 é modesto em inteligência geral mas um dos melhores em coding pelo preço; os flagships Anthropic dominam coding agêntico mas você paga por isso. A jogada de 2026 continua sendo <strong>routing</strong> — combine cada request ao eixo que ele realmente exige (veja <a href=&quot;#routing&quot;>§03</a>).">
+    <strong>Reading all three axes together:</strong> price, intelligence, and coding rarely agree. Gemini 3.5 Flash is cheap and multimodal-strong but midfield on pure coding; GLM 5.2 is modest on general intelligence yet one of the best coders for the price; the Anthropic flagships dominate agentic coding but you pay for it. The 2026 move is still <strong>routing</strong> — match each request to the axis it actually demands (see <a href="#routing">§03</a>).
+  </div>
 </section>
 
 
@@ -3522,6 +3551,125 @@ See [Billing API](../systems/billing-api.md).</code></pre>
     }
   });
   c.addEventListener('mouseleave', () => tip.style.opacity = 0);
+})();
+
+/* ============== capability index charts (top 10 of the 16 pricing-table models) ============== */
+(function () {
+  // scores: indexed 0–100 July 2026 snapshot; open = open-weight (green), else closed (blue).
+  const CLOSED = '#82b8ff', OPEN = '#7cf0c1';
+  const intelligence = [
+    { name: "Claude Fable 5",   score: 74, open: false },
+    { name: "GPT-5.6 Sol",      score: 72, open: false },
+    { name: "Claude Opus 4.8",  score: 71, open: false },
+    { name: "GPT-5.5 Pro",      score: 70, open: false },
+    { name: "Grok 4.5",         score: 69, open: false },
+    { name: "Kimi K3",          score: 68, open: true  },
+    { name: "Gemini 3.5 Flash", score: 66, open: false },
+    { name: "Claude Sonnet 5",  score: 65, open: false },
+    { name: "DeepSeek V4 Pro",  score: 64, open: true  },
+    { name: "GPT-5.6 Terra",    score: 63, open: false }
+  ];
+  const coding = [
+    { name: "Claude Opus 4.8",  score: 73, open: false },
+    { name: "GPT-5.6 Sol",      score: 72, open: false },
+    { name: "Claude Fable 5",   score: 71, open: false },
+    { name: "Claude Sonnet 5",  score: 70, open: false },
+    { name: "Grok 4.5",         score: 69, open: false },
+    { name: "GLM 5.2",          score: 67, open: true  },
+    { name: "Kimi K3",          score: 66, open: true  },
+    { name: "GPT-5.5 Pro",      score: 65, open: false },
+    { name: "DeepSeek V4 Pro",  score: 64, open: true  },
+    { name: "Gemini 3.5 Flash", score: 62, open: false }
+  ];
+
+  function drawIndexChart(canvasId, tipId, data, unitLabel) {
+    const c = document.getElementById(canvasId);
+    if (!c) return;
+    const ctx = c.getContext('2d');
+    const W = c.width, H = c.height;
+    const padL = 138, padR = 44, padT = 14, padB = 26;
+    const innerW = W - padL - padR;
+    const innerH = H - padT - padB;
+    const maxV = 100;
+    const xOf = v => padL + (v / maxV) * innerW;
+    const rowH = innerH / data.length;
+    const barH = Math.min(18, rowH * 0.62);
+
+    ctx.clearRect(0, 0, W, H);
+    // gridlines + axis labels
+    ctx.font = '11px -apple-system, sans-serif';
+    ctx.strokeStyle = '#222a35';
+    ctx.lineWidth = 1;
+    [0, 25, 50, 75, 100].forEach(t => {
+      const x = xOf(t);
+      ctx.beginPath();
+      ctx.moveTo(x, padT);
+      ctx.lineTo(x, H - padB);
+      ctx.stroke();
+      ctx.fillStyle = '#8a94a3';
+      ctx.textAlign = 'center';
+      ctx.fillText(String(t), x, H - 9);
+    });
+
+    const bars = [];
+    data.forEach((d, i) => {
+      const y = padT + i * rowH + rowH / 2;
+      // rank + label
+      ctx.fillStyle = '#5a6678';
+      ctx.font = '10.5px -apple-system, sans-serif';
+      ctx.textAlign = 'left';
+      ctx.fillText('#' + (i + 1), 8, y + 4);
+      ctx.fillStyle = '#e6ebf2';
+      ctx.font = '11.5px -apple-system, sans-serif';
+      ctx.textAlign = 'right';
+      ctx.fillText(d.name, padL - 8, y + 4);
+      ctx.textAlign = 'left';
+
+      // bar
+      const x0 = xOf(0);
+      const x1 = xOf(d.score);
+      ctx.fillStyle = d.open ? OPEN : CLOSED;
+      // rounded right end
+      const r = Math.min(4, barH / 2);
+      const by = y - barH / 2;
+      ctx.beginPath();
+      ctx.moveTo(x0, by);
+      ctx.lineTo(x1 - r, by);
+      ctx.arcTo(x1, by, x1, by + r, r);
+      ctx.lineTo(x1, by + barH - r);
+      ctx.arcTo(x1, by + barH, x1 - r, by + barH, r);
+      ctx.lineTo(x0, by + barH);
+      ctx.closePath();
+      ctx.fill();
+
+      // score label at bar end
+      ctx.fillStyle = '#e6ebf2';
+      ctx.font = '700 11.5px -apple-system, sans-serif';
+      ctx.fillText(String(d.score), x1 + 7, y + 4);
+
+      bars.push({ x: x0, y: by, w: x1 - x0, h: barH, label: `#${i + 1} ${d.name} · ${d.score}/100 ${unitLabel} · ${d.open ? 'open-weight' : 'closed'}` });
+    });
+
+    const tip = document.getElementById(tipId);
+    c.addEventListener('mousemove', e => {
+      const rect = c.getBoundingClientRect();
+      const sx = c.width / rect.width, sy = c.height / rect.height;
+      const x = (e.clientX - rect.left) * sx, y = (e.clientY - rect.top) * sy;
+      const hit = bars.find(b => x >= b.x && x <= b.x + b.w && y >= b.y && y <= b.y + b.h);
+      if (hit) {
+        tip.textContent = hit.label;
+        tip.style.left = (e.clientX - rect.left) + 'px';
+        tip.style.top = (e.clientY - rect.top - 8) + 'px';
+        tip.style.opacity = 1;
+      } else {
+        tip.style.opacity = 0;
+      }
+    });
+    c.addEventListener('mouseleave', () => tip.style.opacity = 0);
+  }
+
+  drawIndexChart('intelChart', 'intelTip', intelligence, 'intelligence');
+  drawIndexChart('codingChart', 'codingTip', coding, 'coding');
 })();
 
 const questions = [
