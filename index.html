@@ -150,8 +150,9 @@
     background:transparent; border:0; color:var(--text);
     padding:8px 8px; border-radius:6px; cursor:pointer;
     font:600 11.5px -apple-system,sans-serif; text-transform:uppercase;
-    letter-spacing:.08em; transition:background .15s;
+    letter-spacing:.08em; transition:background .15s; text-align:left;
   }
+  .area-toggle > span{flex:1; min-width:0; line-height:1.25}
   .area-toggle:hover{background:var(--panel2)}
   .area-toggle svg.area-icon{width:14px; height:14px; flex:none; opacity:.9}
   .area-toggle .caret{margin-left:auto; opacity:.55; transition:transform .2s}
@@ -650,14 +651,14 @@
       </div>
 
       <div class="settings-section">
-        <h3 class="settings-section-title" data-pt="Modelos e Preços">Models &amp; Pricing</h3>
+        <h3 class="settings-section-title" data-pt="Modelos">Models</h3>
         <p class="settings-section-lead" data-pt="A economia: quem são os modelos de julho de 2026, quanto custam, e como rotear cada request para o tier certo.">The economics: who the July 2026 models are, what they cost, and how to route each request to the right tier.</p>
         <div class="settings-group">
           <a class="settings-row" href="#/models" data-section="models">
             <span class="settings-row-icon is-models">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="6" rx="1.5"/><rect x="3" y="14" width="12" height="6" rx="1.5"/><path d="M7 7 h.01 M7 17 h.01"/></svg>
             </span>
-            <span class="settings-row-label" data-pt="Modelos e Preços">Models &amp; Pricing</span>
+            <span class="settings-row-label" data-pt="Panorama de Modelos">Model Landscape</span>
             <svg class="settings-row-chevron" viewBox="0 0 9 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 2 L7 7 L2 12"/></svg>
           </a>
           <a class="settings-row" href="#/routing" data-section="routing">
@@ -864,11 +865,11 @@
           <rect x="3" y="14" width="12" height="6" rx="1.5"/>
           <path d="M7 7 h.01 M7 17 h.01"/>
         </svg>
-        <span data-pt="Modelos e Preços">Models &amp; Pricing</span>
+        <span data-pt="Modelos">Models</span>
         <svg class="caret" width="10" height="10" viewBox="0 0 10 10"><path d="M2 4 L5 7 L8 4" stroke="currentColor" fill="none" stroke-width="1.6" stroke-linecap="round"/></svg>
       </button>
       <ol class="area-items" id="desktop-g-models">
-        <li><a href="#models" data-pt="Modelos e Preços">Models &amp; Pricing</a></li>
+        <li><a href="#models" data-pt="Panorama de Modelos">Model Landscape</a></li>
         <li><a href="#routing" data-pt="Roteamento de Modelos">Model Routing</a></li>
         <li><a href="#model-integration" data-pt="Integração de Modelos">Model Integration</a></li>
       </ol>
@@ -1368,7 +1369,7 @@
 
 <!-- =================== MODELS & PRICING =================== -->
 <section id="models">
-  <h2 data-pt="<span class=&quot;num&quot;>02</span> Modelos — panorama, preço e capacidade"><span class="num">02</span> Models — landscape, pricing &amp; capability</h2>
+  <h2 data-pt="<span class=&quot;num&quot;>02</span> Panorama de Modelos"><span class="num">02</span> Model Landscape</h2>
   <p data-pt="Tudo sobre os modelos em si: quem são, como diferem por baixo do capô, quanto custam e o quão capazes realmente são. Preço é apenas um eixo — arquitetura, inteligência e coding são os outros.">Everything about the models themselves: who they are, how they differ under the hood, what they cost, and how capable they actually are. Price is only one axis — architecture, intelligence, and coding are the others.</p>
 
   <h3 data-pt="2.1 Como os modelos diferem — arquitetura">2.1 How the models differ — architecture</h3>
