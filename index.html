@@ -58,6 +58,8 @@
   th,td{padding:9px 12px; text-align:left; border-bottom:1px solid var(--line); vertical-align:top}
   th{background:var(--panel); color:var(--accent); font-weight:600; font-size:12px; text-transform:uppercase; letter-spacing:.04em}
   tr:hover td{background:var(--panel)}
+  /* model-name pricing tables: give the model column room; let the description wrap more */
+  table.mdl td:first-child,table.mdl th:first-child{white-space:nowrap; padding-right:18px}
   .card{background:var(--panel); border:1px solid var(--line); border-radius:10px;
     padding:16px 20px; margin:12px 0}
   .grid2{display:grid; grid-template-columns:1fr 1fr; gap:16px}
@@ -1378,7 +1380,7 @@
   <p data-pt="Preços por <strong>1M tokens</strong>, USD, tier padrão (input / output). Caching e batch geralmente cortam 50–90% do input.">Prices are per <strong>1M tokens</strong>, USD, standard tier (input / output). Caching and batch usually cut 50–90% off input.</p>
 
   <h3 data-pt="Frontier closed-source">Closed-source frontier</h3>
-  <table>
+  <table class="mdl">
     <thead><tr><th data-pt="Modelo">Model</th><th>Input</th><th>Output</th><th data-pt="Sweet spot">Sweet spot</th></tr></thead>
     <tbody>
       <tr><td><strong>Claude Fable 5</strong></td><td class="price">$10.00</td><td class="price">$50.00</td><td data-pt="Novo tier Mythos-class da família Claude 5, acima do Opus. O reasoning mais difícil e agents de horizonte muito longo. Thinking sempre ligado; 1M context.">New Mythos-class tier of the Claude 5 family, above Opus. Hardest reasoning and very-long-horizon agents. Thinking always on; 1M context.</td></tr>
@@ -1395,7 +1397,7 @@
   </table>
 
   <h3 data-pt="Open-weight / barato">Open-weight / cheap</h3>
-  <table>
+  <table class="mdl">
     <thead><tr><th data-pt="Modelo">Model</th><th>Input</th><th>Output</th><th data-pt="Notas">Notes</th></tr></thead>
     <tbody>
       <tr><td><strong>DeepSeek V4 Flash</strong></td><td class="price">$0.14</td><td class="price">$0.28</td><td data-pt="1M context padrão. O workhorse budget. Cache-hit input é $0.0028/1M. Os aliases legados deepseek-chat/reasoner agora apontam para ele.">1M context default. The budget workhorse. Cache-hit input is $0.0028/1M. Legacy deepseek-chat/reasoner aliases now map to it.</td></tr>
