@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title data-pt="Guia de Estudos de IA — Julho de 2026">AI Study Guide — July 2026</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='5' fill='%230b0d10'/%3E%3Cg fill='none' stroke='%237cf0c1' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 3 L3 7.5 l9 4.5 l9-4.5 z'/%3E%3Cpath d='M3 16.5 l9 4.5 l9-4.5'/%3E%3Cpath d='M3 12 l9 4.5 l9-4.5'/%3E%3C/g%3E%3C/svg%3E">
 <style>
   :root{
     --bg:#0b0d10; --panel:#12161c; --panel2:#171c24; --line:#222a35;
@@ -57,6 +58,8 @@
   th,td{padding:9px 12px; text-align:left; border-bottom:1px solid var(--line); vertical-align:top}
   th{background:var(--panel); color:var(--accent); font-weight:600; font-size:12px; text-transform:uppercase; letter-spacing:.04em}
   tr:hover td{background:var(--panel)}
+  /* model-name pricing tables: give the model column room; let the description wrap more */
+  table.mdl td:first-child,table.mdl th:first-child{white-space:nowrap; padding-right:18px}
   .card{background:var(--panel); border:1px solid var(--line); border-radius:10px;
     padding:16px 20px; margin:12px 0}
   .grid2{display:grid; grid-template-columns:1fr 1fr; gap:16px}
@@ -147,8 +150,9 @@
     background:transparent; border:0; color:var(--text);
     padding:8px 8px; border-radius:6px; cursor:pointer;
     font:600 11.5px -apple-system,sans-serif; text-transform:uppercase;
-    letter-spacing:.08em; transition:background .15s;
+    letter-spacing:.08em; transition:background .15s; text-align:left;
   }
+  .area-toggle > span{flex:1; min-width:0; line-height:1.25}
   .area-toggle:hover{background:var(--panel2)}
   .area-toggle svg.area-icon{width:14px; height:14px; flex:none; opacity:.9}
   .area-toggle .caret{margin-left:auto; opacity:.55; transition:transform .2s}
@@ -474,9 +478,138 @@
     .settings-row{padding:13px 14px}
     .settings-row-label{font-size:15.5px}
   }
+
+  /* ============ Engagement layer — journey, streaks, quiz results ============ */
+  .scroll-progress{position:fixed; top:0; left:0; right:0; height:3px; z-index:70; pointer-events:none}
+  .scroll-progress i{display:block; height:100%; width:0;
+    background:linear-gradient(90deg,var(--accent),var(--link),var(--accent2));
+    border-radius:0 2px 2px 0}
+  #confettiCanvas{position:fixed; inset:0; z-index:90; pointer-events:none}
+
+  /* journey card */
+  .journey-slot{margin:0 0 30px}
+  .view-home .journey-slot{margin:0 0 6px}
+  .journey-card{
+    display:flex; align-items:center; gap:22px; padding:18px 22px;
+    background:
+      radial-gradient(600px 160px at 0% 0%, rgba(124,240,193,.06), transparent 60%),
+      var(--panel);
+    border:1px solid var(--line); border-radius:14px;
+  }
+  .j-ring{position:relative; width:88px; height:88px; flex:none}
+  .j-ring svg{width:88px; height:88px; transform:rotate(-90deg)}
+  .j-ring .ring-bg{fill:none; stroke:#1d242e; stroke-width:8}
+  .j-ring .ring-fg{fill:none; stroke:var(--accent); stroke-width:8; stroke-linecap:round;
+    transition:stroke-dashoffset .8s cubic-bezier(.3,.7,.3,1)}
+  .j-ring.mid .ring-fg{stroke:var(--accent2)}
+  .j-ring.low .ring-fg{stroke:var(--bad)}
+  .j-ring .j-pct{position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+    font-weight:700; font-size:18px; color:var(--text); font-variant-numeric:tabular-nums}
+  .j-info{flex:1; min-width:0}
+  .j-level{font-weight:700; font-size:16px; letter-spacing:-.01em}
+  .j-stats{display:flex; gap:8px 16px; flex-wrap:wrap; margin-top:6px; font-size:12.5px; color:var(--muted)}
+  .j-stats b{color:var(--text); font-variant-numeric:tabular-nums}
+  .j-ach{display:flex; gap:7px; margin-top:10px; flex-wrap:wrap}
+  .j-ach span{font-size:17px; filter:grayscale(1); opacity:.28; transition:filter .3s, opacity .3s, transform .3s; cursor:default}
+  .j-ach span.on{filter:none; opacity:1}
+  .j-continue{
+    display:inline-flex; align-items:center; gap:7px; margin-top:12px;
+    padding:8px 15px; background:var(--accent); color:#0b0d10; border-radius:8px;
+    font-weight:600; font-size:13px; transition:filter .15s, transform .1s;
+  }
+  .j-continue:hover{filter:brightness(1.1); text-decoration:none}
+  .j-continue:active{transform:translateY(1px)}
+  .j-continue.all-done{background:var(--pill); color:var(--accent); border:1px solid rgba(124,240,193,.4)}
+  @media (max-width:760px){
+    .journey-card{gap:16px; padding:15px 16px}
+    .j-ring, .j-ring svg{width:74px; height:74px}
+    .j-ring .j-pct{font-size:15px}
+    .j-level{font-size:15px}
+  }
+
+  /* sidebar progress */
+  .nav-progress{margin:-6px 4px 16px; font-size:11px; color:var(--muted)}
+  .nav-progress b{color:var(--text); font-variant-numeric:tabular-nums}
+  .nav-progress .np-bar{height:4px; background:var(--panel2); border-radius:99px; overflow:hidden; margin-top:6px}
+  .nav-progress .np-bar i{display:block; height:100%; width:0; border-radius:99px;
+    background:linear-gradient(90deg,var(--accent),var(--link)); transition:width .5s ease}
+  .area-items a.is-done::after{content:"✓"; color:var(--good); font-weight:700; margin-left:6px}
+  .settings-row.is-done .settings-row-label::after{content:" ✓"; color:var(--good); font-weight:700}
+
+  /* section complete button */
+  .section-complete-wrap{margin:28px 0 4px}
+  .section-complete{
+    display:inline-flex; align-items:center; gap:10px; padding:10px 18px;
+    border-radius:99px; border:1px dashed #39434f; background:var(--panel);
+    color:var(--muted); cursor:pointer; transition:border-color .18s, color .18s, background .18s, transform .1s;
+    font:600 13.5px -apple-system,BlinkMacSystemFont,"SF Pro Text",system-ui,sans-serif;
+  }
+  .section-complete:hover{border-color:var(--accent); color:var(--text)}
+  .section-complete:active{transform:scale(.98)}
+  .section-complete .sc-ic{
+    width:20px; height:20px; flex:none; border-radius:50%; border:2px solid currentColor;
+    display:flex; align-items:center; justify-content:center; transition:all .18s;
+  }
+  .section-complete .sc-ic svg{width:11px; height:11px; opacity:0; transition:opacity .18s}
+  .section-complete.done{border:1px solid rgba(74,222,128,.5); background:rgba(74,222,128,.08); color:var(--good)}
+  .section-complete.done .sc-ic{background:var(--good); border-color:var(--good); color:#0b0d10}
+  .section-complete.done .sc-ic svg{opacity:1}
+
+  /* achievement toasts */
+  .toast-host{position:fixed; bottom:20px; left:50%; transform:translateX(-50%); z-index:85;
+    display:flex; flex-direction:column; gap:10px; align-items:center; pointer-events:none; width:max-content; max-width:92vw}
+  .ach-toast{
+    display:flex; align-items:center; gap:13px; padding:12px 20px 12px 15px;
+    background:rgba(18,22,28,.97); border:1px solid rgba(124,240,193,.45); border-radius:12px;
+    box-shadow:0 14px 44px rgba(0,0,0,.55);
+    animation:toast-in .38s cubic-bezier(.2,.9,.3,1.15) both;
+  }
+  .ach-toast.hide{animation:toast-out .3s ease both}
+  .ach-toast .at-emoji{font-size:26px; line-height:1}
+  .ach-toast .at-kicker{font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--accent); font-weight:700}
+  .ach-toast .at-title{font-weight:700; font-size:14px; color:var(--text)}
+  @keyframes toast-in{from{opacity:0; transform:translateY(18px) scale(.92)} to{opacity:1; transform:none}}
+  @keyframes toast-out{to{opacity:0; transform:translateY(12px)}}
+
+  /* quiz tracker + results */
+  .quiz-tracker{
+    position:sticky; top:10px; z-index:6;
+    display:flex; align-items:center; gap:14px; padding:9px 15px; margin:16px 0;
+    background:rgba(16,20,26,.92); backdrop-filter:blur(10px);
+    border:1px solid var(--line); border-radius:10px;
+    font-size:12.5px; color:var(--muted);
+  }
+  .quiz-tracker b{color:var(--text); font-variant-numeric:tabular-nums}
+  .quiz-tracker .qt-bar{flex:1; height:6px; background:var(--panel2); border-radius:99px; overflow:hidden}
+  .quiz-tracker .qt-bar i{display:block; height:100%; width:0; border-radius:99px;
+    background:linear-gradient(90deg,var(--accent),var(--link)); transition:width .25s ease}
+  @media (max-width:760px){.quiz-tracker{top:66px}}
+  .quiz-results{
+    margin:22px 0 0; padding:24px;
+    border:1px solid var(--line); border-radius:14px;
+    background:linear-gradient(180deg,#10141a 0%, #0b0d10 100%);
+    animation:pop-in .4s ease both;
+  }
+  @keyframes pop-in{from{opacity:0; transform:translateY(14px)} to{opacity:1; transform:none}}
+  .qr-top{display:flex; align-items:center; gap:24px; flex-wrap:wrap}
+  .qr-mood{font-size:17px; font-weight:700}
+  .qr-sub{font-size:13px; color:var(--muted); margin-top:5px}
+  .qr-sub .new-best{color:var(--accent2); font-weight:700}
+  .qr-cats-title{font-size:12px; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); margin:22px 0 12px; font-weight:600}
+  .qr-cats{display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:12px 26px}
+  .qr-cat{font-size:12.5px}
+  .qr-cat .qc-head{display:flex; justify-content:space-between; gap:10px; color:var(--muted); margin-bottom:5px}
+  .qr-cat .qc-head b{color:var(--text); font-variant-numeric:tabular-nums}
+  .qr-cat .qc-bar{height:6px; background:var(--panel2); border-radius:99px; overflow:hidden}
+  .qr-cat .qc-bar i{display:block; height:100%; width:0; border-radius:99px; transition:width .7s cubic-bezier(.3,.7,.3,1)}
 </style>
 </head>
 <body id="top">
+
+<!-- ============== Engagement overlays ============== -->
+<div class="scroll-progress" aria-hidden="true"><i id="scrollFill"></i></div>
+<canvas id="confettiCanvas" aria-hidden="true"></canvas>
+<div class="toast-host" id="toastHost" aria-live="polite"></div>
 
 <!-- ============== Language toggle (EN / PT-BR) ============== -->
 <button class="lang-toggle" type="button" data-lang-toggle aria-label="Switch to Portuguese">
@@ -499,6 +632,8 @@
       <p class="lead" data-pt="Tudo o que você precisa sobre economia de modelos, encanamento de agents e o vocabulário de SDD / MCP / RAG essencial para dominar como engenheiro de software trabalhando com IA. Os números são preços de tabela de Julho de 2026 — eles vão mudar, as relações entre eles não.">Everything you need on model economics, agent plumbing, and the SDD / MCP / RAG vocabulary that's essential to master as a software engineer working with AI. Numbers are July 2026 list prices — they will move, the relationships won't.</p>
     </header>
 
+    <div class="journey-slot" id="journeyHome"></div>
+
     <div class="settings-list">
 
       <div class="settings-section">
@@ -516,14 +651,14 @@
       </div>
 
       <div class="settings-section">
-        <h3 class="settings-section-title" data-pt="Modelos e Preços">Models &amp; Pricing</h3>
+        <h3 class="settings-section-title" data-pt="Modelos">Models</h3>
         <p class="settings-section-lead" data-pt="A economia: quem são os modelos de julho de 2026, quanto custam, e como rotear cada request para o tier certo.">The economics: who the July 2026 models are, what they cost, and how to route each request to the right tier.</p>
         <div class="settings-group">
           <a class="settings-row" href="#/models" data-section="models">
             <span class="settings-row-icon is-models">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="6" rx="1.5"/><rect x="3" y="14" width="12" height="6" rx="1.5"/><path d="M7 7 h.01 M7 17 h.01"/></svg>
             </span>
-            <span class="settings-row-label" data-pt="Modelos e Preços">Models &amp; Pricing</span>
+            <span class="settings-row-label" data-pt="Panorama de Modelos">Model Landscape</span>
             <svg class="settings-row-chevron" viewBox="0 0 9 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 2 L7 7 L2 12"/></svg>
           </a>
           <a class="settings-row" href="#/routing" data-section="routing">
@@ -538,13 +673,6 @@
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4 h12 v6 h-12 z"/><path d="M6 14 h12 v6 h-12 z"/><path d="M12 10 v4"/></svg>
             </span>
             <span class="settings-row-label" data-pt="Integração de Modelos">Model Integration</span>
-            <svg class="settings-row-chevron" viewBox="0 0 9 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 2 L7 7 L2 12"/></svg>
-          </a>
-          <a class="settings-row" href="#/oss" data-section="oss">
-            <span class="settings-row-icon is-models">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 v4 M12 18 v4 M2 12 h4 M18 12 h4 M5 5 l3 3 M16 16 l3 3 M5 19 l3 -3 M16 8 l3 -3"/></svg>
-            </span>
-            <span class="settings-row-label" data-pt="Alternativas Open-Source">Open-Source Alternatives</span>
             <svg class="settings-row-chevron" viewBox="0 0 9 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 2 L7 7 L2 12"/></svg>
           </a>
         </div>
@@ -568,11 +696,25 @@
             <span class="settings-row-label" data-pt="Tipos de Memória">Memory Types</span>
             <svg class="settings-row-chevron" viewBox="0 0 9 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 2 L7 7 L2 12"/></svg>
           </a>
+          <a class="settings-row" href="#/prompt-engineering" data-section="prompt-engineering">
+            <span class="settings-row-icon is-harness">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="5" width="16" height="14" rx="2"/><path d="M8 10 l2.5 2 l-2.5 2 M13 14 h3"/></svg>
+            </span>
+            <span class="settings-row-label" data-pt="Engenharia de Prompt">Prompt Engineering</span>
+            <svg class="settings-row-chevron" viewBox="0 0 9 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 2 L7 7 L2 12"/></svg>
+          </a>
           <a class="settings-row" href="#/context-engineering" data-section="context-engineering">
             <span class="settings-row-icon is-harness">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 L3 8 l9 5 l9 -5 z"/><path d="M3 13 l9 5 l9 -5"/></svg>
             </span>
             <span class="settings-row-label" data-pt="Engenharia de Contexto">Context Engineering</span>
+            <svg class="settings-row-chevron" viewBox="0 0 9 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 2 L7 7 L2 12"/></svg>
+          </a>
+          <a class="settings-row" href="#/loop-engineering" data-section="loop-engineering">
+            <span class="settings-row-icon is-harness">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12 a8 8 0 0 1 13 -5.7 M20 12 a8 8 0 0 1 -13 5.7"/><path d="M17 3 v4 h-4 M7 21 v-4 h4"/></svg>
+            </span>
+            <span class="settings-row-label" data-pt="Engenharia de Loop">Loop Engineering</span>
             <svg class="settings-row-chevron" viewBox="0 0 9 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 2 L7 7 L2 12"/></svg>
           </a>
           <a class="settings-row" href="#/mcp" data-section="mcp">
@@ -700,6 +842,8 @@
       </h1>
     </a>
 
+    <div class="nav-progress" id="navProgress"></div>
+
     <div class="nav-group">
       <button class="area-toggle is-concepts" aria-expanded="true" aria-controls="desktop-g-concepts">
         <svg class="area-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -721,14 +865,13 @@
           <rect x="3" y="14" width="12" height="6" rx="1.5"/>
           <path d="M7 7 h.01 M7 17 h.01"/>
         </svg>
-        <span data-pt="Modelos e Preços">Models &amp; Pricing</span>
+        <span data-pt="Modelos">Models</span>
         <svg class="caret" width="10" height="10" viewBox="0 0 10 10"><path d="M2 4 L5 7 L8 4" stroke="currentColor" fill="none" stroke-width="1.6" stroke-linecap="round"/></svg>
       </button>
       <ol class="area-items" id="desktop-g-models">
-        <li><a href="#models" data-pt="Modelos e Preços">Models &amp; Pricing</a></li>
+        <li><a href="#models" data-pt="Panorama de Modelos">Model Landscape</a></li>
         <li><a href="#routing" data-pt="Roteamento de Modelos">Model Routing</a></li>
         <li><a href="#model-integration" data-pt="Integração de Modelos">Model Integration</a></li>
-        <li><a href="#oss" data-pt="Alternativas Open-Source">Open-Source Alts</a></li>
       </ol>
     </div>
 
@@ -744,7 +887,9 @@
       <ol class="area-items" id="desktop-g-agents">
         <li><a href="#harness" data-pt="Agent harness e loop de runtime">Agent harness &amp; runtime loop</a></li>
         <li><a href="#memory" data-pt="Tipos de Memória">Memory Types</a></li>
+        <li><a href="#prompt-engineering" data-pt="Engenharia de Prompt">Prompt Engineering</a></li>
         <li><a href="#context-engineering" data-pt="Engenharia de Contexto">Context Engineering</a></li>
+        <li><a href="#loop-engineering" data-pt="Engenharia de Loop">Loop Engineering</a></li>
         <li><a href="#mcp" data-pt="MCP — Protocolo de Tools">MCP — Tools Protocol</a></li>
         <li><a href="#dag">DAG</a></li>
       </ol>
@@ -825,6 +970,8 @@
       <h1 data-pt="Guia de Estudos de IA — Cheat Sheet">AI Study Guide — Cheat Sheet</h1>
       <p class="lead" data-pt="Tudo o que você precisa sobre economia de modelos, encanamento de agents e o vocabulário de SDD / MCP / RAG essencial para dominar como engenheiro de software trabalhando com IA. Os números são preços de tabela de Julho de 2026 — eles vão mudar, as relações entre eles não.">Everything you need on model economics, agent plumbing, and the SDD / MCP / RAG vocabulary that's essential to master as a software engineer working with AI. Numbers are July 2026 list prices — they will move, the relationships won't.</p>
     </header>
+
+    <div class="journey-slot" id="journeyDesktop"></div>
 
 <!-- =================== MAIN CONCEPTS =================== -->
 <section id="concepts">
@@ -1222,116 +1369,11 @@
 
 <!-- =================== MODELS & PRICING =================== -->
 <section id="models">
-  <h2 data-pt="<span class=&quot;num&quot;>02</span> Modelos &amp; Preços — os números principais"><span class="num">02</span> Models & Pricing — the headline numbers</h2>
-  <p data-pt="Preços por <strong>1M tokens</strong>, USD, tier padrão (input / output). Caching e batch geralmente cortam 50–90% do input.">Prices are per <strong>1M tokens</strong>, USD, standard tier (input / output). Caching and batch usually cut 50–90% off input.</p>
+  <h2 data-pt="<span class=&quot;num&quot;>02</span> Panorama de Modelos"><span class="num">02</span> Model Landscape</h2>
+  <p data-pt="Tudo sobre os modelos em si: quem são, como diferem por baixo do capô, quanto custam e o quão capazes realmente são. Preço é apenas um eixo — arquitetura, inteligência e coding são os outros.">Everything about the models themselves: who they are, how they differ under the hood, what they cost, and how capable they actually are. Price is only one axis — architecture, intelligence, and coding are the others.</p>
 
-  <h3 data-pt="Frontier closed-source">Closed-source frontier</h3>
-  <table>
-    <thead><tr><th data-pt="Modelo">Model</th><th>Input</th><th>Output</th><th data-pt="Sweet spot">Sweet spot</th></tr></thead>
-    <tbody>
-      <tr><td><strong>Claude Fable 5</strong></td><td class="price">$10.00</td><td class="price">$50.00</td><td data-pt="Novo tier Mythos-class da família Claude 5, acima do Opus. O reasoning mais difícil e agents de horizonte muito longo. Thinking sempre ligado; 1M context.">New Mythos-class tier of the Claude 5 family, above Opus. Hardest reasoning and very-long-horizon agents. Thinking always on; 1M context.</td></tr>
-      <tr><td><strong>Claude Opus 4.8</strong></td><td class="price">$5.00</td><td class="price">$25.00</td><td data-pt="Flagship Opus atual. Agents de longo horizonte, coding profundo, planejamento. 1M context window.">Current Opus flagship. Long-horizon agents, deep coding, planning. 1M context window.</td></tr>
-      <tr><td><strong>Claude Sonnet 5</strong></td><td class="price">$3.00</td><td class="price">$15.00</td><td data-pt="Qualidade quase-Opus em coding/agêntico a preço Sonnet. Preço de lançamento $2/$10 até 2026-08-31. 1M context.">Near-Opus coding/agentic quality at Sonnet price. Intro pricing $2/$10 through 2026-08-31. 1M context.</td></tr>
-      <tr><td><strong>Claude Haiku 4.5</strong></td><td class="price">$1.00</td><td class="price">$5.00</td><td data-pt="Classificação de alto throughput, routing, drafts baratos. 5× mais barato que Opus.">High-throughput classification, routing, cheap drafts. 5× cheaper than Opus.</td></tr>
-      <tr><td><strong>GPT-5.6 Sol</strong></td><td class="price">$5.00</td><td class="price">$30.00</td><td data-pt="Flagship OpenAI (GA jul 2026). &quot;Sol Max&quot; = mesmo preço, mais reasoning effort (mais tokens de output). 1M context.">OpenAI flagship (GA Jul 2026). "Sol Max" = same price, more reasoning effort (more output tokens). 1M context.</td></tr>
-      <tr><td><strong>GPT-5.6 Terra</strong></td><td class="price">$2.50</td><td class="price">$15.00</td><td data-pt="Padrão mainstream OpenAI — bom equilíbrio geral. 1M context.">Mainstream OpenAI default — good general-purpose balance. 1M context.</td></tr>
-      <tr><td><strong>GPT-5.6 Luna</strong></td><td class="price">$1.00</td><td class="price">$6.00</td><td data-pt="Tier barato da família 5.6 — ainda com 1M context. Substitui o GPT-5 base como fallback econômico.">Cheap tier of the 5.6 family — still 1M context. Replaces base GPT-5 as the budget fallback.</td></tr>
-      <tr><td><strong>GPT-5.5 Pro</strong></td><td class="price">$30.00</td><td class="price">$180.00</td><td data-pt="Só para reasoning frontier onde custo não importa. O GPT-5.5 standard ($5/$30) segue disponível ao lado da família 5.6.">Frontier reasoning only, where cost doesn't matter. Standard GPT-5.5 ($5/$30) remains available alongside the 5.6 family.</td></tr>
-      <tr><td><strong>Grok 4.5</strong> (xAI)</td><td class="price">$2.00</td><td class="price">$6.00</td><td data-pt="Lançado 8 jul 2026. #1 em tool use agêntico (Artificial Analysis); SWE-Bench Pro 64.7. Dial de reasoning effort por chamada, 500K ctx, cache-hit input $0.50. Preço agressivo para o nível.">Launched Jul 8, 2026. #1 on agentic tool use (Artificial Analysis); SWE-Bench Pro 64.7. Per-call reasoning effort dial, 500K ctx, cache-hit input $0.50. Aggressive pricing for the tier.</td></tr>
-      <tr><td><strong>Gemini 3.5 Flash</strong></td><td class="price">$1.50</td><td class="price">$9.00</td><td data-pt="Lançado no I/O 2026: supera o 3.1 Pro em coding/agêntico por ~40% menos, ~4× mais rápido. Multimodal completo, 1M context.">Launched at I/O 2026: beats 3.1 Pro on coding/agentic at ~40% less, ~4× faster. Fully multimodal, 1M context.</td></tr>
-      <tr><td><strong>Gemini 3.1 Pro</strong></td><td class="price">$2.00</td><td class="price">$12.00</td><td data-pt="Contexto longo (≤200K nessas taxas, depois $4/$18). Top multimodal, agêntico + vibe-coding.">Long context (≤200K at these rates, then $4/$18). Top multimodal, agentic + vibe-coding.</td></tr>
-      <tr><td><strong>Gemini 3 Flash</strong></td><td class="price">$0.50</td><td class="price">$3.00</td><td data-pt="Inteligência de classe frontier com velocidade. Forte em search/grounding.">Frontier-class intelligence at speed. Strong search/grounding.</td></tr>
-      <tr><td><strong>Gemini 3.1 Flash-Lite</strong></td><td class="price">$0.25</td><td class="price">$1.50</td><td data-pt="Tasks agênticas de alto volume, tradução, extração simples. Tier mais barato do Gemini 3.">High-volume agentic tasks, translation, simple extraction. Cheapest Gemini 3 tier.</td></tr>
-    </tbody>
-  </table>
-
-  <h3 data-pt="Open-weight / barato">Open-weight / cheap</h3>
-  <table>
-    <thead><tr><th data-pt="Modelo">Model</th><th>Input</th><th>Output</th><th data-pt="Notas">Notes</th></tr></thead>
-    <tbody>
-      <tr><td><strong>DeepSeek V4 Flash</strong></td><td class="price">$0.14</td><td class="price">$0.28</td><td data-pt="1M context padrão. O workhorse budget. Cache-hit input é $0.0028/1M. Os aliases legados deepseek-chat/reasoner agora apontam para ele.">1M context default. The budget workhorse. Cache-hit input is $0.0028/1M. Legacy deepseek-chat/reasoner aliases now map to it.</td></tr>
-      <tr><td><strong>DeepSeek V4 Pro</strong></td><td class="price">$0.435</td><td class="price">$0.87</td><td data-pt="1.6T total / 49B ativo. Usa DSA (DeepSeek Sparse Attention), não MoE tradicional. No GA de julho, o antigo &quot;desconto de 75%&quot; virou o preço de lista oficial. Cache-hit input é $0.003625/1M.">1.6T total / 49B active. Uses DSA (DeepSeek Sparse Attention), not traditional MoE. At the July GA, the old "75% discount" became the official list price. Cache-hit input is $0.003625/1M.</td></tr>
-      <tr><td><strong>Kimi K3</strong> (Moonshot)</td><td class="price">$3.00</td><td class="price">$15.00</td><td data-pt="2.8T params — o maior modelo open-weight já lançado (jul 2026; pesos publicados no fim de julho). MoE de 896 experts, 16 ativos/token. Multimodal, 1M ctx. Top-3 geral no GDPval-AA, #1 na arena WebDev. Cache-hit input é $0.30/1M.">2.8T params — the largest open-weight model ever released (Jul 2026; weights publishing late July). 896-expert MoE, 16 active/token. Multimodal, 1M ctx. Top-3 overall on GDPval-AA, #1 on the WebDev arena. Cache-hit input is $0.30/1M.</td></tr>
-      <tr><td><strong>GLM 5.2</strong> (Z.ai)</td><td class="price">$1.40</td><td class="price">$4.40</td><td data-pt="Open-weight, 1M ctx / 131K output. Supera o GPT-5.5 no SWE-Bench Pro (62.1 vs 58.6). Feito para trabalho agêntico de longo horizonte — sessões autônomas de várias horas.">Open-weight, 1M ctx / 131K output. Beats GPT-5.5 on SWE-Bench Pro (62.1 vs 58.6). Built for long-horizon agentic work — multi-hour autonomous sessions.</td></tr>
-      <tr><td><strong>Qwen 3.6</strong> (Alibaba)</td><td class="price">~$0.40</td><td class="price">~$2.40</td><td data-pt="Família open-weight (MoE 35B-A3B + denso 27B). Forte em multilingual/CJK. O flagship de reasoning Qwen 3.7 Max ($2.50/$7.50) é closed-weight.">Open-weight family (35B-A3B MoE + dense 27B). Strong multilingual/CJK. The Qwen 3.7 Max reasoning flagship ($2.50/$7.50) is closed-weight.</td></tr>
-      <tr><td><strong>Nemotron 3</strong> (NVIDIA)</td><td class="price">~$0.10</td><td class="price">~$0.50</td><td data-pt="Família open dos EUA em três tamanhos: Nano (30B-A3B, ~$0.05 de input, grátis em alguns providers), Super (preços mostrados) e Ultra (jun 2026 — inteligência open-weight líder dos EUA, inferência ~5× mais rápida). Foco em eficiência agêntica.">US open family in three sizes: Nano (30B-A3B, ~$0.05 input, free on some providers), Super (prices shown), and Ultra (Jun 2026 — leading US open-weight intelligence, ~5× faster inference). Agentic-efficiency focused.</td></tr>
-    </tbody>
-  </table>
-
-  <div class="callout warn" data-pt="<strong>Preços situacionais:</strong> Mantenha preços promocionais e janelas de billing fora da comparação base. Dois exemplos de julho 2026: o Claude Sonnet 5 tem preço de lançamento ($2/$10 até 2026-08-31, depois $3/$15), e a DeepSeek introduziu <strong>preço por horário de pico</strong> — 2× a taxa off-peak durante as janelas de pico do horário de Pequim. Trate ambos como notas de janela de billing, não o preço bruto do modelo.">
-    <strong>Situational pricing:</strong> Keep promos and billing windows out of the baseline comparison. Two July 2026 examples: Claude Sonnet 5 has intro pricing ($2/$10 through 2026-08-31, then $3/$15), and DeepSeek introduced <strong>peak-hour pricing</strong> — 2× the off-peak rate during Beijing-time peak windows. Treat both as billing-window notes, not the model's raw price.
-  </div>
-
-  <div class="callout" data-pt="<strong>Mental model:</strong> A fronteira de preço open vs fechado está desmoronando por cima e por baixo. Por cima, o Kimi K3 agora cobra preço de frontier fechado ($3/$15 — igual ao Sonnet 5) e entrega performance top-3. Por baixo, DeepSeek V4 e GLM 5.2 continuam 5–30× mais baratos que os flagships fechados. O prêmio fechado ainda compra: confiabilidade de tool-use, coerência de longo horizonte, profundidade multimodal e ecossistema (tools, caches, retrieval hospedado). Para extração em batch ou classificação, o tier open/flash barato ainda vence por uma ordem de magnitude.">
-    <strong>Mental model:</strong> The open-vs-closed price boundary is collapsing from both ends. From above, Kimi K3 now charges closed-frontier prices ($3/$15 — same as Sonnet 5) and delivers top-3 performance. From below, DeepSeek V4 and GLM 5.2 remain 5–30× cheaper than closed flagships. The closed premium still buys: tool-use reliability, long-horizon coherence, multimodal depth, and ecosystem (tools, caches, hosted retrieval). For batch extraction or classification, the cheap open/flash tier still wins by an order of magnitude.
-  </div>
-
-  <figure class="diagram" style="position:relative">
-    <div style="font-size:13px; color:var(--accent); text-align:center; margin-bottom:8px; font-weight:600">Price per 1M tokens — input vs output (log scale)</div>
-    <canvas id="priceChart" width="640" height="340"></canvas>
-    <div id="priceTip" class="bar-tooltip"></div>
-    <div class="legend">
-      <span><span class="sw" style="background:#7cf0c1"></span>Input</span>
-      <span><span class="sw" style="background:#ffb86b"></span>Output</span>
-    </div>
-    <figcaption data-pt="O preço open-weight agora vai do DeepSeek Flash (ordens de grandeza mais barato) até o Kimi K3, que cobra preço de frontier fechado. Passe o mouse em uma barra para o número exato.">Open-weight pricing now spans DeepSeek Flash (orders of magnitude cheaper) all the way up to Kimi K3, which charges closed-frontier prices. Hover a bar for the exact number.</figcaption>
-  </figure>
-
-  <h3 data-pt="Alavancas de otimização de custo (decore estas)">Cost optimization levers (memorize these)</h3>
-  <ul>
-    <li data-pt="<strong>Prompt caching:</strong> Até <strong>90% off no input</strong> para contexto repetido (system prompts, documentos RAG). Anthropic, OpenAI, Gemini e vários providers de modelos open suportam. Anthropic expõe tiers de escrita de cache de 5 minutos e 1 hora."><strong>Prompt caching:</strong> Up to <strong>90% off input</strong> for repeated context (system prompts, RAG documents). Anthropic, OpenAI, Gemini and several open-model providers support it. Anthropic exposes 5-minute and 1-hour cache write tiers.</li>
-    <li data-pt="<strong>Batch API:</strong> <strong>50% off</strong> input+output, SLA de 24h. Use para evals, sumarização offline, classificação em bulk."><strong>Batch API:</strong> <strong>50% off</strong> input+output, 24h SLA. Use for evals, offline summarization, bulk classification.</li>
-    <li data-pt="<strong>Preço de cache-hit</strong> é uma alavanca importante nos providers que expõem: cache-hit input do DeepSeek V4 Pro é $0.003625/1M vs $0.435/1M de cache-miss; Kimi K3 cache-hit input é $0.30/1M vs $3.00/1M de input padrão — 10× de desconto."><strong>Cache-hit pricing</strong> is a major lever on providers that expose it: DeepSeek V4 Pro cache-hit input is $0.003625/1M vs $0.435/1M cache-miss; Kimi K3 cache-hit input is $0.30/1M vs $3.00/1M standard input — a 10× discount.</li>
-    <li data-pt="<strong>Tiers de comprimento de contexto:</strong> Gemini 3.x e GPT-5.6 têm cliffs de preço para contexto longo. Gemini 3.1 Pro vai de $2.00 → $4.00/1M de input além de 200K; requests GPT-5.6 acima de ~272K de input são precificados a 2× de input e 1.5× de output."><strong>Context length tiers:</strong> Gemini 3.x and GPT-5.6 both have long-context pricing cliffs. Gemini 3.1 Pro goes from $2.00 → $4.00/1M input beyond 200K; GPT-5.6 requests above ~272K input are priced at 2× input and 1.5× output.</li>
-    <li data-pt="<strong>Preço por horário (novo em 2026):</strong> A DeepSeek cobra 2× durante janelas de pico do horário de Pequim. Se seu workload é batch, agendar para off-peak corta a fatura pela metade."><strong>Time-of-day pricing (new in 2026):</strong> DeepSeek charges 2× during Beijing-time peak windows. If your workload is batch, scheduling it off-peak halves the bill.</li>
-  </ul>
-</section>
-
-
-<!-- =================== ROUTING =================== -->
-<section id="routing">
-  <h2 data-pt="<span class=&quot;num&quot;>03</span> Qual modelo para qual task <span class=&quot;badge&quot; style=&quot;background:var(--warn); color:#0b0d10&quot;>ESSENCIAL</span>"><span class="num">03</span> Which model for which task <span class="badge" style="background:var(--warn); color:#0b0d10">CORE</span></h2>
-  <p data-pt="A pergunta mais importante para se fazer. A arquitetura de 2026 faz <strong>routing</strong> de diferentes requests para diferentes modelos — você não escolhe um modelo e fica nele. Abaixo está o framework completo de decisão.">The single most important question to ask yourself. The 2026 architecture <strong>routes</strong> different requests to different models — you do not pick one model and stick with it. Below is the full decision framework.</p>
-
-  <h3 data-pt="3.1 As 4 dimensões que decidem o modelo">3.1 The 4 dimensions that decide the model</h3>
-  <p data-pt="Antes de nomear um modelo, você precisa caracterizar o request ao longo de quatro eixos:">Before naming a model, you have to characterize the request along four axes:</p>
-  <table>
-    <thead><tr><th data-pt="Dimensão">Dimension</th><th data-pt="O que perguntar">What to ask</th><th data-pt="Por que importa">Why it matters</th></tr></thead>
-    <tbody>
-      <tr><td data-pt="<strong>Tier de capacidade</strong>"><strong>Capability tier</strong></td><td data-pt="Precisa de reasoning frontier, ou é um extract/classify/summarize de rotina?">Does it need frontier reasoning, or is it a routine extract/classify/summarize?</td><td data-pt="Gap de 10× de custo entre Opus e Haiku — a maioria das tasks não precisa do tier de topo.">10× cost gap between Opus and Haiku — most tasks do not need the top tier.</td></tr>
-      <tr><td data-pt="<strong>Comprimento de contexto</strong>"><strong>Context length</strong></td><td data-pt="Tokens de entrada (1K? 50K? 500K?)">Tokens in (1K? 50K? 500K?)</td><td data-pt="Elimina modelos abaixo do threshold; afeta o tier de preço no Gemini.">Eliminates models below the threshold; affects pricing tier on Gemini.</td></tr>
-      <tr><td data-pt="<strong>Budget de latência</strong>"><strong>Latency budget</strong></td><td data-pt="Interativo (&lt;2s) vs batch (24h)?">Interactive (&lt;2s) vs batch (24h)?</td><td data-pt="Modelos de reasoning são lentos; batch APIs são 50% mais baratas mas assíncronas.">Reasoning models are slow; batch APIs are 50% cheaper but async.</td></tr>
-      <tr><td data-pt="<strong>Soberania de dados</strong>"><strong>Data sovereignty</strong></td><td data-pt="Os dados podem sair do seu perímetro?">Can the data leave your perimeter?</td><td data-pt="Se não → open-weight na sua infra. Se sim → frontier fechado geralmente é mais barato e melhor.">If no → open-weight on your infra. If yes → closed frontier is usually cheaper and better.</td></tr>
-    </tbody>
-  </table>
-
-  <h3 data-pt="3.2 A matriz completa task → modelo">3.2 The full task → model matrix</h3>
-  <table>
-    <thead><tr><th data-pt="Task">Task</th><th data-pt="Primeira escolha">First choice</th><th data-pt="Alt barata / OSS">Cheap / OSS alt</th><th data-pt="Por quê">Why</th></tr></thead>
-    <tbody>
-      <tr><td data-pt="Reasoning frontier (olimpíada de matemática, ciência nova, lógica difícil)">Frontier reasoning (math olympiad, novel science, hard logic)</td><td>Claude Fable 5 · GPT-5.6 Sol Max · GPT-5.5 Pro</td><td>Kimi K3 · DeepSeek V4 Pro (thinking mode)</td><td data-pt="Maiores scores GPQA Diamond / AIME. Modelos de reasoning gastam tokens de thinking interno extra antes de responder.">Highest GPQA Diamond / AIME scores. Reasoning models spend extra internal thinking tokens before responding.</td></tr>
-      <tr><td data-pt="Coding agêntico (multi-step, tool use, sessões longas)">Agentic coding (multi-step, tool use, long sessions)</td><td>Claude Sonnet 5 → escalate to Opus 4.8 / Fable 5</td><td>Kimi K3 · GLM 5.2</td><td data-pt="Modelos Anthropic lideram em coerência de longo horizonte e confiabilidade de tool-use — o modo de falha que mata agents.">Anthropic models lead on long-horizon coherence and tool-use reliability — the failure mode that kills agents.</td></tr>
-      <tr><td data-pt="Geração de código one-shot / completion">One-shot code generation / completion</td><td>GPT-5.6 Sol · Grok 4.5</td><td>GLM 5.2 · DeepSeek V4 Pro</td><td data-pt="Top scores SWE-bench / LiveCodeBench quando você precisa só de uma boa resposta, não de um agent multi-turn.">Top SWE-bench / LiveCodeBench scores when you only need one good answer, not a multi-turn agent.</td></tr>
-      <tr><td data-pt="Code review / análise estática">Code review / static analysis</td><td>Claude Sonnet 5</td><td>GLM 5.2 · DeepSeek V4 Flash</td><td data-pt="Forte em detectar bugs sutis, cheiros de segurança; melhor auto-contenção que GPT (menos &quot;reescreve seu código sem pedir&quot;).">Strong at spotting subtle bugs, security smells; better self-restraint than GPT (less "rewriting your code unprompted").</td></tr>
-      <tr><td data-pt="RAG de documentos longos / extração de contexto 200K+">Long document RAG / 200K+ context extraction</td><td>Gemini 3.1 Pro · Claude Opus 4.8 · GPT-5.6 when OpenAI tooling matters</td><td>Gemini 3 Flash · GPT-5.6 Luna</td><td data-pt="Opções de contexto ~1M nativo. Vence RAG para corpora que cabem, mas fique atento a cliffs de preço de contexto longo.">Native ~1M context options. Beats RAG for corpora that fit, but watch long-context pricing cliffs.</td></tr>
-      <tr><td data-pt="Extração estruturada de alto volume (notas fiscais, formulários)">High-volume structured extraction (invoices, forms)</td><td>Gemini 3 Flash · Claude Haiku 4.5</td><td>DeepSeek V4 Flash</td><td data-pt="Barato por token + modo de structured output + bom o suficiente em schemas simples.">Cheap per token + structured output mode + good enough on simple schemas.</td></tr>
-      <tr><td data-pt="Classificação / routing de intent">Classification / intent routing</td><td>Claude Haiku 4.5 · Gemini 3.1 Flash-Lite</td><td>DeepSeek V4 Flash · Nemotron 3 Nano</td><td data-pt="Latência abaixo de 1s, $0.14-$1 por 1M de input. Um fine-tune de um Qwen 3.6 pequeno ou Nemotron 3 Nano pode arrasar nisso por centavos.">Sub-second latency, $0.14-$1 per 1M input. A fine-tune of a small Qwen 3.6 or Nemotron 3 Nano can crush this for pennies.</td></tr>
-      <tr><td data-pt="Chat conversacional (suporte ao cliente, FAQ)">Conversational chat (customer support, FAQ)</td><td>Claude Sonnet 5 · GPT-5.6 Terra</td><td>GPT-5.6 Luna · Gemini 3 Flash</td><td data-pt="Sonnet tem o melhor equilíbrio de tom/segurança; GPT-5.6 Terra é a opção mainstream mais barata.">Sonnet has the strongest tone/safety balance; GPT-5.6 Terra is the cheapest mainstream option.</td></tr>
-      <tr><td data-pt="Escrita criativa / copy de marketing">Creative writing / marketing copy</td><td>Claude Opus 4.8 · GPT-5.6 Sol</td><td>Kimi K3 · DeepSeek V4 Flash</td><td data-pt="Opus 4.8 tem prosa notavelmente mais clara e calorosa que gerações anteriores; GPT-5.6 é mais &quot;estilo viral&quot;. Combine com a voz da marca.">Opus 4.8 has notably clearer, warmer prose than prior generations; GPT-5.6 is more "viral-style." Match to brand voice.</td></tr>
-      <tr><td data-pt="Multimodal — imagens / docs / gráficos">Multimodal — images / docs / charts</td><td>Gemini 3.5 Flash · Gemini 3.1 Pro</td><td>Kimi K3 · Claude Sonnet 5</td><td data-pt="Gemini foi treinado multimodal nativo do zero e lê gráficos/diagramas melhor. Kimi K3 é a primeira opção open multimodal de verdade.">Gemini was natively multimodal-trained from scratch and reads charts/diagrams the best. Kimi K3 is the first genuinely multimodal open option.</td></tr>
-      <tr><td data-pt="Multimodal — áudio (transcrição + compreensão)">Multimodal — audio (transcription + understanding)</td><td>Gemini 3.5 Flash · Gemini 3.1 Pro</td><td>Whisper + LLM</td><td data-pt="Input de áudio nativo. Caso contrário: Whisper-large-v3 → texto → qualquer LLM.">Native audio input. Otherwise: Whisper-large-v3 → text → any LLM.</td></tr>
-      <tr><td data-pt="Tradução">Translation</td><td>Gemini 3.1 Pro · GPT-5.6 Terra</td><td>Qwen 3.6 (CJK) · DeepSeek V4 Flash</td><td data-pt="Modelos frontier todos vão bem; Qwen é o mais forte open-weight para idiomas CJK.">Frontier models all do well; Qwen is the strongest open-weight for CJK languages.</td></tr>
-      <tr><td data-pt="Sumarização (curta, factual)">Summarization (short, factual)</td><td>Gemini 3.1 Flash-Lite · Haiku 4.5</td><td>DeepSeek V4 Flash</td><td data-pt="Barato e rápido. Plateau de qualidade atingido há anos — não precisa de modelo frontier.">Cheap and fast. Quality plateau hit years ago — no need for a frontier model.</td></tr>
-      <tr><td data-pt="Sumarização (longa, com nuance)">Summarization (long-form, nuanced)</td><td>Claude Sonnet 5 · Opus 4.8 for high-stakes synthesis</td><td>Gemini 3.5 Flash</td><td data-pt="Sonnet preserva nuances e atribuições melhor que o tier mais barato; Opus 4.8 quando o resumo deve preservar dependências de longo alcance.">Sonnet preserves nuance and attribution better than the cheaper tier; Opus 4.8 when the summary must preserve long-range dependencies.</td></tr>
-      <tr><td data-pt="Confiabilidade de function / tool calling">Function / tool calling reliability</td><td>Claude Sonnet 5 · Opus 4.8 · Grok 4.5</td><td>Kimi K3</td><td data-pt="O tier de topo emite consistentemente JSON / argumentos válidos. Open-weight está alcançando mas ainda fica atrás em edge cases.">Top tier consistently emits valid JSON / arguments. Open-weight is catching up but still trails on edge cases.</td></tr>
-      <tr><td data-pt="On-prem / indústria regulamentada (saúde, defesa, jurídico)">On-prem / regulated industry (health, defense, legal)</td><td>Kimi K3 · DeepSeek V4 Pro · GLM 5.2</td><td>Nemotron 3 · Qwen 3.6 · Llama / Mistral</td><td data-pt="Open weights → self-host no vLLM / SGLang, ou use Bedrock / Vertex com isolamento VPC.">Open weights → self-host on vLLM / SGLang, or use Bedrock / Vertex with VPC isolation.</td></tr>
-      <tr><td data-pt="Embeddings">Embeddings</td><td>OpenAI <code>text-embedding-3-large</code> · Voyage 3 · Cohere Embed v4</td><td>BGE-M3 (open)</td><td data-pt="Não são LLMs — modelos separados. Voyage e Cohere lideram benchmarks de retrieval; BGE-M3 é a melhor opção gratuita.">Not LLMs — separate models. Voyage and Cohere lead retrieval benchmarks; BGE-M3 is the best free option.</td></tr>
-      <tr><td data-pt="Reranking">Reranking</td><td>Cohere Rerank v3</td><td>BGE-reranker-v2-m3</td><td data-pt="Cross-encoder, não um LLM. Adiciona ~50–150 ms mas +25–40% de precisão.">Cross-encoder, not an LLM. Adds ~50–150 ms but +25–40% precision.</td></tr>
-    </tbody>
-  </table>
-
-  <h3 data-pt="3.3 Diferenças arquiteturais entre modelos">3.3 Architectural differences between models</h3>
-  <p data-pt="A tabela de preços te diz o quanto pagar; esta tabela te diz <em>por que</em> um modelo custa o que custa e onde ele brilha. Muitos detalhes (params, arquitetura exata) não são divulgados pelos labs closed-source — marcados como <code>?</code>.">The pricing table tells you what to pay; this table tells you <em>why</em> a model costs what it does and where it shines. Many details (params, exact architecture) are undisclosed by closed-source labs — flagged as <code>?</code>.</p>
+  <h3 data-pt="2.1 Como os modelos diferem — arquitetura">2.1 How the models differ — architecture</h3>
+  <p data-pt="Esta tabela te diz <em>por que</em> um modelo custa o que custa e onde ele brilha. Muitos detalhes (params, arquitetura exata) não são divulgados pelos labs closed-source — marcados como <code>?</code>.">This table tells you <em>why</em> a model costs what it does and where it shines. Many details (params, exact architecture) are undisclosed by closed-source labs — flagged as <code>?</code>.</p>
   <table>
     <thead><tr><th data-pt="Modelo">Model</th><th data-pt="Lab">Lab</th><th data-pt="Arquitetura">Architecture</th><th data-pt="Params ativos / Total">Active / Total params</th><th data-pt="Contexto">Context</th><th data-pt="Modalidades">Modalities</th><th data-pt="Modo de reasoning">Reasoning mode</th><th data-pt="Tool use">Tool use</th><th data-pt="Aberto?">Open?</th></tr></thead>
     <tbody>
@@ -1406,33 +1448,13 @@
         <td data-pt="Fechado">Closed</td>
       </tr>
       <tr>
-        <td><strong>Gemini 3.5 Flash</strong></td><td>Google DeepMind</td>
+        <td><strong>Gemini 3.6 Flash</strong></td><td>Google DeepMind</td>
         <td data-pt="MoE destilado, otimizado para velocidade (?)">Distilled MoE, speed-optimized (?)</td>
         <td data-pt="não divulgado">undisclosed</td>
         <td>1M</td>
         <td data-pt="Texto + visão + áudio + vídeo">Text + vision + audio + video</td>
         <td data-pt="Thinking mode">Thinking mode</td>
-        <td data-pt="Forte — supera o 3.1 Pro em agêntico, ~4× mais rápido">Strong — beats 3.1 Pro on agentic, ~4× faster</td>
-        <td data-pt="Fechado">Closed</td>
-      </tr>
-      <tr>
-        <td><strong>Gemini 3.1 Pro</strong></td><td>Google DeepMind</td>
-        <td data-pt="MoE + variantes de attention de contexto longo (?)">MoE + long-context attention variants (?)</td>
-        <td data-pt="não divulgado">undisclosed</td>
-        <td data-pt="1M+ (preço dobra após 200K)">1M+ (pricing doubles after 200K)</td>
-        <td data-pt="Texto + visão + áudio + vídeo">Text + vision + audio + video</td>
-        <td data-pt="Thinking mode (contagem de tokens/assinaturas)">Thinking mode (token counts/signatures)</td>
-        <td data-pt="Forte, nativo">Strong, native</td>
-        <td data-pt="Fechado">Closed</td>
-      </tr>
-      <tr>
-        <td><strong>Gemini 3.1 Flash-Lite</strong></td><td>Google DeepMind</td>
-        <td data-pt="MoE menor, destilado (?)">Smaller MoE, distilled (?)</td>
-        <td data-pt="não divulgado">undisclosed</td>
-        <td>1M+</td>
-        <td data-pt="Texto + visão">Text + vision</td>
-        <td data-pt="Não">No</td>
-        <td data-pt="Bom para volume">Good for volume</td>
+        <td data-pt="Forte — top multimodal, agêntico e eficiente em tokens (17% menos output que o 3.5), saltos em coding (DeepSWE 49 vs 37)">Strong — top multimodal, agentic and token-efficient (17% fewer output tokens than 3.5), big coding jumps (DeepSWE 49 vs 37)</td>
         <td data-pt="Fechado">Closed</td>
       </tr>
       <tr>
@@ -1476,7 +1498,7 @@
         <td data-pt="Open weights (MIT)">Open weights (MIT)</td>
       </tr>
       <tr>
-        <td><strong>Qwen 3.6</strong></td><td>Alibaba</td>
+        <td><strong>Qwen 3.8</strong></td><td>Alibaba</td>
         <td data-pt="MoE 35B-A3B + denso 27B">35B-A3B MoE + dense 27B</td>
         <td data-pt="varia (3B ativo → 35B total; denso 27B)">varies (3B active → 35B total; dense 27B)</td>
         <td>128K–1M</td>
@@ -1507,16 +1529,9 @@
     <li data-pt="<strong>&quot;GQA&quot; / &quot;MLA&quot;</strong> — Grouped-Query Attention (usado por Llama, maioria dos transformers modernos — menos K/V heads que Q heads → mais barato) e Multi-head Latent Attention (invenção do DeepSeek — comprime KV cache, deixa servir contexto de 128K barato)."><strong>"GQA" / "MLA"</strong> — Grouped-Query Attention (used by Llama, most modern transformers — fewer K/V heads than Q heads → cheaper) and Multi-head Latent Attention (DeepSeek's invention — compresses KV cache, lets them serve 128K context cheaply).</li>
   </ul>
 
-  <h3 data-pt="3.4 Padrões de routing que você deve saber nomear">3.4 Routing patterns you should be able to name</h3>
-  <ul>
-    <li data-pt="<strong>Cascade / triage routing</strong> — modelo barato responde; se confiança baixa ou um classifier &quot;difícil&quot; sinaliza, escala para o modelo caro. Forma comum: <em>Haiku 4.5 → Sonnet 5 → Opus 4.8</em>. Reduz custo em 60–80% com perda mínima de qualidade."><strong>Cascade / triage routing</strong> — cheap model answers; if confidence low or a "hard" classifier flags it, escalate to the expensive model. Common shape: <em>Haiku 4.5 → Sonnet 5 → Opus 4.8</em>. Cuts cost 60–80% with minimal quality loss.</li>
-    <li data-pt="<strong>Task-typed routing</strong> — um classifier (às vezes um LLM, às vezes um modelo pequeno fine-tuned) categoriza o request (<code>code</code>, <code>chat</code>, <code>math</code>, <code>vision</code>) e despacha."><strong>Task-typed routing</strong> — a classifier (sometimes an LLM, sometimes a fine-tuned small model) tags the request (<code>code</code>, <code>chat</code>, <code>math</code>, <code>vision</code>) and dispatches.</li>
-    <li data-pt="<strong>Especulativo / draft-then-verify</strong> — modelo barato faz o draft, modelo caro verifica / edita. Usado em coding agêntico (e.g. Haiku propõe, Sonnet revisa)."><strong>Speculative / draft-then-verify</strong> — cheap model drafts, expensive model verifies / edits. Used in agentic coding (e.g. Haiku proposes, Sonnet reviews).</li>
-    <li data-pt="<strong>Mixture-of-Experts <em>na camada de orquestração</em></strong> — mesmo nome que nas arquiteturas de modelo, mas aqui significa routing para diferentes modelos de <em>provider</em> por sub-task em um workflow."><strong>Mixture-of-Experts <em>at the orchestration layer</em></strong> — same name as in model architectures, but here it means routing to different <em>provider</em> models per sub-task in a workflow.</li>
-    <li data-pt="<strong>Provider failover</strong> — primário na Anthropic, fallback para Bedrock-Anthropic ou para OpenAI em caso de outage. Tools: OpenRouter, Portkey, LiteLLM."><strong>Provider failover</strong> — primary on Anthropic, fallback to Bedrock-Anthropic or to OpenAI on outage. Tools: OpenRouter, Portkey, LiteLLM.</li>
-  </ul>
+  
+  <h4 data-pt="Reasoning vs non-reasoning — quando cada um vale o custo">Reasoning vs non-reasoning — when each is worth it</h4>
 
-  <h3 data-pt="3.5 Reasoning vs non-reasoning — quando cada um vale o custo">3.5 Reasoning vs non-reasoning — when each is worth the cost</h3>
   <p data-pt="Modelos/modos de reasoning (Claude Fable 5 e Opus 4.8 adaptive thinking, GPT-5.6 Sol Max, GPT-5.5 Pro, DeepSeek V4 Pro thinking mode) queimam muitos tokens de <em>output</em> extras em thinking interno do provider. Use quando:">Reasoning models/modes (Claude Fable 5 and Opus 4.8 adaptive thinking, GPT-5.6 Sol Max, GPT-5.5 Pro, DeepSeek V4 Pro thinking mode) burn many extra <em>output</em> tokens on provider-owned internal thinking. Use them when:</p>
   <ul>
     <li data-pt="A task tem uma <strong>resposta correta verificável</strong> — matemática, código que deve passar em testes, quebra-cabeças lógicos.">The task has a <strong>verifiable correct answer</strong> — math, code that must pass tests, logical puzzles.</li>
@@ -1525,22 +1540,29 @@
   </ul>
   <p data-pt="<strong>Não</strong> use para chat, sumarização, classificação ou em qualquer lugar onde a resposta é &quot;aberta&quot; — você paga por thinking que não precisa.">Do <strong>not</strong> use them for chat, summarization, classification, or anywhere the answer is "open-ended" — you pay for thinking you do not need.</p>
 
-  <h3 data-pt="3.6 Exemplo concreto de custo (decore um número)">3.6 Concrete cost example (memorize one number)</h3>
-  <div class="card">
-    <p data-pt="Um turn típico de agent: <strong>10K tokens de input + 1K tokens de output</strong>. Custo por turn — e projetado em 1M turns/mês:">A typical agent turn: <strong>10K input tokens + 1K output tokens</strong>. Cost per turn — and projected at 1M turns/month:</p>
-    <figure class="diagram" style="position:relative; padding:14px 18px">
-      <canvas id="turnChart" width="640" height="360"></canvas>
-      <div id="turnTip" class="bar-tooltip"></div>
-      <div class="legend">
-        <span><span class="sw" style="background:#7cf0c1"></span>Cheap tier (Haiku / Flash / DeepSeek)</span>
-        <span><span class="sw" style="background:#ffb86b"></span>Mid tier (Sonnet 5 / GPT-5.6 Sol)</span>
-        <span><span class="sw" style="background:#ff6b8b"></span>Premium (Opus / Fable 5 / GPT-5.5 Pro)</span>
-      </div>
-      <figcaption data-pt="Mesmo workload, spread de preço 300×+. Em 1M turns/mês: <strong>$1.7K → $480K</strong>. Por isso routing importa.">Same workload, 300×+ price spread. At 1M turns/month: <strong>$1.7K → $480K</strong>. This is why routing matters.</figcaption>
-    </figure>
+  
+  <h3 data-pt="2.2 Open vs closed source">2.2 Open vs closed source</h3>
+  <p data-pt="O outro eixo que define um modelo é se os pesos são públicos. Labs de fronteira fechados (Anthropic, OpenAI, Google, xAI) te alugam uma API; labs open-weight (DeepSeek, Moonshot, Z.ai, Alibaba, NVIDIA) publicam pesos que você mesmo pode rodar. Em 2026 o gap de capacidade entre eles quase fechou — estes são os contendores open que vale conhecer:">The other axis that defines a model is whether its weights are public. Closed frontier labs (Anthropic, OpenAI, Google, xAI) rent you an API; open-weight labs (DeepSeek, Moonshot, Z.ai, Alibaba, NVIDIA) publish weights you can run yourself. In 2026 the capability gap between them has nearly closed — these are the open contenders worth knowing:</p>
+  <ul>
+    <li data-pt="<strong>Kimi K3 (Moonshot AI)</strong> — lançado em 16 jul 2026; pesos completos publicados até o fim de julho. 2.8T params (MoE de 896 experts, 16 ativos/token) — o maior modelo open-weight já lançado. Multimodal, reasoning-native, 1M ctx. Top-3 geral no GDPval-AA (atrás só do Fable 5 Max e GPT-5.6 Sol Max, à frente do Opus 4.8) e #1 na arena WebDev. O detalhe: cobra preço de frontier fechado ($3/$15)."><strong>Kimi K3 (Moonshot AI)</strong> — released Jul 16, 2026; full weights publishing by late July. 2.8T params (896-expert MoE, 16 active/token) — the largest open-weight model ever released. Multimodal, reasoning-native, 1M ctx. Top-3 overall on GDPval-AA (behind only Fable 5 Max and GPT-5.6 Sol Max, ahead of Opus 4.8) and #1 on the WebDev arena. The catch: it charges closed-frontier prices ($3/$15).</li>
+    <li data-pt="<strong>DeepSeek V4</strong> — a referência de preço/performance, GA oficial em meados de julho. V4 Flash para trabalho geral ($0.14/$0.28), V4 Pro para qualidade de topo com orçamento ($0.435/$0.87; 49B ativo / 1.6T total, arquitetura DSA) com um modo thinking opcional. 1M context padrão em toda a linha. Novidade: preço por horário de pico (2× off-peak)."><strong>DeepSeek V4</strong> — the price/performance reference, officially GA mid-July. V4 Flash for general work ($0.14/$0.28), V4 Pro for top quality on a budget ($0.435/$0.87; 49B active / 1.6T total, DSA architecture) with an optional thinking mode. 1M context default across the line. New: peak-hour pricing (2× off-peak).</li>
+    <li data-pt="<strong>GLM 5.2 (Z.ai / Tsinghua)</strong> — lançado jun 2026, licença MIT, 1M ctx / 131K output. Flagship agêntico; supera o GPT-5.5 no SWE-Bench Pro (62.1 vs 58.6) e no FrontierSWE. Feito para trabalho autônomo de longo horizonte — sessões de várias horas. Disponível no HuggingFace, vLLM, SGLang e api.z.ai."><strong>GLM 5.2 (Z.ai / Tsinghua)</strong> — released Jun 2026, MIT license, 1M ctx / 131K output. Flagship agentic model; beats GPT-5.5 on SWE-Bench Pro (62.1 vs 58.6) and FrontierSWE. Built for long-horizon autonomous work — multi-hour sessions. Available on HuggingFace, vLLM, SGLang, and api.z.ai.</li>
+    <li data-pt="<strong>Qwen 3.8</strong> (Alibaba) — família open-weight (MoE 35B-A3B + denso 27B). Forte em multilingual/CJK, coding competitivo. O flagship de reasoning <strong>Qwen 3.9 Max</strong> ($2.50/$7.50) é closed-weight — cuidado para não confundir os dois."><strong>Qwen 3.8</strong> (Alibaba) — open-weight family (35B-A3B MoE + dense 27B). Strong multilingual/CJK, competitive coding. The <strong>Qwen 3.9 Max</strong> reasoning flagship ($2.50/$7.50) is closed-weight — don't confuse the two.</li>
+    <li data-pt="<strong>Nemotron 3 (NVIDIA)</strong> — a aposta open dos EUA. Três tamanhos: Nano (30B-A3B híbrido Mamba2-Transformer MoE, 1M ctx, dez 2025), Super (~100B, mar 2026) e Ultra (~500B, jun 2026 — inteligência open-weight líder dos EUA, inferência ~5× mais rápida). Extremamente barato de servir (Nano a ~$0.05/1M de input, grátis em alguns providers) — ideal para frotas de agents de alto volume."><strong>Nemotron 3 (NVIDIA)</strong> — the US open bet. Three sizes: Nano (30B-A3B hybrid Mamba2-Transformer MoE, 1M ctx, Dec 2025), Super (~100B, Mar 2026), and Ultra (~500B, Jun 2026 — leading US open-weight intelligence, ~5× faster inference). Extremely cheap to serve (Nano at ~$0.05/1M input, free on some providers) — ideal for high-volume agent fleets.</li>
+    <li data-pt="<strong>Famílias Llama / Mistral</strong> — ecossistema amplo, fine-tunable, em todo provider de inferência."><strong>Llama / Mistral families</strong> — broad ecosystem, fine-tunable, on every inference provider.</li>
+  </ul>
+  <div class="callout" data-pt="<strong>Mental model:</strong> A fronteira de preço open vs fechado está desmoronando por cima e por baixo. Por cima, o Kimi K3 agora cobra preço de frontier fechado ($3/$15 — igual ao Sonnet 5) e entrega performance top-3. Por baixo, DeepSeek V4 e GLM 5.2 continuam 5–30× mais baratos que os flagships fechados. O prêmio fechado ainda compra: confiabilidade de tool-use, coerência de longo horizonte, profundidade multimodal e ecossistema (tools, caches, retrieval hospedado). Para extração em batch ou classificação, o tier open/flash barato ainda vence por uma ordem de magnitude.">
+    <strong>Mental model:</strong> The open-vs-closed price boundary is collapsing from both ends. From above, Kimi K3 now charges closed-frontier prices ($3/$15 — same as Sonnet 5) and delivers top-3 performance. From below, DeepSeek V4 and GLM 5.2 remain 5–30× cheaper than closed flagships. The closed premium still buys: tool-use reliability, long-horizon coherence, multimodal depth, and ecosystem (tools, caches, hosted retrieval). For batch extraction or classification, the cheap open/flash tier still wins by an order of magnitude.
   </div>
 
-  <h3 data-pt="3.6b Preços por modelo — taxas de lista de julho 2026">3.6b Per-model pricing — July 2026 list rates</h3>
+  
+  <h3 data-pt="2.3 Preço">2.3 Pricing</h3>
+  <p data-pt="Preços por <strong>1M tokens</strong>, USD, tier padrão (input / output). Caching e batch geralmente cortam 50–90% do input.">Prices are per <strong>1M tokens</strong>, USD, standard tier (input / output). Caching and batch usually cut 50–90% off input.</p>
+  <div class="callout warn" data-pt="<strong>Preços situacionais:</strong> Mantenha preços promocionais e janelas de billing fora da comparação base. Dois exemplos de julho 2026: o Claude Sonnet 5 tem preço de lançamento ($2/$10 até 2026-08-31, depois $3/$15), e a DeepSeek introduziu <strong>preço por horário de pico</strong> — 2× a taxa off-peak durante as janelas de pico do horário de Pequim. Trate ambos como notas de janela de billing, não o preço bruto do modelo.">
+    <strong>Situational pricing:</strong> Keep promos and billing windows out of the baseline comparison. Two July 2026 examples: Claude Sonnet 5 has intro pricing ($2/$10 through 2026-08-31, then $3/$15), and DeepSeek introduced <strong>peak-hour pricing</strong> — 2× the off-peak rate during Beijing-time peak windows. Treat both as billing-window notes, not the model's raw price.
+  </div>
+
+    <h4 data-pt="Preços por modelo — taxas de lista de julho 2026">Per-model pricing — July 2026 list rates</h4>
   <p style="margin-bottom:10px" data-pt="Todos os valores são <strong>por 1M tokens</strong>, USD, tier padrão (non-batch). Tiers de batch e prompt-cache tipicamente cortam o custo de input em 50–90%. <span class=&quot;small&quot;>Clique em qualquer cabeçalho para ordenar.</span>">All figures are <strong>per 1M tokens</strong>, USD, standard (non-batch) tier. Batch and prompt-cache tiers typically cut input cost 50–90%. <span class="small">Click any header to sort.</span></p>
   <table class="sortable" id="priceTable">
     <thead>
@@ -1572,28 +1594,12 @@
         <td>2×</td>
       </tr>
       <tr>
-        <td><strong>Gemini 3.1 Flash-Lite</strong></td>
-        <td>Google</td>
-        <td><span class="tag good">budget</span></td>
-        <td class="price">$0.25</td>
-        <td class="price">$1.50</td>
-        <td>6×</td>
-      </tr>
-      <tr>
         <td><strong>DeepSeek V4 Pro</strong></td>
         <td>DeepSeek</td>
         <td><span class="tag good">budget</span></td>
         <td class="price">$0.435</td>
         <td class="price">$0.87</td>
         <td>2×</td>
-      </tr>
-      <tr>
-        <td><strong>Gemini 3 Flash</strong></td>
-        <td>Google</td>
-        <td><span class="tag good">budget</span></td>
-        <td class="price">$0.50</td>
-        <td class="price">$3.00</td>
-        <td>6×</td>
       </tr>
       <tr>
         <td><strong>GPT-5.6 Luna</strong></td>
@@ -1604,7 +1610,7 @@
         <td>6×</td>
       </tr>
       <tr>
-        <td><strong>Qwen 3.6 (Plus tier)</strong></td>
+        <td><strong>Qwen 3.8 (Plus tier)</strong></td>
         <td>Alibaba</td>
         <td><span class="tag good">budget</span></td>
         <td class="price">$0.40</td>
@@ -1637,20 +1643,12 @@
         <td>3×</td>
       </tr>
       <tr>
-        <td><strong>Gemini 3.5 Flash</strong></td>
+        <td><strong>Gemini 3.6 Flash</strong></td>
         <td>Google</td>
         <td><span class="tag warn">mid</span></td>
         <td class="price">$1.50</td>
-        <td class="price">$9.00</td>
-        <td>6×</td>
-      </tr>
-      <tr>
-        <td><strong>Gemini 3.1 Pro</strong></td>
-        <td>Google</td>
-        <td><span class="tag warn">mid</span></td>
-        <td class="price">$2.00</td>
-        <td class="price">$12.00</td>
-        <td>6×</td>
+        <td class="price">$7.50</td>
+        <td>5×</td>
       </tr>
       <tr>
         <td><strong>GPT-5.6 Terra</strong></td>
@@ -1715,13 +1713,129 @@
     <strong>Rule of thumb:</strong> output tokens cost 5–8× more than input tokens across every provider — because generation is sequential (one token at a time) while input is processed in parallel. This is why reasoning models with internal thinking are so expensive: they silently generate thousands of output tokens before answering.
   </div>
 
-  <h3 data-pt="3.7 Fluxo de decisão (a versão &quot;em voz alta&quot;)">3.7 Decision flow (the "out loud" version)</h3>
+    <figure class="diagram" style="position:relative">
+    <div style="font-size:13px; color:var(--accent); text-align:center; margin-bottom:8px; font-weight:600">Price per 1M tokens — input vs output (log scale)</div>
+    <canvas id="priceChart" width="820" height="430"></canvas>
+    <div id="priceTip" class="bar-tooltip"></div>
+    <div class="legend">
+      <span><span class="sw" style="background:#7cf0c1"></span>Input</span>
+      <span><span class="sw" style="background:#ffb86b"></span>Output</span>
+    </div>
+    <figcaption data-pt="O preço open-weight agora vai do DeepSeek Flash (ordens de grandeza mais barato) até o Kimi K3, que cobra preço de frontier fechado. Passe o mouse em uma barra para o número exato.">Open-weight pricing now spans DeepSeek Flash (orders of magnitude cheaper) all the way up to Kimi K3, which charges closed-frontier prices. Hover a bar for the exact number.</figcaption>
+  </figure>
+
+    <h4 data-pt="Exemplo concreto de custo (decore um número)">Concrete cost example — memorize one number</h4>
+  <div class="card">
+    <p data-pt="Um turn típico de agent: <strong>10K tokens de input + 1K tokens de output</strong>. Custo por turn — e projetado em 1M turns/mês:">A typical agent turn: <strong>10K input tokens + 1K output tokens</strong>. Cost per turn — and projected at 1M turns/month:</p>
+    <figure class="diagram" style="position:relative; padding:14px 18px">
+      <canvas id="turnChart" width="760" height="430"></canvas>
+      <div id="turnTip" class="bar-tooltip"></div>
+      <div class="legend">
+        <span><span class="sw" style="background:#7cf0c1"></span>Cheap tier (Haiku / Flash / DeepSeek)</span>
+        <span><span class="sw" style="background:#ffb86b"></span>Mid tier (Sonnet 5 / GPT-5.6 Sol)</span>
+        <span><span class="sw" style="background:#ff6b8b"></span>Premium (Opus / Fable 5 / GPT-5.5 Pro)</span>
+      </div>
+      <figcaption data-pt="Mesmo workload, spread de preço 300×+. Em 1M turns/mês: <strong>$1.7K → $480K</strong>. Por isso routing importa.">Same workload, 300×+ price spread. At 1M turns/month: <strong>$1.7K → $480K</strong>. This is why routing matters.</figcaption>
+    </figure>
+  </div>
+
+    <h4 data-pt="Alavancas de otimização de custo (decore estas)">Cost optimization levers (memorize these)</h4>
+  <ul>
+    <li data-pt="<strong>Prompt caching:</strong> Até <strong>90% off no input</strong> para contexto repetido (system prompts, documentos RAG). Anthropic, OpenAI, Gemini e vários providers de modelos open suportam. Anthropic expõe tiers de escrita de cache de 5 minutos e 1 hora."><strong>Prompt caching:</strong> Up to <strong>90% off input</strong> for repeated context (system prompts, RAG documents). Anthropic, OpenAI, Gemini and several open-model providers support it. Anthropic exposes 5-minute and 1-hour cache write tiers.</li>
+    <li data-pt="<strong>Batch API:</strong> <strong>50% off</strong> input+output, SLA de 24h. Use para evals, sumarização offline, classificação em bulk."><strong>Batch API:</strong> <strong>50% off</strong> input+output, 24h SLA. Use for evals, offline summarization, bulk classification.</li>
+    <li data-pt="<strong>Preço de cache-hit</strong> é uma alavanca importante nos providers que expõem: cache-hit input do DeepSeek V4 Pro é $0.003625/1M vs $0.435/1M de cache-miss; Kimi K3 cache-hit input é $0.30/1M vs $3.00/1M de input padrão — 10× de desconto."><strong>Cache-hit pricing</strong> is a major lever on providers that expose it: DeepSeek V4 Pro cache-hit input is $0.003625/1M vs $0.435/1M cache-miss; Kimi K3 cache-hit input is $0.30/1M vs $3.00/1M standard input — a 10× discount.</li>
+    <li data-pt="<strong>Tiers de comprimento de contexto:</strong> Gemini e GPT-5.6 têm cliffs de preço para contexto longo. O Gemini 3.6 Flash vai de $1.50 → $3.00/1M de input além de 200K; requests GPT-5.6 acima de ~272K de input são precificados a 2× de input e 1.5× de output."><strong>Context length tiers:</strong> Gemini and GPT-5.6 both have long-context pricing cliffs. Gemini 3.6 Flash goes from $1.50 → $3.00/1M input beyond 200K; GPT-5.6 requests above ~272K input are priced at 2× input and 1.5× output.</li>
+    <li data-pt="<strong>Preço por horário (novo em 2026):</strong> A DeepSeek cobra 2× durante janelas de pico do horário de Pequim. Se seu workload é batch, agendar para off-peak corta a fatura pela metade."><strong>Time-of-day pricing (new in 2026):</strong> DeepSeek charges 2× during Beijing-time peak windows. If your workload is batch, scheduling it off-peak halves the bill.</li>
+  </ul>
+
+  
+  <h3 data-pt="2.4 Inteligência geral">2.4 General intelligence</h3>
+  <p data-pt="Preço é só um eixo. Os outros dois que mais importam são <strong>inteligência geral</strong> e <strong>capacidade de coding</strong>, medidos diretamente pelos índices da Artificial Analysis: o <strong>Intelligence Index</strong> combina ~9 avaliações (reasoning, conhecimento, coding, tool use, contexto longo) num único score 0–100, e o <strong>Coding Index</strong> isola os benchmarks de coding (Terminal-Bench v2.1, SciCode). Os gráficos mostram o <strong>top 10</strong> dos 16 modelos das tabelas de preço, usando os valores publicados pela Artificial Analysis (julho de 2026). Passe o mouse numa barra para o número.">Price is only one axis. The two others that matter most are <strong>general intelligence</strong> and <strong>coding capability</strong>, measured directly by the Artificial Analysis indices: the <strong>Intelligence Index</strong> blends ~9 evaluations (reasoning, knowledge, coding, tool use, long context) into a single 0–100 score, and the <strong>Coding Index</strong> isolates the coding benchmarks (Terminal-Bench v2.1, SciCode). The charts show the <strong>top 10</strong> of the 16 models from the pricing tables, using Artificial Analysis's published values (July 2026). Hover a bar for the number.</p>
+
+  <div class="callout warn" data-pt="<strong>Intelligence Index — em atualização.</strong> Este gráfico está sendo preenchido com o Artificial Analysis Intelligence Index atual (fonte: <a href=&quot;https://artificialanalysis.ai/&quot;>artificialanalysis.ai</a>), em vez de números estimados. Chega em breve.">
+    <strong>Intelligence Index — sourcing in progress.</strong> This chart is being populated from the current Artificial Analysis Intelligence Index (source: <a href="https://artificialanalysis.ai/">artificialanalysis.ai</a>) rather than shown with estimated numbers. Coming shortly.
+  </div>
+
+  
+  <h3 data-pt="2.5 Coding">2.5 Coding</h3>
+  <p data-pt="Os mesmos 16 modelos, rankeados pelo Artificial Analysis Coding Index (Terminal-Bench v2.1 + SciCode).">The same 16 models, ranked by the Artificial Analysis Coding Index (Terminal-Bench v2.1 + SciCode).</p>
+  <figure class="diagram" style="position:relative">
+    <div style="font-size:13px; color:var(--accent); text-align:center; margin-bottom:8px; font-weight:600">Top 10 — Artificial Analysis Coding Index (Terminal-Bench v2.1 · SciCode)</div>
+    <canvas id="codingChart" width="680" height="400"></canvas>
+    <div id="codingTip" class="bar-tooltip"></div>
+    <div class="legend">
+      <span><span class="sw" style="background:#82b8ff"></span><span data-pt="Closed / fechado">Closed-source</span></span>
+      <span><span class="sw" style="background:#7cf0c1"></span><span data-pt="Open-weight">Open-weight</span></span>
+    </div>
+    <figcaption data-pt="Fonte: Artificial Analysis Coding Index, julho de 2026. O tier GPT-5.6 da OpenAI (Sol 77.4, Terra 76.7) lidera o blend, com o Claude Fable 5 (76.5) logo atrás. O Kimi K3 (76.2) é o destaque open-weight — #4 no geral, praticamente empatado com a fronteira; o GLM 5.2 fica logo fora do top 10.">Source: Artificial Analysis Coding Index, July 2026. OpenAI's GPT-5.6 tier (Sol 77.4, Terra 76.7) leads the blend, with Claude Fable 5 (76.5) just behind. Kimi K3 (76.2) is the standout open-weight — #4 overall, essentially tied with the frontier; GLM 5.2 sits just outside the top 10.</figcaption>
+  </figure>
+
+    <div class="callout" data-pt="<strong>Como ler os eixos juntos:</strong> preço e capacidade raramente concordam. O Kimi K3 é o melhor coder open-weight — colado na fronteira fechada (#4 no Coding Index) mas com economia open-weight; o tier GPT-5.6 da OpenAI lidera o blend de coding; o Gemini 3.6 Flash é barato e forte em multimodal. A jogada de 2026 continua sendo <strong>routing</strong> — combine cada request ao eixo que ele realmente exige (veja <a href=&quot;#routing&quot;>§03</a>).">
+    <strong>Reading the axes together:</strong> price and capability rarely agree. Kimi K3 is the top open-weight coder — right up against the closed frontier (#4 on the Coding Index) but at open-weight economics; OpenAI's GPT-5.6 tier leads the coding blend; Gemini 3.6 Flash is cheap and multimodal-strong. The 2026 move is still <strong>routing</strong> — match each request to the axis it actually demands (see <a href="#routing">§03</a>).
+  </div>
+
+</section>
+
+
+<!-- =================== ROUTING =================== -->
+<section id="routing">
+  <h2 data-pt="<span class=&quot;num&quot;>03</span> Qual modelo para qual task <span class=&quot;badge&quot; style=&quot;background:var(--warn); color:#0b0d10&quot;>ESSENCIAL</span>"><span class="num">03</span> Which model for which task <span class="badge" style="background:var(--warn); color:#0b0d10">CORE</span></h2>
+  <p data-pt="A pergunta mais importante para se fazer. A arquitetura de 2026 faz <strong>routing</strong> de diferentes requests para diferentes modelos — você não escolhe um modelo e fica nele. Abaixo está o framework completo de decisão.">The single most important question to ask yourself. The 2026 architecture <strong>routes</strong> different requests to different models — you do not pick one model and stick with it. Below is the full decision framework.</p>
+
+  <h3 data-pt="3.1 As 4 dimensões que decidem o modelo">3.1 The 4 dimensions that decide the model</h3>
+  <p data-pt="Antes de nomear um modelo, você precisa caracterizar o request ao longo de quatro eixos:">Before naming a model, you have to characterize the request along four axes:</p>
+  <table>
+    <thead><tr><th data-pt="Dimensão">Dimension</th><th data-pt="O que perguntar">What to ask</th><th data-pt="Por que importa">Why it matters</th></tr></thead>
+    <tbody>
+      <tr><td data-pt="<strong>Tier de capacidade</strong>"><strong>Capability tier</strong></td><td data-pt="Precisa de reasoning frontier, ou é um extract/classify/summarize de rotina?">Does it need frontier reasoning, or is it a routine extract/classify/summarize?</td><td data-pt="Gap de 10× de custo entre Opus e Haiku — a maioria das tasks não precisa do tier de topo.">10× cost gap between Opus and Haiku — most tasks do not need the top tier.</td></tr>
+      <tr><td data-pt="<strong>Comprimento de contexto</strong>"><strong>Context length</strong></td><td data-pt="Tokens de entrada (1K? 50K? 500K?)">Tokens in (1K? 50K? 500K?)</td><td data-pt="Elimina modelos abaixo do threshold; afeta o tier de preço no Gemini.">Eliminates models below the threshold; affects pricing tier on Gemini.</td></tr>
+      <tr><td data-pt="<strong>Budget de latência</strong>"><strong>Latency budget</strong></td><td data-pt="Interativo (&lt;2s) vs batch (24h)?">Interactive (&lt;2s) vs batch (24h)?</td><td data-pt="Modelos de reasoning são lentos; batch APIs são 50% mais baratas mas assíncronas.">Reasoning models are slow; batch APIs are 50% cheaper but async.</td></tr>
+      <tr><td data-pt="<strong>Soberania de dados</strong>"><strong>Data sovereignty</strong></td><td data-pt="Os dados podem sair do seu perímetro?">Can the data leave your perimeter?</td><td data-pt="Se não → open-weight na sua infra. Se sim → frontier fechado geralmente é mais barato e melhor.">If no → open-weight on your infra. If yes → closed frontier is usually cheaper and better.</td></tr>
+    </tbody>
+  </table>
+
+  <h3 data-pt="3.2 Tasks comuns — a matriz task → modelo">3.2 Common tasks — the task → model matrix</h3>
+  <p data-pt="Agrupado por família de task — coding, matemática/reasoning, perguntas gerais, assistentes conversacionais, extração, multimodal. Primeira escolha, depois a alternativa barata/open.">Grouped by task family — coding, math/reasoning, general Q&amp;A, conversational assistants, extraction, multimodal. First choice, then the cheap/open alternative.</p>
+  <table>
+    <thead><tr><th data-pt="Task">Task</th><th data-pt="Primeira escolha">First choice</th><th data-pt="Alt barata / OSS">Cheap / OSS alt</th><th data-pt="Por quê">Why</th></tr></thead>
+    <tbody>
+      <tr><td data-pt="Reasoning frontier (olimpíada de matemática, ciência nova, lógica difícil)">Frontier reasoning (math olympiad, novel science, hard logic)</td><td>Claude Fable 5 · GPT-5.6 Sol Max · GPT-5.5 Pro</td><td>Kimi K3 · DeepSeek V4 Pro (thinking mode)</td><td data-pt="Maiores scores GPQA Diamond / AIME. Modelos de reasoning gastam tokens de thinking interno extra antes de responder.">Highest GPQA Diamond / AIME scores. Reasoning models spend extra internal thinking tokens before responding.</td></tr>
+      <tr><td data-pt="Coding agêntico (multi-step, tool use, sessões longas)">Agentic coding (multi-step, tool use, long sessions)</td><td>Claude Sonnet 5 → escalate to Opus 4.8 / Fable 5</td><td>Kimi K3 · GLM 5.2</td><td data-pt="Modelos Anthropic lideram em coerência de longo horizonte e confiabilidade de tool-use — o modo de falha que mata agents.">Anthropic models lead on long-horizon coherence and tool-use reliability — the failure mode that kills agents.</td></tr>
+      <tr><td data-pt="Geração de código one-shot / completion">One-shot code generation / completion</td><td>GPT-5.6 Sol · Grok 4.5</td><td>GLM 5.2 · DeepSeek V4 Pro</td><td data-pt="Top scores SWE-bench / LiveCodeBench quando você precisa só de uma boa resposta, não de um agent multi-turn.">Top SWE-bench / LiveCodeBench scores when you only need one good answer, not a multi-turn agent.</td></tr>
+      <tr><td data-pt="Code review / análise estática">Code review / static analysis</td><td>Claude Sonnet 5</td><td>GLM 5.2 · DeepSeek V4 Flash</td><td data-pt="Forte em detectar bugs sutis, cheiros de segurança; melhor auto-contenção que GPT (menos &quot;reescreve seu código sem pedir&quot;).">Strong at spotting subtle bugs, security smells; better self-restraint than GPT (less "rewriting your code unprompted").</td></tr>
+      <tr><td data-pt="RAG de documentos longos / extração de contexto 200K+">Long document RAG / 200K+ context extraction</td><td>Gemini 3.6 Flash · Claude Opus 4.8 · GPT-5.6 when OpenAI tooling matters</td><td>GPT-5.6 Luna · DeepSeek V4 Flash</td><td data-pt="Opções de contexto ~1M nativo. Vence RAG para corpora que cabem, mas fique atento a cliffs de preço de contexto longo.">Native ~1M context options. Beats RAG for corpora that fit, but watch long-context pricing cliffs.</td></tr>
+      <tr><td data-pt="Extração estruturada de alto volume (notas fiscais, formulários)">High-volume structured extraction (invoices, forms)</td><td>Gemini 3.6 Flash · Claude Haiku 4.5</td><td>DeepSeek V4 Flash</td><td data-pt="Barato por token + modo de structured output + bom o suficiente em schemas simples.">Cheap per token + structured output mode + good enough on simple schemas.</td></tr>
+      <tr><td data-pt="Classificação / routing de intent">Classification / intent routing</td><td>Claude Haiku 4.5 · GPT-5.6 Luna</td><td>DeepSeek V4 Flash · Nemotron 3 Nano</td><td data-pt="Latência abaixo de 1s, $0.14-$1 por 1M de input. Um fine-tune de um Qwen 3.8 pequeno ou Nemotron 3 Nano pode arrasar nisso por centavos.">Sub-second latency, $0.14-$1 per 1M input. A fine-tune of a small Qwen 3.8 or Nemotron 3 Nano can crush this for pennies.</td></tr>
+      <tr><td data-pt="Chat conversacional (suporte ao cliente, FAQ)">Conversational chat (customer support, FAQ)</td><td>Claude Sonnet 5 · GPT-5.6 Terra</td><td>GPT-5.6 Luna · Gemini 3.6 Flash</td><td data-pt="Sonnet tem o melhor equilíbrio de tom/segurança; GPT-5.6 Terra é a opção mainstream mais barata.">Sonnet has the strongest tone/safety balance; GPT-5.6 Terra is the cheapest mainstream option.</td></tr>
+      <tr><td data-pt="Escrita criativa / copy de marketing">Creative writing / marketing copy</td><td>Claude Opus 4.8 · GPT-5.6 Sol</td><td>Kimi K3 · DeepSeek V4 Flash</td><td data-pt="Opus 4.8 tem prosa notavelmente mais clara e calorosa que gerações anteriores; GPT-5.6 é mais &quot;estilo viral&quot;. Combine com a voz da marca.">Opus 4.8 has notably clearer, warmer prose than prior generations; GPT-5.6 is more "viral-style." Match to brand voice.</td></tr>
+      <tr><td data-pt="Multimodal — imagens / docs / gráficos">Multimodal — images / docs / charts</td><td>Gemini 3.6 Flash</td><td>Kimi K3 · Claude Sonnet 5</td><td data-pt="Gemini foi treinado multimodal nativo do zero e lê gráficos/diagramas melhor. Kimi K3 é a primeira opção open multimodal de verdade.">Gemini was natively multimodal-trained from scratch and reads charts/diagrams the best. Kimi K3 is the first genuinely multimodal open option.</td></tr>
+      <tr><td data-pt="Multimodal — áudio (transcrição + compreensão)">Multimodal — audio (transcription + understanding)</td><td>Gemini 3.6 Flash</td><td>Whisper + LLM</td><td data-pt="Input de áudio nativo. Caso contrário: Whisper-large-v3 → texto → qualquer LLM.">Native audio input. Otherwise: Whisper-large-v3 → text → any LLM.</td></tr>
+      <tr><td data-pt="Tradução">Translation</td><td>Gemini 3.6 Flash · GPT-5.6 Terra</td><td>Qwen 3.8 (CJK) · DeepSeek V4 Flash</td><td data-pt="Modelos frontier todos vão bem; Qwen é o mais forte open-weight para idiomas CJK.">Frontier models all do well; Qwen is the strongest open-weight for CJK languages.</td></tr>
+      <tr><td data-pt="Sumarização (curta, factual)">Summarization (short, factual)</td><td>Claude Haiku 4.5 · GPT-5.6 Luna</td><td>DeepSeek V4 Flash</td><td data-pt="Barato e rápido. Plateau de qualidade atingido há anos — não precisa de modelo frontier.">Cheap and fast. Quality plateau hit years ago — no need for a frontier model.</td></tr>
+      <tr><td data-pt="Sumarização (longa, com nuance)">Summarization (long-form, nuanced)</td><td>Claude Sonnet 5 · Opus 4.8 for high-stakes synthesis</td><td>Gemini 3.6 Flash</td><td data-pt="Sonnet preserva nuances e atribuições melhor que o tier mais barato; Opus 4.8 quando o resumo deve preservar dependências de longo alcance.">Sonnet preserves nuance and attribution better than the cheaper tier; Opus 4.8 when the summary must preserve long-range dependencies.</td></tr>
+      <tr><td data-pt="Confiabilidade de function / tool calling">Function / tool calling reliability</td><td>Claude Sonnet 5 · Opus 4.8 · Grok 4.5</td><td>Kimi K3</td><td data-pt="O tier de topo emite consistentemente JSON / argumentos válidos. Open-weight está alcançando mas ainda fica atrás em edge cases.">Top tier consistently emits valid JSON / arguments. Open-weight is catching up but still trails on edge cases.</td></tr>
+      <tr><td data-pt="On-prem / indústria regulamentada (saúde, defesa, jurídico)">On-prem / regulated industry (health, defense, legal)</td><td>Kimi K3 · DeepSeek V4 Pro · GLM 5.2</td><td>Nemotron 3 · Qwen 3.8 · Llama / Mistral</td><td data-pt="Open weights → self-host no vLLM / SGLang, ou use Bedrock / Vertex com isolamento VPC.">Open weights → self-host on vLLM / SGLang, or use Bedrock / Vertex with VPC isolation.</td></tr>
+      <tr><td data-pt="Embeddings">Embeddings</td><td>OpenAI <code>text-embedding-3-large</code> · Voyage 3 · Cohere Embed v4</td><td>BGE-M3 (open)</td><td data-pt="Não são LLMs — modelos separados. Voyage e Cohere lideram benchmarks de retrieval; BGE-M3 é a melhor opção gratuita.">Not LLMs — separate models. Voyage and Cohere lead retrieval benchmarks; BGE-M3 is the best free option.</td></tr>
+      <tr><td data-pt="Reranking">Reranking</td><td>Cohere Rerank v3</td><td>BGE-reranker-v2-m3</td><td data-pt="Cross-encoder, não um LLM. Adiciona ~50–150 ms mas +25–40% de precisão.">Cross-encoder, not an LLM. Adds ~50–150 ms but +25–40% precision.</td></tr>
+    </tbody>
+  </table>
+
+  <h3 data-pt="3.3 Padrões de routing que você deve saber nomear">3.3 Routing patterns you should be able to name</h3>
+  <ul>
+    <li data-pt="<strong>Cascade / triage routing</strong> — modelo barato responde; se confiança baixa ou um classifier &quot;difícil&quot; sinaliza, escala para o modelo caro. Forma comum: <em>Haiku 4.5 → Sonnet 5 → Opus 4.8</em>. Reduz custo em 60–80% com perda mínima de qualidade."><strong>Cascade / triage routing</strong> — cheap model answers; if confidence low or a "hard" classifier flags it, escalate to the expensive model. Common shape: <em>Haiku 4.5 → Sonnet 5 → Opus 4.8</em>. Cuts cost 60–80% with minimal quality loss.</li>
+    <li data-pt="<strong>Task-typed routing</strong> — um classifier (às vezes um LLM, às vezes um modelo pequeno fine-tuned) categoriza o request (<code>code</code>, <code>chat</code>, <code>math</code>, <code>vision</code>) e despacha."><strong>Task-typed routing</strong> — a classifier (sometimes an LLM, sometimes a fine-tuned small model) tags the request (<code>code</code>, <code>chat</code>, <code>math</code>, <code>vision</code>) and dispatches.</li>
+    <li data-pt="<strong>Especulativo / draft-then-verify</strong> — modelo barato faz o draft, modelo caro verifica / edita. Usado em coding agêntico (e.g. Haiku propõe, Sonnet revisa)."><strong>Speculative / draft-then-verify</strong> — cheap model drafts, expensive model verifies / edits. Used in agentic coding (e.g. Haiku proposes, Sonnet reviews).</li>
+    <li data-pt="<strong>Mixture-of-Experts <em>na camada de orquestração</em></strong> — mesmo nome que nas arquiteturas de modelo, mas aqui significa routing para diferentes modelos de <em>provider</em> por sub-task em um workflow."><strong>Mixture-of-Experts <em>at the orchestration layer</em></strong> — same name as in model architectures, but here it means routing to different <em>provider</em> models per sub-task in a workflow.</li>
+    <li data-pt="<strong>Provider failover</strong> — primário na Anthropic, fallback para Bedrock-Anthropic ou para OpenAI em caso de outage. Tools: OpenRouter, Portkey, LiteLLM."><strong>Provider failover</strong> — primary on Anthropic, fallback to Bedrock-Anthropic or to OpenAI on outage. Tools: OpenRouter, Portkey, LiteLLM.</li>
+  </ul>
+
+  <h3 data-pt="3.4 Fluxo de decisão (a versão &quot;em voz alta&quot;)">3.4 Decision flow (the "out loud" version)</h3>
   <ol>
     <li data-pt="Os dados são sensíveis / regulados? <strong>Sim</strong> → open-weight na sua infra. Pare.">Is the data sensitive / regulated? <strong>Yes</strong> → open-weight on your infra. Stop.</li>
-    <li data-pt="A task cabe em &lt; 8K tokens e tem um schema fixo pequeno? <strong>Sim</strong> → Haiku 4.5 / Gemini 3.1 Flash-Lite / DeepSeek V4 Flash.">Does the task fit in &lt; 8K tokens and have a small fixed schema? <strong>Yes</strong> → Haiku 4.5 / Gemini 3.1 Flash-Lite / DeepSeek V4 Flash.</li>
+    <li data-pt="A task cabe em &lt; 8K tokens e tem um schema fixo pequeno? <strong>Sim</strong> → Haiku 4.5 / GPT-5.6 Luna / DeepSeek V4 Flash.">Does the task fit in &lt; 8K tokens and have a small fixed schema? <strong>Yes</strong> → Haiku 4.5 / GPT-5.6 Luna / DeepSeek V4 Flash.</li>
     <li data-pt="Precisa de reasoning multi-step sobre código ou matemática? <strong>Sim</strong> → Sonnet 5 → Opus 4.8 / Fable 5 / GPT-5.6 Sol Max / DeepSeek V4 Pro (thinking mode).">Does it need to reason multi-step over code or math? <strong>Yes</strong> → Sonnet 5 → Opus 4.8 / Fable 5 / GPT-5.6 Sol Max / DeepSeek V4 Pro (thinking mode).</li>
-    <li data-pt="É um documento longo (&gt; 200K tokens)? <strong>Sim</strong> → Gemini 3.1 Pro / Gemini 3.5 Flash.">Is it a long document (&gt; 200K tokens)? <strong>Yes</strong> → Gemini 3.1 Pro / Gemini 3.5 Flash.</li>
-    <li data-pt="É multimodal? <strong>Sim</strong> → Gemini 3.5 Flash / 3.1 Pro primeiro.">Is it multimodal? <strong>Yes</strong> → Gemini 3.5 Flash / 3.1 Pro first.</li>
+    <li data-pt="É um documento longo (&gt; 200K tokens)? <strong>Sim</strong> → Gemini 3.6 Flash / Claude Opus 4.8.">Is it a long document (&gt; 200K tokens)? <strong>Yes</strong> → Gemini 3.6 Flash / Claude Opus 4.8.</li>
+    <li data-pt="É multimodal? <strong>Sim</strong> → Gemini 3.6 Flash primeiro.">Is it multimodal? <strong>Yes</strong> → Gemini 3.6 Flash first.</li>
     <li data-pt="Padrão para coding agêntico / tool use → <strong>Sonnet 5</strong>.">Default agentic coding / tool use → <strong>Sonnet 5</strong>.</li>
     <li data-pt="Depois pergunte: posso fazer cache de 80% desse prompt? Se sim, a escolha fica 10× mais barata.">Then ask: can I cache 80% of this prompt? If yes, the choice gets cheaper by 10×.</li>
   </ol>
@@ -1732,6 +1846,18 @@
   <div class="callout" data-pt="<strong>Frase matadora:</strong> &quot;Não existe o melhor modelo. Existe um portfólio. Frontier para os 5% difíceis, tier Sonnet para os 15% agênticos, Haiku/Flash para os 80% de routing, classificação e extração. Routing cost-aware é como você torna produtos de AI lucrativos em 2026.&quot;">
     <strong>Killer line:</strong> "There is no best model. There is a portfolio. Frontier for the hard 5%, Sonnet-tier for the agentic 15%, Haiku/Flash for the 80% that is routing, classification and extraction. Cost-aware routing is how you make AI products profitable in 2026."
   </div>
+
+  <h3 data-pt="3.5 Self-hosting — a realidade pessoal e corporativa">3.5 Self-hosting — the personal &amp; enterprise reality</h3>
+  <p data-pt="&quot;É só rodar você mesmo&quot; soa mais barato do que é. São duas situações bem diferentes:">&quot;Just run it yourself&quot; sounds cheaper than it is. Two very different situations:</p>
+  <ul>
+    <li data-pt="<strong>Pessoal (uma workstation).</strong> Um MacBook Pro ou Mac Studio de ponta com 100+ GB de memória unificada consegue de fato rodar alguns modelos open-weight localmente — um DeepSeek V4 Flash, GLM 5.2, Qwen 3.8 ou Nemotron 3 Nano quantizado — via runtimes como Ollama, LM Studio ou llama.cpp. Ótimo para privacidade, experimentação e trabalho offline. Mas você roda pesos quantizados de tier médio a poucos tokens/segundo — não a fronteira."><strong>Personal (a workstation).</strong> A high-end MacBook Pro or Mac Studio with 100+ GB of unified memory can genuinely run some open-weight models locally — a quantized DeepSeek V4 Flash, GLM 5.2, Qwen 3.8, or Nemotron 3 Nano — via runtimes like Ollama, LM Studio, or llama.cpp. Great for privacy, tinkering, and offline work. But you are running quantized, mid-tier weights at a few tokens/second — not the frontier.</li>
+    <li data-pt="<strong>Corporativo (uma frota de GPUs).</strong> Servir modelos open de fronteira em <em>peso completo</em> (Kimi K3 com 2.8T params, DeepSeek V4 Pro com 1.6T) com throughput de produção exige um cluster de GPUs classe H100/H200 — centenas de GB de VRAM, vLLM ou SGLang e um time de ops. A conta de hardware e energia disso ainda está fora do alcance da maioria das empresas pequenas e médias."><strong>Enterprise (a GPU fleet).</strong> Serving <em>full-weight</em> frontier-class open models (Kimi K3 at 2.8T params, DeepSeek V4 Pro at 1.6T) at production throughput needs a cluster of H100/H200-class GPUs — hundreds of GB of VRAM, vLLM or SGLang, and an ops team. The hardware and power bill for that is still out of reach for most small and mid-size companies.</li>
+  </ul>
+  <p data-pt="<strong>A conclusão honesta de 2026:</strong> self-hosting de modelos peso-completo tier-AA ainda é caro demais para uso comum — mesmo para empresas pequenas. Quando os dados não podem sair do seu perímetro, o meio-termo realista é um <strong>provider de inferência gerenciado</strong> (Together, Fireworks, DeepInfra, Groq) que hospeda pesos open no hardware deles, ou um gateway de cloud (Bedrock / Vertex) com isolamento VPC. Você tem a economia open-weight e o controle de dados sem ser dono das GPUs."><strong>The honest 2026 takeaway:</strong> self-hosting full-weight AA-tier models is still too expensive for common use — even for small companies. When the data cannot leave your perimeter, the realistic middle ground is a <strong>managed inference provider</strong> (Together, Fireworks, DeepInfra, Groq) that hosts open weights on their hardware, or a cloud gateway (Bedrock / Vertex) with VPC isolation. You get open-weight economics and data control without owning the GPUs.</p>
+  <div class="callout" data-pt="<strong>Por que isso importa:</strong> Ferramentas internas em uma empresa muitas vezes não podem enviar dados de clientes para OpenAI/Anthropic. Open-weight + um provider de inferência gerenciado (Together, Fireworks, DeepInfra, Groq) ou vLLM self-hosted é a resposta realista. Conheça esse vocabulário.">
+    <strong>Why this matters:</strong> Internal tools at a company often can't ship customer data to OpenAI/Anthropic. Open-weight + a managed inference provider (Together, Fireworks, DeepInfra, Groq) or self-hosted vLLM is the realistic answer. Know that vocabulary.
+  </div>
+
 </section>
 
 
@@ -1938,8 +2064,8 @@ const final = await client.responses.create({
 });
 </code></pre>
 
-  <div class="callout" data-pt="<strong>Function calling vs MCP:</strong> Function calling é o formato de API por request. MCP é um protocolo para descobrir e invocar tools entre clientes. Na prática, um modelo OpenAI/Claude/Gemini pode chamar uma tool que seu app implementa diretamente, ou uma tool exposta através de um servidor MCP (<a href=&quot;#mcp&quot;>§09</a>).">
-    <strong>Function calling vs MCP:</strong> Function calling is the per-request API shape. MCP is a protocol for discovering and invoking tools across clients. In practice, an OpenAI/Claude/Gemini model may call a tool that your app implements directly, or a tool exposed through an MCP server (<a href="#mcp">§09</a>).
+  <div class="callout" data-pt="<strong>Function calling vs MCP:</strong> Function calling é o formato de API por request. MCP é um protocolo para descobrir e invocar tools entre clientes. Na prática, um modelo OpenAI/Claude/Gemini pode chamar uma tool que seu app implementa diretamente, ou uma tool exposta através de um servidor MCP (<a href=&quot;#mcp&quot;>§10</a>).">
+    <strong>Function calling vs MCP:</strong> Function calling is the per-request API shape. MCP is a protocol for discovering and invoking tools across clients. In practice, an OpenAI/Claude/Gemini model may call a tool that your app implements directly, or a tool exposed through an MCP server (<a href="#mcp">§10</a>).
   </div>
 
   <h3 data-pt="4.7 Como vetores RAG entram na API">4.7 How RAG vectors enter the API</h3>
@@ -1998,26 +2124,12 @@ await client.responses.create({
 
 
 <!-- =================== OPEN SOURCE =================== -->
-<section id="oss">
-  <h2 data-pt="<span class=&quot;num&quot;>05</span> Alternativas open-source — o que é realmente competitivo"><span class="num">05</span> Open-source alternatives — what's actually competitive</h2>
-  <ul>
-    <li data-pt="<strong>Kimi K3 (Moonshot AI)</strong> — lançado em 16 jul 2026; pesos completos publicados até o fim de julho. 2.8T params (MoE de 896 experts, 16 ativos/token) — o maior modelo open-weight já lançado. Multimodal, reasoning-native, 1M ctx. Top-3 geral no GDPval-AA (atrás só do Fable 5 Max e GPT-5.6 Sol Max, à frente do Opus 4.8) e #1 na arena WebDev. O detalhe: cobra preço de frontier fechado ($3/$15)."><strong>Kimi K3 (Moonshot AI)</strong> — released Jul 16, 2026; full weights publishing by late July. 2.8T params (896-expert MoE, 16 active/token) — the largest open-weight model ever released. Multimodal, reasoning-native, 1M ctx. Top-3 overall on GDPval-AA (behind only Fable 5 Max and GPT-5.6 Sol Max, ahead of Opus 4.8) and #1 on the WebDev arena. The catch: it charges closed-frontier prices ($3/$15).</li>
-    <li data-pt="<strong>DeepSeek V4</strong> — a referência de preço/performance, GA oficial em meados de julho. V4 Flash para trabalho geral ($0.14/$0.28), V4 Pro para qualidade de topo com orçamento ($0.435/$0.87; 49B ativo / 1.6T total, arquitetura DSA) com um modo thinking opcional. 1M context padrão em toda a linha. Novidade: preço por horário de pico (2× off-peak)."><strong>DeepSeek V4</strong> — the price/performance reference, officially GA mid-July. V4 Flash for general work ($0.14/$0.28), V4 Pro for top quality on a budget ($0.435/$0.87; 49B active / 1.6T total, DSA architecture) with an optional thinking mode. 1M context default across the line. New: peak-hour pricing (2× off-peak).</li>
-    <li data-pt="<strong>GLM 5.2 (Z.ai / Tsinghua)</strong> — lançado jun 2026, licença MIT, 1M ctx / 131K output. Flagship agêntico; supera o GPT-5.5 no SWE-Bench Pro (62.1 vs 58.6) e no FrontierSWE. Feito para trabalho autônomo de longo horizonte — sessões de várias horas. Disponível no HuggingFace, vLLM, SGLang e api.z.ai."><strong>GLM 5.2 (Z.ai / Tsinghua)</strong> — released Jun 2026, MIT license, 1M ctx / 131K output. Flagship agentic model; beats GPT-5.5 on SWE-Bench Pro (62.1 vs 58.6) and FrontierSWE. Built for long-horizon autonomous work — multi-hour sessions. Available on HuggingFace, vLLM, SGLang, and api.z.ai.</li>
-    <li data-pt="<strong>Qwen 3.6</strong> (Alibaba) — família open-weight (MoE 35B-A3B + denso 27B, abr 2026). Forte em multilingual/CJK, coding competitivo. O flagship de reasoning <strong>Qwen 3.7 Max</strong> (mai 2026, $2.50/$7.50) é closed-weight — cuidado para não confundir os dois."><strong>Qwen 3.6</strong> (Alibaba) — open-weight family (35B-A3B MoE + dense 27B, Apr 2026). Strong multilingual/CJK, competitive coding. The <strong>Qwen 3.7 Max</strong> reasoning flagship (May 2026, $2.50/$7.50) is closed-weight — don't confuse the two.</li>
-    <li data-pt="<strong>Nemotron 3 (NVIDIA)</strong> — a aposta open dos EUA. Três tamanhos: Nano (30B-A3B híbrido Mamba2-Transformer MoE, 1M ctx, dez 2025), Super (~100B, mar 2026) e Ultra (~500B, jun 2026 — inteligência open-weight líder dos EUA, inferência ~5× mais rápida). Extremamente barato de servir (Nano a ~$0.05/1M de input, grátis em alguns providers) — ideal para frotas de agents de alto volume."><strong>Nemotron 3 (NVIDIA)</strong> — the US open bet. Three sizes: Nano (30B-A3B hybrid Mamba2-Transformer MoE, 1M ctx, Dec 2025), Super (~100B, Mar 2026), and Ultra (~500B, Jun 2026 — leading US open-weight intelligence, ~5× faster inference). Extremely cheap to serve (Nano at ~$0.05/1M input, free on some providers) — ideal for high-volume agent fleets.</li>
-    <li data-pt="<strong>Famílias Llama / Mistral</strong> — ecossistema amplo, fine-tunable, em todo provider de inferência."><strong>Llama / Mistral families</strong> — broad ecosystem, fine-tunable, on every inference provider.</li>
-  </ul>
 
-  <div class="callout" data-pt="<strong>Por que isso importa:</strong> Ferramentas internas em uma empresa muitas vezes não podem enviar dados de clientes para OpenAI/Anthropic. Open-weight + um provider de inferência gerenciado (Together, Fireworks, DeepInfra, Groq) ou vLLM self-hosted é a resposta realista. Conheça esse vocabulário.">
-    <strong>Why this matters:</strong> Internal tools at a company often can't ship customer data to OpenAI/Anthropic. Open-weight + a managed inference provider (Together, Fireworks, DeepInfra, Groq) or self-hosted vLLM is the realistic answer. Know that vocabulary.
-  </div>
-</section>
 
 
 <!-- =================== HARNESS =================== -->
 <section id="harness">
-  <h2 data-pt="<span class=&quot;num&quot;>06</span> Harness — o runtime em torno do modelo"><span class="num">06</span> Harness — the runtime around the model</h2>
+  <h2 data-pt="<span class=&quot;num&quot;>05</span> Harness — o runtime em torno do modelo"><span class="num">05</span> Harness — the runtime around the model</h2>
   <p data-pt="Um <strong>modelo</strong> é um endpoint stateless de request/response: prompt entra, tokens saem. Um <strong>harness</strong> é o loop de software em volta dele que faz esse endpoint se comportar como um agente — montando contexto, chamando o modelo, parseando a resposta, executando chamadas de ferramentas, e decidindo quando parar. Claude Code, Cursor, Codex, Cline, Aider — esses são todos harnesses. O modelo é o motor; o harness é o chassi, a transmissão e a direção.">A <strong>model</strong> is a stateless request/response endpoint: prompt in, tokens out. A <strong>harness</strong> is the software loop wrapped around it that makes that endpoint behave like an agent — assembling context, calling the model, parsing the response, executing any tool calls, and deciding when to stop. Claude Code, Cursor, Codex, Cline, Aider — these are all harnesses. The model is the engine; the harness is the chassis, transmission, and steering.</p>
 
   <div class="callout" data-pt="<strong>Modelo mental:</strong> &quot;modelo&quot; + &quot;harness&quot; + &quot;system prompt + ferramentas + permissões&quot; = um <em>agente</em>. Mesmo harness, system prompt e toolset diferentes, agente diferente. Mesmo modelo, harness diferente, produto completamente diferente.">
@@ -2118,17 +2230,17 @@ await client.responses.create({
     <li data-pt="<strong>Estender um harness existente</strong> — primeiro instinto para agentes de código. Claude Code, Cursor e Codex são extensíveis via <em>servidores MCP</em>, <em>subagentes</em>, <em>hooks</em>, <em>slash commands</em> e <em>skills</em>. Reconstruir o loop só para adicionar uma ferramenta é trabalho desperdiçado."><strong>Extend an existing harness</strong> — first instinct for coding agents. Claude Code, Cursor, and Codex are extensible via <em>MCP servers</em>, <em>subagents</em>, <em>hooks</em>, <em>slash commands</em>, and <em>skills</em>. Rebuilding the loop yourself just to add a tool is wasted work.</li>
     <li data-pt="<strong>Construir com um SDK</strong> — quando você precisa de um agente embutido no seu próprio produto (um bot de suporte, um agente de ops interno, um step de CI). Claude Agent SDK ou OpenAI Agents SDK te dão o loop, execução de ferramentas e streaming de graça; você traz o system prompt e as ferramentas."><strong>Build with an SDK</strong> — when you need an agent embedded inside your own product (a support bot, an internal ops agent, a CI step). Claude Agent SDK or OpenAI Agents SDK give you the loop, tool execution, and streaming for free; you bring the system prompt and tools.</li>
     <li data-pt="<strong>Construir do zero com chamadas raw de API</strong> — só quando você precisa de controle muito rigoroso sobre contexto, estrutura de turno customizada ou protocolo de ferramenta não-padrão. A maioria dos times que tenta isso acaba reinventando um SDK pior."><strong>Build from scratch on raw API calls</strong> — only when you need very tight control over context, custom turn structure, or a non-standard tool protocol. Most teams who try this end up reinventing a worse SDK.</li>
-    <li data-pt="<strong>Use um graph framework</strong> (LangGraph, LlamaIndex Workflows) quando o agente é na verdade um DAG fixo de passos, não um loop livre. Veja <a href=&quot;#dag&quot;>§10</a>."><strong>Use a graph framework</strong> (LangGraph, LlamaIndex Workflows) when the agent is actually a fixed DAG of steps, not a free-form loop. See <a href="#dag">§10</a>.</li>
+    <li data-pt="<strong>Use um graph framework</strong> (LangGraph, LlamaIndex Workflows) quando o agente é na verdade um DAG fixo de passos, não um loop livre. Veja <a href=&quot;#dag&quot;>§11</a>."><strong>Use a graph framework</strong> (LangGraph, LlamaIndex Workflows) when the agent is actually a fixed DAG of steps, not a free-form loop. See <a href="#dag">§11</a>.</li>
   </ul>
 
   <h3 data-pt="Armadilhas comuns do harness">Common harness pitfalls</h3>
   <ul>
     <li data-pt="<strong>Descartar blocos <code>thinking</code> em continuações.</strong> A Anthropic exige que os thinking blocks da última mensagem do assistente sejam passados de volta em turnos de tool-use; descarte-os e você tem erros ou raciocínio degradado."><strong>Dropping <code>thinking</code> blocks on continuations.</strong> Anthropic requires the last assistant message's thinking blocks be passed back on tool-use turns; strip them and you get errors or degraded reasoning.</li>
-    <li data-pt="<strong>Retornar output bruto de ferramenta.</strong> Um blob JSON de 350KB em <code>tool_result</code> dilui a atenção, expulsa prefixos cached, e cruza tiers de preço de contexto longo. Resuma antes de ecoar. Veja <a href=&quot;#evals&quot;>§14</a>."><strong>Returning raw tool output.</strong> A 350KB JSON blob in <code>tool_result</code> dilutes attention, evicts cached prefixes, and crosses long-context pricing tiers. Summarize before you echo. See <a href="#evals">§14</a>.</li>
+    <li data-pt="<strong>Retornar output bruto de ferramenta.</strong> Um blob JSON de 350KB em <code>tool_result</code> dilui a atenção, expulsa prefixos cached, e cruza tiers de preço de contexto longo. Resuma antes de ecoar. Veja <a href=&quot;#evals&quot;>§15</a>."><strong>Returning raw tool output.</strong> A 350KB JSON blob in <code>tool_result</code> dilutes attention, evicts cached prefixes, and crosses long-context pricing tiers. Summarize before you echo. See <a href="#evals">§15</a>.</li>
     <li data-pt="<strong>Loops sem limite.</strong> &quot;Continue até o modelo dizer para parar&quot; sem um cap de iterações é como agentes queimam $50 em tokens durante a noite."><strong>Unbounded loops.</strong> "Keep going until the model says stop" without an iteration cap is how agents burn $50 in tokens overnight.</li>
     <li data-pt="<strong>Sem fronteira de permissão.</strong> Se o modelo pode escrever arquivos, acessar APIs de produção ou fazer push no git sem um gate de confirmação, o blast radius de uma única alucinação é o repositório inteiro."><strong>No permission boundary.</strong> If the model can write files, hit prod APIs, or push to git without a confirmation gate, the blast radius of a single hallucination is the whole repo.</li>
     <li data-pt="<strong>Execução de ferramenta stateless.</strong> Cada chamada de ferramenta precisa de uma história de idempotência — retries em falhas transitórias, sem cobrar duas vezes, sem postar duas vezes."><strong>Stateless tool execution.</strong> Each tool call needs an idempotency story — retries on transient failures, no double-charging, no double-posting.</li>
-    <li data-pt="<strong>Histórico de conversa como única memória.</strong> Scrollback puro bate no teto de contexto rápido. Adicione sumarização, memória episódica ou estado externo para qualquer coisa multi-sessão. Veja <a href=&quot;#memory&quot;>§07</a>."><strong>Conversation history as the only memory.</strong> Pure scrollback hits the context ceiling fast. Add summarization, episodic memory, or external state for anything multi-session. See <a href="#memory">§07</a>.</li>
+    <li data-pt="<strong>Histórico de conversa como única memória.</strong> Scrollback puro bate no teto de contexto rápido. Adicione sumarização, memória episódica ou estado externo para qualquer coisa multi-sessão. Veja <a href=&quot;#memory&quot;>§06</a>."><strong>Conversation history as the only memory.</strong> Pure scrollback hits the context ceiling fast. Add summarization, episodic memory, or external state for anything multi-session. See <a href="#memory">§06</a>.</li>
   </ul>
 
   <h3 data-pt="Nuance de 2026">2026 nuance</h3>
@@ -2138,7 +2250,7 @@ await client.responses.create({
 
 <!-- =================== MEMORY =================== -->
 <section id="memory">
-  <h2 data-pt="<span class=&quot;num&quot;>07</span> Tipos de memória em AI agents"><span class="num">07</span> Memory types in AI agents</h2>
+  <h2 data-pt="<span class=&quot;num&quot;>06</span> Tipos de memória em AI agents"><span class="num">06</span> Memory types in AI agents</h2>
   <p data-pt="Extraído da ciência cognitiva. <strong>Quatro tipos</strong> — conheça todos.">Drawn from cognitive science. <strong>Four types</strong> — know them all.</p>
 
   <div class="grid2">
@@ -2174,15 +2286,74 @@ await client.responses.create({
 </section>
 
 
+<!-- =================== PROMPT ENGINEERING =================== -->
+<section id="prompt-engineering">
+  <h2 data-pt="<span class=&quot;num&quot;>07</span> Engenharia de Prompt — a primeira era"><span class="num">07</span> Prompt Engineering — the first era</h2>
+  <p data-pt="A disciplina original: escrever a instrução de um único turno para que a próxima resposta do modelo bata com a intenção. Quando os modelos eram mais fracos e as interações eram one-shot, as palavras que você escolhia <em>eram</em> o jogo inteiro. Prompt, contexto e loop não competem — eles se empilham: toda engenharia de contexto ainda contém um prompt, e todo loop ainda dispara prompts. O que mudou é onde vive o diferencial, à medida que modelos e agents amadureceram.">The original discipline: writing the single-turn instruction so the model's next response matches intent. When models were weaker and interactions were one-shot, the words you chose <em>were</em> the whole game. Prompt, context, and loop don't compete — they stack: every context system still contains a prompt, and every loop still fires prompts. What changed is where the differentiator lives, as models and agents matured.</p>
+
+  <figure class="diagram">
+    <svg viewBox="0 0 760 350" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Evolution from prompt to context to loop engineering, shown as three nested layers">
+      <text x="380" y="26" text-anchor="middle" class="svg-label" font-weight="600" font-size="15">The evolution: prompt → context → loop engineering</text>
+      <text x="380" y="44" text-anchor="middle" class="svg-mute" font-size="11">A nested stack, not a replacement — each layer wraps the one inside it</text>
+
+      <!-- Loop (outer) -->
+      <rect x="30" y="60" width="700" height="205" rx="16" fill="rgba(255,184,107,.05)" stroke="#ffb86b" stroke-width="1.6"/>
+      <text x="50" y="82" class="svg-warn" font-weight="700" font-size="12.5" fill="#ffb86b">LOOP ENGINEERING</text>
+      <text x="50" y="98" class="svg-mute" font-size="10.5">how work continues across turns · verify · retry · budget · stop conditions</text>
+
+      <!-- Context (mid) -->
+      <rect x="96" y="108" width="568" height="140" rx="13" fill="rgba(130,184,255,.05)" stroke="#82b8ff" stroke-width="1.6"/>
+      <text x="116" y="130" font-weight="700" font-size="12.5" fill="#82b8ff">CONTEXT ENGINEERING</text>
+      <text x="116" y="146" class="svg-mute" font-size="10.5">everything the model sees this turn · tools · retrieval · memory · history</text>
+
+      <!-- Prompt (inner) -->
+      <rect x="176" y="158" width="408" height="74" rx="10" fill="rgba(124,240,193,.06)" stroke="#7cf0c1" stroke-width="1.6"/>
+      <text x="380" y="188" text-anchor="middle" font-weight="700" font-size="12.5" fill="#7cf0c1">PROMPT ENGINEERING</text>
+      <text x="380" y="206" text-anchor="middle" class="svg-mute" font-size="10.5">the single-turn instruction — wording, constraints, schema</text>
+
+      <!-- Evolution arrow -->
+      <line x1="60" y1="300" x2="690" y2="300" stroke="#5a6678" stroke-width="1.5" marker-end="url(#evoArr)"/>
+      <text x="380" y="290" text-anchor="middle" class="svg-mute" font-size="10.5">as models &amp; agents get more capable →</text>
+      <g font-size="10.5" class="svg-mute" text-anchor="middle">
+        <circle cx="120" cy="300" r="3" fill="#7cf0c1"/><text x="120" y="320">single-turn models</text>
+        <circle cx="380" cy="300" r="3" fill="#82b8ff"/><text x="380" y="320">multi-turn agents</text>
+        <circle cx="650" cy="300" r="3" fill="#ffb86b"/><text x="650" y="320">long-horizon autonomy</text>
+      </g>
+      <defs>
+        <marker id="evoArr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+          <path d="M0,0 L9,5 L0,10 Z" fill="#5a6678"/>
+        </marker>
+      </defs>
+    </svg>
+    <figcaption data-pt="Cada disciplina nasceu quando a anterior bateu no teto. Prompt engineering governa a instrução; context engineering governa a informação que cerca a instrução; loop engineering governa o que acontece depois da primeira resposta. Elas são aninhadas — você ainda precisa das três.">Each discipline emerged when the previous one hit its ceiling. Prompt engineering governs the instruction; context engineering governs the information around it; loop engineering governs what happens after the first response. They nest — you still need all three.</figcaption>
+  </figure>
+
+  <h3 data-pt="8.1 O que a engenharia de prompt controla">8.1 What prompt engineering controls</h3>
+  <ul>
+    <li data-pt="<strong>Enquadramento da tarefa</strong> — dizer ao modelo exatamente o que produzir, para quem, e o que <em>não</em> fazer. Ambiguidade no pedido é o defeito de qualidade nº 1."><strong>Task framing</strong> — tell the model exactly what to produce, for whom, and what <em>not</em> to do. Ambiguity in the ask is the #1 quality defect.</li>
+    <li data-pt="<strong>Restrições e formato de output</strong> — schemas JSON, &quot;responda só com o SQL&quot;, limites de comprimento. Restringir a superfície de saída corta modos de falha inteiros."><strong>Constraints &amp; output format</strong> — JSON schemas, "answer with the SQL only," length caps. Constraining the output surface kills whole failure modes.</li>
+    <li data-pt="<strong>Few-shot examples</strong> — dois ou três exemplos bem escolhidos ensinam formato e tom melhor do que um parágrafo de instruções."><strong>Few-shot examples</strong> — two or three well-chosen examples teach format and tone better than a paragraph of instructions.</li>
+    <li data-pt="<strong>Papel / persona e rubrica</strong> — &quot;você é um revisor de segurança&quot; + critérios de sucesso explícitos alinham o modelo com o padrão que você vai cobrar."><strong>Role / persona &amp; rubric</strong> — "you are a security reviewer" + explicit success criteria align the model with the bar you'll grade against.</li>
+    <li data-pt="<strong>Decomposição</strong> — quebrar uma tarefa em passos (ou pedir raciocínio passo a passo) tira mais de um único turno antes de você precisar de um agent."><strong>Decomposition</strong> — breaking a task into steps (or asking for step-by-step reasoning) squeezes more out of a single turn before you need an agent.</li>
+  </ul>
+
+  <h3 data-pt="8.2 Onde ela bate no teto">8.2 Where it hits its ceiling</h3>
+  <p data-pt="Prompt engineering só governa <strong>as palavras que você envia</strong> — não a informação ao redor (isso é context engineering) nem o que acontece depois da primeira resposta (isso é loop engineering). No momento em que a tarefa precisa de documentos recuperados, saídas de ferramentas ou autonomia multi-passo, ajustar o prompt sozinho estagna. Como a Anthropic descreve, a pergunta migrou de &quot;qual frase funciona?&quot; para &quot;qual <em>configuração de contexto</em> produz o comportamento desejado?&quot;">Prompt engineering only governs <strong>the words you send</strong> — not the information around them (that's context engineering) nor what happens after the first response (that's loop engineering). The moment a task needs retrieved documents, tool outputs, or multi-step autonomy, tuning the prompt alone plateaus. As Anthropic frames it, the question shifted from "what phrasing works?" to "what <em>configuration of context</em> produces the desired behavior?"</p>
+
+  <div class="callout" data-pt="<strong>Quando ainda é a ferramenta certa:</strong> trabalho de turno único revisado por humano — reescrever um parágrafo, resumir uma transcrição, traduzir, explicar um erro — e prototipagem. Se um prompt limpo com bons exemplos falha, esse é o sinal para adicionar contexto ou um loop, não mais adjetivos.">
+    <strong>When it's still the right tool:</strong> human-reviewed single-turn work — rewrite a paragraph, summarize a transcript, translate, explain an error — and prototyping. If a clean prompt with good examples fails, that's the signal to add context or a loop, not more adjectives.
+  </div>
+</section>
+
 <!-- =================== CONTEXT ENGINEERING =================== -->
 <section id="context-engineering">
   <h2 data-pt="<span class=&quot;num&quot;>08</span> Engenharia de Contexto — a janela é um orçamento"><span class="num">08</span> Context Engineering — the window is a budget</h2>
-  <p data-pt="A habilidade que substituiu &quot;prompt engineering&quot; como o diferencial de 2026: decidir <strong>o que entra na context window a cada chamada</strong> — e o que fica de fora. O modelo não tem memória entre requests; tudo que ele &quot;sabe&quot; num turno é o que o harness montou. Contexto é um orçamento com três custos: dinheiro (tokens de input), latência (prefill) e qualidade (atenção diluída).">The skill that replaced "prompt engineering" as the 2026 differentiator: deciding <strong>what goes into the context window on each call</strong> — and what stays out. The model has no memory between requests; everything it "knows" in a turn is what the harness assembled. Context is a budget with three costs: money (input tokens), latency (prefill), and quality (diluted attention).</p>
+  <p data-pt="O segundo passo da evolução. Quando o prompting de turno único deu lugar a agents multi-turno, a superfície otimizável cresceu do prompt para <strong>tudo que o modelo vê numa chamada</strong> — instruções de sistema, schemas de tools, documentos recuperados, histórico de mensagens, memória. Context engineering é curar esse conjunto de tokens e decidir o que fica de fora. O modelo não tem memória entre requests; tudo que ele &quot;sabe&quot; num turno é o que o harness montou. Contexto é um orçamento com três custos: dinheiro (tokens de input), latência (prefill) e qualidade (atenção diluída).">The second step of the evolution. When single-turn prompting gave way to multi-turn agents, the optimizable surface expanded from the prompt to <strong>everything the model sees on a call</strong> — system instructions, tool schemas, retrieved documents, message history, memory. Context engineering is curating that set of tokens and deciding what stays out. The model has no memory between requests; everything it "knows" in a turn is what the harness assembled. Context is a budget with three costs: money (input tokens), latency (prefill), and quality (diluted attention).</p>
 
-  <h3 data-pt="8.1 Window vs length — e por que cliffs de preço importam">8.1 Window vs length — and why pricing cliffs matter</h3>
-  <p data-pt="A <strong>context window</strong> é a capacidade rígida do modelo (1M tokens no Claude 5, GPT-5.6, Gemini, Kimi K3). O <strong>context length</strong> é quanto você realmente enviou num request. Tiers de preço e comportamento do KV-cache dependem do <em>length</em>: Gemini 3.1 Pro dobra o preço de input acima de 200K; GPT-5.6 cobra 2× input / 1.5× output acima de ~272K. Um agent que deixa o histórico crescer sem podar atravessa esses cliffs silenciosamente.">The <strong>context window</strong> is the model's hard capacity (1M tokens on Claude 5, GPT-5.6, Gemini, Kimi K3). <strong>Context length</strong> is how much you actually sent on a request. Pricing tiers and KV-cache behavior depend on <em>length</em>: Gemini 3.1 Pro doubles input price above 200K; GPT-5.6 charges 2× input / 1.5× output above ~272K. An agent that lets history grow unpruned crosses those cliffs silently.</p>
+  <h3 data-pt="9.1 Window vs length — e por que cliffs de preço importam">9.1 Window vs length — and why pricing cliffs matter</h3>
+  <p data-pt="A <strong>context window</strong> é a capacidade rígida do modelo (1M tokens no Claude 5, GPT-5.6, Gemini, Kimi K3). O <strong>context length</strong> é quanto você realmente enviou num request. Tiers de preço e comportamento do KV-cache dependem do <em>length</em>: o Gemini 3.6 Flash dobra o preço de input acima de 200K; GPT-5.6 cobra 2× input / 1.5× output acima de ~272K. Um agent que deixa o histórico crescer sem podar atravessa esses cliffs silenciosamente.">The <strong>context window</strong> is the model's hard capacity (1M tokens on Claude 5, GPT-5.6, Gemini, Kimi K3). <strong>Context length</strong> is how much you actually sent on a request. Pricing tiers and KV-cache behavior depend on <em>length</em>: Gemini 3.6 Flash doubles input price above 200K; GPT-5.6 charges 2× input / 1.5× output above ~272K. An agent that lets history grow unpruned crosses those cliffs silently.</p>
 
-  <h3 data-pt="8.2 Prompt caching — a mecânica por trás dos 90% de desconto">8.2 Prompt caching — the mechanics behind the 90% discount</h3>
+  <h3 data-pt="9.2 Prompt caching — a mecânica por trás dos 90% de desconto">9.2 Prompt caching — the mechanics behind the 90% discount</h3>
   <p data-pt="Caching é um <strong>match de prefixo</strong>: o provider guarda o KV cache (os vetores key/value já computados) do seu prefixo na GPU. Num cache hit, o passo caro de prefill é pulado para o prefixo — só o sufixo novo é processado. Por isso o desconto é real (~90% na Anthropic, 10× na Kimi/DeepSeek) e por isso os TTLs existem (5 min / 1 h na Anthropic): VRAM é cara e o cache é despejado.">Caching is a <strong>prefix match</strong>: the provider pins the KV cache (the already-computed key/value vectors) of your prefix in GPU memory. On a cache hit, the expensive prefill step is skipped for the prefix — only the new suffix gets processed. That's why the discount is real (~90% at Anthropic, 10× at Kimi/DeepSeek) and why TTLs exist (5 min / 1 h at Anthropic): VRAM is expensive and caches get evicted.</p>
   <ul>
     <li data-pt="<strong>Qualquer byte alterado no prefixo invalida tudo depois dele.</strong> Um timestamp no system prompt, um JSON serializado sem ordem estável, uma tool adicionada no meio da sessão — cada um zera o cache."><strong>Any changed byte in the prefix invalidates everything after it.</strong> A timestamp in the system prompt, JSON serialized without stable ordering, a tool added mid-session — each one zeroes the cache.</li>
@@ -2191,12 +2362,12 @@ await client.responses.create({
     <li data-pt="<strong>Verifique com os campos de usage</strong> (<code>cache_read_input_tokens</code> etc.). Se as leituras de cache são zero em requests repetidos, um invalidador silencioso está em ação — faça diff dos bytes do prompt renderizado."><strong>Verify with the usage fields</strong> (<code>cache_read_input_tokens</code> etc.). If cache reads are zero across repeated requests, a silent invalidator is at work — diff the rendered prompt bytes.</li>
   </ul>
 
-  <h3 data-pt="8.3 Compaction, poda e context rot">8.3 Compaction, pruning, and context rot</h3>
+  <h3 data-pt="9.3 Compaction, poda e context rot">9.3 Compaction, pruning, and context rot</h3>
   <p data-pt="Modelos degradam bem antes da window encher — o efeito &quot;<em>lost in the middle</em>&quot;: informação enterrada no meio de um contexto enorme recebe menos atenção do que o início e o fim. Sessões longas de agent também acumulam lixo: tool results antigos, tentativas falhas, raciocínio obsoleto. Isso é <strong>context rot</strong>. As defesas:">Models degrade well before the window fills — the "<em>lost in the middle</em>" effect: information buried mid-way through a huge context gets less attention than the start and end. Long agent sessions also accumulate garbage: stale tool results, failed attempts, obsolete reasoning. That's <strong>context rot</strong>. The defenses:</p>
   <ul>
     <li data-pt="<strong>Compaction</strong> — quando a sessão se aproxima do limite, turnos antigos são sumarizados num bloco compacto e a conversa continua. Providers agora oferecem isso server-side; harnesses (Claude Code, Cursor) fazem client-side há anos."><strong>Compaction</strong> — as the session nears the limit, older turns get summarized into one compact block and the conversation continues. Providers now offer this server-side; harnesses (Claude Code, Cursor) have done it client-side for years.</li>
-    <li data-pt="<strong>Poda de tool results</strong> — resultados de ferramentas antigos raramente importam depois de consumidos. Limpe-os ou substitua por um resumo de uma linha. (O erro clássico dos 350KB de JSON da <a href=&quot;#harness&quot;>§06</a> começa aqui.)"><strong>Tool-result pruning</strong> — old tool outputs rarely matter after they've been consumed. Clear them or replace with a one-line summary. (The classic 350KB-JSON mistake from <a href="#harness">§06</a> starts here.)</li>
-    <li data-pt="<strong>Externalize estado</strong> — memória (<a href=&quot;#memory&quot;>§07</a>), arquivos de notas, RAG. O que não precisa estar <em>em contexto</em> deve estar <em>recuperável</em>."><strong>Externalize state</strong> — memory (<a href="#memory">§07</a>), note files, RAG. What doesn't need to be <em>in context</em> should be <em>retrievable</em>.</li>
+    <li data-pt="<strong>Poda de tool results</strong> — resultados de ferramentas antigos raramente importam depois de consumidos. Limpe-os ou substitua por um resumo de uma linha. (O erro clássico dos 350KB de JSON da <a href=&quot;#harness&quot;>§05</a> começa aqui.)"><strong>Tool-result pruning</strong> — old tool outputs rarely matter after they've been consumed. Clear them or replace with a one-line summary. (The classic 350KB-JSON mistake from <a href="#harness">§05</a> starts here.)</li>
+    <li data-pt="<strong>Externalize estado</strong> — memória (<a href=&quot;#memory&quot;>§06</a>), arquivos de notas, RAG. O que não precisa estar <em>em contexto</em> deve estar <em>recuperável</em>."><strong>Externalize state</strong> — memory (<a href="#memory">§06</a>), note files, RAG. What doesn't need to be <em>in context</em> should be <em>retrievable</em>.</li>
     <li data-pt="<strong>Sub-agentes como isolamento de contexto</strong> — delegue uma sub-tarefa com contexto limpo e receba de volta só a conclusão, não as 40 chamadas de tool que a produziram."><strong>Subagents as context isolation</strong> — delegate a subtask with a clean context and get back only the conclusion, not the 40 tool calls that produced it.</li>
   </ul>
 
@@ -2205,9 +2376,34 @@ await client.responses.create({
   </div>
 </section>
 
+<!-- =================== LOOP ENGINEERING =================== -->
+<section id="loop-engineering">
+  <h2 data-pt="<span class=&quot;num&quot;>09</span> Engenharia de Loop — levando o agent até o fim"><span class="num">09</span> Loop Engineering — driving the agent to done</h2>
+  <p data-pt="A camada mais nova, que emergiu quando modelos e contexto ficaram bons o suficiente para o gargalo migrar para <strong>o que acontece ao longo de muitos turnos</strong>. Engenharia de loop é projetar o loop agêntico que guia iterativamente um agent até um objetivo com mínima intervenção humana — o ciclo observar → agir → verificar → ajustar, mais os orçamentos e condições de parada que o mantêm honesto. Onde prompt engineering molda uma instrução e context engineering molda a informação de um turno, loop engineering molda o workflow que continua rodando <em>depois</em> da primeira chamada ao modelo.">The newest layer, which emerged once models and context got good enough that the bottleneck moved to <strong>what happens across many turns</strong>. Loop engineering is designing the agentic loop that iteratively drives an agent toward a goal with minimal human intervention — the observe → act → verify → adjust cycle, plus the budgets and stop conditions that keep it honest. Where prompt engineering shapes one instruction and context engineering shapes one turn's information, loop engineering shapes the workflow that keeps running <em>after</em> the first model call.</p>
+
+  <h3 data-pt="10.1 O loop central">10.1 The core loop</h3>
+  <p data-pt="Quatro estágios que repetem até uma condição de parada verificável ser atingida: <strong>Objetivo</strong> (o critério de sucesso, avaliado a cada volta) → <strong>Ação</strong> (o agent dá um passo, geralmente uma tool call) → <strong>Observação</strong> (o sistema avalia o resultado — testes de CI, um verificador, um diff) → <strong>Ajuste</strong> (feedback refina a próxima ação). É a mesma máquina de estados do loop do harness (<a href=&quot;#harness&quot;>§05</a>), agora tratada como algo que você projeta deliberadamente em vez de um <code>while</code> improvisado.">Four stages that repeat until a verifiable stop condition is met: <strong>Goal</strong> (the success criterion, re-checked each pass) → <strong>Action</strong> (the agent takes a step, usually a tool call) → <strong>Observation</strong> (the system evaluates the result — CI tests, a verifier, a diff) → <strong>Adjustment</strong> (feedback refines the next action). It's the same state machine as the harness loop (<a href="#harness">§05</a>), now treated as something you deliberately design rather than an improvised <code>while</code>.</p>
+
+  <h3 data-pt="10.2 O que você realmente projeta">10.2 What you actually engineer</h3>
+  <ul>
+    <li data-pt="<strong>Verificação / auto-correção</strong> — um subagent verificador (com suas próprias instruções) confere o artefato contra critérios explícitos: testes passam, rubrica batida, o fluxo real dirigido de ponta a ponta como um humano faria — não a <em>confiança</em> do próprio agent. É o defeito que a Anthropic chama de &quot;marcar como pronto sem testar de verdade.&quot;"><strong>Verification / self-correction</strong> — a separate verifier subagent (with its own instructions) checks the artifact against explicit criteria: tests pass, rubric met, the real flow driven end-to-end as a human would — not the agent's own <em>confidence</em>. This is the defect Anthropic calls "marking work done without actually testing it."</li>
+    <li data-pt="<strong>Retries que aprendem</strong> — retries limitados que devolvem a falha ao contexto para a próxima tentativa ser diferente, não uma repetição idêntica."><strong>Retries that learn</strong> — bounded retries that feed the failure back so the next attempt differs, rather than repeating the identical call.</li>
+    <li data-pt="<strong>Orçamentos</strong> — caps rígidos de tokens, tempo de relógio e iterações para que um agent travado não queime $50 durante a noite (o pitfall de &quot;loops sem limite&quot; da <a href=&quot;#harness&quot;>§05</a>)."><strong>Budgets</strong> — hard caps on tokens, wall-clock, and iterations so a stuck agent can't burn $50 overnight (the "unbounded loops" pitfall from <a href="#harness">§05</a>).</li>
+    <li data-pt="<strong>Condições de parada</strong> — &quot;pronto&quot; definido por artefatos mensuráveis (uma checklist de features, CI verde), não por vibe. Sem isso o loop para cedo demais ou nunca."><strong>Stop conditions</strong> — "done" defined by measurable artifacts (a feature checklist, green CI), not vibes. Without them the loop stops too early or never.</li>
+    <li data-pt="<strong>Bridging de estado / checkpointing</strong> — arquivos de progresso, histórico do git e notas para o trabalho sobreviver a resets de contexto em sessões longas (liga com memória <a href=&quot;#memory&quot;>§06</a> e compaction <a href=&quot;#context-engineering&quot;>§08</a>)."><strong>State bridging / checkpointing</strong> — progress files, git history, and notes so work survives context resets across long sessions (ties to memory <a href="#memory">§06</a> and compaction <a href="#context-engineering">§08</a>).</li>
+    <li data-pt="<strong>Orquestração de subagents</strong> — sub-loops especializados (um agent de testes, um de QA, um de limpeza) com contexto isolado, cada um fazendo melhor uma sub-tarefa."><strong>Subagent orchestration</strong> — specialized sub-loops (a testing agent, a QA agent, a cleanup agent) with isolated context, each doing one sub-task better.</li>
+    <li data-pt="<strong>Gates humano-no-loop</strong> — aprovação antes de ações sensíveis ou irreversíveis. Automação não remove o julgamento humano; ela o posiciona nos pontos certos."><strong>Human-in-the-loop gates</strong> — approval before sensitive or irreversible actions. Automation doesn't remove human judgment; it positions it at the right points.</li>
+    <li data-pt="<strong>Gatilhos orientados a evento</strong> — webhooks, cron, filas de mensagens transformam um agent one-shot num sistema que roda continuamente em segundo plano."><strong>Event-driven triggers</strong> — webhooks, cron, message queues turn a one-shot agent into a system that runs continuously in the background.</li>
+  </ul>
+
+  <div class="callout" data-pt="<strong>Frase matadora:</strong> &quot;Prompt engineering molda a instrução. Context engineering molda o que o modelo vê. Loop engineering molda o que acontece em seguida — e é onde a confiabilidade mora, uma vez que o modelo e o contexto já estão bons. As três se empilham; nenhuma substitui a anterior.&quot;">
+    <strong>Killer line:</strong> "Prompt engineering shapes the instruction. Context engineering shapes what the model sees. Loop engineering shapes what happens next — and it's where reliability lives once the model and the context are already good. The three stack; none replaces the last."
+  </div>
+</section>
+
 <!-- =================== MCP =================== -->
 <section id="mcp">
-  <h2 data-pt="<span class=&quot;num&quot;>09</span> MCP Customizado — Model Context Protocol"><span class="num">09</span> Custom MCP — Model Context Protocol</h2>
+  <h2 data-pt="<span class=&quot;num&quot;>10</span> MCP Customizado — Model Context Protocol"><span class="num">10</span> Custom MCP — Model Context Protocol</h2>
   <p data-pt="MCP é o &quot;USB-C para AI&quot; — um protocolo padronizado (Anthropic, final de 2024, agora amplamente adotado) para deixar qualquer cliente LLM falar com qualquer tool/fonte de dados.">MCP is the "USB-C for AI" — a standardized protocol (Anthropic, late 2024, now broadly adopted) for letting any LLM client talk to any tool/data source.</p>
 
   <h3 data-pt="Se você já conhece REST APIs, aqui está a analogia">If you already know REST APIs, here is the analogy</h3>
@@ -2298,7 +2494,7 @@ await server.connect(new StdioServerTransport());
 
 <!-- =================== DAG =================== -->
 <section id="dag">
-  <h2 data-pt="<span class=&quot;num&quot;>10</span> DAG — Directed Acyclic Graph"><span class="num">10</span> DAG — Directed Acyclic Graph</h2>
+  <h2 data-pt="<span class=&quot;num&quot;>11</span> DAG — Directed Acyclic Graph"><span class="num">11</span> DAG — Directed Acyclic Graph</h2>
   <p data-pt="Um grafo de nós + arestas direcionadas <strong>sem ciclos</strong>. No mundo de agents AI, nós são chamadas LLM / tools / retrievers / branches; arestas são dependências. Sem ciclos = execução sempre termina.">A graph of nodes + directed edges with <strong>no cycles</strong>. In AI agent land, nodes are LLM calls / tools / retrievers / branches; edges are dependencies. No cycles = execution always terminates.</p>
 
   <figure class="diagram">
@@ -2404,7 +2600,7 @@ await server.connect(new StdioServerTransport());
 
 <!-- =================== RAG =================== -->
 <section id="rag">
-  <h2 data-pt="<span class=&quot;num&quot;>11</span> RAG — Retrieval Augmented Generation"><span class="num">11</span> RAG — Retrieval Augmented Generation</h2>
+  <h2 data-pt="<span class=&quot;num&quot;>12</span> RAG — Retrieval Augmented Generation"><span class="num">12</span> RAG — Retrieval Augmented Generation</h2>
   <p data-pt="&quot;Pré-adicionar contexto relevante ao prompt.&quot; A versão ingênua falha 40% das vezes no retrieval — a stack de 2026 é hybrid + reranked + às vezes grafo.">"Pre-pend relevant context to the prompt." The naive version fails 40% of the time at retrieval — the 2026 stack is hybrid + reranked + sometimes graph.</p>
 
   <figure class="diagram">
@@ -2497,7 +2693,7 @@ await server.connect(new StdioServerTransport());
 
 <!-- =================== LLM-WIKI & OKF =================== -->
 <section id="llm-wiki-okf">
-  <h2 data-pt="<span class=&quot;num&quot;>12</span> LLM-wiki e Open Knowledge Format"><span class="num">12</span> LLM-wiki &amp; Open Knowledge Format</h2>
+  <h2 data-pt="<span class=&quot;num&quot;>13</span> LLM-wiki e Open Knowledge Format"><span class="num">13</span> LLM-wiki &amp; Open Knowledge Format</h2>
   <p data-pt="Um <strong>LLM-wiki</strong> é uma base de conhecimento persistente, em texto simples, que um agent mantém para outros agents e humanos. O <strong>Open Knowledge Format (OKF)</strong> transforma esse padrão informal em um formato portátil e vendor-neutral: uma árvore de arquivos Markdown, com metadados YAML e links normais entre conceitos.">An <strong>LLM-wiki</strong> is a persistent, plain-text knowledge base that an agent maintains for other agents and humans. The <strong>Open Knowledge Format (OKF)</strong> turns that informal pattern into a portable, vendor-neutral format: a tree of Markdown files with YAML metadata and ordinary links between concepts.</p>
 
   <h3 data-pt="O problema que resolve">The problem it solves</h3>
@@ -2547,7 +2743,7 @@ See [Billing API](../systems/billing-api.md).</code></pre>
 
 <!-- =================== RESEARCH GRAPH =================== -->
 <section id="research-graph">
-  <h2 data-pt="<span class=&quot;num&quot;>13</span> Grafo de Pesquisa (Research Graph)"><span class="num">13</span> Grafo de Pesquisa (Research Graph)</h2>
+  <h2 data-pt="<span class=&quot;num&quot;>14</span> Grafo de Pesquisa (Research Graph)"><span class="num">14</span> Grafo de Pesquisa (Research Graph)</h2>
   <p data-pt="&quot;Research graph&quot; aparece em dois contextos relacionados — certifique-se de poder distingui-los.">"Research graph" shows up in two related contexts — make sure you can distinguish them.</p>
 
   <h3 data-pt="1. Agents de Deep Research (o &quot;research graph&quot; como workflow)">1. Deep Research agents (the "research graph" as workflow)</h3>
@@ -2575,7 +2771,7 @@ See [Billing API](../systems/billing-api.md).</code></pre>
 
 <!-- =================== EVALS =================== -->
 <section id="evals">
-  <h2 data-pt="<span class=&quot;num&quot;>14</span> Evals vs Benchmarks — e como construir cada um"><span class="num">14</span> Evals vs Benchmarks — and how to build each</h2>
+  <h2 data-pt="<span class=&quot;num&quot;>15</span> Evals vs Benchmarks — e como construir cada um"><span class="num">15</span> Evals vs Benchmarks — and how to build each</h2>
 
   <table>
     <thead><tr><th></th><th data-pt="Benchmarks">Benchmarks</th><th data-pt="Evals">Evals</th></tr></thead>
@@ -2626,7 +2822,7 @@ See [Billing API](../systems/billing-api.md).</code></pre>
 
 <!-- =================== PROMPTS =================== -->
 <section id="prompts">
-  <h2 data-pt="<span class=&quot;num&quot;>15</span> Versionamento de Prompts"><span class="num">15</span> Prompt Versioning</h2>
+  <h2 data-pt="<span class=&quot;num&quot;>16</span> Versionamento de Prompts"><span class="num">16</span> Prompt Versioning</h2>
   <p data-pt="Trate prompts como <strong>artefatos de produção versionados</strong>, igual a código. PromptOps é a camada de DevOps que falta no mundo de IA.">Treat prompts as <strong>versioned production artifacts</strong>, same as code. PromptOps is the missing DevOps layer of AI.</p>
 
   <h3 data-pt="O que uma ferramenta de versionamento oferece">What a versioning tool gives you</h3>
@@ -2662,7 +2858,7 @@ See [Billing API](../systems/billing-api.md).</code></pre>
 
 <!-- =================== SDD =================== -->
 <section id="sdd">
-  <h2 data-pt="<span class=&quot;num&quot;>16</span> Desenvolvimento Orientado por Spec (SDD)"><span class="num">16</span> Spec-Driven Development (SDD)</h2>
+  <h2 data-pt="<span class=&quot;num&quot;>17</span> Desenvolvimento Orientado por Spec (SDD)"><span class="num">17</span> Spec-Driven Development (SDD)</h2>
   <p data-pt="&quot;Inversão da estrutura de poder: as specs não servem mais ao código — o código serve às specs.&quot; Specs viram artefatos executáveis que controlam a geração de código por IA.">"Inversion of the power structure: specifications no longer serve code — code serves specifications." Specs become executable artifacts that gate AI codegen.</p>
 
   <h3 data-pt="As quatro (às vezes cinco) fases">The four (sometimes five) phases</h3>
@@ -2697,19 +2893,19 @@ See [Billing API](../systems/billing-api.md).</code></pre>
 
   <h3 data-pt="Onde isso se intersecta com o resto do guia">Where it intersects everything else in this guide</h3>
   <ul>
-    <li data-pt="O <strong>Task Graph é um DAG</strong> (<a href=&quot;#dag&quot;>§10</a>).">The <strong>Task Graph is a DAG</strong> (<a href="#dag">§10</a>).</li>
-    <li data-pt="Cada tarefa frequentemente passa por um <strong>research graph</strong> (<a href=&quot;#research-graph&quot;>§13</a>) — lê código relacionado, encontra padrões anteriores.">Each task often runs through a <strong>research graph</strong> (<a href="#research-graph">§13</a>) — read related code, find prior patterns.</li>
-    <li data-pt="Evals (<a href=&quot;#evals&quot;>§14</a>) viram os critérios de aceitação executáveis.">Evals (<a href="#evals">§14</a>) become the executable acceptance criteria.</li>
-    <li data-pt="Prompts que conduzem cada fase são <strong>versionados</strong> (<a href=&quot;#prompts&quot;>§15</a>).">Prompts driving each phase are <strong>versioned</strong> (<a href="#prompts">§15</a>).</li>
-    <li data-pt="O agente usa <strong>MCP</strong> (<a href=&quot;#mcp&quot;>§09</a>) para falar com git, o build, o test runner.">The agent uses <strong>MCP</strong> (<a href="#mcp">§09</a>) to talk to git, the build, the test runner.</li>
-    <li data-pt="<strong>Context7</strong> (<a href=&quot;#context7&quot;>§18</a>) alimenta com as APIs reais das bibliotecas a usar."><strong>Context7</strong> (<a href="#context7">§18</a>) feeds it the actual library APIs to use.</li>
+    <li data-pt="O <strong>Task Graph é um DAG</strong> (<a href=&quot;#dag&quot;>§11</a>).">The <strong>Task Graph is a DAG</strong> (<a href="#dag">§11</a>).</li>
+    <li data-pt="Cada tarefa frequentemente passa por um <strong>research graph</strong> (<a href=&quot;#research-graph&quot;>§14</a>) — lê código relacionado, encontra padrões anteriores.">Each task often runs through a <strong>research graph</strong> (<a href="#research-graph">§14</a>) — read related code, find prior patterns.</li>
+    <li data-pt="Evals (<a href=&quot;#evals&quot;>§15</a>) viram os critérios de aceitação executáveis.">Evals (<a href="#evals">§15</a>) become the executable acceptance criteria.</li>
+    <li data-pt="Prompts que conduzem cada fase são <strong>versionados</strong> (<a href=&quot;#prompts&quot;>§16</a>).">Prompts driving each phase are <strong>versioned</strong> (<a href="#prompts">§16</a>).</li>
+    <li data-pt="O agente usa <strong>MCP</strong> (<a href=&quot;#mcp&quot;>§10</a>) para falar com git, o build, o test runner.">The agent uses <strong>MCP</strong> (<a href="#mcp">§10</a>) to talk to git, the build, the test runner.</li>
+    <li data-pt="<strong>Context7</strong> (<a href=&quot;#context7&quot;>§19</a>) alimenta com as APIs reais das bibliotecas a usar."><strong>Context7</strong> (<a href="#context7">§19</a>) feeds it the actual library APIs to use.</li>
   </ul>
 </section>
 
 
 <!-- =================== COMMUNITY TOOLING — OVERVIEW =================== -->
 <section id="tooling">
-  <h2 data-pt="<span class=&quot;num&quot;>17</span> Ferramentas da comunidade — o que realmente usar"><span class="num">17</span> Community tooling — what to actually reach for</h2>
+  <h2 data-pt="<span class=&quot;num&quot;>18</span> Ferramentas da comunidade — o que realmente usar"><span class="num">18</span> Community tooling — what to actually reach for</h2>
   <p data-pt="Sete ferramentas em torno das quais a comunidade de engenharia de IA se consolidou em 2026. Cada uma corresponde a uma seção acima: é a camada do &quot;o que você instalaria de verdade na segunda-feira?&quot;.">Seven tools the AI engineering community has settled around in 2026. Each one corresponds to a section above: this is the "what would you actually install on Monday?" layer.</p>
 
   <div class="tool-grid" id="toolGrid">
@@ -2746,7 +2942,7 @@ See [Billing API](../systems/billing-api.md).</code></pre>
       <div class="tc-foot">
         <span>MIT</span><span>GitHub-native</span><span>CLI</span>
       </div>
-      <a class="tc-link" href="#sdd">See §16 SDD ↑</a>
+      <a class="tc-link" href="#sdd">See §17 SDD ↑</a>
     </article>
 
     <article class="tool-card" data-cat="spec">
@@ -2765,7 +2961,7 @@ See [Billing API](../systems/billing-api.md).</code></pre>
       <div class="tc-foot">
         <span>open source</span><span>CLI</span><span>git-native</span>
       </div>
-      <a class="tc-link" href="#sdd">See §16 SDD ↑</a>
+      <a class="tc-link" href="#sdd">See §17 SDD ↑</a>
     </article>
 
     <article class="tool-card" data-cat="skills">
@@ -2799,7 +2995,7 @@ See [Billing API](../systems/billing-api.md).</code></pre>
       <div class="tc-foot">
         <span>SaaS</span><span>LangChain</span><span>tracing</span>
       </div>
-      <a class="tc-link" href="#evals">See §14 Evals ↑</a>
+      <a class="tc-link" href="#evals">See §15 Evals ↑</a>
     </article>
 
     <article class="tool-card" data-cat="evals">
@@ -2817,7 +3013,7 @@ See [Billing API](../systems/billing-api.md).</code></pre>
       <div class="tc-foot">
         <span>SaaS</span><span>OSS SDK</span><span>experiments</span>
       </div>
-      <a class="tc-link" href="#evals">See §14 Evals ↑</a>
+      <a class="tc-link" href="#evals">See §15 Evals ↑</a>
     </article>
 
     <article class="tool-card" data-cat="evals">
@@ -2837,7 +3033,7 @@ See [Billing API](../systems/billing-api.md).</code></pre>
       <div class="tc-foot">
         <span>MIT</span><span>CLI</span><span>CI-friendly</span>
       </div>
-      <a class="tc-link" href="#prompts">See §15 Prompts ↑</a>
+      <a class="tc-link" href="#prompts">See §16 Prompts ↑</a>
     </article>
   </div>
 
@@ -2848,7 +3044,7 @@ See [Billing API](../systems/billing-api.md).</code></pre>
 
 <!-- =================== CONTEXT7 =================== -->
 <section id="context7">
-  <h2 data-pt="<span class=&quot;num&quot;>18</span> O que é o Context7?"><span class="num">18</span> What is Context7?</h2>
+  <h2 data-pt="<span class=&quot;num&quot;>19</span> O que é o Context7?"><span class="num">19</span> What is Context7?</h2>
   <p data-pt="<strong>Context7</strong> é um servidor MCP (feito pela <strong>Upstash</strong>) que serve <em>documentação de bibliotecas atualizada e por versão específica</em> nas suas ferramentas de código com IA — Cursor, Claude Code, Windsurf, OpenCode, qualquer coisa que fale MCP."><strong>Context7</strong> is an MCP server (built by <strong>Upstash</strong>) that serves <em>up-to-date, version-specific library documentation</em> into your AI coding tools — Cursor, Claude Code, Windsurf, OpenCode, anything that speaks MCP.</p>
 
   <h3 data-pt="O problema que ele resolve">The problem it solves</h3>
@@ -2881,8 +3077,10 @@ See [Billing API](../systems/billing-api.md).</code></pre>
 
 <!-- =================== QUIZ =================== -->
 <section id="quiz">
-  <h2><span class="num">19</span> <span data-quiz-h2>Knowledge check — graded quiz</span></h2>
+  <h2><span class="num">20</span> <span data-quiz-h2>Knowledge check — graded quiz</span></h2>
   <p class="small" data-quiz-intro>Pick an answer for each. Hit <em>Grade</em> at the bottom. Explanations appear after grading.</p>
+
+  <div class="quiz-tracker" id="quizTracker"></div>
 
   <div id="quiz-body"></div>
 
@@ -2891,6 +3089,8 @@ See [Billing API](../systems/billing-api.md).</code></pre>
     <button class="btn secondary" onclick="reset()" data-pt="Resetar">Reset</button>
     <div id="score"></div>
   </div>
+
+  <div id="quizResults"></div>
 </section>
 
 </main>
@@ -3152,15 +3352,12 @@ See [Billing API](../systems/billing-api.md).</code></pre>
   const data = [
     { name: "Nemotron 3 Super", i: 0.10, o: 0.50,  tag: "oss" },
     { name: "DeepSeek V4 Flash", i: 0.14, o: 0.28,  tag: "oss" },
-    { name: "Gemini 3.1 F-Lite",i: 0.25, o: 1.50,  tag: "cheap" },
     { name: "DeepSeek V4 Pro",  i: 0.435, o: 0.87, tag: "oss" },
-    { name: "Gemini 3 Flash",   i: 0.50, o: 3.00,  tag: "cheap" },
     { name: "GPT-5.6 Luna",     i: 1.00, o: 6.00,  tag: "mid" },
     { name: "Claude Haiku 4.5", i: 1.00, o: 5.00,  tag: "cheap" },
     { name: "GLM 5.2",          i: 1.40, o: 4.40,  tag: "oss" },
-    { name: "Gemini 3.5 Flash", i: 1.50, o: 9.00,  tag: "cheap" },
+    { name: "Gemini 3.6 Flash", i: 1.50, o: 7.50,  tag: "cheap" },
     { name: "Grok 4.5",         i: 2.00, o: 6.00,  tag: "mid" },
-    { name: "Gemini 3.1 Pro",   i: 2.00, o: 12.00, tag: "mid" },
     { name: "GPT-5.6 Terra",    i: 2.50, o: 15.00, tag: "mid" },
     { name: "Kimi K3",          i: 3.00, o: 15.00, tag: "oss" },
     { name: "Claude Sonnet 5",  i: 3.00, o: 15.00, tag: "mid" },
@@ -3173,51 +3370,51 @@ See [Billing API](../systems/billing-api.md).</code></pre>
   if (!c) return;
   const ctx = c.getContext('2d');
   const W = c.width, H = c.height;
-  const padL = 130, padR = 20, padT = 18, padB = 28;
+  const padL = 46, padR = 14, padT = 16, padB = 130;
   const innerW = W - padL - padR;
   const innerH = H - padT - padB;
-  const minV = 0.1, maxV = 60;
-  const xOf = v => padL + (Math.log10(v) - Math.log10(minV)) / (Math.log10(maxV) - Math.log10(minV)) * innerW;
-  const rowH = innerH / data.length;
-  const barH = rowH * 0.35;
+  const minV = 0.1, maxV = 60, baseY = padT + innerH;
+  const yOf = v => baseY - (Math.log10(v) - Math.log10(minV)) / (Math.log10(maxV) - Math.log10(minV)) * innerH;
+  const n = data.length;
+  const slot = innerW / n;
+  const bw = Math.min(11, slot * 0.30);
 
   ctx.clearRect(0,0,W,H);
-  // gridlines + axis labels
   ctx.font = '11px -apple-system, sans-serif';
-  ctx.fillStyle = '#8a94a3';
-  ctx.strokeStyle = '#222a35';
-  ctx.lineWidth = 1;
+  // horizontal gridlines + $ axis labels
   [0.1, 0.3, 1, 3, 10, 30].forEach(t => {
-    const x = xOf(t);
-    ctx.beginPath();
-    ctx.moveTo(x, padT);
-    ctx.lineTo(x, H - padB);
-    ctx.stroke();
-    ctx.fillText('$' + t, x - 8, H - 10);
+    const y = yOf(t);
+    ctx.strokeStyle = '#222a35'; ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(padL, y); ctx.lineTo(W - padR, y); ctx.stroke();
+    ctx.fillStyle = '#8a94a3'; ctx.textAlign = 'right'; ctx.textBaseline = 'middle';
+    ctx.fillText('$' + t, padL - 6, y);
   });
 
   const bars = [];
   data.forEach((d, i) => {
-    const y = padT + i * rowH + rowH / 2;
-    // label
-    ctx.fillStyle = '#e6ebf2';
-    ctx.font = '11.5px -apple-system, sans-serif';
-    ctx.textAlign = 'right';
-    ctx.fillText(d.name, padL - 8, y + 4);
-    ctx.textAlign = 'left';
-
+    const cx = padL + slot * i + slot / 2;
+    const gap = 2;
+    const xi = cx - bw - gap / 2;
+    const xo = cx + gap / 2;
     // input bar
-    const xi0 = xOf(minV);
-    const xi1 = xOf(d.i);
+    let y = yOf(d.i), h = baseY - y;
     ctx.fillStyle = '#7cf0c1';
-    ctx.fillRect(xi0, y - barH - 1, xi1 - xi0, barH);
-    bars.push({ x:xi0, y:y - barH - 1, w:xi1-xi0, h:barH, label:`${d.name} input · $${d.i}/1M` });
-
+    ctx.fillRect(xi, y, bw, h);
+    bars.push({ x:xi, y, w:bw, h, label:`${d.name} input · $${d.i}/1M` });
     // output bar
-    const xo1 = xOf(d.o);
+    y = yOf(d.o); h = baseY - y;
     ctx.fillStyle = '#ffb86b';
-    ctx.fillRect(xi0, y + 1, xo1 - xi0, barH);
-    bars.push({ x:xi0, y:y + 1, w:xo1-xi0, h:barH, label:`${d.name} output · $${d.o}/1M` });
+    ctx.fillRect(xo, y, bw, h);
+    bars.push({ x:xo, y, w:bw, h, label:`${d.name} output · $${d.o}/1M` });
+    // rotated x-axis label
+    ctx.save();
+    ctx.translate(cx, baseY + 8);
+    ctx.rotate(-Math.PI / 4);
+    ctx.fillStyle = '#c7ced9';
+    ctx.font = '10.5px -apple-system, sans-serif';
+    ctx.textAlign = 'right'; ctx.textBaseline = 'middle';
+    ctx.fillText(d.name, 0, 0);
+    ctx.restore();
   });
 
   const tip = document.getElementById('priceTip');
@@ -3245,7 +3442,6 @@ See [Billing API](../systems/billing-api.md).</code></pre>
   const data = [
     { name: "Nemotron 3 Super",   cost: 0.0015,  tier: "cheap" },
     { name: "DeepSeek V4 Flash",  cost: 0.00168, tier: "cheap" },
-    { name: "Gemini 3.1 F-Lite", cost: 0.004,   tier: "cheap" },
     { name: "DeepSeek V4 Pro",   cost: 0.00522, tier: "cheap" },
     { name: "Claude Haiku 4.5",  cost: 0.015,  tier: "cheap" },
     { name: "GLM 5.2",           cost: 0.0184, tier: "cheap" },
@@ -3264,51 +3460,50 @@ See [Billing API](../systems/billing-api.md).</code></pre>
   if (!c) return;
   const ctx = c.getContext('2d');
   const W = c.width, H = c.height;
-  const padL = 150, padR = 110, padT = 20, padB = 28;
+  const padL = 52, padR = 14, padT = 16, padB = 128;
   const innerW = W - padL - padR;
   const innerH = H - padT - padB;
-  const minV = 0.001, maxV = 0.6;
-  const xOf = v => padL + (Math.log10(v) - Math.log10(minV)) / (Math.log10(maxV) - Math.log10(minV)) * innerW;
-  const rowH = innerH / data.length;
-  const barH = rowH * 0.55;
+  const minV = 0.001, maxV = 0.6, baseY = padT + innerH;
+  const yOf = v => baseY - (Math.log10(v) - Math.log10(minV)) / (Math.log10(maxV) - Math.log10(minV)) * innerH;
+  const n = data.length;
+  const slot = innerW / n;
+  const barW = Math.min(30, slot * 0.55);
 
   ctx.clearRect(0,0,W,H);
   ctx.font = '11px -apple-system, sans-serif';
-  ctx.fillStyle = '#8a94a3';
-  ctx.strokeStyle = '#222a35';
-  ctx.lineWidth = 1;
+  // horizontal gridlines + $ axis labels
   [0.001, 0.003, 0.01, 0.03, 0.1, 0.3].forEach(t => {
-    const x = xOf(t);
-    ctx.beginPath();
-    ctx.moveTo(x, padT);
-    ctx.lineTo(x, H - padB);
-    ctx.stroke();
-    ctx.fillText('$' + t.toFixed(t<0.01?4:3), x - 14, H - 10);
+    const y = yOf(t);
+    ctx.strokeStyle = '#222a35'; ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(padL, y); ctx.lineTo(W - padR, y); ctx.stroke();
+    ctx.fillStyle = '#8a94a3'; ctx.textAlign = 'right'; ctx.textBaseline = 'middle';
+    ctx.fillText('$' + t.toFixed(t<0.01?4:3), padL - 6, y);
   });
-  ctx.fillText('per turn ($)', padL + innerW/2 - 30, H - 0);
 
   const bars = [];
   data.forEach((d, i) => {
-    const y = padT + i * rowH + rowH/2 - barH/2;
-    ctx.fillStyle = '#e6ebf2';
-    ctx.font = '12px -apple-system, sans-serif';
-    ctx.textAlign = 'right';
-    ctx.fillText(d.name, padL - 10, y + barH/2 + 4);
-    ctx.textAlign = 'left';
-
-    const x0 = xOf(minV);
-    const x1 = xOf(d.cost);
+    const cx = padL + slot * i + slot / 2;
+    const x = cx - barW / 2;
+    const y = yOf(d.cost), h = baseY - y;
     ctx.fillStyle = colors[d.tier];
-    ctx.fillRect(x0, y, x1 - x0, barH);
-
-    // monthly cost annotation on right
+    ctx.fillRect(x, y, barW, h);
+    // per-turn value atop
+    ctx.fillStyle = '#e6ebf2';
+    ctx.font = '10px -apple-system, sans-serif';
+    ctx.textAlign = 'center'; ctx.textBaseline = 'bottom';
+    ctx.fillText('$' + d.cost.toFixed(d.cost < 0.01 ? 4 : 3), cx, y - 2);
+    // rotated x-axis label
+    ctx.save();
+    ctx.translate(cx, baseY + 8);
+    ctx.rotate(-Math.PI / 4);
+    ctx.fillStyle = '#c7ced9';
+    ctx.font = '10.5px -apple-system, sans-serif';
+    ctx.textAlign = 'right'; ctx.textBaseline = 'middle';
+    ctx.fillText(d.name, 0, 0);
+    ctx.restore();
     const monthly = d.cost * 1_000_000;
-    ctx.fillStyle = '#8a94a3';
-    ctx.font = '11.5px -apple-system, sans-serif';
-    ctx.fillText('$' + Math.round(monthly).toLocaleString() + '/mo', x1 + 8, y + barH/2 + 4);
-
     bars.push({
-      x:x0, y, w:x1-x0, h:barH,
+      x, y, w:barW, h,
       label:`${d.name} · $${d.cost.toFixed(4)}/turn · $${Math.round(monthly).toLocaleString()}/mo @1M turns`
     });
   });
@@ -3331,6 +3526,108 @@ See [Billing API](../systems/billing-api.md).</code></pre>
     }
   });
   c.addEventListener('mouseleave', () => tip.style.opacity = 0);
+})();
+
+/* ============== capability index charts (top 10 of the 16 pricing-table models) ============== */
+(function () {
+  // scores: indexed 0–100 July 2026 snapshot; open = open-weight (green), else closed (blue).
+  const CLOSED = '#82b8ff', OPEN = '#7cf0c1';
+  // Intelligence Index: intentionally not populated — pending real Artificial Analysis
+  // values. Do not ship estimated numbers here (see CLAUDE.md sourcing rule).
+  // Coding Index: real Artificial Analysis Coding Index (Terminal-Bench v2.1 + SciCode),
+  // July 2026 — top 10 of the 16 pricing-table models. Source: artificialanalysis.ai
+  const coding = [
+    { name: "GPT-5.6 Sol",      score: 77.4, open: false },
+    { name: "GPT-5.6 Terra",    score: 76.7, open: false },
+    { name: "Claude Fable 5",   score: 76.5, open: false },
+    { name: "Kimi K3",          score: 76.2, open: true  },
+    { name: "GPT-5.5 Pro",      score: 74.9, open: false },
+    { name: "Claude Opus 4.8",  score: 74.3, open: false },
+    { name: "Grok 4.5",         score: 72.4, open: false },
+    { name: "Claude Sonnet 5",  score: 71.5, open: false },
+    { name: "GPT-5.6 Luna",     score: 71.4, open: false },
+    { name: "Gemini 3.6 Flash", score: 69.2, open: false }
+  ];
+
+  function drawIndexChart(canvasId, tipId, data, unitLabel) {
+    const c = document.getElementById(canvasId);
+    if (!c) return;
+    const ctx = c.getContext('2d');
+    const W = c.width, H = c.height;
+    const padL = 40, padR = 14, padT = 24, padB = 132;
+    const innerW = W - padL - padR;
+    const innerH = H - padT - padB;
+    const maxV = 100, baseY = padT + innerH;
+    const yOf = v => baseY - (v / maxV) * innerH;
+    const n = data.length;
+    const slot = innerW / n;
+    const barW = Math.min(42, slot * 0.6);
+
+    ctx.clearRect(0, 0, W, H);
+    ctx.font = '11px -apple-system, sans-serif';
+    // horizontal gridlines + axis labels
+    [0, 25, 50, 75, 100].forEach(t => {
+      const y = yOf(t);
+      ctx.strokeStyle = '#222a35'; ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.moveTo(padL, y); ctx.lineTo(W - padR, y); ctx.stroke();
+      ctx.fillStyle = '#8a94a3'; ctx.textAlign = 'right'; ctx.textBaseline = 'middle';
+      ctx.fillText(String(t), padL - 6, y);
+    });
+
+    const bars = [];
+    data.forEach((d, i) => {
+      const cx = padL + slot * i + slot / 2;
+      const x = cx - barW / 2;
+      const y = yOf(d.score), h = baseY - y;
+      // bar (rounded top)
+      ctx.fillStyle = d.open ? OPEN : CLOSED;
+      const r = Math.min(4, barW / 2);
+      ctx.beginPath();
+      ctx.moveTo(x, y + r);
+      ctx.arcTo(x, y, x + r, y, r);
+      ctx.lineTo(x + barW - r, y);
+      ctx.arcTo(x + barW, y, x + barW, y + r, r);
+      ctx.lineTo(x + barW, baseY);
+      ctx.lineTo(x, baseY);
+      ctx.closePath();
+      ctx.fill();
+      // score atop
+      ctx.fillStyle = '#e6ebf2';
+      ctx.font = '700 11px -apple-system, sans-serif';
+      ctx.textAlign = 'center'; ctx.textBaseline = 'bottom';
+      ctx.fillText(String(d.score), cx, y - 2);
+      // rotated rank + name label
+      ctx.save();
+      ctx.translate(cx, baseY + 8);
+      ctx.rotate(-Math.PI / 4);
+      ctx.fillStyle = '#c7ced9';
+      ctx.font = '11px -apple-system, sans-serif';
+      ctx.textAlign = 'right'; ctx.textBaseline = 'middle';
+      ctx.fillText(`${i + 1}. ${d.name}`, 0, 0);
+      ctx.restore();
+
+      bars.push({ x, y, w: barW, h, label: `#${i + 1} ${d.name} · ${d.score}/100 ${unitLabel} · ${d.open ? 'open-weight' : 'closed'}` });
+    });
+
+    const tip = document.getElementById(tipId);
+    c.addEventListener('mousemove', e => {
+      const rect = c.getBoundingClientRect();
+      const sx = c.width / rect.width, sy = c.height / rect.height;
+      const x = (e.clientX - rect.left) * sx, y = (e.clientY - rect.top) * sy;
+      const hit = bars.find(b => x >= b.x && x <= b.x + b.w && y >= b.y && y <= b.y + b.h);
+      if (hit) {
+        tip.textContent = hit.label;
+        tip.style.left = (e.clientX - rect.left) + 'px';
+        tip.style.top = (e.clientY - rect.top - 8) + 'px';
+        tip.style.opacity = 1;
+      } else {
+        tip.style.opacity = 0;
+      }
+    });
+    c.addEventListener('mouseleave', () => tip.style.opacity = 0);
+  }
+
+  drawIndexChart('codingChart', 'codingTip', coding, 'coding');
 })();
 
 const questions = [
@@ -3529,8 +3826,8 @@ const questions = [
   {
     q: "Which July 2026 release is the largest open-weight model ever shipped (2.8T params), scoring top-3 overall on GDPval-AA?",
     q_pt: "Qual lançamento de julho de 2026 é o maior modelo open-weight já publicado (2.8T params), com top-3 geral no GDPval-AA?",
-    opts: ["Claude Sonnet 5", "Gemini 3.5 Flash", "Kimi K3", "GPT-5.6 Terra"],
-    opts_pt: ["Claude Sonnet 5", "Gemini 3.5 Flash", "Kimi K3", "GPT-5.6 Terra"],
+    opts: ["Claude Sonnet 5", "Gemini 3.6 Flash", "Kimi K3", "GPT-5.6 Terra"],
+    opts_pt: ["Claude Sonnet 5", "Gemini 3.6 Flash", "Kimi K3", "GPT-5.6 Terra"],
     correct: 2,
     explain: "Kimi K3 from Moonshot AI: 2.8T-param MoE (16 of 896 experts active), multimodal, 1M context, #1 on the WebDev preference arena. Notably it prices like a closed frontier model ($3/$15) — the open/closed price gap is closing from both ends.",
     explain_pt: "Kimi K3 da Moonshot AI: MoE de 2.8T params (16 de 896 experts ativos), multimodal, 1M de contexto, #1 na arena de preferência WebDev. Detalhe: tem preço de modelo frontier fechado ($3/$15) — o gap de preço open/fechado está fechando pelos dois lados."
@@ -3987,13 +4284,13 @@ const questions = [
     q_pt: "GraphRAG vs RAG vetorial híbrido: qual cenário de produção favorece mais fortemente o GraphRAG?",
     opts: [
       "FAQ search over a 5K-document help center where exact wording matters",
-      "Q&A over a 200K-token product spec that fits in Gemini 3.1 Pro's context",
+      "Q&A over a 200K-token product spec that fits in Gemini 3.6 Flash's context",
       "\"Which directors who worked with Studio A between 2018-2022 also collaborated with Studio B before 2018?\" over a film-industry corpus",
       "Code search across a monorepo for a single function definition"
     ],
     opts_pt: [
       "Busca em FAQ sobre uma central de ajuda com 5K documentos onde a redação exata importa",
-      "Q&A sobre uma spec de produto de 200K tokens que cabe no contexto do Gemini 3.1 Pro",
+      "Q&A sobre uma spec de produto de 200K tokens que cabe no contexto do Gemini 3.6 Flash",
       "\"Quais diretores que trabalharam com o Estúdio A entre 2018-2022 também colaboraram com o Estúdio B antes de 2018?\" sobre um corpus da indústria cinematográfica",
       "Busca de código num monorepo por uma definição de função única"
     ],
@@ -4238,8 +4535,8 @@ const questions = [
       "Context length se aplica somente a modelos de reasoning"
     ],
     correct: 1,
-    explain: "Window is capacity; length is usage. Providers like Gemini 3.1 Pro and GPT-5.6 have pricing cliffs that trigger at certain <em>lengths</em> (200K for Gemini, ~272K for GPT-5.x), and KV cache decisions depend on length, not window size.",
-    explain_pt: "Window é capacidade; length é uso. Providers como Gemini 3.1 Pro e GPT-5.6 têm pricing cliffs que disparam em certos <em>lengths</em> (200K para o Gemini, ~272K para o GPT-5.x), e decisões de KV cache dependem do length, não do tamanho da window."
+    explain: "Window is capacity; length is usage. Providers like Gemini 3.6 Flash and GPT-5.6 have pricing cliffs that trigger at certain <em>lengths</em> (200K for Gemini, ~272K for GPT-5.x), and KV cache decisions depend on length, not window size.",
+    explain_pt: "Window é capacidade; length é uso. Providers como Gemini 3.6 Flash e GPT-5.6 têm pricing cliffs que disparam em certos <em>lengths</em> (200K para o Gemini, ~272K para o GPT-5.x), e decisões de KV cache dependem do length, não do tamanho da window."
   }
 ];
 
@@ -4336,16 +4633,19 @@ window.addEventListener('langchange', () => {
 function grade() {
   const t = QUIZ_I18N[currentQuizLang()];
   let score = 0;
+  const perQ = [];
   questions.forEach((qq, i) => {
     const opts = document.querySelectorAll(`label[data-i="${i}"]`);
     const picked = document.querySelector(`input[name="q${i}"]:checked`);
     opts.forEach(o => o.classList.remove('correct','wrong'));
     opts[qq.correct].classList.add('correct');
+    let ok = false;
     if (picked) {
       const j = +picked.value;
-      if (j === qq.correct) score++;
+      if (j === qq.correct) { score++; ok = true; }
       else opts[j].classList.add('wrong');
     }
+    perQ.push(ok);
     document.getElementById(`exp-${i}`).classList.add('show');
   });
   const total = questions.length;
@@ -4354,13 +4654,383 @@ function grade() {
   const mood = pct>=85 ? t.moodReady : pct>=65 ? t.moodClose : t.moodMore;
   el.textContent = t.score(score, total, pct) + mood;
   el.style.color = pct>=85?'var(--good)':pct>=65?'var(--accent2)':'var(--bad)';
+  if (window.StudyJourney) StudyJourney.onGrade(score, total, perQ);
 }
 function reset() {
   document.querySelectorAll('input[type=radio]').forEach(r => r.checked = false);
   document.querySelectorAll('.opt').forEach(o => o.classList.remove('correct','wrong'));
   document.querySelectorAll('.explain').forEach(e => e.classList.remove('show'));
   document.getElementById('score').textContent = '';
+  if (window.StudyJourney) StudyJourney.onReset();
 }
+
+/* ============== Study Journey — progress, streaks, achievements, celebrations ============== */
+(function () {
+  const KEY = 'ai-study-journey-v1';
+  const root = document.documentElement;
+  const reduceMotion = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---- persistent state ---- */
+  function loadState() {
+    try { return JSON.parse(localStorage.getItem(KEY)) || null; } catch (e) { return null; }
+  }
+  const state = Object.assign({ done: {}, days: [], quiz: null, ach: {} }, loadState() || {});
+  function save() { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {} }
+
+  const fmtDay = d => d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+  const today = fmtDay(new Date());
+  if (!state.days.includes(today)) { state.days.push(today); state.days = state.days.slice(-90); save(); }
+
+  function streak() {
+    const set = new Set(state.days);
+    let n = 0; const d = new Date();
+    while (set.has(fmtDay(d))) { n++; d.setDate(d.getDate() - 1); }
+    return n;
+  }
+
+  /* ---- topics ---- */
+  const topicSections = Array.from(document.querySelectorAll('main.detail-content > section')).filter(s => s.id !== 'quiz');
+  const topicIds = topicSections.map(s => s.id);
+  const doneCount = () => topicIds.filter(id => state.done[id]).length;
+  const quizPassed = () => !!(state.quiz && state.quiz.pct >= 70);
+  const totalUnits = topicIds.length + 1; // topics + quiz
+  const unitsDone = () => doneCount() + (quizPassed() ? 1 : 0);
+  const pct = () => Math.round(100 * unitsDone() / totalUnits);
+
+  function topicLabel(id) {
+    const el = document.querySelector(`.settings-row[data-section="${id}"] .settings-row-label`);
+    return el ? el.textContent.trim() : id;
+  }
+
+  /* ---- i18n ---- */
+  const I = {
+    en: {
+      mark: 'Mark topic as studied', undone: 'Studied — tap to undo',
+      topics: 'topics', streakLbl: (n) => n === 1 ? 'day streak' : 'day streak', quizBest: 'quiz best',
+      start: 'Start studying', cont: 'Continue', reviewQuiz: 'All topics studied — take the quiz!',
+      allDone: 'Guide complete — review the quiz', unlocked: 'Achievement unlocked',
+      answered: (a, tt) => `<b>${a}</b>&nbsp;/&nbsp;${tt} answered`,
+      breakdown: 'Your score by area', newBest: '★ New personal best!',
+      best: b => `Personal best: ${b}%`, firstRun: 'First attempt — this is your baseline.',
+      levels: ['🌱 Newcomer', '📖 Apprentice', '⚙️ Practitioner', '🛠️ AI Engineer', '🏗️ AI Architect', '🏆 Guide Master'],
+      cats: { concepts: 'Core concepts', models: 'Models & pricing', agents: 'Agents & plumbing',
+              knowledge: 'RAG & knowledge', practice: 'Engineering practice', tooling: 'Tooling', deep: 'Deep-dive mix' }
+    },
+    pt: {
+      mark: 'Marcar tópico como estudado', undone: 'Estudado — toque para desfazer',
+      topics: 'tópicos', streakLbl: (n) => n === 1 ? 'dia seguido' : 'dias seguidos', quizBest: 'melhor quiz',
+      start: 'Começar a estudar', cont: 'Continuar', reviewQuiz: 'Todos os tópicos estudados — faça o quiz!',
+      allDone: 'Guia completo — revise o quiz', unlocked: 'Conquista desbloqueada',
+      answered: (a, tt) => `<b>${a}</b>&nbsp;/&nbsp;${tt} respondidas`,
+      breakdown: 'Sua nota por área', newBest: '★ Novo recorde pessoal!',
+      best: b => `Recorde pessoal: ${b}%`, firstRun: 'Primeira tentativa — essa é sua linha de base.',
+      levels: ['🌱 Iniciante', '📖 Aprendiz', '⚙️ Praticante', '🛠️ Engenheiro de IA', '🏗️ Arquiteto de IA', '🏆 Mestre do Guia'],
+      cats: { concepts: 'Conceitos', models: 'Modelos e preços', agents: 'Agents e orquestração',
+              knowledge: 'RAG e conhecimento', practice: 'Prática de engenharia', tooling: 'Tooling', deep: 'Mix aprofundado' }
+    }
+  };
+  const t = () => I[root.dataset.lang === 'pt' ? 'pt' : 'en'];
+  const lvlOf = p => p === 0 ? 0 : p < 25 ? 1 : p < 50 ? 2 : p < 75 ? 3 : p < 100 ? 4 : 5;
+
+  /* ---- confetti ---- */
+  const canvas = document.getElementById('confettiCanvas');
+  const cctx = canvas.getContext('2d');
+  const COLORS = ['#7cf0c1', '#ffb86b', '#82b8ff', '#ff6b8b', '#e2c9ff', '#ffe27a'];
+  let parts = [], rafId = null;
+  function sizeCanvas() { canvas.width = innerWidth; canvas.height = innerHeight; }
+  function tick() {
+    cctx.clearRect(0, 0, canvas.width, canvas.height);
+    parts = parts.filter(p => p.life > 0);
+    parts.forEach(p => {
+      p.vy += 0.16; p.vx *= 0.99; p.x += p.vx; p.y += p.vy; p.rot += p.vr; p.life--;
+      cctx.save();
+      cctx.globalAlpha = Math.min(1, p.life / 30);
+      cctx.translate(p.x, p.y); cctx.rotate(p.rot);
+      cctx.fillStyle = p.color;
+      cctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size * 0.6);
+      cctx.restore();
+    });
+    if (parts.length) rafId = requestAnimationFrame(tick);
+    else { cctx.clearRect(0, 0, canvas.width, canvas.height); rafId = null; }
+  }
+  function burst(x, y, n) {
+    if (reduceMotion()) return;
+    sizeCanvas();
+    for (let i = 0; i < n; i++) {
+      const ang = Math.random() * Math.PI * 2, sp = 2 + Math.random() * 6;
+      parts.push({
+        x, y, vx: Math.cos(ang) * sp, vy: Math.sin(ang) * sp - 3.5,
+        rot: Math.random() * Math.PI, vr: (Math.random() - 0.5) * 0.3,
+        size: 5 + Math.random() * 6, life: 70 + Math.random() * 50,
+        color: COLORS[(Math.random() * COLORS.length) | 0]
+      });
+    }
+    if (!rafId) rafId = requestAnimationFrame(tick);
+  }
+  function celebrate() {
+    if (reduceMotion()) return;
+    burst(innerWidth * 0.5, innerHeight * 0.35, 90);
+    setTimeout(() => burst(innerWidth * 0.22, innerHeight * 0.3, 70), 220);
+    setTimeout(() => burst(innerWidth * 0.78, innerHeight * 0.3, 70), 440);
+  }
+
+  /* ---- achievement toasts ---- */
+  const toastHost = document.getElementById('toastHost');
+  const toastQueue = []; let toasting = false;
+  function toast(emoji, title) {
+    toastQueue.push({ emoji, title });
+    if (!toasting) nextToast();
+  }
+  function nextToast() {
+    const item = toastQueue.shift();
+    if (!item) { toasting = false; return; }
+    toasting = true;
+    const el = document.createElement('div');
+    el.className = 'ach-toast';
+    el.innerHTML = `<span class="at-emoji">${item.emoji}</span><span><span class="at-kicker">${t().unlocked}</span><br><span class="at-title">${item.title}</span></span>`;
+    toastHost.appendChild(el);
+    setTimeout(() => el.classList.add('hide'), 3100);
+    setTimeout(() => { el.remove(); nextToast(); }, 3450);
+  }
+
+  const ACH = [
+    { id: 'first',    emoji: '🚀', test: () => doneCount() >= 1,  en: 'First topic down!', pt: 'Primeiro tópico concluído!' },
+    { id: 'five',     emoji: '🔥', test: () => doneCount() >= 5,  en: 'On a roll — 5 topics', pt: 'Embalado — 5 tópicos' },
+    { id: 'half',     emoji: '⛰️', test: () => doneCount() >= Math.ceil(topicIds.length / 2), en: 'Over halfway there', pt: 'Mais da metade do caminho' },
+    { id: 'alltopics',emoji: '🎓', test: () => topicIds.length > 0 && doneCount() === topicIds.length, en: 'All topics studied!', pt: 'Todos os tópicos estudados!' },
+    { id: 'quizpass', emoji: '✅', test: () => !!state.quiz && state.quiz.pct >= 70, en: 'Quiz passed — 70%+', pt: 'Quiz aprovado — 70%+' },
+    { id: 'quizace',  emoji: '🏅', test: () => !!state.quiz && state.quiz.pct >= 85, en: 'Quiz ace — 85%+', pt: 'Craque do quiz — 85%+' },
+    { id: 'streak3',  emoji: '📆', test: () => streak() >= 3, en: '3-day study streak', pt: '3 dias seguidos de estudo' },
+    { id: 'complete', emoji: '🏆', test: () => unitsDone() === totalUnits, en: 'Guide 100% complete!', pt: 'Guia 100% completo!' }
+  ];
+  function checkAch(opts) {
+    const silent = opts && opts.silent;
+    ACH.forEach(a => {
+      if (!state.ach[a.id] && a.test()) {
+        state.ach[a.id] = Date.now(); save();
+        if (!silent) toast(a.emoji, root.dataset.lang === 'pt' ? a.pt : a.en);
+      }
+    });
+  }
+
+  /* ---- section "mark as studied" buttons ---- */
+  topicSections.forEach(sec => {
+    const wrap = document.createElement('div');
+    wrap.className = 'section-complete-wrap';
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'section-complete';
+    btn.dataset.topic = sec.id;
+    btn.addEventListener('click', () => {
+      const nowDone = !state.done[sec.id];
+      if (nowDone) state.done[sec.id] = Date.now(); else delete state.done[sec.id];
+      save();
+      if (nowDone) {
+        const r = btn.getBoundingClientRect();
+        burst(r.left + r.width / 2, r.top + r.height / 2, 45);
+        if (doneCount() === topicIds.length) celebrate();
+      }
+      checkAch();
+      renderAll();
+    });
+    wrap.appendChild(btn);
+    sec.appendChild(wrap);
+  });
+
+  function renderButtons() {
+    document.querySelectorAll('.section-complete').forEach(btn => {
+      const done = !!state.done[btn.dataset.topic];
+      btn.classList.toggle('done', done);
+      btn.innerHTML = `<span class="sc-ic"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6.5 L4.8 9.2 L10 3"/></svg></span>${done ? t().undone : t().mark}`;
+      btn.setAttribute('aria-pressed', String(done));
+    });
+  }
+
+  /* ---- journey card (home + desktop hero) ---- */
+  function ringSvg(p, tone) {
+    const C = (2 * Math.PI * 36).toFixed(1);
+    const off = (C * (1 - p / 100)).toFixed(1);
+    return `<div class="j-ring ${tone || ''}"><svg viewBox="0 0 86 86" aria-hidden="true">
+      <circle class="ring-bg" cx="43" cy="43" r="36"/>
+      <circle class="ring-fg" cx="43" cy="43" r="36" stroke-dasharray="${C}" stroke-dashoffset="${off}"/>
+    </svg><span class="j-pct">${p}%</span></div>`;
+  }
+
+  function journeyHTML() {
+    const p = pct(), L = t();
+    const next = topicIds.find(id => !state.done[id]);
+    const target = next ? '#/' + next : '#/quiz';
+    const label = next
+      ? (doneCount() === 0 ? L.start : `${L.cont}: ${topicLabel(next)}`)
+      : (quizPassed() ? L.allDone : L.reviewQuiz);
+    const achRow = ACH.map(a =>
+      `<span class="${state.ach[a.id] ? 'on' : ''}" title="${root.dataset.lang === 'pt' ? a.pt : a.en}">${a.emoji}</span>`
+    ).join('');
+    const st = streak();
+    const quizStat = state.quiz ? state.quiz.pct + '%' : '—';
+    return `<div class="journey-card">
+      ${ringSvg(p)}
+      <div class="j-info">
+        <div class="j-level">${L.levels[lvlOf(p)]}</div>
+        <div class="j-stats">
+          <span>📚 <b>${doneCount()}/${topicIds.length}</b> ${L.topics}</span>
+          <span>🔥 <b>${st}</b> ${L.streakLbl(st)}</span>
+          <span>🧠 ${L.quizBest}: <b>${quizStat}</b></span>
+        </div>
+        <div class="j-ach">${achRow}</div>
+        <a class="j-continue${next ? '' : ' all-done'}" href="${target}">${label} <span aria-hidden="true">→</span></a>
+      </div>
+    </div>`;
+  }
+
+  function renderJourney() {
+    const html = journeyHTML();
+    const home = document.getElementById('journeyHome');
+    const desk = document.getElementById('journeyDesktop');
+    if (home) home.innerHTML = html;
+    if (desk) desk.innerHTML = html;
+  }
+
+  /* ---- nav + home-row ticks ---- */
+  function renderNav() {
+    const np = document.getElementById('navProgress');
+    if (np) np.innerHTML = `<span><b>${doneCount()}/${topicIds.length}</b> ${t().topics} · ${pct()}%</span><div class="np-bar"><i style="width:${pct()}%"></i></div>`;
+    const isDone = id => id === 'quiz' ? quizPassed() : !!state.done[id];
+    document.querySelectorAll('.desktop-side .area-items a[href^="#"]').forEach(a => {
+      a.classList.toggle('is-done', isDone(a.getAttribute('href').slice(1)));
+    });
+    document.querySelectorAll('.settings-row[data-section]').forEach(r => {
+      r.classList.toggle('is-done', isDone(r.dataset.section));
+    });
+  }
+
+  /* ---- quiz tracker ---- */
+  const trackerEl = document.getElementById('quizTracker');
+  function renderTracker() {
+    if (!trackerEl || typeof questions === 'undefined') return;
+    const total = questions.length;
+    const answered = document.querySelectorAll('#quiz-body input:checked').length;
+    const w = total ? Math.round(100 * answered / total) : 0;
+    trackerEl.innerHTML = `<span>${t().answered(answered, total)}</span><div class="qt-bar"><i style="width:${w}%"></i></div>`;
+  }
+  const quizBody = document.getElementById('quiz-body');
+  if (quizBody) quizBody.addEventListener('change', renderTracker);
+
+  /* ---- quiz results panel ---- */
+  // Category of each question by index, mirroring the grouped order of the questions array.
+  const QCAT_SPEC = [['concepts', 9], ['models', 6], ['models', 2], ['models', 3], ['agents', 1], ['practice', 1],
+                     ['agents', 3], ['knowledge', 2], ['agents', 1], ['practice', 1], ['tooling', 1], ['deep', 18]];
+  const catOf = [];
+  QCAT_SPEC.forEach(([g, n]) => { for (let k = 0; k < n; k++) catOf.push(g); });
+
+  const resultsEl = document.getElementById('quizResults');
+
+  function renderResults(score, total, p, perQ, isBest, prevBest) {
+    if (!resultsEl) return;
+    const L = t();
+    const mood = QUIZ_I18N[root.dataset.lang === 'pt' ? 'pt' : 'en'];
+    const tone = p >= 85 ? '' : p >= 65 ? 'mid' : 'low';
+    const moodTxt = p >= 85 ? mood.moodReady : p >= 65 ? mood.moodClose : mood.moodMore;
+
+    let cats = '';
+    if (catOf.length === total) {
+      const agg = {};
+      perQ.forEach((ok, i) => {
+        const g = catOf[i];
+        (agg[g] = agg[g] || { ok: 0, n: 0 });
+        agg[g].n++; if (ok) agg[g].ok++;
+      });
+      cats = Object.keys(L.cats).filter(g => agg[g]).map(g => {
+        const { ok, n } = agg[g];
+        const cp = Math.round(100 * ok / n);
+        const color = cp >= 85 ? 'var(--good)' : cp >= 60 ? 'var(--accent2)' : 'var(--bad)';
+        return `<div class="qr-cat">
+          <div class="qc-head"><span>${L.cats[g]}</span><b>${ok}/${n}</b></div>
+          <div class="qc-bar"><i data-w="${cp}" style="background:${color}"></i></div>
+        </div>`;
+      }).join('');
+    }
+
+    const bestLine = isBest
+      ? (prevBest >= 0 ? `<span class="new-best">${L.newBest}</span> ${L.best(p)}` : L.firstRun)
+      : L.best(state.quiz.pct);
+
+    resultsEl.innerHTML = `<div class="quiz-results">
+      <div class="qr-top">
+        ${ringSvg(p, tone)}
+        <div>
+          <div class="qr-mood">${moodTxt}</div>
+          <div class="qr-sub">${score} / ${total} · ${bestLine}</div>
+        </div>
+      </div>
+      ${cats ? `<div class="qr-cats-title">${L.breakdown}</div><div class="qr-cats">${cats}</div>` : ''}
+    </div>`;
+
+    // animate ring + bars from zero
+    const fg = resultsEl.querySelector('.ring-fg');
+    if (fg) {
+      const target = fg.getAttribute('stroke-dashoffset');
+      fg.setAttribute('stroke-dashoffset', fg.getAttribute('stroke-dasharray'));
+      requestAnimationFrame(() => requestAnimationFrame(() => fg.setAttribute('stroke-dashoffset', target)));
+    }
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      resultsEl.querySelectorAll('.qc-bar i').forEach(b => { b.style.width = b.dataset.w + '%'; });
+    }));
+    resultsEl.firstElementChild.scrollIntoView({ behavior: reduceMotion() ? 'auto' : 'smooth', block: 'nearest' });
+  }
+
+  let lastGrade = null;
+  function onGrade(score, total, perQ) {
+    const p = Math.round(100 * score / total);
+    const prevBest = state.quiz ? state.quiz.pct : -1;
+    const isBest = p > prevBest;
+    if (isBest) state.quiz = { pct: p, score, total, at: today };
+    save();
+    checkAch();
+    lastGrade = { score, total, p, perQ, isBest, prevBest };
+    renderAll();
+    renderResults(score, total, p, perQ, isBest, prevBest);
+    if (p >= 85) celebrate();
+  }
+  function onReset() {
+    lastGrade = null;
+    if (resultsEl) resultsEl.innerHTML = '';
+    renderTracker();
+  }
+
+  /* ---- master render ---- */
+  function renderAll() {
+    renderButtons();
+    renderJourney();
+    renderNav();
+    renderTracker();
+  }
+
+  window.StudyJourney = { onGrade, onReset };
+
+  // Language switch re-renders the quiz body (clearing selections + grading),
+  // so drop any stale results panel and re-render everything in the new language.
+  window.addEventListener('langchange', () => {
+    lastGrade = null;
+    if (resultsEl) resultsEl.innerHTML = '';
+    renderAll();
+  });
+
+  /* ---- reading progress bar ---- */
+  const scrollFill = document.getElementById('scrollFill');
+  function updScroll() {
+    if (!scrollFill) return;
+    const h = document.documentElement;
+    const max = h.scrollHeight - innerHeight;
+    scrollFill.style.width = (max > 0 ? Math.min(100, Math.max(0, h.scrollTop / max * 100)) : 0) + '%';
+  }
+  addEventListener('scroll', updScroll, { passive: true });
+  addEventListener('resize', updScroll, { passive: true });
+
+  checkAch({ silent: true });
+  renderAll();
+  updScroll();
+})();
 
 /* ============== Language toggle (EN / PT-BR) ============== */
 (function () {
