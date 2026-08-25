@@ -1753,28 +1753,35 @@
 
   
   <h3 data-pt="2.4 Inteligência geral">2.4 General intelligence</h3>
-  <p data-pt="Preço é só um eixo. Os outros dois que mais importam são <strong>inteligência geral</strong> e <strong>capacidade de coding</strong>, medidos diretamente pelos índices da Artificial Analysis: o <strong>Intelligence Index</strong> combina ~9 avaliações (reasoning, conhecimento, coding, tool use, contexto longo) num único score 0–100, e o <strong>Coding Index</strong> isola os benchmarks de coding (Terminal-Bench v2.1, SciCode). Os gráficos mostram o <strong>top 10</strong> dos modelos das tabelas de preço, usando os valores publicados pela Artificial Analysis. Passe o mouse numa barra para o número. <strong>Atenção:</strong> o snapshot de scores é de <strong>julho de 2026</strong> e mede as versões vigentes na época — Opus 4.8, Grok 4.5, Gemini 3.6 Flash, GLM 5.2. A tabela de preço acima já foi atualizada para agosto; os índices de capacidade ainda não.">Price is only one axis. The two others that matter most are <strong>general intelligence</strong> and <strong>coding capability</strong>, measured directly by the Artificial Analysis indices: the <strong>Intelligence Index</strong> blends ~9 evaluations (reasoning, knowledge, coding, tool use, long context) into a single 0–100 score, and the <strong>Coding Index</strong> isolates the coding benchmarks (Terminal-Bench v2.1, SciCode). The charts show the <strong>top 10</strong> of the models from the pricing tables, using Artificial Analysis's published values. Hover a bar for the number. <strong>Note:</strong> the score snapshot is from <strong>July 2026</strong> and measures the versions current then — Opus 4.8, Grok 4.5, Gemini 3.6 Flash, GLM 5.2. The pricing table above has been refreshed to August; the capability indices have not.</p>
+  <p data-pt="Preço é só um eixo. Os outros dois que mais importam são <strong>inteligência geral</strong> e <strong>capacidade de coding</strong>, medidos diretamente pelos índices da Artificial Analysis: o <strong>Intelligence Index</strong> combina ~9 avaliações (reasoning, conhecimento, coding, tool use, contexto longo) num único score 0–100, e o <strong>Coding Agent Index</strong> mede um agent real de coding rodando o modelo (DeepSWE, Terminal-Bench v2.1, SWE-Atlas-QnA). Os gráficos mostram o <strong>top 10</strong> dos modelos da tabela de preço que têm score publicado, usando os valores da Artificial Analysis consultados em <strong>25 ago 2026</strong>. Passe o mouse numa barra para o número.">Price is only one axis. The two others that matter most are <strong>general intelligence</strong> and <strong>coding capability</strong>, measured directly by the Artificial Analysis indices: the <strong>Intelligence Index</strong> blends ~9 evaluations (reasoning, knowledge, coding, tool use, long context) into a single 0–100 score, and the <strong>Coding Agent Index</strong> measures a real coding agent driving the model (DeepSWE, Terminal-Bench v2.1, SWE-Atlas-QnA). The charts show the <strong>top 10</strong> of the pricing-table models that carry a published score, using Artificial Analysis values retrieved <strong>25 Aug 2026</strong>. Hover a bar for the number.</p>
 
-  <div class="callout warn" data-pt="<strong>Intelligence Index — em atualização.</strong> Este gráfico está sendo preenchido com o Artificial Analysis Intelligence Index atual (fonte: <a href=&quot;https://artificialanalysis.ai/&quot;>artificialanalysis.ai</a>), em vez de números estimados. Chega em breve.">
-    <strong>Intelligence Index — sourcing in progress.</strong> This chart is being populated from the current Artificial Analysis Intelligence Index (source: <a href="https://artificialanalysis.ai/">artificialanalysis.ai</a>) rather than shown with estimated numbers. Coming shortly.
-  </div>
+  <figure class="diagram" style="position:relative">
+    <div style="font-size:13px; color:var(--accent); text-align:center; margin-bottom:8px; font-weight:600">Top 10 — Artificial Analysis Intelligence Index</div>
+    <canvas id="intelChart" width="680" height="400"></canvas>
+    <div id="intelTip" class="bar-tooltip"></div>
+    <div class="legend">
+      <span><span class="sw" style="background:#82b8ff"></span><span data-pt="Closed / fechado">Closed-source</span></span>
+      <span><span class="sw" style="background:#7cf0c1"></span><span data-pt="Open-weight">Open-weight</span></span>
+    </div>
+    <figcaption data-pt="Fonte: <a href=&quot;https://artificialanalysis.ai/&quot;>Artificial Analysis Intelligence Index</a>, consultado em 25 ago 2026 — valores publicados, nenhum marcado como estimado. O Claude Opus 5 (63.1) lidera; GPT-5.6 Sol e Grok 4.6 empatam em 60.9. O Kimi K3 (59.7) é o melhor open-weight, a 3.4 pontos do topo — o eixo de inteligência está bem mais apertado que o de preço. Sonnet 5 e GPT-5.5 Pro ainda não têm score neste índice. A cor segue a flag <code>isOpenWeights</code> da própria AA, que <em>não</em> marca o GLM-5.3 como open-weight.">Source: <a href="https://artificialanalysis.ai/">Artificial Analysis Intelligence Index</a>, retrieved 25 Aug 2026 — published values, none flagged as estimated. Claude Opus 5 (63.1) leads; GPT-5.6 Sol and Grok 4.6 tie at 60.9. Kimi K3 (59.7) is the top open-weight, 3.4 points off the lead — the intelligence axis is far tighter than the price axis. Sonnet 5 and GPT-5.5 Pro carry no score on this index yet. Colour follows AA's own <code>isOpenWeights</code> flag, which does <em>not</em> mark GLM-5.3 as open-weight.</figcaption>
+  </figure>
 
   
   <h3 data-pt="2.5 Coding">2.5 Coding</h3>
-  <p data-pt="Os mesmos modelos, rankeados pelo Artificial Analysis Coding Index (Terminal-Bench v2.1 + SciCode) — snapshot de julho de 2026.">The same models, ranked by the Artificial Analysis Coding Index (Terminal-Bench v2.1 + SciCode) — July 2026 snapshot.</p>
+  <p data-pt="Os mesmos modelos, rankeados pelo Artificial Analysis <strong>Coding Agent Index v1.4</strong>. Diferença importante em relação ao gráfico acima: este índice pontua uma <strong>configuração</strong> — harness de agent + modelo + nível de effort — e não o modelo sozinho. Cada barra é a <em>melhor</em> configuração daquele modelo; passe o mouse para ver qual é.">The same models, ranked by the Artificial Analysis <strong>Coding Agent Index v1.4</strong>. One important difference from the chart above: this index scores a <strong>configuration</strong> — agent harness + model + effort level — not the model on its own. Each bar is that model's <em>best</em> configuration; hover to see which one.</p>
   <figure class="diagram" style="position:relative">
-    <div style="font-size:13px; color:var(--accent); text-align:center; margin-bottom:8px; font-weight:600">Top 10 — Artificial Analysis Coding Index (Terminal-Bench v2.1 · SciCode)</div>
+    <div style="font-size:13px; color:var(--accent); text-align:center; margin-bottom:8px; font-weight:600">Top 10 — Artificial Analysis Coding Agent Index v1.4 (DeepSWE · Terminal-Bench v2.1 · SWE-Atlas-QnA)</div>
     <canvas id="codingChart" width="680" height="400"></canvas>
     <div id="codingTip" class="bar-tooltip"></div>
     <div class="legend">
       <span><span class="sw" style="background:#82b8ff"></span><span data-pt="Closed / fechado">Closed-source</span></span>
       <span><span class="sw" style="background:#7cf0c1"></span><span data-pt="Open-weight">Open-weight</span></span>
     </div>
-    <figcaption data-pt="Fonte: Artificial Analysis Coding Index, <strong>julho de 2026</strong> — scores das versões vigentes naquele mês (Opus 4.8, Grok 4.5, Gemini 3.6 Flash), não das versões de agosto listadas na tabela de preço. O tier GPT-5.6 da OpenAI (Sol 77.4, Terra 76.7) lidera o blend, com o Claude Fable 5 (76.5) logo atrás. O Kimi K3 (76.2) é o destaque open-weight — #4 no geral, praticamente empatado com a fronteira; o GLM 5.2 fica logo fora do top 10.">Source: Artificial Analysis Coding Index, <strong>July 2026</strong> — scores for the versions current that month (Opus 4.8, Grok 4.5, Gemini 3.6 Flash), not the August versions listed in the pricing table. OpenAI's GPT-5.6 tier (Sol 77.4, Terra 76.7) leads the blend, with Claude Fable 5 (76.5) just behind. Kimi K3 (76.2) is the standout open-weight — #4 overall, essentially tied with the frontier; GLM 5.2 sits just outside the top 10.</figcaption>
+    <figcaption data-pt="Fonte: <a href=&quot;https://artificialanalysis.ai/#coding-agents&quot;>Artificial Analysis Coding Agent Index v1.4</a> (metodologia atualizada em 20 ago 2026), consultado em 25 ago 2026. Média com peso igual de DeepSWE (113 tasks), Terminal-Bench v2.1 (89) e SWE-Atlas-QnA (124), pass@1 sobre 3 tentativas por task. O Claude Code rodando Opus 5 em xhigh (68.1) lidera. Dois detalhes que só aparecem aqui: o harness importa — o Gemini 3.7 Flash faz 59.6 no Opencode e 56.6 no Antigravity SDK — e o <strong>DeepSeek V4 Pro 0813 fica abaixo do V4 Flash 0731</strong> (42.8 vs 49.8), porque tira 49.2 em Q&amp;A mas só 16.2 no DeepSWE. Sem entrada ainda: Sonnet 5, Haiku 4.5, Grok 4.6, GLM 5.3, Nemotron 3 Super e GPT-5.5 Pro.">Source: <a href="https://artificialanalysis.ai/#coding-agents">Artificial Analysis Coding Agent Index v1.4</a> (methodology updated 20 Aug 2026), retrieved 25 Aug 2026. Equal-weight average of DeepSWE (113 tasks), Terminal-Bench v2.1 (89) and SWE-Atlas-QnA (124), pass@1 over 3 attempts per task. Claude Code driving Opus 5 at xhigh (68.1) leads. Two things only this chart shows: the harness matters — Gemini 3.7 Flash scores 59.6 under Opencode and 56.6 under the Antigravity SDK — and <strong>DeepSeek V4 Pro 0813 lands below V4 Flash 0731</strong> (42.8 vs 49.8), because it takes 49.2 on Q&amp;A but only 16.2 on DeepSWE. No entry yet: Sonnet 5, Haiku 4.5, Grok 4.6, GLM 5.3, Nemotron 3 Super and GPT-5.5 Pro.</figcaption>
   </figure>
 
-    <div class="callout" data-pt="<strong>Como ler os eixos juntos:</strong> preço e capacidade raramente concordam. O Kimi K3 é o melhor coder open-weight — colado na fronteira fechada (#4 no Coding Index de julho) mas com economia open-weight; o tier GPT-5.6 da OpenAI lidera o blend de coding; o Gemini 3.7 Flash é barato e forte em multimodal. A jogada de 2026 continua sendo <strong>routing</strong> — combine cada request ao eixo que ele realmente exige (veja <a href=&quot;#routing&quot;>§03</a>).">
-    <strong>Reading the axes together:</strong> price and capability rarely agree. Kimi K3 is the top open-weight coder — right up against the closed frontier (#4 on July's Coding Index) but at open-weight economics; OpenAI's GPT-5.6 tier leads the coding blend; Gemini 3.7 Flash is cheap and multimodal-strong. The 2026 move is still <strong>routing</strong> — match each request to the axis it actually demands (see <a href="#routing">§03</a>).
+    <div class="callout" data-pt="<strong>Como ler os eixos juntos:</strong> preço e capacidade raramente concordam. O Kimi K3 é o melhor coder open-weight — #4 no Coding Agent Index — mas cobra $3/$15, mais que o Claude Sonnet 5. O Opus 5 lidera os dois índices e custa $5/$25. E o eixo de capacidade é bem mais comprimido que o de preço: o top 10 de inteligência cabe em 10 pontos, enquanto o preço varia 350× na tabela. A jogada de 2026 continua sendo <strong>routing</strong> — combine cada request ao eixo que ele realmente exige (veja <a href=&quot;#routing&quot;>§03</a>).">
+    <strong>Reading the axes together:</strong> price and capability rarely agree. Kimi K3 is the top open-weight coder — #4 on the Coding Agent Index — but charges $3/$15, more than Claude Sonnet 5. Opus 5 leads both indices and costs $5/$25. And the capability axis is far more compressed than the price axis: the intelligence top 10 spans 10 points, while price spans 350× across the table. The 2026 move is still <strong>routing</strong> — match each request to the axis it actually demands (see <a href="#routing">§03</a>).
   </div>
 
 </section>
@@ -3532,25 +3539,43 @@ See [Billing API](../systems/billing-api.md).</code></pre>
   c.addEventListener('mouseleave', () => tip.style.opacity = 0);
 })();
 
-/* ============== capability index charts (top 10 of the 16 pricing-table models) ============== */
+/* ============== capability index charts ============== */
 (function () {
-  // scores: indexed 0–100 July 2026 snapshot; open = open-weight (green), else closed (blue).
+  // Real Artificial Analysis values, retrieved 25 Aug 2026 from artificialanalysis.ai.
+  // open = flagged isOpenWeights by AA (green), else closed (blue).
   const CLOSED = '#82b8ff', OPEN = '#7cf0c1';
-  // Intelligence Index: intentionally not populated — pending real Artificial Analysis
-  // values. Do not ship estimated numbers here (see CLAUDE.md sourcing rule).
-  // Coding Index: real Artificial Analysis Coding Index (Terminal-Bench v2.1 + SciCode),
-  // July 2026 — top 10 of the 16 pricing-table models. Source: artificialanalysis.ai
+
+  // Artificial Analysis Intelligence Index — published values, none flagged as estimated.
+  // Top 10 of the pricing-table models that carry a score.
+  const intel = [
+    { name: "Claude Opus 5",     score: 63.1, open: false },
+    { name: "Claude Fable 5",    score: 62.1, open: false },
+    { name: "GPT-5.6 Sol",       score: 60.9, open: false },
+    { name: "Grok 4.6",          score: 60.9, open: false },
+    { name: "Kimi K3",           score: 59.7, open: true  },
+    { name: "GLM 5.3",           score: 59.5, open: false },
+    { name: "Qwen3.8 2.4T A95B", score: 57.7, open: true  },
+    { name: "GPT-5.6 Terra",     score: 56.6, open: false },
+    { name: "Gemini 3.7 Flash",  score: 56.0, open: false },
+    { name: "DeepSeek V4 Pro",   score: 53.2, open: true  }
+  ];
+
+  // Artificial Analysis Coding Agent Index v1.4 (methodology updated 20 Aug 2026):
+  // equal-weight blend of DeepSWE (113 tasks), Terminal-Bench v2.1 (89) and
+  // SWE-Atlas-QnA (124), pass@1 averaged over 3 attempts per task.
+  // Scores are per agent+model+effort configuration; each row is the model's
+  // best-scoring configuration, named in `cfg`.
   const coding = [
-    { name: "GPT-5.6 Sol",      score: 77.4, open: false },
-    { name: "GPT-5.6 Terra",    score: 76.7, open: false },
-    { name: "Claude Fable 5",   score: 76.5, open: false },
-    { name: "Kimi K3",          score: 76.2, open: true  },
-    { name: "GPT-5.5 Pro",      score: 74.9, open: false },
-    { name: "Claude Opus 4.8",  score: 74.3, open: false },
-    { name: "Grok 4.5",         score: 72.4, open: false },
-    { name: "Claude Sonnet 5",  score: 71.5, open: false },
-    { name: "GPT-5.6 Luna",     score: 71.4, open: false },
-    { name: "Gemini 3.6 Flash", score: 69.2, open: false }
+    { name: "Claude Opus 5",     score: 68.1, open: false, cfg: "Claude Code · xhigh" },
+    { name: "Claude Fable 5",    score: 67.2, open: false, cfg: "Claude Code · max, with fallback" },
+    { name: "GPT-5.6 Sol",       score: 65.1, open: false, cfg: "Codex · max" },
+    { name: "Kimi K3",           score: 62.6, open: true,  cfg: "Kimi Code CLI" },
+    { name: "Qwen3.8-Max",       score: 61.3, open: true,  cfg: "Claude Code" },
+    { name: "GPT-5.6 Terra",     score: 60.4, open: false, cfg: "Codex · max" },
+    { name: "Gemini 3.7 Flash",  score: 59.6, open: false, cfg: "Opencode · high" },
+    { name: "GPT-5.6 Luna",      score: 57.2, open: false, cfg: "Codex · max" },
+    { name: "DeepSeek V4 Flash", score: 49.8, open: true,  cfg: "Codex · max, build 0731" },
+    { name: "DeepSeek V4 Pro",   score: 42.8, open: true,  cfg: "Codex · max, build 0813" }
   ];
 
   function drawIndexChart(canvasId, tipId, data, unitLabel) {
@@ -3599,7 +3624,7 @@ See [Billing API](../systems/billing-api.md).</code></pre>
       ctx.fillStyle = '#e6ebf2';
       ctx.font = '700 11px -apple-system, sans-serif';
       ctx.textAlign = 'center'; ctx.textBaseline = 'bottom';
-      ctx.fillText(String(d.score), cx, y - 2);
+      ctx.fillText(d.score.toFixed(1), cx, y - 2);
       // rotated rank + name label
       ctx.save();
       ctx.translate(cx, baseY + 8);
@@ -3610,7 +3635,8 @@ See [Billing API](../systems/billing-api.md).</code></pre>
       ctx.fillText(`${i + 1}. ${d.name}`, 0, 0);
       ctx.restore();
 
-      bars.push({ x, y, w: barW, h, label: `#${i + 1} ${d.name} · ${d.score}/100 ${unitLabel} · ${d.open ? 'open-weight' : 'closed'}` });
+      const cfg = d.cfg ? ` · ${d.cfg}` : '';
+      bars.push({ x, y, w: barW, h, label: `#${i + 1} ${d.name} · ${d.score}/100 ${unitLabel}${cfg} · ${d.open ? 'open-weight' : 'closed'}` });
     });
 
     const tip = document.getElementById(tipId);
@@ -3631,7 +3657,8 @@ See [Billing API](../systems/billing-api.md).</code></pre>
     c.addEventListener('mouseleave', () => tip.style.opacity = 0);
   }
 
-  drawIndexChart('codingChart', 'codingTip', coding, 'coding');
+  drawIndexChart('intelChart', 'intelTip', intel, 'intelligence');
+  drawIndexChart('codingChart', 'codingTip', coding, 'coding agent');
 })();
 
 const questions = [
