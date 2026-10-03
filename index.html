@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title data-pt="Guia de Estudos de IA — Setembro de 2026">AI Study Guide — September 2026</title>
+<title data-pt="Guia de Estudos de IA — Outubro de 2026">AI Study Guide — October 2026</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='5' fill='%230b0d10'/%3E%3Cg fill='none' stroke='%237cf0c1' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 3 L3 7.5 l9 4.5 l9-4.5 z'/%3E%3Cpath d='M3 16.5 l9 4.5 l9-4.5'/%3E%3Cpath d='M3 12 l9 4.5 l9-4.5'/%3E%3C/g%3E%3C/svg%3E">
 <style>
   :root{
@@ -55,6 +55,11 @@
   .table-scroll{width:100%; overflow-x:auto; -webkit-overflow-scrolling:touch; margin:12px 0}
   table{border-collapse:collapse; width:100%; margin:12px 0; font-size:13.5px}
   .table-scroll table{margin:0; min-width:720px}
+  table caption{caption-side:bottom;text-align:left;font-size:12px;color:var(--muted);padding:10px 0}
+  #specTable{min-width:1180px}
+  #specTable code{font-size:11px;overflow-wrap:anywhere}
+  #models details{margin:12px 0}
+  #models summary{cursor:pointer;color:var(--link)}
   th,td{padding:9px 12px; text-align:left; border-bottom:1px solid var(--line); vertical-align:top}
   th{background:var(--panel); color:var(--accent); font-weight:600; font-size:12px; text-transform:uppercase; letter-spacing:.04em}
   tr:hover td{background:var(--panel)}
@@ -629,7 +634,7 @@
     <header class="home-hero">
       <span class="badge" data-pt="Estudo · 19 tópicos · quiz de 48 perguntas · ~5–6h leitura rápida · ~10–12h estudo profundo">Study · 19 topics · 48-question quiz · ~5–6 hour skim · ~10–12 hour deep study</span>
       <h1 data-pt="Guia Rápido de IA">AI Cheat Sheet</h1>
-      <p class="lead" data-pt="Tudo o que você precisa sobre economia de modelos, encanamento de agents e o vocabulário de SDD / MCP / RAG essencial para dominar como engenheiro de software trabalhando com IA. Os números são preços de tabela de setembro de 2026; confira as páginas oficiais antes de planejar gastos.">Everything you need on model economics, agent plumbing, and the SDD / MCP / RAG vocabulary that's essential to master as a software engineer working with AI. Numbers are September 2026 list prices; check official pages before budgeting.</p>
+      <p class="lead" data-pt="Tudo o que você precisa sobre economia de modelos, encanamento de agents e o vocabulário de SDD / MCP / RAG essencial para dominar como engenheiro de software trabalhando com IA. Os números são preços de tabela de outubro de 2026; confira as páginas oficiais antes de planejar gastos.">Everything you need on model economics, agent plumbing, and the SDD / MCP / RAG vocabulary that's essential to master as a software engineer working with AI. Numbers are October 2026 list prices; check official pages before budgeting.</p>
     </header>
 
     <div class="journey-slot" id="journeyHome"></div>
@@ -652,7 +657,7 @@
 
       <div class="settings-section">
         <h3 class="settings-section-title" data-pt="Modelos">Models</h3>
-        <p class="settings-section-lead" data-pt="A economia: quem são os modelos de setembro de 2026, quanto custam, e como rotear cada request para o tier certo.">The economics: who the September 2026 models are, what they cost, and how to route each request to the right tier.</p>
+        <p class="settings-section-lead" data-pt="A economia: quem são os modelos de outubro de 2026, quanto custam, e como rotear cada request para o tier certo.">The economics: who the October 2026 models are, what they cost, and how to route each request to the right tier.</p>
         <div class="settings-group">
           <a class="settings-row" href="#/models" data-section="models">
             <span class="settings-row-icon is-models">
@@ -968,7 +973,7 @@
     <header class="hero desktop-hero">
       <span class="badge" data-pt="Estudo · 19 tópicos · quiz de 48 perguntas · ~5–6h leitura rápida · ~10–12h estudo profundo">Study · 19 topics · 48-question quiz · ~5–6 hour skim · ~10–12 hour deep study</span>
       <h1 data-pt="Guia de Estudos de IA — Cheat Sheet">AI Study Guide — Cheat Sheet</h1>
-      <p class="lead" data-pt="Tudo o que você precisa sobre economia de modelos, encanamento de agents e o vocabulário de SDD / MCP / RAG essencial para dominar como engenheiro de software trabalhando com IA. Os números são preços de tabela de setembro de 2026; confira as páginas oficiais antes de planejar gastos.">Everything you need on model economics, agent plumbing, and the SDD / MCP / RAG vocabulary that's essential to master as a software engineer working with AI. Numbers are September 2026 list prices; check official pages before budgeting.</p>
+      <p class="lead" data-pt="Tudo o que você precisa sobre economia de modelos, encanamento de agents e o vocabulário de SDD / MCP / RAG essencial para dominar como engenheiro de software trabalhando com IA. Os números são preços de tabela de outubro de 2026; confira as páginas oficiais antes de planejar gastos.">Everything you need on model economics, agent plumbing, and the SDD / MCP / RAG vocabulary that's essential to master as a software engineer working with AI. Numbers are October 2026 list prices; check official pages before budgeting.</p>
     </header>
 
     <div class="journey-slot" id="journeyDesktop"></div>
@@ -1369,233 +1374,99 @@
 
 <!-- =================== MODELS & PRICING =================== -->
 <section id="models">
-  <h2 data-pt="<span class=&quot;num&quot;>02</span> Panorama de Modelos"><span class="num">02</span> Model Landscape</h2>
-  <p data-pt="Tudo sobre os modelos em si: quem são, como diferem por baixo do capô, quanto custam e o quão capazes realmente são. Preço é apenas um eixo — arquitetura, inteligência e coding são os outros.">Everything about the models themselves: who they are, how they differ under the hood, what they cost, and how capable they actually are. Price is only one axis — architecture, intelligence, and coding are the others.</p>
-
-  <h3 data-pt="2.1 Como os modelos diferem — arquitetura">2.1 How the models differ — architecture</h3>
-  <p data-pt="Esta tabela te diz <em>por que</em> um modelo custa o que custa e onde ele brilha. Muitos detalhes (params, arquitetura exata) não são divulgados pelos labs closed-source — marcados como <code>?</code>.">This table tells you <em>why</em> a model costs what it does and where it shines. Many details (params, exact architecture) are undisclosed by closed-source labs — flagged as <code>?</code>.</p>
-  <table>
-    <thead><tr><th data-pt="Modelo">Model</th><th data-pt="Lab">Lab</th><th data-pt="Arquitetura">Architecture</th><th data-pt="Params ativos / Total">Active / Total params</th><th data-pt="Contexto">Context</th><th data-pt="Modalidades">Modalities</th><th data-pt="Modo de reasoning">Reasoning mode</th><th data-pt="Tool use">Tool use</th><th data-pt="Aberto?">Open?</th></tr></thead>
-    <tbody>
-      <tr>
-        <td><strong>Claude Fable 5.1</strong></td><td>Anthropic</td>
-        <td data-pt="Arquitetura não divulgada">Architecture undisclosed</td>
-        <td data-pt="não divulgado">undisclosed</td>
-        <td>1M</td>
-        <td data-pt="Texto + visão">Text + vision</td>
-        <td data-pt="Thinking sempre ligado (adaptive); raciocínio bruto nunca retornado">Thinking always on (adaptive); raw reasoning never returned</td>
-        <td data-pt="Avalie confiabilidade de ferramentas nas suas tarefas">Evaluate tool reliability on your tasks</td>
-        <td data-pt="Fechado">Closed</td>
-      </tr>
-      <tr>
-        <td><strong>Claude Opus 5.5</strong></td><td>Anthropic</td>
-        <td data-pt="Arquitetura não divulgada">Architecture undisclosed</td>
-        <td data-pt="não divulgado">undisclosed</td>
-        <td>1M</td>
-        <td data-pt="Texto + visão">Text + vision</td>
-        <td data-pt="Adaptive thinking ligado por padrão; effort de low a max">Adaptive thinking on by default; effort low→max</td>
-        <td data-pt="Confiabilidade de agent tier Opus madura">Mature Opus-tier agent reliability</td>
-        <td data-pt="Fechado">Closed</td>
-      </tr>
-      <tr>
-        <td><strong>Claude Sonnet 5</strong></td><td>Anthropic</td>
-        <td data-pt="Transformer (?), tokenizer novo (~30% mais tokens que o 4.6)">Transformer (?), new tokenizer (~30% more tokens than 4.6)</td>
-        <td data-pt="não divulgado">undisclosed</td>
-        <td>1M</td>
-        <td data-pt="Texto + visão">Text + vision</td>
-        <td data-pt="Adaptive thinking (ligado por padrão)">Adaptive thinking (on by default)</td>
-        <td data-pt="Excelente">Excellent</td>
-        <td data-pt="Fechado">Closed</td>
-      </tr>
-      <tr>
-        <td><strong>GLM 5.3 Flash</strong></td><td>Z.ai</td>
-        <td data-pt="Arquitetura não divulgada">Architecture undisclosed</td>
-        <td data-pt="não divulgado">undisclosed</td>
-        <td data-pt="Veja o model card">See model card</td>
-        <td data-pt="Multimodal">Multimodal</td>
-        <td data-pt="Effort configurável">Configurable effort</td>
-        <td data-pt="Suporta chamadas de ferramentas">Supports tool calls</td>
-        <td data-pt="Pesos abertos (MIT)">Open weights (MIT)</td>
-      </tr>
-      <tr>
-        <td><strong>GPT-6 Astra</strong></td><td>OpenAI</td>
-        <td data-pt="Arquitetura não divulgada">Architecture undisclosed</td>
-        <td data-pt="não divulgado">undisclosed</td>
-        <td>1.05M</td>
-        <td data-pt="Texto + visão (input)">Text + vision input</td>
-        <td data-pt="Reasoning effort (até &quot;Max&quot;) + contadores de uso">Reasoning effort (up to "Max") + usage counters</td>
-        <td data-pt="Function calling de top tier">Top-tier function calling</td>
-        <td data-pt="Fechado">Closed</td>
-      </tr>
-      <tr>
-        <td><strong>GPT-6 Sol / Luna</strong></td><td>OpenAI</td>
-        <td data-pt="Arquitetura não divulgada">Architecture undisclosed</td>
-        <td data-pt="não divulgado">undisclosed</td>
-        <td>1.05M</td>
-        <td data-pt="Texto + visão (input)">Text + vision input</td>
-        <td data-pt="Reasoning effort">Reasoning effort</td>
-        <td data-pt="Excelente">Excellent</td>
-        <td data-pt="Fechado">Closed</td>
-      </tr>
-      <tr>
-        <td><strong>Grok 4.6</strong></td><td>xAI</td>
-        <td data-pt="MoE (?)">MoE (?)</td>
-        <td data-pt="não divulgado">undisclosed</td>
-        <td>500K</td>
-        <td data-pt="Texto + visão">Text + vision</td>
-        <td data-pt="Effort por chamada: low / medium / high (padrão) / xhigh">Per-call effort: low / medium / high (default) / xhigh</td>
-        <td data-pt="Feito para trabalho agêntico de longa duração; sem limite de tokens de output">Built for long-running agentic work; no output-token cap</td>
-        <td data-pt="Fechado">Closed</td>
-      </tr>
-      <tr>
-        <td><strong>Gemini 3.8 Flash</strong></td><td>Google DeepMind</td>
-        <td data-pt="Arquitetura não divulgada">Architecture undisclosed</td>
-        <td data-pt="não divulgado">undisclosed</td>
-        <td>1M</td>
-        <td data-pt="Texto + visão + áudio + vídeo">Text + vision + audio + video</td>
-        <td data-pt="Thinking mode">Thinking mode</td>
-        <td data-pt="Forte — top multimodal e eficiente em tokens; preço único em toda a janela de 1M (sem cliff em 200K)">Strong — top multimodal and token-efficient; one rate across the full 1M window (no 200K cliff)</td>
-        <td data-pt="Fechado">Closed</td>
-      </tr>
-      <tr>
-        <td><strong>DeepSeek V4.1 Flash</strong></td><td>DeepSeek</td>
-        <td data-pt="MoE + atenção esparsa">MoE + sparse attention</td>
-        <td>See model card</td>
-        <td>1M</td>
-        <td data-pt="Texto + visão">Text + vision</td>
-        <td data-pt="Modos thinking e non-thinking">Both thinking and non-thinking modes</td>
-        <td data-pt="Suporta chamadas de ferramentas">Supports tool calls</td>
-        <td data-pt="Open weights">Open weights</td>
-      </tr>
-      <tr>
-        <td><strong>DeepSeek V4 Pro</strong></td><td>DeepSeek</td>
-        <td data-pt="MoE + DeepSeek Sparse Attention">MoE + DeepSeek Sparse Attention</td>
-        <td>49B active / 1.6T total</td>
-        <td>1M</td>
-        <td data-pt="Texto">Text</td>
-        <td data-pt="Modos thinking e non-thinking">Both thinking and non-thinking modes</td>
-        <td data-pt="Avalie qualidade e custo por tarefa">Evaluate quality and cost per task</td>
-        <td data-pt="Open weights">Open weights</td>
-      </tr>
-      <tr>
-        <td><strong>Kimi K3</strong></td><td>Moonshot AI</td>
-        <td data-pt="MoE de 896 experts, 16 ativos por token; nativo para reasoning">896-expert MoE, 16 active per token; reasoning-native</td>
-        <td data-pt="2.8T total (o maior open-weight já lançado)">2.8T total (largest open-weight ever)</td>
-        <td>1M</td>
-        <td data-pt="Texto + visão (nativo)">Text + vision (native)</td>
-        <td data-pt="Reasoning nativo">Reasoning-native</td>
-        <td data-pt="Avalie em benchmarks atuais da tarefa">Evaluate on current task benchmarks</td>
-        <td data-pt="Pesos abertos (publicados)">Open weights (published)</td>
-      </tr>
-      <tr>
-        <td><strong>GLM 5.3</strong></td><td>Z.ai / Tsinghua</td>
-        <td data-pt="MoE de larga escala (?)">Large-scale MoE (?)</td>
-        <td data-pt="não divulgado">undisclosed</td>
-        <td>1M</td>
-        <td data-pt="Texto">Text</td>
-        <td data-pt="Reasoning opcional">Optional reasoning</td>
-        <td data-pt="Coding agêntico forte (DeepSWE v1.1 66.9, Terminal Bench 3.0 28.3)">Strong agentic coding (DeepSWE v1.1 66.9, Terminal Bench 3.0 28.3)</td>
-        <td data-pt="Pesos abertos (licença glm-5.3)">Open weights (glm-5.3 license)</td>
-      </tr>
-      <tr>
-        <td><strong>Qwen3.8-Max API</strong></td><td>Alibaba</td>
-        <td data-pt="Arquitetura da API não divulgada">Hosted architecture undisclosed</td>
-        <td data-pt="checkpoint aberto: 2.4T total / 95B ativos">open checkpoint: 2.4T total / 95B active</td>
-        <td>1M (API)</td>
-        <td data-pt="API: texto + imagem + vídeo; checkpoint: confira model card">API: text + image + video; checkpoint: check model card</td>
-        <td data-pt="Variantes &quot;Thinking&quot; existem">"Thinking" variants exist</td>
-        <td data-pt="Bom">Good</td>
-        <td data-pt="Checkpoint com licença própria">Checkpoint under custom license</td>
-      </tr>
-      <tr>
-        <td><strong>Nemotron 3</strong></td><td>NVIDIA</td>
-        <td data-pt="Híbrido Mamba-Transformer, otimizado para eficiência">Hybrid Mamba-Transformer, efficiency-optimized</td>
-        <td data-pt="Nano 30B-A3B · Super ~100B · Ultra ~500B">Nano 30B-A3B · Super ~100B · Ultra ~500B</td>
-        <td>~1M (Nano)</td>
-        <td data-pt="Texto (+omni no Nano)">Text (+omni on Nano)</td>
-        <td data-pt="Variantes de reasoning">Reasoning variants</td>
-        <td data-pt="Bom; feito para agents de alto volume">Good; built for high-volume agents</td>
-        <td data-pt="Open weights">Open weights</td>
-      </tr>
-    </tbody>
-  </table>
-
-  <h4 data-pt="Como ler essa tabela">How to read this table</h4>
-  <p data-pt="Arquitetura, parâmetros e desempenho dependem de divulgação e medição. Onde o fornecedor não publicou detalhes, a tabela diz 'não divulgado'. MoE e atenção esparsa são técnicas distintas; 1M de contexto não prova uma arquitetura específica. Preços e modalidades da API hospedada podem diferir dos pesos publicados.">Architecture, parameters and performance depend on disclosure and measurement. Where a provider has not published details, the table says 'undisclosed'. MoE and sparse attention are distinct techniques; 1M context does not establish a particular architecture. Hosted API prices and modalities can differ from published weights.</p>
-
-  <h4 data-pt="Quando usar reasoning">When to use reasoning</h4>
-  <p data-pt="Aumente o esforço de raciocínio para código com testes, matemática e planejamento difícil. Registre tokens de output, latência e taxa de sucesso por tarefa: mais esforço pode elevar custo sem melhorar tarefas simples.">Increase reasoning effort for code with tests, mathematics and difficult planning. Measure output tokens, latency and task success: more effort can increase cost without helping simple tasks.</p>
-
+  <h2 data-pt="&lt;span class=&quot;num&quot;&gt;02&lt;/span&gt; Panorama de Modelos"><span class="num">02</span> Model Landscape</h2>
+  <p data-pt="Modelos, limites de tokens, modalidades e preços de API direta verificados em &lt;strong&gt;3 de outubro de 2026&lt;/strong&gt;. Esta é uma seleção para engenharia, não um catálogo completo. Cada nome de modelo leva à especificação oficial.">Models, token limits, modalities and direct API prices checked <strong>October 3, 2026</strong>. This is a selected engineering lineup, not an exhaustive catalog. Each model name links to its official specification.</p>
+  <div class="callout" data-pt="&lt;strong&gt;O que mudou:&lt;/strong&gt; GPT-6.1 Sol substitui GPT-6 Sol nos exemplos atuais; Claude Sonnet 5.5 e Grok 4.7 substituem as versões anteriores. GLM FlashX e Nemotron 3.5 Lightning acrescentam opções de velocidade e inferência local. Gemini 4 Argon foi anunciado com acesso restrito; Gemini 3.8 Flash continua como opção de API pública."><strong>What changed:</strong> GPT-6.1 Sol replaces GPT-6 Sol in current examples; Claude Sonnet 5.5 and Grok 4.7 replace the previous versions. GLM FlashX and Nemotron 3.5 Lightning add speed and local-inference options. Gemini 4 Argon is announced with restricted access; Gemini 3.8 Flash remains a public API option.</div>
+  <h3 data-pt="2.1 Especificações — contexto não é output máximo">2.1 Specifications — context is not maximum output</h3>
+  <p data-pt="Contexto é o budget de tokens disponível; output máximo é um limite separado de geração. O Google publica limites de input e output separadamente. Reasoning também consome tokens gerados. Arquiteturas e contagens de parâmetros não divulgadas ficam assim marcadas; limites de output ausentes são indicados.">Context is the available token budget; maximum output is a separate generation limit. Google publishes input and output limits separately. Reasoning consumes generated tokens too. Closed-model architectures and parameter counts are left undisclosed; missing output limits are explicitly marked.</p>
+  <table id="specTable"><caption><span data-pt="Páginas oficiais de modelos nas linhas; consultadas em 3 out 2026. K / M seguem a notação de cada provedor.">Official model pages linked in each row; retrieved October 3, 2026. K / M follow each provider’s notation.</span></caption><thead><tr><th data-pt="Modelo / ID da API">Model / API ID</th><th data-pt="Lab">Lab</th><th data-pt="Arquitetura / parâmetros">Architecture / parameters</th><th data-pt="Contexto / limite de input">Context / input limit</th><th data-pt="Output máximo">Max output</th><th data-pt="Input → output">Input → output</th><th data-pt="Reasoning">Reasoning</th><th data-pt="Pesos / acesso">Weights / access</th></tr></thead><tbody>
+  <tr><td><strong><a href="https://developers.openai.com/api/docs/models/gpt-6-astra">GPT-6 Astra</a></strong><br><code>gpt-6-astra</code></td><td>OpenAI</td><td data-pt="Não divulgado">Undisclosed</td><td>1,050,000</td><td>128,000</td><td data-pt="Texto, imagem → texto">Text, image → text</td><td>low / medium / high / xhigh / max</td><td data-pt="Fechado">Closed</td></tr>
+  <tr><td><strong><a href="https://developers.openai.com/api/docs/models/gpt-6.1-sol">GPT-6.1 Sol</a></strong><br><code>gpt-6.1-sol</code></td><td>OpenAI</td><td data-pt="Não divulgado">Undisclosed</td><td>1,050,000</td><td>128,000</td><td data-pt="Texto, imagem → texto">Text, image → text</td><td data-pt="low / medium (padrão) / high / xhigh / max">low / medium (default) / high / xhigh / max</td><td data-pt="Fechado">Closed</td></tr>
+  <tr><td><strong><a href="https://developers.openai.com/api/docs/models/gpt-6-luna">GPT-6 Luna</a></strong><br><code>gpt-6-luna</code></td><td>OpenAI</td><td data-pt="Não divulgado">Undisclosed</td><td>1,050,000</td><td>128,000</td><td data-pt="Texto, imagem → texto">Text, image → text</td><td data-pt="none / low / medium (padrão) / high / xhigh / max">none / low / medium (default) / high / xhigh / max</td><td data-pt="Fechado">Closed</td></tr>
+  <tr><td><strong><a href="https://platform.claude.com/docs/en/models/fable-5-1/overview">Claude Fable 5.1</a></strong><br><code>claude-fable-5-1</code></td><td>Anthropic</td><td data-pt="Não divulgado">Undisclosed</td><td>1M</td><td>128K</td><td data-pt="Texto, imagem → texto">Text, image → text</td><td data-pt="Adaptive, sempre ligado; padrão high">Adaptive, always on; default high</td><td data-pt="Fechado">Closed</td></tr>
+  <tr><td><strong><a href="https://platform.claude.com/docs/en/models/opus-5-5/overview">Claude Opus 5.5</a></strong><br><code>claude-opus-5-5</code></td><td>Anthropic</td><td data-pt="Não divulgado">Undisclosed</td><td>1M</td><td>128K</td><td data-pt="Texto, imagem → texto">Text, image → text</td><td data-pt="Adaptive, sempre ligado; padrão medium">Adaptive, always on; default medium</td><td data-pt="Fechado">Closed</td></tr>
+  <tr><td><strong><a href="https://platform.claude.com/docs/en/models/sonnet-5-5/overview">Claude Sonnet 5.5</a></strong><br><code>claude-sonnet-5-5</code></td><td>Anthropic</td><td data-pt="Não divulgado">Undisclosed</td><td>1M</td><td>128K</td><td data-pt="Texto, imagem → texto">Text, image → text</td><td data-pt="Adaptive; padrão high; between_tools em low–high">Adaptive; default high; between_tools at low–high</td><td data-pt="Fechado">Closed</td></tr>
+  <tr><td><strong><a href="https://platform.claude.com/docs/en/models/haiku-4-5/overview">Claude Haiku 4.5</a></strong><br><code>claude-haiku-4-5-20251001</code></td><td>Anthropic</td><td data-pt="Não divulgado">Undisclosed</td><td>200K</td><td>64K</td><td data-pt="Texto, imagem → texto">Text, image → text</td><td data-pt="Extended thinking">Extended thinking</td><td data-pt="Fechado">Closed</td></tr>
+  <tr><td><strong><a href="https://ai.google.dev/gemini-api/docs/models/gemini-3.8-flash">Gemini 3.8 Flash</a></strong><br><code>gemini-3.8-flash</code></td><td>Google</td><td data-pt="Não divulgado">Undisclosed</td><td data-pt="1.048.576 input">1,048,576 input</td><td>65,536</td><td data-pt="Texto, imagem, áudio, vídeo, PDF → texto">Text, image, audio, video, PDF → text</td><td>low / medium / high</td><td data-pt="Fechado">Closed</td></tr>
+  <tr><td><strong><a href="https://ai.google.dev/gemini-api/docs/models/gemini-3.5-flash-lite">Gemini 3.5 Flash-Lite</a></strong><br><code>gemini-3.5-flash-lite</code></td><td>Google</td><td data-pt="Não divulgado">Undisclosed</td><td data-pt="1.048.576 input">1,048,576 input</td><td>65,536</td><td data-pt="Texto, imagem, áudio, vídeo, PDF → texto">Text, image, audio, video, PDF → text</td><td data-pt="Suporta thinking">Thinking supported</td><td data-pt="Fechado">Closed</td></tr>
+  <tr><td><strong><a href="https://blog.google/intl/en-in/products/gemini-4-argon-our-next-era-of-frontier-intelligence/">Gemini 4 Argon</a></strong></td><td>Google</td><td data-pt="Não divulgado">Undisclosed</td><td data-pt="Não publicado no anúncio">Not published in announcement</td><td>1M</td><td data-pt="Multimodal; especificação completa da API pendente">Multimodal; full API spec pending</td><td data-pt="Reasoning profundo; acesso restrito">Deep reasoning; restricted rollout</td><td data-pt="Fechado; acesso restrito">Closed; restricted access</td></tr>
+  <tr><td><strong><a href="https://docs.x.ai/developers/models/grok-4.7">Grok 4.7</a></strong><br><code>grok-4.7</code></td><td>xAI / SpaceXAI</td><td data-pt="Não divulgado">Undisclosed</td><td>500,000</td><td data-pt="Não listado na documentação consultada">Not listed in fetched docs</td><td data-pt="Texto, imagem → texto">Text, image → text</td><td data-pt="low / medium / high (padrão) / xhigh">low / medium / high (default) / xhigh</td><td data-pt="Fechado">Closed</td></tr>
+  <tr><td><strong><a href="https://docs.z.ai/guides/llm/glm-5.3">GLM 5.3</a></strong><br><code>glm-5.3</code></td><td>Z.ai</td><td data-pt="Não divulgado">Undisclosed</td><td>1M</td><td>128K</td><td data-pt="Texto → texto">Text → text</td><td data-pt="Sempre ligado: low / high / max (padrão)">Always on: low / high / max (default)</td><td data-pt="Pesos abertos; licença glm-5.3">Open weights; glm-5.3 license</td></tr>
+  <tr><td><strong><a href="https://docs.z.ai/guides/vlm/glm-5.3-flash">GLM 5.3 Flash / FlashX</a></strong><br><code>glm-5.3-flash / glm-5.3-flashx</code></td><td>Z.ai</td><td data-pt="Flash: MoE com atenção esparsa + linear; 18B ativos / 320B total">Flash: sparse + linear attention MoE; 18B active / 320B total</td><td>1M</td><td>128K</td><td data-pt="Texto, imagem, vídeo, arquivo → texto">Text, image, video, file → text</td><td data-pt="Apenas thinking enabled; effort configurável">Thinking enabled only; configurable effort</td><td data-pt="Flash: pesos abertos (MIT); FlashX: variante hospedada">Flash: open weights (MIT); FlashX: hosted variant</td></tr>
+  <tr><td><strong><a href="https://api-docs.deepseek.com/quick_start/pricing/">DeepSeek V4.1 Flash</a></strong><br><code>deepseek-flash</code></td><td>DeepSeek</td><td data-pt="MoE CED + CSA2; 8B prefill / 16B decode; 552B backbone + 196B Engram">CED + CSA2 MoE; 8B prefill / 16B decode; 552B backbone + 196B Engram</td><td>1M</td><td>384K</td><td data-pt="Texto, imagem → texto">Text, image → text</td><td data-pt="Thinking / non-thinking; effort numérico 1–100">Thinking / non-thinking; numeric effort 1–100</td><td data-pt="Pesos abertos (MIT)">Open weights (MIT)</td></tr>
+  <tr><td><strong><a href="https://api-docs.deepseek.com/quick_start/pricing/">DeepSeek V4 Pro (0813)</a></strong><br><code>deepseek-v4-pro</code></td><td>DeepSeek</td><td data-pt="MoE + atenção esparsa; 49B ativos / 1.6T backbone">MoE + sparse attention; 49B active / 1.6T backbone</td><td>1M</td><td>384K</td><td data-pt="Texto → texto">Text → text</td><td data-pt="Thinking / non-thinking">Thinking / non-thinking</td><td data-pt="Pesos abertos">Open weights</td></tr>
+  <tr><td><strong><a href="https://platform.kimi.ai/docs/guide/kimi-k3-quickstart">Kimi K3</a></strong><br><code>kimi-k3</code></td><td>Moonshot / Kimi</td><td data-pt="MoE KDA + Gated MLA; 104B ativos / 2.8T total">KDA + Gated MLA MoE; 104B active / 2.8T total</td><td>1,048,576</td><td data-pt="Não listado na documentação consultada">Not listed in fetched docs</td><td data-pt="Texto, imagem, vídeo → texto">Text, image, video → text</td><td data-pt="Sempre ligado: low / high / max (padrão)">Always on: low / high / max (default)</td><td data-pt="Pesos abertos; Kimi K3 License">Open weights; Kimi K3 License</td></tr>
+  <tr><td><strong><a href="https://www.qwencloud.com/models/qwen3.8-max">Qwen3.8-Max</a></strong><br><code>qwen3.8-max</code></td><td>Alibaba / QwenCloud</td><td data-pt="API hospedada não divulgada; checkpoint aberto: MoE híbrido, 95B ativos / 2.4T total">Hosted API undisclosed; open checkpoint: hybrid MoE, 95B active / 2.4T total</td><td>1M (API)</td><td>131K</td><td data-pt="Texto, imagem, vídeo → texto (API)">Text, image, video → text (API)</td><td data-pt="Reasoning configurável">Configurable reasoning</td><td data-pt="API + pesos separados com licença própria">API + separate weights under custom license</td></tr>
+  <tr><td><strong><a href="https://huggingface.co/nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-NVFP4">Nemotron 3.5 Lightning 30B-A3B</a></strong></td><td>NVIDIA</td><td data-pt="MoE Mamba-2 / atenção; 3B ativos / 30B total">Mamba-2 / attention MoE; 3B active / 30B total</td><td data-pt="256K nativos no NIM; até 1M no model card">256K native in NIM; up to 1M in model card</td><td data-pt="Não listado na documentação consultada">Not listed in fetched docs</td><td data-pt="Texto → texto">Text → text</td><td data-pt="Thinking configurável">Configurable thinking</td><td data-pt="Pesos abertos; OpenMDW-1.1">Open weights; OpenMDW-1.1</td></tr>
+  <tr><td><strong><a href="https://build.nvidia.com/nvidia/nemotron-3-ultra-550b-a55b/modelcard">Nemotron 3 Ultra 550B-A55B</a></strong></td><td>NVIDIA</td><td data-pt="LatentMoE híbrido Mamba-2 / atenção; 55B ativos / 550B total">Hybrid Mamba-2 / attention LatentMoE; 55B active / 550B total</td><td>1M</td><td data-pt="Dentro do budget total de contexto">Within total context budget</td><td data-pt="Texto → texto">Text → text</td><td data-pt="Thinking ligado / desligado">Thinking on / off</td><td data-pt="Pesos abertos; OpenMDW-1.1">Open weights; OpenMDW-1.1</td></tr>
+  </tbody></table>
+  <p class="small" data-pt="Cutoffs de conhecimento: GPT-6 Astra e GPT-6.1 Sol — 30 abr 2026; GPT-6 Luna — 18 mai 2026. Claude Fable 5.1, Opus 5.5 e Sonnet 5.5 — cutoff de conhecimento confiável em jun 2026; Haiku 4.5 — fev 2025. O cutoff descreve conhecimento de treinamento, não acesso a informações atuais por ferramentas. Fontes: páginas de modelos vinculadas e &lt;a href=&quot;https://platform.claude.com/docs/en/models/overview&quot;&gt;panorama de modelos Claude&lt;/a&gt;; verificado em 3 out 2026.">Knowledge cutoffs: GPT-6 Astra and GPT-6.1 Sol — April 30, 2026; GPT-6 Luna — May 18, 2026. Claude Fable 5.1, Opus 5.5 and Sonnet 5.5 — June 2026 reliable knowledge cutoff; Haiku 4.5 — February 2025. A cutoff describes training knowledge, not access to current information through tools. Sources: linked model pages and <a href="https://platform.claude.com/docs/en/models/overview">Claude model overview</a>; checked October 3, 2026.</p>
+  <div class="callout warn" data-pt="&lt;strong&gt;Anunciado, acesso restrito:&lt;/strong&gt; &lt;a href=&quot;https://blog.google/intl/en-in/products/gemini-4-argon-our-next-era-of-frontier-intelligence/&quot;&gt;Gemini 4 Argon&lt;/a&gt; tem limite publicado de 1M tokens de output e preços introdutórios anunciados de $2 input / $10 output por 1M tokens (input cacheado $0,10), até 31 dez 2026; passam a $4 / $20 em 1 jan 2027. O ID da API geral e a especificação completa de contexto não foram publicados no anúncio consultado. São preços de lançamento anunciados; Argon fica fora dos gráficos de APIs disponíveis."><strong>Announced, restricted rollout:</strong> <a href="https://blog.google/intl/en-in/products/gemini-4-argon-our-next-era-of-frontier-intelligence/">Gemini 4 Argon</a> has a published 1M output limit and announced introductory launch rates of $2 input / $10 output per 1M tokens (cached input $0.10), through December 31, 2026; announced rates become $4 / $20 on January 1, 2027. The general API ID and full context specification are not published in the fetched announcement. These are announced launch prices, so Argon is excluded from the available-API price charts.</div>
   <h3 data-pt="2.2 Pesos abertos e APIs hospedadas">2.2 Open weights and hosted APIs</h3>
-  <p data-pt="Kimi K3, GLM 5.3 e Flash, DeepSeek V4.1 Flash e o checkpoint Qwen3.8-2.4T-A95B têm pesos publicados. Licenças, requisitos de memória e modalidades diferem. GLM 5.3 usa licença glm-5.3; GLM 5.3 Flash usa MIT. A API Qwen3.8-Max é multimodal, enquanto o checkpoint aberto deve ser avaliado separadamente. A tabela de preços abaixo mostra hospedagem de API direta, não custo de auto-hospedagem.">Kimi K3, GLM 5.3 and Flash, DeepSeek V4.1 Flash and the Qwen3.8-2.4T-A95B checkpoint have published weights. Licenses, memory needs and modalities differ. GLM 5.3 uses the glm-5.3 license; GLM 5.3 Flash uses MIT. The Qwen3.8-Max API is multimodal, while its open checkpoint needs separate evaluation. The price table below shows direct API hosting, not self-hosting cost.</p>
-  <p class="small"><a href="https://huggingface.co/moonshotai/Kimi-K3">Kimi K3</a> · <a href="https://huggingface.co/zai-org/GLM-5.3-BF16">GLM 5.3</a> · <a href="https://huggingface.co/zai-org/GLM-5.3-Flash">GLM 5.3 Flash</a> · <a href="https://huggingface.co/Qwen/Qwen3.8-2.4T-A95B">Qwen3.8 weights</a> · <a href="https://api-docs.deepseek.com/quick_start/pricing/">DeepSeek API</a></p>
-
-  <h3 data-pt="2.3 Preços atuais — taxas verificadas em 22 set 2026">2.3 Current prices — verified September 22, 2026</h3>
-  <p data-pt="Preços em USD por 1M tokens de texto, tier padrão, sem cache e contexto curto, salvo indicação. Compare custo por tarefa concluída depois de medir qualidade e latência no seu workload.">USD per 1M text tokens, standard tier, uncached and short context unless marked. Compare cost per completed task after measuring quality and latency on your workload.</p>
-  <div class="callout warn" data-pt="<strong>Leia o cenário de billing:</strong> Gemini 3.8 Flash tem preço introdutório até 31 dez 2026; os valores do DeepSeek abaixo são de horário de pico (fora do pico, metade). GPT-6 dobra o input acima de 272K tokens e cobra 1,5× no output. As linhas de Kimi, GLM e Qwen usam os preços de API direta dos respectivos provedores; hospedagem por terceiros pode custar diferente. Cache write, ferramentas, grounding e processamento regional podem somar custos."><strong>Read the billing scenario:</strong> Gemini 3.8 Flash has introductory pricing through December 31, 2026; DeepSeek figures below are peak rates (off-peak is half). GPT-6 doubles input above 272K tokens and charges 1.5× output above 272K input tokens. Kimi, GLM, and Qwen rows use their providers' direct API rates; third-party hosting may cost differently. Cache writes, tools, grounding, and regional processing may add cost.</div>
-  <table class="sortable" id="priceTable">
-    <thead><tr><th class="sortable" data-sort="model" data-type="str">Model</th><th class="sortable" data-sort="provider" data-type="str">Provider</th><th class="sortable" data-sort="tier" data-type="tier" data-pt="Faixa de preço">Price band</th><th class="sortable" data-sort="input" data-type="num">Input $/1M</th><th class="sortable" data-sort="output" data-type="num">Output $/1M</th><th class="sortable" data-sort="ratio" data-type="num">Output / input</th></tr></thead>
-    <tbody>
-      <tr><td>GPT-6 Luna</td><td>OpenAI</td><td><span class="tag good">budget</span></td><td class="price">$0.10</td><td class="price">$0.50</td><td>5×</td></tr>
-      <tr><td>GPT-6 Sol</td><td>OpenAI</td><td><span class="tag warn">mid</span></td><td class="price">$2.00</td><td class="price">$10.00</td><td>5×</td></tr>
-      <tr><td>GPT-6 Astra</td><td>OpenAI</td><td><span class="tag bad">premium</span></td><td class="price">$10.00</td><td class="price">$50.00</td><td>5×</td></tr>
-      <tr><td>Claude Sonnet 5</td><td>Anthropic</td><td><span class="tag warn">mid</span></td><td class="price">$2.00</td><td class="price">$10.00</td><td>5×</td></tr>
-      <tr><td>Claude Opus 5.5</td><td>Anthropic</td><td><span class="tag bad">premium</span></td><td class="price">$4.00</td><td class="price">$20.00</td><td>5×</td></tr>
-      <tr><td>Claude Fable 5.1</td><td>Anthropic</td><td><span class="tag bad">premium</span></td><td class="price">$10.00</td><td class="price">$50.00</td><td>5×</td></tr>
-      <tr><td>Gemini 3.8 Flash <span class="small">intro</span></td><td>Google</td><td><span class="tag good">budget</span></td><td class="price">$0.75</td><td class="price">$3.75</td><td>5×</td></tr>
-      <tr><td>GLM 5.3 Flash</td><td>Z.ai</td><td><span class="tag good">budget</span></td><td class="price">$0.15</td><td class="price">$0.50</td><td>3.3×</td></tr>
-      <tr><td>GLM 5.3</td><td>Z.ai</td><td><span class="tag warn">mid</span></td><td class="price">$1.40</td><td class="price">$4.40</td><td>3.1×</td></tr>
-      <tr><td>Qwen3.8-Max</td><td>Alibaba / QwenCloud</td><td><span class="tag warn">mid</span></td><td class="price">$2.00</td><td class="price">$6.00</td><td>3×</td></tr>
-      <tr><td>Kimi K3</td><td>Moonshot</td><td><span class="tag warn">mid</span></td><td class="price">$3.00</td><td class="price">$15.00</td><td>5×</td></tr>
-      <tr><td>DeepSeek V4.1 Flash <span class="small">peak</span></td><td>DeepSeek</td><td><span class="tag good">budget</span></td><td class="price">$0.30</td><td class="price">$1.20</td><td>4×</td></tr>
-      <tr><td>DeepSeek V4 Pro <span class="small">peak</span></td><td>DeepSeek</td><td><span class="tag warn">mid</span></td><td class="price">$1.32</td><td class="price">$3.96</td><td>3×</td></tr>
-    </tbody>
-  </table>
-  <p class="small" data-pt="IDs úteis: <code>gpt-6-astra</code>, <code>gpt-6-sol</code>, <code>gpt-6-luna</code>, <code>claude-opus-5-5</code>, <code>gemini-3.8-flash</code>, <code>glm-5.3-flash</code>, <code>glm-5.3</code>, <code>qwen3.8-max</code>, <code>kimi-k3</code> e <code>deepseek-flash</code>. O antigo <code>deepseek-v4-flash</code> encaminha temporariamente para V4.1 Flash; prefira o novo ID.">Useful IDs: <code>gpt-6-astra</code>, <code>gpt-6-sol</code>, <code>gpt-6-luna</code>, <code>claude-opus-5-5</code>, <code>gemini-3.8-flash</code>, <code>glm-5.3-flash</code>, <code>glm-5.3</code>, <code>qwen3.8-max</code>, <code>kimi-k3</code>, and <code>deepseek-flash</code>. The old <code>deepseek-v4-flash</code> temporarily routes to V4.1 Flash; prefer the new ID.</p>
-  <p class="small" data-pt="Para evals reproduzíveis do Qwen, fixe o snapshot <code>qwen3.8-max-0902</code>. A linha em USD usa a tarifa pública do QwenCloud; o Alibaba Model Studio lista preços em CNY que variam por região.">For reproducible Qwen evals, pin the <code>qwen3.8-max-0902</code> snapshot. The USD row uses QwenCloud's published rate; Alibaba Model Studio lists regional prices in CNY.</p>
-  <p data-pt="<strong>Lançados hoje (22 set): GPT-6 Sol e Luna.</strong> Ambos aceitam texto e imagem como input, retornam texto, têm janela de contexto de 1,05M tokens e máximo de 128K tokens de output. Use Sol para código e fluxos agênticos exigentes; Luna para tarefas focadas em volume. As tarifas da tabela se aplicam a prompts de até 272K tokens de input."><strong>Released today (Sep 22): GPT-6 Sol and Luna.</strong> Both accept text and image input, return text, have a 1.05M-token context window, and allow up to 128K output tokens. Try Sol for demanding coding and agentic workflows; Luna for focused, high-volume tasks. The table rates apply to prompts with up to 272K input tokens.</p>
-
-  <figure class="diagram" style="position:relative">
-    <div style="font-size:13px;color:var(--accent);text-align:center;margin-bottom:8px;font-weight:600" data-pt="Preço por 1M tokens — input e output (escala log)">Price per 1M tokens — input vs output (log scale)</div>
-    <canvas id="priceChart" width="820" height="430"></canvas><div id="priceTip" class="bar-tooltip"></div>
-    <div class="legend"><span><span class="sw" style="background:#7cf0c1"></span>Input</span><span><span class="sw" style="background:#ffb86b"></span>Output</span></div>
-    <figcaption data-pt="Taxas de API direta, consultadas em 22 set 2026. DeepSeek em horário de pico; Gemini 3.8 Flash em preço introdutório. O gráfico compara preço por token, não qualidade.">Direct API rates checked September 22, 2026. DeepSeek shown at peak rates; Gemini 3.8 Flash at introductory rates. This chart compares token prices, not quality.</figcaption>
-  </figure>
+  <p data-pt="Pesos publicados não implicam uma licença ou configuração única. Kimi K3 usa licença própria; GLM 5.3 usa licença glm-5.3; GLM 5.3 Flash e DeepSeek V4.1 Flash usam MIT. O checkpoint Qwen de 2,4T é um modelo de linguagem causal com 262.144 tokens de contexto nativo, extensível a 1.010.000; avalie separadamente a especificação multimodal da API Max hospedada.">Published weights do not imply one license or one serving configuration. Kimi K3 uses a custom license; GLM 5.3 uses the glm-5.3 license; GLM 5.3 Flash and DeepSeek V4.1 Flash use MIT. Qwen’s 2.4T checkpoint is a causal language model with 262,144 native context, extendable to 1,010,000; the hosted Max API’s multimodal specification must be evaluated separately.</p>
+  <p class="small" data-pt="Fontes dos model cards, 3 out 2026: &lt;a href=&quot;https://huggingface.co/moonshotai/Kimi-K3&quot;&gt;Kimi K3&lt;/a&gt; · &lt;a href=&quot;https://huggingface.co/zai-org/GLM-5.3-BF16&quot;&gt;GLM 5.3&lt;/a&gt; · &lt;a href=&quot;https://huggingface.co/zai-org/GLM-5.3-Flash&quot;&gt;GLM 5.3 Flash&lt;/a&gt; · &lt;a href=&quot;https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash&quot;&gt;DeepSeek V4.1 Flash&lt;/a&gt; · &lt;a href=&quot;https://huggingface.co/Qwen/Qwen3.8-2.4T-A95B&quot;&gt;Qwen3.8 weights&lt;/a&gt; · &lt;a href=&quot;https://huggingface.co/nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-NVFP4&quot;&gt;Nemotron Lightning&lt;/a&gt;">Model-card sources, October 3, 2026: <a href="https://huggingface.co/moonshotai/Kimi-K3">Kimi K3</a> · <a href="https://huggingface.co/zai-org/GLM-5.3-BF16">GLM 5.3</a> · <a href="https://huggingface.co/zai-org/GLM-5.3-Flash">GLM 5.3 Flash</a> · <a href="https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash">DeepSeek V4.1 Flash</a> · <a href="https://huggingface.co/Qwen/Qwen3.8-2.4T-A95B">Qwen3.8 weights</a> · <a href="https://huggingface.co/nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-NVFP4">Nemotron Lightning</a></p>
+  <p data-pt="O card da DeepSeek separa 552B de parâmetros do backbone de 196B da memória Engram e ativa 8B no prefill versus 16B no decode. Para inferência local, Nemotron 3.5 Lightning tem 30B totais / 3B ativos; o NVIDIA NIM documenta 256K de contexto nativo, enquanto o model card traz receitas até 1M. Valide checkpoint, runtime e budget de memória em conjunto. Fontes: &lt;a href=&quot;https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash&quot;&gt;model card DeepSeek&lt;/a&gt; e &lt;a href=&quot;https://docs.nvidia.com/nim/large-language-models/2.0.10/get-started/advanced/get-started-nemotron-3.5-lightning.html&quot;&gt;NVIDIA NIM&lt;/a&gt;; 3 out 2026.">DeepSeek’s card separates 552B backbone parameters from 196B Engram memory and activates 8B parameters during prefill versus 16B during decode. For local inference, Nemotron 3.5 Lightning is 30B total / 3B active; NVIDIA NIM documents a 256K native window, while the model card provides recipes up to 1M. Validate the checkpoint, runtime and memory budget together. Sources: <a href="https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash">DeepSeek model card</a> and <a href="https://docs.nvidia.com/nim/large-language-models/2.0.10/get-started/advanced/get-started-nemotron-3.5-lightning.html">NVIDIA NIM</a>; October 3, 2026.</p>
+  <h3 data-pt="2.3 Preços de API — verificados em 3 out 2026">2.3 API prices — verified October 3, 2026</h3>
+  <p data-pt="USD por 1M tokens de texto, API direta padrão, contexto curto sem cache salvo indicação. Tarifas de input cacheado aparecem separadamente; escrita de cache, armazenamento, ferramentas, impostos e adicionais regionais são extras. Faixas de preço são agrupamentos editoriais de custo, não rankings de capacidade.">USD per 1M text tokens, standard direct API, uncached short context unless marked. Cached-input rates are shown separately; cache writes, storage, tools, taxes and region premiums are additional. Price bands are editorial cost groupings, not capability rankings.</p>
+  <div class="callout warn" data-pt="&lt;strong&gt;Condições de cobrança:&lt;/strong&gt; Requests GPT-6 acima de 272K tokens de input custam 2× as tarifas de input/cache e 1,5× output para todo o request. Grok lista tarifas maiores acima de 200K; confira a tabela regional antes de planejar gastos. O pico da DeepSeek é 01:00–04:00 e 06:00–10:00 UTC, seg–sex; os demais horários custam metade. O preço introdutório de $0,75 / $3,75 do Gemini 3.8 Flash vale até 31 dez 2026, depois passa a $1,50 / $7,50. O input cacheado Qwen aqui usa cache implícito."><strong>Billing conditions:</strong> GPT-6 requests above 272K input tokens cost 2× input/cache rates and 1.5× output for the full request. Grok lists higher-context pricing above 200K; check its regional table before budgeting. DeepSeek peak hours are 01:00–04:00 and 06:00–10:00 UTC, Monday–Friday; all other hours cost half. Gemini 3.8 Flash’s introductory $0.75 / $3.75 lasts through December 31, 2026, then becomes $1.50 / $7.50. Qwen cached input here is implicit caching.</div>
+  <table class="sortable" id="priceTable"><caption><span data-pt="Preços oficiais vinculados por modelo; consultados em 3 out 2026. DeepSeek: pico; Gemini Flash: introdutório.">Official provider price pages linked by model; retrieved October 3, 2026. DeepSeek: peak; Gemini Flash: introductory.</span></caption><thead><tr><th class="sortable" data-sort="model" data-type="str" data-pt="Modelo">Model</th><th class="sortable" data-sort="provider" data-type="str" data-pt="Provedor">Provider</th><th class="sortable" data-sort="tier" data-type="tier" data-pt="Faixa de preço">Price band</th><th class="sortable" data-sort="input" data-type="num" data-pt="Input $/1M">Input $/1M</th><th class="sortable" data-sort="cached" data-type="num" data-pt="Input cacheado $/1M">Cached input $/1M</th><th class="sortable" data-sort="output" data-type="num" data-pt="Output $/1M">Output $/1M</th><th class="sortable" data-sort="ratio" data-type="num" data-pt="Output / input">Output / input</th></tr></thead><tbody>
+  <tr data-model="GPT-6 Luna" data-tier="budget"><td><a href="https://developers.openai.com/api/docs/pricing">GPT-6 Luna</a></td><td>OpenAI</td><td><span class="tag good" data-pt="econômico">budget</span></td><td class="price">$0.10</td><td class="price">$0.010</td><td class="price">$0.50</td><td>5×</td></tr>
+  <tr data-model="GLM 5.3 Flash" data-tier="budget"><td><a href="https://docs.z.ai/guides/overview/pricing">GLM 5.3 Flash</a></td><td>Z.ai</td><td><span class="tag good" data-pt="econômico">budget</span></td><td class="price">$0.15</td><td class="price">$0.030</td><td class="price">$0.50</td><td>3.3×</td></tr>
+  <tr data-model="DeepSeek V4.1 Flash" data-tier="budget"><td><a href="https://api-docs.deepseek.com/quick_start/pricing/">DeepSeek V4.1 Flash</a> <span class="small" data-pt="pico">peak</span></td><td>DeepSeek</td><td><span class="tag good" data-pt="econômico">budget</span></td><td class="price">$0.30</td><td class="price">$0.006</td><td class="price">$1.20</td><td>4×</td></tr>
+  <tr data-model="Gemini 3.5 Flash-Lite" data-tier="budget"><td><a href="https://ai.google.dev/gemini-api/docs/pricing">Gemini 3.5 Flash-Lite</a></td><td>Google</td><td><span class="tag good" data-pt="econômico">budget</span></td><td class="price">$0.30</td><td class="price">$0.030</td><td class="price">$2.50</td><td>8.3×</td></tr>
+  <tr data-model="GLM 5.3 FlashX" data-tier="budget"><td><a href="https://docs.z.ai/guides/overview/pricing">GLM 5.3 FlashX</a></td><td>Z.ai</td><td><span class="tag good" data-pt="econômico">budget</span></td><td class="price">$0.37</td><td class="price">$0.075</td><td class="price">$1.25</td><td>3.4×</td></tr>
+  <tr data-model="Gemini 3.8 Flash" data-tier="budget"><td><a href="https://ai.google.dev/gemini-api/docs/pricing">Gemini 3.8 Flash</a> <span class="small" data-pt="introdutório">intro</span></td><td>Google</td><td><span class="tag good" data-pt="econômico">budget</span></td><td class="price">$0.75</td><td class="price">$0.075</td><td class="price">$3.75</td><td>5×</td></tr>
+  <tr data-model="Claude Haiku 4.5" data-tier="budget"><td><a href="https://platform.claude.com/docs/en/about-claude/pricing">Claude Haiku 4.5</a></td><td>Anthropic</td><td><span class="tag good" data-pt="econômico">budget</span></td><td class="price">$1.00</td><td class="price">$0.10</td><td class="price">$5.00</td><td>5×</td></tr>
+  <tr data-model="DeepSeek V4 Pro" data-tier="mid"><td><a href="https://api-docs.deepseek.com/quick_start/pricing/">DeepSeek V4 Pro</a> <span class="small" data-pt="pico">peak</span></td><td>DeepSeek</td><td><span class="tag warn" data-pt="intermediário">mid</span></td><td class="price">$1.32</td><td class="price">$0.044</td><td class="price">$3.96</td><td>3×</td></tr>
+  <tr data-model="GLM 5.3" data-tier="mid"><td><a href="https://docs.z.ai/guides/overview/pricing">GLM 5.3</a></td><td>Z.ai</td><td><span class="tag warn" data-pt="intermediário">mid</span></td><td class="price">$1.40</td><td class="price">$0.26</td><td class="price">$4.40</td><td>3.1×</td></tr>
+  <tr data-model="GPT-6.1 Sol" data-tier="mid"><td><a href="https://developers.openai.com/api/docs/pricing">GPT-6.1 Sol</a></td><td>OpenAI</td><td><span class="tag warn" data-pt="intermediário">mid</span></td><td class="price">$2.00</td><td class="price">$0.10</td><td class="price">$10.00</td><td>5×</td></tr>
+  <tr data-model="Claude Sonnet 5.5" data-tier="mid"><td><a href="https://platform.claude.com/docs/en/about-claude/pricing">Claude Sonnet 5.5</a></td><td>Anthropic</td><td><span class="tag warn" data-pt="intermediário">mid</span></td><td class="price">$2.00</td><td class="price">$0.20</td><td class="price">$10.00</td><td>5×</td></tr>
+  <tr data-model="Grok 4.7" data-tier="mid"><td><a href="https://docs.x.ai/developers/models/grok-4.7">Grok 4.7</a></td><td>xAI / SpaceXAI</td><td><span class="tag warn" data-pt="intermediário">mid</span></td><td class="price">$2.00</td><td class="price">$0.50</td><td class="price">$6.00</td><td>3×</td></tr>
+  <tr data-model="Qwen3.8-Max" data-tier="mid"><td><a href="https://www.qwencloud.com/models/qwen3.8-max">Qwen3.8-Max</a></td><td>Alibaba / QwenCloud</td><td><span class="tag warn" data-pt="intermediário">mid</span></td><td class="price">$2.00</td><td class="price">$0.25</td><td class="price">$6.00</td><td>3×</td></tr>
+  <tr data-model="Kimi K3" data-tier="mid"><td><a href="https://platform.kimi.ai/docs/pricing/chat">Kimi K3</a></td><td>Moonshot / Kimi</td><td><span class="tag warn" data-pt="intermediário">mid</span></td><td class="price">$3.00</td><td class="price">$0.30</td><td class="price">$15.00</td><td>5×</td></tr>
+  <tr data-model="Claude Opus 5.5" data-tier="premium"><td><a href="https://platform.claude.com/docs/en/about-claude/pricing">Claude Opus 5.5</a></td><td>Anthropic</td><td><span class="tag bad" data-pt="premium">premium</span></td><td class="price">$4.00</td><td class="price">$0.20</td><td class="price">$20.00</td><td>5×</td></tr>
+  <tr data-model="GPT-6 Astra" data-tier="premium"><td><a href="https://developers.openai.com/api/docs/pricing">GPT-6 Astra</a></td><td>OpenAI</td><td><span class="tag bad" data-pt="premium">premium</span></td><td class="price">$10.00</td><td class="price">$1.00</td><td class="price">$50.00</td><td>5×</td></tr>
+  <tr data-model="Claude Fable 5.1" data-tier="premium"><td><a href="https://platform.claude.com/docs/en/about-claude/pricing">Claude Fable 5.1</a></td><td>Anthropic</td><td><span class="tag bad" data-pt="premium">premium</span></td><td class="price">$10.00</td><td class="price">$0.25</td><td class="price">$50.00</td><td>5×</td></tr>
+  </tbody></table>
+  <p data-pt="Input cacheado difere mesmo com preços base iguais: GPT-6.1 Sol custa $0,10 / 1M versus $0,20 do Sonnet 5.5. Leituras de cache do Fable 5.1 custam $0,25; do Opus 5.5, $0,20. Fontes: preços dos provedores vinculados, 3 out 2026. A página atual da DeepSeek mantém V4 Pro (0813) disponível, substituindo o anúncio anterior de retirada; IDs Flash antigos encaminham para V4.1 Flash.">Cached input differs materially at the same headline price: GPT-6.1 Sol is $0.10 / 1M versus $0.20 for Sonnet 5.5. Fable 5.1 cache reads are $0.25; Opus 5.5 reads are $0.20. Sources: linked provider pricing pages, October 3, 2026. DeepSeek’s current price page keeps V4 Pro (0813) available, superseding its earlier phase-out announcement; the old Flash IDs route to V4.1 Flash.</p>
+  <figure class="diagram" style="position:relative"><div style="font-size:13px;color:var(--accent);text-align:center;font-weight:600" data-pt="Preço por 1M tokens — input e output (escala log)">Price per 1M tokens — input vs output (log scale)</div><canvas id="priceChart" width="960" height="450"></canvas><div id="priceTip" class="bar-tooltip"></div><div class="legend"><span><span class="sw" style="background:#7cf0c1"></span>Input</span><span><span class="sw" style="background:#ffb86b"></span>Output</span></div><figcaption data-pt="Fonte: links oficiais dos provedores na tabela de preços, 3 out 2026. Mesmas tarifas de contexto curto sem cache e condições de cobrança; Argon excluído durante acesso restrito.">Source: official provider links in the price table, October 3, 2026. Same short-context, uncached rates and billing scenarios; Argon is excluded during restricted rollout.</figcaption></figure>
   <h4 data-pt="Exemplo de custo por turno">Cost per turn example</h4>
-  <p data-pt="Um turno com 10K tokens de input e 1K de output, sem cache. Custo = 0,01 × preço de input + 0,001 × preço de output. Para 1M turnos, multiplique por 1M.">One turn with 10K input and 1K output tokens, uncached. Cost = 0.01 × input price + 0.001 × output price. For 1M turns, multiply by 1M.</p>
-  <figure class="diagram" style="position:relative"><canvas id="turnChart" width="760" height="430"></canvas><div id="turnTip" class="bar-tooltip"></div><figcaption data-pt="Calculado a partir das mesmas tarifas da tabela acima; não inclui cache, ferramentas, impostos nem descontos por volume.">Computed from the same table rates; excludes caching, tools, taxes and volume discounts.</figcaption></figure>
-  <h3 data-pt="2.4 Inteligência geral — retrato de 25 ago">2.4 General intelligence — August 25 snapshot</h3>
-  <p data-pt="Preço é só um eixo. Os outros dois que mais importam são <strong>inteligência geral</strong> e <strong>capacidade de coding</strong>, medidos diretamente pelos índices da Artificial Analysis: o <strong>Intelligence Index</strong> combina ~9 avaliações (reasoning, conhecimento, coding, tool use, contexto longo) num único score 0–100, e o <strong>Coding Agent Index</strong> mede um agent real de coding rodando o modelo (DeepSWE, Terminal-Bench v2.1, SWE-Atlas-QnA). Os gráficos mostram o <strong>top 10</strong> com score publicado em 25 ago 2026, incluindo modelos anteriores, usando os valores da Artificial Analysis consultados em <strong>25 ago 2026</strong>. Passe o mouse numa barra para o número.">Price is only one axis. The two others that matter most are <strong>general intelligence</strong> and <strong>coding capability</strong>, measured directly by the Artificial Analysis indices: the <strong>Intelligence Index</strong> blends ~9 evaluations (reasoning, knowledge, coding, tool use, long context) into a single 0–100 score, and the <strong>Coding Agent Index</strong> measures a real coding agent driving the model (DeepSWE, Terminal-Bench v2.1, SWE-Atlas-QnA). The charts show the <strong>top 10</strong> with a published score on August 25, 2026 (including earlier models), using Artificial Analysis values retrieved <strong>25 Aug 2026</strong>. Hover a bar for the number.</p>
-
-  <figure class="diagram" style="position:relative">
-    <div style="font-size:13px; color:var(--accent); text-align:center; margin-bottom:8px; font-weight:600">Top 10 — Artificial Analysis Intelligence Index</div>
-    <canvas id="intelChart" width="680" height="400"></canvas>
-    <div id="intelTip" class="bar-tooltip"></div>
-    <div class="legend">
-      <span><span class="sw" style="background:#82b8ff"></span><span data-pt="Closed / fechado">Closed-source</span></span>
-      <span><span class="sw" style="background:#7cf0c1"></span><span data-pt="Open-weight">Open-weight</span></span>
-    </div>
-    <figcaption data-pt="Fonte: <a href=&quot;https://artificialanalysis.ai/&quot;>Artificial Analysis Intelligence Index</a>, consultado em 25 ago 2026 — valores publicados, nenhum marcado como estimado. O Claude Opus 5 (63.1) liderava; GPT-5.6 Sol e Grok 4.6 empatavam em 60.9. O Kimi K3 (59.7) é o melhor open-weight naquele retrato, a 3.4 pontos do topo — o eixo de inteligência está bem mais apertado que o de preço. Sonnet 5 e GPT-5.5 Pro não tinham score naquela data neste índice. A cor segue a flag <code>isOpenWeights</code> da própria AA, que <em>não</em> marca o GLM-5.3 como open-weight.">Source: <a href="https://artificialanalysis.ai/">Artificial Analysis Intelligence Index</a>, retrieved 25 Aug 2026 — published values, none flagged as estimated. Claude Opus 5 (63.1) led; GPT-5.6 Sol and Grok 4.6 tied at 60.9. Kimi K3 (59.7) is the top open-weight in that snapshot, 3.4 points off the lead — the intelligence axis is far tighter than the price axis. Sonnet 5 and GPT-5.5 Pro had no score in that snapshot. Colour follows AA's own <code>isOpenWeights</code> flag, which does <em>not</em> mark GLM-5.3 as open-weight.</figcaption>
-  </figure>
-
-  
-  <h3 data-pt="2.5 Coding — retrato de 25 ago">2.5 Coding — August 25 snapshot</h3>
-  <p data-pt="Os modelos do retrato de 25 ago, rankeados pelo Artificial Analysis <strong>Coding Agent Index v1.4</strong>. Diferença importante em relação ao gráfico acima: este índice pontua uma <strong>configuração</strong> — harness de agent + modelo + nível de effort — e não o modelo sozinho. Cada barra é a <em>melhor</em> configuração daquele modelo; passe o mouse para ver qual é.">The August 25 models, ranked by the Artificial Analysis <strong>Coding Agent Index v1.4</strong>. One important difference from the chart above: this index scores a <strong>configuration</strong> — agent harness + model + effort level — not the model on its own. Each bar is that model's <em>best</em> configuration; hover to see which one.</p>
-  <figure class="diagram" style="position:relative">
-    <div style="font-size:13px; color:var(--accent); text-align:center; margin-bottom:8px; font-weight:600">Top 10 — Artificial Analysis Coding Agent Index v1.4 (DeepSWE · Terminal-Bench v2.1 · SWE-Atlas-QnA)</div>
-    <canvas id="codingChart" width="680" height="400"></canvas>
-    <div id="codingTip" class="bar-tooltip"></div>
-    <div class="legend">
-      <span><span class="sw" style="background:#82b8ff"></span><span data-pt="Closed / fechado">Closed-source</span></span>
-      <span><span class="sw" style="background:#7cf0c1"></span><span data-pt="Open-weight">Open-weight</span></span>
-    </div>
-    <figcaption data-pt="Fonte: <a href=&quot;https://artificialanalysis.ai/#coding-agents&quot;>Artificial Analysis Coding Agent Index v1.4</a> (metodologia atualizada em 20 ago 2026), consultado em 25 ago 2026. Média com peso igual de DeepSWE (113 tasks), Terminal-Bench v2.1 (89) e SWE-Atlas-QnA (124), pass@1 sobre 3 tentativas por task. O Claude Code rodando Opus 5 em xhigh (68.1) liderava. Dois detalhes que só aparecem aqui: o harness importa — o Gemini 3.7 Flash faz 59.6 no Opencode e 56.6 no Antigravity SDK — e o <strong>DeepSeek V4 Pro 0813 fica abaixo do V4 Flash 0731</strong> (42.8 vs 49.8), porque tira 49.2 em Q&amp;A mas só 16.2 no DeepSWE. Naquela data, vários modelos ainda não tinham entrada.">Source: <a href="https://artificialanalysis.ai/#coding-agents">Artificial Analysis Coding Agent Index v1.4</a> (methodology updated 20 Aug 2026), retrieved 25 Aug 2026. Equal-weight average of DeepSWE (113 tasks), Terminal-Bench v2.1 (89) and SWE-Atlas-QnA (124), pass@1 over 3 attempts per task. Claude Code driving Opus 5 at xhigh (68.1) led. Two things only this chart shows: the harness matters — Gemini 3.7 Flash scores 59.6 under Opencode and 56.6 under the Antigravity SDK — and <strong>DeepSeek V4 Pro 0813 lands below V4 Flash 0731</strong> (42.8 vs 49.8), because it takes 49.2 on Q&amp;A but only 16.2 on DeepSWE. At that date, several models had no entry yet.</figcaption>
-  </figure>
-
-    <div class="callout" data-pt="<strong>Como ler os eixos juntos:</strong> preço e capacidade raramente concordam. O Kimi K3 é o melhor coder open-weight — #4 no Coding Agent Index — mas cobra $3/$15, mais que o Claude Sonnet 5. O Opus 5 liderava os dois índices e custa $5/$25. E o eixo de capacidade é bem mais comprimido que o de preço: o top 10 de inteligência cabe em 10 pontos, enquanto o preço varia amplamente entre modelos. A jogada de 2026 continua sendo <strong>routing</strong> — combine cada request ao eixo que ele realmente exige (veja <a href=&quot;#routing&quot;>§03</a>).">
-    <strong>Reading the axes together:</strong> price and capability rarely agree. Kimi K3 is the top open-weight in that snapshot coder — #4 on the Coding Agent Index — but charges $3/$15, more than Claude Sonnet 5. Opus 5 led both indices and costs $5/$25. And the capability axis is far more compressed than the price axis: the intelligence top 10 spans 10 points, while price spans widely between models. The 2026 move is still <strong>routing</strong> — match each request to the axis it actually demands (see <a href="#routing">§03</a>).
-  </div>
-
+  <p data-pt="10K tokens de input + 1K de output, sem cache: custo = 0,01 × tarifa de input + 0,001 × tarifa de output. Em modelos de reasoning, os 1K incluem tokens de reasoning cobrados, não só texto visível. Multiplique por 1M para um milhão de turnos.">10K input + 1K output tokens, uncached: cost = 0.01 × input rate + 0.001 × output rate. For a reasoning model, the 1K must include billed reasoning tokens, not only visible text. Multiply by 1M for one million turns.</p>
+  <figure class="diagram" style="position:relative"><canvas id="turnChart" width="960" height="450"></canvas><div id="turnTip" class="bar-tooltip"></div><figcaption data-pt="Derivado das tarifas oficiais da tabela de preços, 3 out 2026; exclui cache, ferramentas, armazenamento, impostos e descontos por volume.">Derived from official rates in the price table, October 3, 2026; excludes cache, tools, storage, taxes and volume discounts.</figcaption></figure>
+  <h3 data-pt="2.4 Inteligência — retrato de 3 out">2.4 Intelligence — October 3 snapshot</h3>
+  <p data-pt="O Artificial Analysis Intelligence Index &lt;strong&gt;v4.3.2&lt;/strong&gt; combina 10 avaliações. O gráfico mostra os dez maiores scores publicados entre os modelos atuais selecionados neste guia, preservando a configuração de effort/fallback. Esses scores não são diretamente comparáveis ao índice anterior de agosto. Argon foi avaliado, mas tem acesso restrito.">Artificial Analysis Intelligence Index <strong>v4.3.2</strong> combines 10 evaluations. The chart shows the ten highest published scores among this guide’s selected current models, with effort/fallback configuration retained. These scores cannot be compared directly with the previous August index. Argon is evaluated but has restricted access.</p>
+  <figure class="diagram" style="position:relative"><div style="font-size:13px;color:var(--accent);text-align:center;font-weight:600" data-pt="Intelligence Index v4.3.2 — modelos selecionados">Intelligence Index v4.3.2 — selected models</div><canvas id="intelChart" width="800" height="430"></canvas><div id="intelTip" class="bar-tooltip"></div><div class="legend"><span><span class="sw" style="background:#82b8ff"></span><span data-pt="Proprietário">Proprietary</span></span><span><span class="sw" style="background:#7cf0c1"></span><span data-pt="Pesos abertos">Open weights</span></span><span data-pt="* Acesso restrito">* Restricted access</span></div><figcaption data-pt="Fonte: &lt;a href=&quot;https://artificialanalysis.ai/&quot;&gt;Artificial Analysis&lt;/a&gt; e &lt;a href=&quot;https://artificialanalysis.ai/methodology/intelligence-benchmarking&quot;&gt;metodologia&lt;/a&gt;, consultados em 3 out 2026. Scores publicados sem estimativas, arredondados a uma casa. Opus 5.5: 57,6; Sonnet 5.5: 56,0. A cor segue a flag de pesos abertos da AA para o modelo avaliado; Qwen Max hospedado difere do checkpoint aberto.">Source: <a href="https://artificialanalysis.ai/">Artificial Analysis</a> and <a href="https://artificialanalysis.ai/methodology/intelligence-benchmarking">methodology</a>, retrieved October 3, 2026. Non-estimated published scores, rounded to one decimal. Opus 5.5: 57.6; Sonnet 5.5: 56.0. Colour follows AA’s open-weight flag for the evaluated model; hosted Qwen Max is distinct from the open checkpoint.</figcaption></figure>
+  <details><summary data-pt="Scores e configurações avaliadas">Scores and evaluated configurations</summary><table><caption><span data-pt="&lt;a href=&quot;https://artificialanalysis.ai/&quot;&gt;Artificial Analysis&lt;/a&gt;; consultado em 3 out 2026."><a href="https://artificialanalysis.ai/">Artificial Analysis</a>; retrieved October 3, 2026.</span></caption><thead><tr><th data-pt="Modelo">Model</th><th data-pt="Score / 100">Score / 100</th><th data-pt="Configuração">Configuration</th></tr></thead><tbody>
+  <tr><td>Claude Opus 5.5</td><td>57.6</td><td>Max, Default Fallback</td></tr>
+  <tr><td>Claude Sonnet 5.5</td><td>56.0</td><td>Max, Default Fallback</td></tr>
+  <tr><td>Claude Fable 5.1</td><td>53.4</td><td>Max, Default Fallback</td></tr>
+  <tr><td>GPT-6 Astra</td><td>52.7</td><td>Max</td></tr>
+  <tr><td>Gemini 4 Argon *</td><td>52.6</td><td>High</td></tr>
+  <tr><td>GPT-6.1 Sol</td><td>51.8</td><td>Max</td></tr>
+  <tr><td>Grok 4.7</td><td>46.4</td><td>Xhigh</td></tr>
+  <tr><td>Qwen3.8 Max (0902)</td><td>45.4</td><td>published configuration</td></tr>
+  <tr><td>GLM-5.3</td><td>44.8</td><td>Max</td></tr>
+  <tr><td>Kimi K3</td><td>43.6</td><td>Max</td></tr>
+  </tbody></table></details>
+  <h3 data-pt="2.5 Agents de coding — retrato de 3 out">2.5 Coding agents — October 3 snapshot</h3>
+  <p data-pt="O Coding Agent Index &lt;strong&gt;v1.5&lt;/strong&gt; calcula a média de DeepSWE v1.1, Terminal-Bench 4.0 e SWE-Atlas-QnA. Cada barra é a melhor configuração individual consultada para o modelo, não um score apenas do modelo. Versões anteriores permanecem onde o lançamento atual não tem entrada consultada: o score de Grok 4.6 não é de Grok 4.7. Configurações Fusion com múltiplos modelos são omitidas.">Coding Agent Index <strong>v1.5</strong> averages DeepSWE v1.1, Terminal-Bench 4.0 and SWE-Atlas-QnA. Each bar is a model’s best retrieved standalone configuration, not a model-only score. Earlier versions remain where the latest release has no retrieved entry: Grok 4.6’s score is not a Grok 4.7 score. Mixed-model Fusion configurations are omitted.</p>
+  <figure class="diagram" style="position:relative"><div style="font-size:13px;color:var(--accent);text-align:center;font-weight:600" data-pt="Coding Agent Index v1.5 — modelos selecionados">Coding Agent Index v1.5 — selected models</div><canvas id="codingChart" width="800" height="430"></canvas><div id="codingTip" class="bar-tooltip"></div><div class="legend"><span><span class="sw" style="background:#82b8ff"></span><span data-pt="Proprietário">Proprietary</span></span><span><span class="sw" style="background:#7cf0c1"></span><span data-pt="Pesos abertos">Open weights</span></span><span data-pt="* Acesso restrito">* Restricted access</span></div><figcaption data-pt="Fonte: &lt;a href=&quot;https://artificialanalysis.ai/agents/coding-agents&quot;&gt;Artificial Analysis Coding Agent Index&lt;/a&gt; e &lt;a href=&quot;https://artificialanalysis.ai/methodology/coding-agents-benchmarking/&quot;&gt;metodologia v1.5&lt;/a&gt;, consultados em 3 out 2026. Média com pesos iguais, pass@1 sobre três tentativas por tarefa. Claude Code + Sonnet 5.5 (max): 68,4; Opus 5.5 (max): 66,0; Codex + GPT-6.1 Sol (xhigh): 62,9. * Argon não está disponível ao público.">Source: <a href="https://artificialanalysis.ai/agents/coding-agents">Artificial Analysis Coding Agent Index</a> and <a href="https://artificialanalysis.ai/methodology/coding-agents-benchmarking/">v1.5 methodology</a>, retrieved October 3, 2026. Equal-weight benchmark average, pass@1 over three attempts per task. Claude Code + Sonnet 5.5 (max): 68.4; Opus 5.5 (max): 66.0; Codex + GPT-6.1 Sol (xhigh): 62.9. * Argon is not publicly available.</figcaption></figure>
+  <details><summary data-pt="Scores e configurações avaliadas">Scores and evaluated configurations</summary><table><caption><span data-pt="&lt;a href=&quot;https://artificialanalysis.ai/agents/coding-agents&quot;&gt;Artificial Analysis&lt;/a&gt;; consultado em 3 out 2026."><a href="https://artificialanalysis.ai/agents/coding-agents">Artificial Analysis</a>; retrieved October 3, 2026.</span></caption><thead><tr><th data-pt="Modelo">Model</th><th data-pt="Score / 100">Score / 100</th><th data-pt="Configuração">Configuration</th></tr></thead><tbody>
+  <tr><td>Claude Sonnet 5.5</td><td>68.4</td><td>Claude Code · Sonnet 5.5 (max)</td></tr>
+  <tr><td>Claude Opus 5.5</td><td>66.0</td><td>Claude Code · Opus 5.5 (max)</td></tr>
+  <tr><td>Gemini 4 Argon *</td><td>63.8</td><td>Antigravity CLI · Gemini 4 Argon</td></tr>
+  <tr><td>GPT-6.1 Sol</td><td>62.9</td><td>Codex · GPT-6.1 Sol (xhigh)</td></tr>
+  <tr><td>Claude Fable 5.1</td><td>62.2</td><td>Claude Code · Fable 5.1 (max) (with fallback)</td></tr>
+  <tr><td>GPT-6 Astra</td><td>61.6</td><td>Codex · GPT-6 Astra (max)</td></tr>
+  <tr><td>GLM 5.3</td><td>53.6</td><td>Opencode · GLM-5.3</td></tr>
+  <tr><td>Kimi K3</td><td>51.9</td><td>Kimi Code CLI · Kimi K3</td></tr>
+  <tr><td>Grok 4.6</td><td>47.0</td><td>Grok Build · Grok 4.6 (xhigh)</td></tr>
+  <tr><td>Qwen3.8-Max</td><td>43.3</td><td>Claude Code · Qwen3.8 Max</td></tr>
+  </tbody></table></details>
+  <div class="callout" data-pt="&lt;strong&gt;Compare custo por tarefa bem-sucedida:&lt;/strong&gt; preços, inteligência e scores de agents de coding medem coisas diferentes. Escolha um tier econômico inicial e escale quando seus testes falharem. Preserve modelo, effort, harness e versão do benchmark em cada comparação."><strong>Compare cost per successful task:</strong> prices, intelligence and coding-agent scores measure different things. Select a low-cost starting tier, then escalate when your own tests fail. Preserve the exact model, effort, harness and benchmark version in every comparison.</div>
+  <h3 data-pt="2.6 Modelos de retrieval — embeddings e reranking">2.6 Retrieval models — embeddings and reranking</h3>
+<p data-pt="A família atual de texto da Voyage inclui &lt;code&gt;voyage-4-large&lt;/code&gt;, &lt;code&gt;voyage-4&lt;/code&gt;, &lt;code&gt;voyage-4-lite&lt;/code&gt; e &lt;code&gt;voyage-code-4&lt;/code&gt;: contexto de 32.000 tokens, 1.024 dimensões padrão, com opções 256 / 512 / 2.048. &lt;code&gt;voyage-4-nano&lt;/code&gt; é uma opção de pesos abertos. &lt;code&gt;embed-v5.0-pro&lt;/code&gt; e &lt;code&gt;embed-v5.0-fast&lt;/code&gt; da Cohere suportam texto, imagens e documentos mistos, contexto de 128K e dimensões 256 / 512 / 768 / 1.024 / 1.536 / 2.048 (padrão 2.048).">Voyage’s current text family is <code>voyage-4-large</code>, <code>voyage-4</code>, <code>voyage-4-lite</code> and <code>voyage-code-4</code>: 32,000-token context, 1,024 default dimensions, with 256 / 512 / 2,048 options. <code>voyage-4-nano</code> is an open-weight option. Cohere’s <code>embed-v5.0-pro</code> and <code>embed-v5.0-fast</code> support text, images and mixed document inputs, 128K context, and 256 / 512 / 768 / 1,024 / 1,536 / 2,048 dimensions (default 2,048).</p>
+<p data-pt="Opções de reranking incluem Cohere &lt;code&gt;rerank-v4.0-pro&lt;/code&gt; / &lt;code&gt;rerank-v4.0-fast&lt;/code&gt; e Voyage &lt;code&gt;rerank-2.5&lt;/code&gt; / &lt;code&gt;rerank-2.5-lite&lt;/code&gt;. Avalie relevância de retrieval e latência no seu corpus. Fontes, verificadas em 3 out 2026: &lt;a href=&quot;https://docs.voyageai.com/docs/embeddings&quot;&gt;Voyage embeddings&lt;/a&gt; · &lt;a href=&quot;https://docs.voyageai.com/docs/pricing&quot;&gt;lista / preços Voyage&lt;/a&gt; · &lt;a href=&quot;https://docs.cohere.com/v2/docs/cohere-embed&quot;&gt;Cohere Embed&lt;/a&gt; · &lt;a href=&quot;https://docs.cohere.com/v2/docs/rerank&quot;&gt;Cohere Rerank&lt;/a&gt;.">Reranking options include Cohere <code>rerank-v4.0-pro</code> / <code>rerank-v4.0-fast</code> and Voyage <code>rerank-2.5</code> / <code>rerank-2.5-lite</code>. Evaluate retrieval relevance and latency on your corpus. Sources, checked October 3, 2026: <a href="https://docs.voyageai.com/docs/embeddings">Voyage embeddings</a> · <a href="https://docs.voyageai.com/docs/pricing">Voyage model list / pricing</a> · <a href="https://docs.cohere.com/v2/docs/cohere-embed">Cohere Embed</a> · <a href="https://docs.cohere.com/v2/docs/rerank">Cohere Rerank</a>.</p>
 </section>
 
 
@@ -1606,45 +1477,45 @@
 
   <h3 data-pt="3.1 As 4 dimensões que decidem o modelo">3.1 The 4 dimensions that decide the model</h3>
   <p data-pt="Antes de nomear um modelo, você precisa caracterizar o request ao longo de quatro eixos:">Before naming a model, you have to characterize the request along four axes:</p>
-  <table>
+  <table><caption data-pt="Tarifas padrão por token e limites: fontes oficiais na §02, consultadas em 3 out 2026.">Standard token rates and model limits: official sources in §02, retrieved October 3, 2026.</caption>
     <thead><tr><th data-pt="Dimensão">Dimension</th><th data-pt="O que perguntar">What to ask</th><th data-pt="Por que importa">Why it matters</th></tr></thead>
     <tbody>
-      <tr><td data-pt="<strong>Tier de capacidade</strong>"><strong>Capability tier</strong></td><td data-pt="Precisa de reasoning frontier, ou é um extract/classify/summarize de rotina?">Does it need frontier reasoning, or is it a routine extract/classify/summarize?</td><td data-pt="Gap de 10× de custo entre Opus e Haiku — a maioria das tasks não precisa do tier de topo.">10× cost gap between Opus and Haiku — most tasks do not need the top tier.</td></tr>
-      <tr><td data-pt="<strong>Comprimento de contexto</strong>"><strong>Context length</strong></td><td data-pt="Tokens de entrada (1K? 50K? 500K?)">Tokens in (1K? 50K? 500K?)</td><td data-pt="Elimina modelos abaixo do threshold; afeta o tier de preço no Gemini.">Eliminates models below the threshold; affects pricing tier on Gemini.</td></tr>
+      <tr><td data-pt="<strong>Tier de capacidade</strong>"><strong>Capability tier</strong></td><td data-pt="Precisa de reasoning frontier, ou é um extract/classify/summarize de rotina?">Does it need frontier reasoning, or is it a routine extract/classify/summarize?</td><td data-pt="Opus 5.5 custa 4× Haiku 4.5 por token de texto padrão; avalie se a capacidade adicional compensa.">Opus 5.5 costs 4× Haiku 4.5 per text token at standard rates; evaluate whether the extra capability pays off.</td></tr>
+      <tr><td data-pt="<strong>Comprimento de contexto</strong>"><strong>Context length</strong></td><td data-pt="Tokens de entrada (1K? 50K? 500K?)">Tokens in (1K? 50K? 500K?)</td><td data-pt="Limita quais modelos cabem; GPT-6 e Grok têm thresholds de cobrança por contexto longo.">Limits which models fit; GPT-6 and Grok have long-context billing thresholds.</td></tr>
       <tr><td data-pt="<strong>Budget de latência</strong>"><strong>Latency budget</strong></td><td data-pt="Interativo (&lt;2s) vs batch (24h)?">Interactive (&lt;2s) vs batch (24h)?</td><td data-pt="Modelos de reasoning são lentos; batch APIs são 50% mais baratas mas assíncronas.">Reasoning models are slow; batch APIs are 50% cheaper but async.</td></tr>
       <tr><td data-pt="<strong>Soberania de dados</strong>"><strong>Data sovereignty</strong></td><td data-pt="Os dados podem sair do seu perímetro?">Can the data leave your perimeter?</td><td data-pt="Se não → open-weight na sua infra. Se sim → frontier fechado geralmente é mais barato e melhor.">If no → open-weight on your infra. If yes → closed frontier is usually cheaper and better.</td></tr>
     </tbody>
   </table>
 
   <h3 data-pt="3.2 Tasks comuns — a matriz task → modelo">3.2 Common tasks — the task → model matrix</h3>
-  <p data-pt="Agrupado por família de task — coding, matemática/reasoning, perguntas gerais, assistentes conversacionais, extração, multimodal. Primeira escolha, depois a alternativa barata/open.">Grouped by task family — coding, math/reasoning, general Q&amp;A, conversational assistants, extraction, multimodal. First choice, then the cheap/open alternative.</p>
-  <table>
-    <thead><tr><th data-pt="Task">Task</th><th data-pt="Primeira escolha">First choice</th><th data-pt="Alt barata / OSS">Cheap / OSS alt</th><th data-pt="Por quê">Why</th></tr></thead>
+  <p data-pt="Agrupado por família de task — coding, matemática/reasoning, perguntas gerais, assistentes conversacionais, extração, multimodal. Candidatos iniciais e outras opções; valide cada um no seu workload.">Grouped by task family — coding, math/reasoning, general Q&amp;A, conversational assistants, extraction, multimodal. Candidate starting points, then other candidates; validate each on your workload.</p>
+  <table><caption data-pt="Capacidades e preços: fontes oficiais na §02, verificadas em 3 out 2026. Candidatos dependem do workload; &lt;a href=&quot;https://docs.voyageai.com/docs/embeddings&quot;&gt;Voyage&lt;/a&gt; · &lt;a href=&quot;https://docs.cohere.com/v2/docs/cohere-embed&quot;&gt;Cohere Embed&lt;/a&gt; · &lt;a href=&quot;https://docs.cohere.com/v2/docs/rerank&quot;&gt;Cohere Rerank&lt;/a&gt;.">Model capabilities and prices: official sources in §02, checked October 3, 2026. Candidates are workload-dependent; <a href="https://docs.voyageai.com/docs/embeddings">Voyage</a> · <a href="https://docs.cohere.com/v2/docs/cohere-embed">Cohere Embed</a> · <a href="https://docs.cohere.com/v2/docs/rerank">Cohere Rerank</a>.</caption>
+    <thead><tr><th data-pt="Task">Task</th><th data-pt="Candidatos iniciais">Starting candidates</th><th data-pt="Outros candidatos">Other candidates</th><th data-pt="Por quê">Why</th></tr></thead>
     <tbody>
-      <tr><td data-pt="Reasoning frontier (olimpíada de matemática, ciência nova, lógica difícil)">Frontier reasoning (math olympiad, novel science, hard logic)</td><td>Claude Fable 5.1 · GPT-6 Astra Max · GPT-5.5 Pro</td><td>Kimi K3 · DeepSeek V4 Pro (thinking mode)</td><td data-pt="Avalie precisão em problemas difíceis e conte tokens de raciocínio cobrados.">Evaluate accuracy on hard problems and count billed reasoning tokens.</td></tr>
-      <tr><td data-pt="Coding agêntico (multi-step, tool use, sessões longas)">Agentic coding (multi-step, tool use, long sessions)</td><td>Claude Sonnet 5 → escalate to Opus 5.5 / Fable 5.1</td><td>Kimi K3 · GLM 5.3</td><td data-pt="Modelos Anthropic lideram em coerência de longo horizonte e confiabilidade de tool-use — o modo de falha que mata agents.">Anthropic models lead on long-horizon coherence and tool-use reliability — the failure mode that kills agents.</td></tr>
-      <tr><td data-pt="Geração de código one-shot / completion">One-shot code generation / completion</td><td>GPT-6 Astra · Grok 4.6</td><td>GLM 5.3 · DeepSeek V4 Pro</td><td data-pt="Use seus próprios testes de código e meça custo por solução aceita.">Use your own code tests and measure cost per accepted solution.</td></tr>
-      <tr><td data-pt="Code review / análise estática">Code review / static analysis</td><td>Claude Sonnet 5</td><td>GLM 5.3 · DeepSeek V4.1 Flash</td><td data-pt="Forte em detectar bugs sutis, cheiros de segurança; melhor auto-contenção que GPT (menos &quot;reescreve seu código sem pedir&quot;).">Strong at spotting subtle bugs, security smells; better self-restraint than GPT (less "rewriting your code unprompted").</td></tr>
-      <tr><td data-pt="RAG de documentos longos / extração de contexto 200K+">Long document RAG / 200K+ context extraction</td><td>Gemini 3.8 Flash · Claude Opus 5.5 · GPT-6 Astra when OpenAI tooling matters</td><td>GPT-6 Luna · DeepSeek V4.1 Flash</td><td data-pt="Opções de contexto ~1M nativo. Vence RAG para corpora que cabem, mas fique atento a cliffs de preço de contexto longo.">Native ~1M context options. Beats RAG for corpora that fit, but watch long-context pricing cliffs.</td></tr>
+      <tr><td data-pt="Reasoning frontier (olimpíada de matemática, ciência nova, lógica difícil)">Frontier reasoning (math olympiad, novel science, hard logic)</td><td>Claude Opus 5.5 · Fable 5.1 · GPT-6 Astra</td><td>Kimi K3 · DeepSeek V4 Pro (thinking mode)</td><td data-pt="Avalie precisão em problemas difíceis e conte tokens de raciocínio cobrados.">Evaluate accuracy on hard problems and count billed reasoning tokens.</td></tr>
+      <tr><td data-pt="Coding agêntico (multi-step, tool use, sessões longas)">Agentic coding (multi-step, tool use, long sessions)</td><td data-pt="Claude Sonnet 5.5 · GPT-6.1 Sol; escale com evals">Claude Sonnet 5.5 · GPT-6.1 Sol; escalate with evals</td><td>Kimi K3 · GLM 5.3</td><td data-pt="Compare Sonnet 5.5 / Claude Code e GPT-6.1 Sol / Codex nas suas tarefas; explicite effort e harness avaliados.">Compare Sonnet 5.5 / Claude Code and GPT-6.1 Sol / Codex on your tasks; keep the evaluated effort and harness explicit.</td></tr>
+      <tr><td data-pt="Geração de código one-shot / completion">One-shot code generation / completion</td><td>GPT-6 Astra · Grok 4.7</td><td>GLM 5.3 · DeepSeek V4 Pro</td><td data-pt="Use seus próprios testes de código e meça custo por solução aceita.">Use your own code tests and measure cost per accepted solution.</td></tr>
+      <tr><td data-pt="Code review / análise estática">Code review / static analysis</td><td>Claude Sonnet 5.5</td><td>GLM 5.3 · DeepSeek V4.1 Flash</td><td data-pt="Teste com bugs conhecidos; exija evidências e meça falsos positivos e defeitos não detectados.">Test on known bugs; require evidence and measure false positives and missed defects.</td></tr>
+      <tr><td data-pt="RAG de documentos longos / extração de contexto 200K+">Long document RAG / 200K+ context extraction</td><td>Gemini 3.8 Flash · Claude Opus 5.5 · GPT-6 Astra when OpenAI tooling matters</td><td>GPT-6 Luna · DeepSeek V4.1 Flash</td><td data-pt="Compare prompts de contexto longo com retrieval; meça cobertura, custo e precisão.">Compare direct long-context prompting with retrieval; measure coverage, cost and accuracy.</td></tr>
       <tr><td data-pt="Extração estruturada de alto volume (notas fiscais, formulários)">High-volume structured extraction (invoices, forms)</td><td>Gemini 3.8 Flash · GLM 5.3 Flash</td><td>DeepSeek V4.1 Flash</td><td data-pt="Barato por token + modo de structured output + bom o suficiente em schemas simples.">Cheap per token + structured output mode + good enough on simple schemas.</td></tr>
-      <tr><td data-pt="Classificação / routing de intent">Classification / intent routing</td><td>GLM 5.3 Flash · GPT-6 Luna</td><td>DeepSeek V4.1 Flash · Nemotron 3 Nano</td><td data-pt="Latência abaixo de 1s, $0.085–$1 por 1M de input. Um fine-tune de um Qwen 3.8 pequeno ou Nemotron 3 Nano pode arrasar nisso por centavos.">Sub-second latency, $0.085–$1 per 1M input. A fine-tune of a small Qwen 3.8 or Nemotron 3 Nano can crush this for pennies.</td></tr>
-      <tr><td data-pt="Chat conversacional (suporte ao cliente, FAQ)">Conversational chat (customer support, FAQ)</td><td>Claude Sonnet 5 · GPT-6 Sol</td><td>GPT-6 Luna · Gemini 3.8 Flash</td><td data-pt="Compare tom, segurança, latência e custo nas conversas reais do produto.">Compare tone, safety, latency and cost on real product conversations.</td></tr>
-      <tr><td data-pt="Escrita criativa / copy de marketing">Creative writing / marketing copy</td><td>Claude Opus 5.5 · GPT-6 Astra</td><td>Kimi K3 · DeepSeek V4.1 Flash</td><td data-pt="O tier Opus tem prosa notavelmente mais clara e calorosa que as gerações Claude anteriores; teste as opções com a voz da marca.">The Opus tier has notably clearer, warmer prose than earlier Claude generations; test the options against brand voice.</td></tr>
-      <tr><td data-pt="Multimodal — imagens / docs / gráficos">Multimodal — images / docs / charts</td><td>Gemini 3.8 Flash</td><td>Kimi K3 · Claude Sonnet 5</td><td data-pt="Gemini foi treinado multimodal nativo do zero e lê gráficos/diagramas melhor. Kimi K3 é a primeira opção open multimodal de verdade.">Gemini was natively multimodal-trained from scratch and reads charts/diagrams the best. Kimi K3 is the first genuinely multimodal open option.</td></tr>
+      <tr><td data-pt="Classificação / routing de intent">Classification / intent routing</td><td>GPT-6 Luna (none) · GLM 5.3 Flash</td><td>DeepSeek V4.1 Flash · Nemotron 3.5 Lightning</td><td data-pt="Luna suporta effort none; GLM Flash sempre usa thinking. Meça latência e total de tokens gerados no seu schema.">Luna supports none effort; GLM Flash always thinks. Measure latency and total generated tokens on your schema.</td></tr>
+      <tr><td data-pt="Chat conversacional (suporte ao cliente, FAQ)">Conversational chat (customer support, FAQ)</td><td>Claude Sonnet 5.5 · GPT-6.1 Sol</td><td>GPT-6 Luna · Gemini 3.8 Flash</td><td data-pt="Compare tom, segurança, latência e custo nas conversas reais do produto.">Compare tone, safety, latency and cost on real product conversations.</td></tr>
+      <tr><td data-pt="Escrita criativa / copy de marketing">Creative writing / marketing copy</td><td>Claude Opus 5.5 · GPT-6 Astra</td><td>Kimi K3 · DeepSeek V4.1 Flash</td><td data-pt="Avalie tom, factualidade e voz da marca com exemplos representativos.">Evaluate tone, factuality and brand voice with representative writing samples.</td></tr>
+      <tr><td data-pt="Multimodal — imagens / docs / gráficos">Multimodal — images / docs / charts</td><td>Gemini 3.8 Flash</td><td>Kimi K3 · Claude Sonnet 5.5</td><td data-pt="Gemini aceita imagem, áudio, vídeo e PDF. Kimi e GLM Flash aceitam input visual; avalie os tipos de documento usados.">Gemini accepts image, audio, video and PDF inputs. Kimi and GLM Flash accept visual input; evaluate your document types.</td></tr>
       <tr><td data-pt="Multimodal — áudio (transcrição + compreensão)">Multimodal — audio (transcription + understanding)</td><td>Gemini 3.8 Flash</td><td>Whisper + LLM</td><td data-pt="Input de áudio nativo. Caso contrário: Whisper-large-v3 → texto → qualquer LLM.">Native audio input. Otherwise: Whisper-large-v3 → text → any LLM.</td></tr>
-      <tr><td data-pt="Tradução">Translation</td><td>Gemini 3.8 Flash · GPT-6 Sol</td><td>Qwen 3.8 (CJK) · DeepSeek V4.1 Flash</td><td data-pt="Modelos frontier todos vão bem; Qwen é o mais forte open-weight para idiomas CJK.">Frontier models all do well; Qwen is the strongest open-weight for CJK languages.</td></tr>
-      <tr><td data-pt="Sumarização (curta, factual)">Summarization (short, factual)</td><td>GLM 5.3 Flash · GPT-6 Luna</td><td>DeepSeek V4.1 Flash</td><td data-pt="Barato e rápido. Plateau de qualidade atingido há anos — não precisa de modelo frontier.">Cheap and fast. Quality plateau hit years ago — no need for a frontier model.</td></tr>
-      <tr><td data-pt="Sumarização (longa, com nuance)">Summarization (long-form, nuanced)</td><td>Claude Sonnet 5 · Opus 5.5 for high-stakes synthesis</td><td>Gemini 3.8 Flash</td><td data-pt="Sonnet preserva nuances e atribuições melhor que o tier mais barato; Opus 5.5 quando o resumo deve preservar dependências de longo alcance.">Sonnet preserves nuance and attribution better than the cheaper tier; Opus 5.5 when the summary must preserve long-range dependencies.</td></tr>
-      <tr><td data-pt="Confiabilidade de function / tool calling">Function / tool calling reliability</td><td>Claude Sonnet 5 · Opus 5.5 · Grok 4.6</td><td>Kimi K3</td><td data-pt="O tier de topo emite consistentemente JSON / argumentos válidos. Open-weight está alcançando mas ainda fica atrás em edge cases.">Top tier consistently emits valid JSON / arguments. Open-weight is catching up but still trails on edge cases.</td></tr>
+      <tr><td data-pt="Tradução">Translation</td><td>Gemini 3.8 Flash · GPT-6.1 Sol</td><td>Qwen 3.8 (CJK) · DeepSeek V4.1 Flash</td><td data-pt="Avalie o par de idiomas, terminologia e formatação.">Evaluate the exact language pair, terminology and formatting.</td></tr>
+      <tr><td data-pt="Sumarização (curta, factual)">Summarization (short, factual)</td><td>GLM 5.3 Flash · GPT-6 Luna</td><td>DeepSeek V4.1 Flash</td><td data-pt="Comece com modelos econômicos; avalie cobertura factual, omissões e afirmações sem suporte.">Start with low-cost models; evaluate factual coverage, omissions and unsupported claims.</td></tr>
+      <tr><td data-pt="Sumarização (longa, com nuance)">Summarization (long-form, nuanced)</td><td>Claude Sonnet 5.5 · Opus 5.5 for high-stakes synthesis</td><td>Gemini 3.8 Flash</td><td data-pt="Compare atribuições, contradições e dependências de longo alcance antes de escalar.">Compare attribution, contradictions and long-range dependencies before escalating.</td></tr>
+      <tr><td data-pt="Confiabilidade de function / tool calling">Function / tool calling reliability</td><td>Claude Sonnet 5.5 · Opus 5.5 · Grok 4.7</td><td>Kimi K3</td><td data-pt="Valide schemas e tool loops. Sonnet 5.5 não suporta escolha forçada de ferramenta.">Validate schemas and tool loops. Sonnet 5.5 does not support forced tool choice.</td></tr>
       <tr><td data-pt="On-prem / indústria regulamentada (saúde, defesa, jurídico)">On-prem / regulated industry (health, defense, legal)</td><td>Kimi K3 · DeepSeek V4 Pro · GLM 5.3</td><td>Nemotron 3 · Qwen 3.8 · Llama / Mistral</td><td data-pt="Open weights → self-host no vLLM / SGLang, ou use Bedrock / Vertex com controles de rede e região verificados.">Open weights → self-host on vLLM / SGLang, or use Bedrock / Vertex with verified network and region controls.</td></tr>
-      <tr><td data-pt="Embeddings">Embeddings</td><td>OpenAI <code>text-embedding-3-large</code> · Voyage 3 · Cohere Embed v4</td><td>BGE-M3 (open)</td><td data-pt="Não são LLMs — modelos separados. Voyage e Cohere lideram benchmarks de retrieval; BGE-M3 é a melhor opção gratuita.">Not LLMs — separate models. Voyage and Cohere lead retrieval benchmarks; BGE-M3 is the best free option.</td></tr>
-      <tr><td data-pt="Reranking">Reranking</td><td>Cohere Rerank v3</td><td>BGE-reranker-v2-m3</td><td data-pt="Cross-encoder, não um LLM. Adiciona ~50–150 ms mas +25–40% de precisão.">Cross-encoder, not an LLM. Adds ~50–150 ms but +25–40% precision.</td></tr>
+      <tr><td data-pt="Embeddings">Embeddings</td><td>OpenAI <code>text-embedding-3-large</code> · Voyage 4 · Cohere Embed 5</td><td>BGE-M3 (open)</td><td data-pt="Modelos separados de retrieval; selecione com evals no seu idioma e corpus.">Separate retrieval models; select with retrieval evals on your language and corpus.</td></tr>
+      <tr><td data-pt="Reranking">Reranking</td><td>Cohere Rerank v4.0 Pro / Fast · Voyage rerank-2.5</td><td>BGE-reranker-v2-m3</td><td data-pt="Avalie qualidade de retrieval, latência adicional e cobrança por rerank com seus documentos.">Evaluate retrieval quality, added latency and rerank billing on your document lengths.</td></tr>
     </tbody>
   </table>
 
   <h3 data-pt="3.3 Padrões de routing que você deve saber nomear">3.3 Routing patterns you should be able to name</h3>
   <ul>
-    <li data-pt="<strong>Cascade / triage routing</strong> — modelo barato responde; se confiança baixa ou um classifier &quot;difícil&quot; sinaliza, escala para o modelo caro. Forma comum: <em>GLM 5.3 Flash → Sonnet 5 → Opus 5.5</em>. Meça economia e taxa de escalonamento no seu conjunto de tarefas."><strong>Cascade / triage routing</strong> — cheap model answers; if confidence low or a "hard" classifier flags it, escalate to the expensive model. Common shape: <em>GLM 5.3 Flash → Sonnet 5 → Opus 5.5</em>. Measure savings and escalation rate on your own task set.</li>
+    <li data-pt="<strong>Cascade / triage routing</strong> — modelo barato responde; se confiança baixa ou um classifier &quot;difícil&quot; sinaliza, escala para o modelo caro. Forma comum: <em>GLM 5.3 Flash → Sonnet 5.5 → Opus 5.5</em>. Meça economia e taxa de escalonamento no seu conjunto de tarefas."><strong>Cascade / triage routing</strong> — cheap model answers; if confidence low or a "hard" classifier flags it, escalate to the expensive model. Common shape: <em>GLM 5.3 Flash → Sonnet 5.5 → Opus 5.5</em>. Measure savings and escalation rate on your own task set.</li>
     <li data-pt="<strong>Task-typed routing</strong> — um classifier (às vezes um LLM, às vezes um modelo pequeno fine-tuned) categoriza o request (<code>code</code>, <code>chat</code>, <code>math</code>, <code>vision</code>) e despacha."><strong>Task-typed routing</strong> — a classifier (sometimes an LLM, sometimes a fine-tuned small model) tags the request (<code>code</code>, <code>chat</code>, <code>math</code>, <code>vision</code>) and dispatches.</li>
     <li data-pt="<strong>Especulativo / draft-then-verify</strong> — modelo barato faz o draft, modelo caro verifica / edita. Usado em coding agêntico (e.g. GLM 5.3 Flash propõe, Sonnet revisa)."><strong>Speculative / draft-then-verify</strong> — cheap model drafts, expensive model verifies / edits. Used in agentic coding (e.g. GLM 5.3 Flash drafts, Sonnet reviews).</li>
     <li data-pt="<strong>Mixture-of-Experts <em>na camada de orquestração</em></strong> — mesmo nome que nas arquiteturas de modelo, mas aqui significa routing para diferentes modelos de <em>provider</em> por sub-task em um workflow."><strong>Mixture-of-Experts <em>at the orchestration layer</em></strong> — same name as in model architectures, but here it means routing to different <em>provider</em> models per sub-task in a workflow.</li>
@@ -1655,11 +1526,11 @@
   <ol>
     <li data-pt="Os dados são sensíveis / regulados? <strong>Sim</strong> → confirme região, retenção, logs, rede e contrato; considere auto-hospedagem se o perímetro for obrigatório.">Is the data sensitive or regulated? <strong>Yes</strong> → verify region, retention, logs, network and contract; consider self-hosting if your perimeter is mandatory.</li>
     <li data-pt="A task cabe em &lt; 8K tokens e tem um schema fixo pequeno? <strong>Sim</strong> → GLM 5.3 Flash / GPT-6 Luna / DeepSeek V4.1 Flash.">Does the task fit in &lt; 8K tokens and have a small fixed schema? <strong>Yes</strong> → GLM 5.3 Flash / GPT-6 Luna / DeepSeek V4.1 Flash.</li>
-    <li data-pt="Precisa de reasoning multi-step sobre código ou matemática? <strong>Sim</strong> → Sonnet 5 → Opus 5.5 / Fable 5.1 / GPT-6 Astra Max / DeepSeek V4 Pro (thinking mode).">Does it need to reason multi-step over code or math? <strong>Yes</strong> → Sonnet 5 → Opus 5.5 / Fable 5.1 / GPT-6 Astra Max / DeepSeek V4 Pro (thinking mode).</li>
+    <li data-pt="Precisa de reasoning multi-step sobre código ou matemática? <strong>Sim</strong> → Sonnet 5.5 → Opus 5.5 / Fable 5.1 / GPT-6 Astra Max / DeepSeek V4 Pro (thinking mode).">Does it need to reason multi-step over code or math? <strong>Yes</strong> → Sonnet 5.5 → Opus 5.5 / Fable 5.1 / GPT-6 Astra Max / DeepSeek V4 Pro (thinking mode).</li>
     <li data-pt="É um documento longo (&gt; 200K tokens)? <strong>Sim</strong> → Gemini 3.8 Flash / Claude Opus 5.5.">Is it a long document (&gt; 200K tokens)? <strong>Yes</strong> → Gemini 3.8 Flash / Claude Opus 5.5.</li>
     <li data-pt="É multimodal? <strong>Sim</strong> → Gemini 3.8 Flash primeiro.">Is it multimodal? <strong>Yes</strong> → Gemini 3.8 Flash first.</li>
-    <li data-pt="Padrão para coding agêntico / tool use → <strong>Sonnet 5</strong>.">Default agentic coding / tool use → <strong>Sonnet 5</strong>.</li>
-    <li data-pt="Depois pergunte: posso fazer cache de 80% desse prompt? Se sim, a escolha fica 10× mais barata.">Then ask: can I cache 80% of this prompt? If yes, the choice gets cheaper by 10×.</li>
+    <li data-pt="Padrão para coding agêntico / tool use → <strong>Sonnet 5.5</strong>.">Default agentic coding / tool use → <strong>Sonnet 5.5</strong>.</li>
+    <li data-pt="Depois pergunte: quais prefixos de prompt posso cachear? Inclua escrita de cache e tokens de output na economia total.">Then ask: which prompt prefixes can I cache? Include cache-write charges and output tokens in the total savings.</li>
   </ol>
 
   <div class="callout warn" data-pt="<strong>Armadilha comum:</strong> Não recomende &quot;o modelo mais inteligente&quot; reflexivamente. Em produção, muitas tarefas podem ser <em>rotineiras</em> — e usar Opus para routing é um erro caro em escala. A resposta certa é quase sempre &quot;eu faria routing — aqui está a cascade.&quot;">
@@ -1672,7 +1543,7 @@
   <h3 data-pt="3.5 Self-hosting — a realidade pessoal e corporativa">3.5 Self-hosting — the personal &amp; enterprise reality</h3>
   <p data-pt="&quot;É só rodar você mesmo&quot; soa mais barato do que é. São duas situações bem diferentes:">&quot;Just run it yourself&quot; sounds cheaper than it is. Two very different situations:</p>
   <ul>
-    <li data-pt="<strong>Pessoal (uma workstation).</strong> Um MacBook Pro ou Mac Studio de ponta com 100+ GB de memória unificada consegue de fato rodar alguns modelos open-weight localmente — um modelo pequeno quantizado da família Qwen ou Nemotron 3 Nano — via runtimes como Ollama, LM Studio ou llama.cpp. Ótimo para privacidade, experimentação e trabalho offline. Mas você roda pesos quantizados de tier médio a poucos tokens/segundo — não a fronteira."><strong>Personal (a workstation).</strong> A high-end MacBook Pro or Mac Studio with 100+ GB of unified memory can genuinely run some open-weight models locally — a small quantized Qwen-family model or Nemotron 3 Nano — via runtimes like Ollama, LM Studio, or llama.cpp. Great for privacy, tinkering, and offline work. But you are running quantized, mid-tier weights at a few tokens/second — not the frontier.</li>
+    <li data-pt="<strong>Pessoal (uma workstation).</strong> Um MacBook Pro ou Mac Studio de ponta com 100+ GB de memória unificada consegue de fato rodar alguns modelos open-weight localmente — um modelo pequeno quantizado da família Qwen ou Nemotron 3.5 Lightning — via runtimes como Ollama, LM Studio ou llama.cpp. Ótimo para privacidade, experimentação e trabalho offline. Mas você roda pesos quantizados de tier médio a poucos tokens/segundo — não a fronteira."><strong>Personal (a workstation).</strong> A high-end MacBook Pro or Mac Studio with 100+ GB of unified memory can genuinely run some open-weight models locally — a small quantized Qwen-family model or Nemotron 3.5 Lightning — via runtimes like Ollama, LM Studio, or llama.cpp. Great for privacy, tinkering, and offline work. But you are running quantized, mid-tier weights at a few tokens/second — not the frontier.</li>
     <li data-pt="<strong>Corporativo (uma frota de GPUs).</strong> Servir modelos open de fronteira em <em>peso completo</em> (Kimi K3 com 2.8T params, DeepSeek V4 Pro com 1.6T) com throughput de produção exige um cluster de GPUs classe H100/H200 — centenas de GB de VRAM, vLLM ou SGLang e um time de ops. A conta de hardware e energia disso ainda está fora do alcance da maioria das empresas pequenas e médias."><strong>Enterprise (a GPU fleet).</strong> Serving <em>full-weight</em> frontier-class open models (Kimi K3 at 2.8T params, DeepSeek V4 Pro at 1.6T) at production throughput needs a cluster of H100/H200-class GPUs — hundreds of GB of VRAM, vLLM or SGLang, and an ops team. The hardware and power bill for that is still out of reach for most small and mid-size companies.</li>
   </ul>
   <p data-pt="<strong>A conclusão honesta de 2026:</strong> self-hosting de modelos peso-completo tier-AA ainda é caro demais para uso comum — mesmo para empresas pequenas. Quando os dados não podem sair do seu perímetro, o meio-termo realista é um <strong>provider de inferência gerenciado</strong> (Together, Fireworks, DeepInfra, Groq) que hospeda pesos open no hardware deles, ou um gateway de cloud (Bedrock / Vertex) com isolamento VPC. Valide processamento, armazenamento, logs e contrato para cada serviço."><strong>The honest 2026 takeaway:</strong> self-hosting full-weight AA-tier models is still too expensive for common use — even for small companies. When the data cannot leave your perimeter, the realistic middle ground is a <strong>managed inference provider</strong> (Together, Fireworks, DeepInfra, Groq) that hosts open weights on their hardware, or a cloud gateway (Bedrock / Vertex) with VPC isolation. Validate processing, storage, logging and contract terms for each service.</p>
@@ -1788,19 +1659,19 @@ next_request_input = [
     <tbody>
       <tr>
         <td><strong>OpenAI Responses API</strong></td>
-        <td><code>reasoning: { effort: "none|minimal|low|medium|high|xhigh" }</code> depending on model</td>
+        <td data-pt="GPT-6 Astra / Sol: &lt;code&gt;reasoning: { effort: &quot;low|medium|high|xhigh|max&quot; }&lt;/code&gt;; Luna também suporta &lt;code&gt;none&lt;/code&gt;.">GPT-6 Astra / Sol: <code>reasoning: { effort: "low|medium|high|xhigh|max" }</code>; Luna also supports <code>none</code>.</td>
         <td data-pt="Reasoning bruto não é exposto. Uso inclui <code>output_tokens_details.reasoning_tokens</code>; alguns modelos podem retornar resumos de reasoning ou itens criptografados.">Raw reasoning is not exposed. Usage includes <code>output_tokens_details.reasoning_tokens</code>; some models can return reasoning summaries or encrypted reasoning items.</td>
         <td data-pt="Quando tool calls acontecem, passe de volta os itens de reasoning retornados desde a última message do usuário, ou use <code>previous_response_id</code>.">When tool calls happen, pass back reasoning items returned since the last user message, or use <code>previous_response_id</code>.</td>
       </tr>
       <tr>
         <td><strong>Anthropic Claude</strong></td>
-        <td><code>thinking: { type: "enabled", budget_tokens: ... }</code></td>
+        <td data-pt="Claude atual: &lt;code&gt;thinking: { type: &quot;adaptive&quot; }&lt;/code&gt; + &lt;code&gt;output_config.effort&lt;/code&gt;. Haiku 4.5 usa extended thinking manual.">Current Claude: <code>thinking: { type: "adaptive" }</code> + <code>output_config.effort</code>. Haiku 4.5 uses manual extended thinking.</td>
         <td data-pt="Blocos de conteúdo <code>thinking</code> seguidos de blocos <code>text</code>; resumos/criptografia variam por modelo/versão."><code>thinking</code> content blocks followed by <code>text</code> blocks; summaries/encryption vary by model/version.</td>
         <td data-pt="Com tool use, passe de volta os blocos <code>thinking</code> completos e não modificados para a última message do assistente.">With tool use, pass the complete unmodified <code>thinking</code> blocks back for the last assistant message.</td>
       </tr>
       <tr>
         <td><strong>Gemini</strong></td>
-        <td><code>generationConfig.thinkingConfig.thinkingBudget</code></td>
+        <td data-pt="Gemini 3.8 Flash: &lt;code&gt;generationConfig.thinkingConfig.thinkingLevel&lt;/code&gt; = &lt;code&gt;low|medium|high&lt;/code&gt;.">Gemini 3.8 Flash: <code>generationConfig.thinkingConfig.thinkingLevel</code> = <code>low|medium|high</code>.</td>
         <td data-pt="Metadados de uso incluem campos como <code>thoughtsTokenCount</code>. Thinking pode também produzir thought signatures criptografadas.">Usage metadata includes fields such as <code>thoughtsTokenCount</code>. Thinking may also produce encrypted thought signatures.</td>
         <td data-pt="Quando function calling ou reescrita de histórico REST está envolvida, passe signatures/partes de volta exatamente como recebidos.">When function calling or REST history rewriting is involved, pass signatures/parts back exactly as received.</td>
       </tr>
@@ -1810,6 +1681,8 @@ next_request_input = [
   <div class="callout warn" data-pt="<strong>Resposta segura para entrevista:</strong> &quot;Thinking tokens são tokens gerados. OpenAI expõe a contagem em uso, Anthropic expõe blocos/signatures de thinking, Gemini expõe contagens/signatures de tokens de thought. Em todos os casos, afetam contexto, latência e custo.&quot;">
     <strong>Interview-safe answer:</strong> "Thinking tokens are generated tokens. OpenAI exposes the count in usage, Anthropic exposes thinking blocks/signatures, Gemini exposes thought token counts/signatures. In all cases, they affect context, latency, and cost."
   </div>
+
+  <div class="callout warn" data-pt="&lt;strong&gt;Compatibilidade de API em 3 out:&lt;/strong&gt; Tool calling do GPT-6.1 Sol exige Responses; Chat Completions não tem tool calling nesse modelo. Luna suporta function calling em Chat Completions apenas com effort &lt;code&gt;none&lt;/code&gt;. Sonnet 5.5 rejeita &lt;code&gt;thinking.type: &quot;disabled&quot;&lt;/code&gt; (use &lt;code&gt;between_tools&lt;/code&gt; em low–high) e &lt;code&gt;tool_choice&lt;/code&gt; forçado. GLM 5.3 e Kimi K3 exigem thinking ligado. Fontes: &lt;a href=&quot;https://developers.openai.com/api/docs/models/gpt-6.1-sol&quot;&gt;Sol&lt;/a&gt;, &lt;a href=&quot;https://developers.openai.com/api/docs/models/gpt-6-luna&quot;&gt;Luna&lt;/a&gt;, &lt;a href=&quot;https://platform.claude.com/docs/en/models/sonnet-5-5/whats-new-sonnet-5-5&quot;&gt;Sonnet 5.5&lt;/a&gt;, &lt;a href=&quot;https://docs.z.ai/guides/llm/glm-5.3&quot;&gt;GLM&lt;/a&gt;, &lt;a href=&quot;https://platform.kimi.ai/docs/guide/kimi-k3-quickstart&quot;&gt;Kimi&lt;/a&gt;."><strong>October 3 API compatibility:</strong> GPT-6.1 Sol tool calling requires Responses; Chat Completions has no tool calling for this model. Luna supports Chat Completions function calling only at <code>none</code> effort. Sonnet 5.5 rejects <code>thinking.type: "disabled"</code> (use <code>between_tools</code> at low–high) and forced <code>tool_choice</code>. GLM 5.3 and Kimi K3 require thinking enabled. Sources: <a href="https://developers.openai.com/api/docs/models/gpt-6.1-sol">Sol</a>, <a href="https://developers.openai.com/api/docs/models/gpt-6-luna">Luna</a>, <a href="https://platform.claude.com/docs/en/models/sonnet-5-5/whats-new-sonnet-5-5">Sonnet 5.5</a>, <a href="https://docs.z.ai/guides/llm/glm-5.3">GLM</a>, <a href="https://platform.kimi.ai/docs/guide/kimi-k3-quickstart">Kimi</a>.</div>
 
   <h3 data-pt="4.6 Tool calling é um loop, não mágica">4.6 Tool calling is a loop, not magic</h3>
   <p data-pt="O modelo nunca executa sua função. Ele emite um request estruturado; seu app o valida, executa a função, depois envia o resultado de volta para que o modelo possa continuar.">The model never executes your function. It emits a structured request; your app validates it, runs the function, then sends the result back so the model can continue.</p>
@@ -1862,7 +1735,7 @@ next_request_input = [
 
 const input = [{ role: "user", content: "Where is order ord_123?" }];
 const response = await client.responses.create({
-  model: "gpt-5.4",
+  model: "gpt-6.1-sol",
   input,
   tools,
   reasoning: { effort: "low" }
@@ -1880,7 +1753,7 @@ for (const item of response.output) {
 }
 
 const final = await client.responses.create({
-  model: "gpt-5.4",
+  model: "gpt-6.1-sol",
   input,
   tools
 });
@@ -1918,7 +1791,7 @@ const context = matches.map((m, i) =>
 ).join("\n\n");
 
 await client.responses.create({
-  model: "gpt-5.4",
+  model: "gpt-6.1-sol",
   input: `Answer using only these sources:\n\n${context}\n\nQuestion: ${userQuestion}`
 });
 </code></pre>
@@ -3127,12 +3000,12 @@ See [Billing API](../systems/billing-api.md).</code></pre>
 
   function getVal(row, col, type) {
     const cells = row.cells;
-    // column index by header order: model=0, provider=1, tier=2, input=3, output=4, ratio=5
-    const idx = { model:0, provider:1, tier:2, input:3, output:4, ratio:5 }[col];
+    // Column indexes include cached input; tier keys stay stable across languages.
+    const idx = { model:0, provider:1, tier:2, input:3, cached:4, output:5, ratio:6 }[col];
     const cell = cells[idx];
     if (type === 'num') return parseNum(cell.textContent);
     if (type === 'tier') {
-      const t = (cell.textContent || '').trim().toLowerCase();
+      const t = row.dataset.tier;
       return tierRank[t] ?? 99;
     }
     return (cell.textContent || '').trim().toLowerCase();
@@ -3169,23 +3042,17 @@ See [Billing API](../systems/billing-api.md).</code></pre>
   }
 })();
 
+// Both cost charts use the same verified rows as the sortable pricing table.
+const modelPrices = Array.from(document.querySelectorAll('#priceTable tbody tr')).map(row => ({
+  name: row.dataset.model,
+  i: Number(row.cells[3].textContent.replace('$', '')),
+  o: Number(row.cells[5].textContent.replace('$', '')),
+  tag: row.dataset.tier === 'budget' ? 'cheap' : row.dataset.tier
+}));
+
 /* ============== price-per-1M chart (log scale, side-by-side input/output) ============== */
 (function () {
-  const data = [
-    { name: "GPT-6 Luna", i: 0.10, o: 0.50, tag: "cheap" },
-    { name: "GLM 5.3 Flash", i: 0.15, o: 0.50, tag: "cheap" },
-    { name: "DeepSeek V4.1 Flash", i: 0.30, o: 1.20, tag: "cheap" },
-    { name: "Gemini 3.8 Flash", i: 0.75, o: 3.75, tag: "cheap" },
-    { name: "DeepSeek V4 Pro", i: 1.32, o: 3.96, tag: "mid" },
-    { name: "GLM 5.3", i: 1.40, o: 4.40, tag: "mid" },
-    { name: "GPT-6 Sol", i: 2.00, o: 10.00, tag: "mid" },
-    { name: "Claude Sonnet 5", i: 2.00, o: 10.00, tag: "mid" },
-    { name: "Qwen3.8-Max", i: 2.00, o: 6.00, tag: "mid" },
-    { name: "Kimi K3", i: 3.00, o: 15.00, tag: "mid" },
-    { name: "Claude Opus 5.5", i: 4.00, o: 20.00, tag: "premium" },
-    { name: "GPT-6 Astra", i: 10.00, o: 50.00, tag: "premium" },
-    { name: "Claude Fable 5.1", i: 10.00, o: 50.00, tag: "premium" },
-  ].sort((a,b) => a.i - b.i);
+  const data = modelPrices.slice().sort((a,b) => a.i - b.i);
 
   const c = document.getElementById('priceChart');
   if (!c) return;
@@ -3260,21 +3127,7 @@ See [Billing API](../systems/billing-api.md).</code></pre>
 
 /* ============== per-turn cost chart ============== */
 (function () {
-  const data = [
-    { name: "GPT-6 Luna", cost: 0.00150, tier: "cheap" },
-    { name: "GLM 5.3 Flash", cost: 0.00200, tier: "cheap" },
-    { name: "DeepSeek V4.1 Flash", cost: 0.00420, tier: "cheap" },
-    { name: "Gemini 3.8 Flash", cost: 0.01125, tier: "cheap" },
-    { name: "DeepSeek V4 Pro", cost: 0.01716, tier: "mid" },
-    { name: "GLM 5.3", cost: 0.01840, tier: "mid" },
-    { name: "GPT-6 Sol", cost: 0.03000, tier: "mid" },
-    { name: "Claude Sonnet 5", cost: 0.03000, tier: "mid" },
-    { name: "Qwen3.8-Max", cost: 0.02600, tier: "mid" },
-    { name: "Kimi K3", cost: 0.04500, tier: "mid" },
-    { name: "Claude Opus 5.5", cost: 0.06000, tier: "premium" },
-    { name: "GPT-6 Astra", cost: 0.15000, tier: "premium" },
-    { name: "Claude Fable 5.1", cost: 0.15000, tier: "premium" },
-  ].sort((a,b) => a.cost - b.cost);
+  const data = modelPrices.map(d => ({ name: d.name, cost: 0.01 * d.i + 0.001 * d.o, tier: d.tag })).sort((a,b) => a.cost - b.cost);
 
   const colors = { cheap: '#7cf0c1', mid: '#ffb86b', premium: '#ff6b8b' };
 
@@ -3352,42 +3205,156 @@ See [Billing API](../systems/billing-api.md).</code></pre>
 
 /* ============== capability index charts ============== */
 (function () {
-  // Real Artificial Analysis values, retrieved 25 Aug 2026 from artificialanalysis.ai.
+  // Published Artificial Analysis data retrieved October 3, 2026.
+  // Intelligence v4.3.2; Coding Agent Index v1.5; never map a score onto a newer release.
   // open = flagged isOpenWeights by AA (green), else closed (blue).
   const CLOSED = '#82b8ff', OPEN = '#7cf0c1';
 
-  // Artificial Analysis Intelligence Index — published values, none flagged as estimated.
-  // Top 10 of the pricing-table models that carry a score.
   const intel = [
-    { name: "Claude Opus 5",     score: 63.1, open: false },
-    { name: "Claude Fable 5",    score: 62.1, open: false },
-    { name: "GPT-5.6 Sol",       score: 60.9, open: false },
-    { name: "Grok 4.6",          score: 60.9, open: false },
-    { name: "Kimi K3",           score: 59.7, open: true  },
-    { name: "GLM 5.3",           score: 59.5, open: false },
-    { name: "Qwen3.8 2.4T A95B", score: 57.7, open: true  },
-    { name: "GPT-5.6 Terra",     score: 56.6, open: false },
-    { name: "Gemini 3.7 Flash",  score: 56.0, open: false },
-    { name: "DeepSeek V4 Pro",   score: 53.2, open: true  }
-  ];
+  {
+    "name": "Claude Opus 5.5",
+    "score": 57.6,
+    "open": false,
+    "cfg": "Max, Default Fallback",
+    "restricted": false
+  },
+  {
+    "name": "Claude Sonnet 5.5",
+    "score": 56.0,
+    "open": false,
+    "cfg": "Max, Default Fallback",
+    "restricted": false
+  },
+  {
+    "name": "Claude Fable 5.1",
+    "score": 53.4,
+    "open": false,
+    "cfg": "Max, Default Fallback",
+    "restricted": false
+  },
+  {
+    "name": "GPT-6 Astra",
+    "score": 52.7,
+    "open": false,
+    "cfg": "Max",
+    "restricted": false
+  },
+  {
+    "name": "Gemini 4 Argon",
+    "score": 52.6,
+    "open": false,
+    "cfg": "High",
+    "restricted": true
+  },
+  {
+    "name": "GPT-6.1 Sol",
+    "score": 51.8,
+    "open": false,
+    "cfg": "Max",
+    "restricted": false
+  },
+  {
+    "name": "Grok 4.7",
+    "score": 46.4,
+    "open": false,
+    "cfg": "Xhigh",
+    "restricted": false
+  },
+  {
+    "name": "Qwen3.8 Max (0902)",
+    "score": 45.4,
+    "open": false,
+    "cfg": "published configuration",
+    "restricted": false
+  },
+  {
+    "name": "GLM-5.3",
+    "score": 44.8,
+    "open": true,
+    "cfg": "Max",
+    "restricted": false
+  },
+  {
+    "name": "Kimi K3",
+    "score": 43.6,
+    "open": true,
+    "cfg": "Max",
+    "restricted": false
+  }
+];
 
-  // Artificial Analysis Coding Agent Index v1.4 (methodology updated 20 Aug 2026):
-  // equal-weight blend of DeepSWE (113 tasks), Terminal-Bench v2.1 (89) and
-  // SWE-Atlas-QnA (124), pass@1 averaged over 3 attempts per task.
-  // Scores are per agent+model+effort configuration; each row is the model's
-  // best-scoring configuration, named in `cfg`.
   const coding = [
-    { name: "Claude Opus 5",     score: 68.1, open: false, cfg: "Claude Code · xhigh" },
-    { name: "Claude Fable 5",    score: 67.2, open: false, cfg: "Claude Code · max, with fallback" },
-    { name: "GPT-5.6 Sol",       score: 65.1, open: false, cfg: "Codex · max" },
-    { name: "Kimi K3",           score: 62.6, open: true,  cfg: "Kimi Code CLI" },
-    { name: "Qwen3.8-Max",       score: 61.3, open: true,  cfg: "Claude Code" },
-    { name: "GPT-5.6 Terra",     score: 60.4, open: false, cfg: "Codex · max" },
-    { name: "Gemini 3.7 Flash",  score: 59.6, open: false, cfg: "Opencode · high" },
-    { name: "GPT-5.6 Luna",      score: 57.2, open: false, cfg: "Codex · max" },
-    { name: "DeepSeek V4 Flash", score: 49.8, open: true,  cfg: "Codex · max, build 0731" },
-    { name: "DeepSeek V4 Pro",   score: 42.8, open: true,  cfg: "Codex · max, build 0813" }
-  ];
+  {
+    "name": "Claude Sonnet 5.5",
+    "score": 68.4,
+    "open": false,
+    "cfg": "Claude Code · Sonnet 5.5 (max)",
+    "restricted": false
+  },
+  {
+    "name": "Claude Opus 5.5",
+    "score": 66.0,
+    "open": false,
+    "cfg": "Claude Code · Opus 5.5 (max)",
+    "restricted": false
+  },
+  {
+    "name": "Gemini 4 Argon",
+    "score": 63.8,
+    "open": false,
+    "cfg": "Antigravity CLI · Gemini 4 Argon",
+    "restricted": true
+  },
+  {
+    "name": "GPT-6.1 Sol",
+    "score": 62.9,
+    "open": false,
+    "cfg": "Codex · GPT-6.1 Sol (xhigh)",
+    "restricted": false
+  },
+  {
+    "name": "Claude Fable 5.1",
+    "score": 62.2,
+    "open": false,
+    "cfg": "Claude Code · Fable 5.1 (max) (with fallback)",
+    "restricted": false
+  },
+  {
+    "name": "GPT-6 Astra",
+    "score": 61.6,
+    "open": false,
+    "cfg": "Codex · GPT-6 Astra (max)",
+    "restricted": false
+  },
+  {
+    "name": "GLM 5.3",
+    "score": 53.6,
+    "open": true,
+    "cfg": "Opencode · GLM-5.3",
+    "restricted": false
+  },
+  {
+    "name": "Kimi K3",
+    "score": 51.9,
+    "open": true,
+    "cfg": "Kimi Code CLI · Kimi K3",
+    "restricted": false
+  },
+  {
+    "name": "Grok 4.6",
+    "score": 47.0,
+    "open": false,
+    "cfg": "Grok Build · Grok 4.6 (xhigh)",
+    "restricted": false
+  },
+  {
+    "name": "Qwen3.8-Max",
+    "score": 43.3,
+    "open": false,
+    "cfg": "Claude Code · Qwen3.8 Max",
+    "restricted": false
+  }
+];
 
   function drawIndexChart(canvasId, tipId, data, unitLabel) {
     const c = document.getElementById(canvasId);
@@ -3443,11 +3410,11 @@ See [Billing API](../systems/billing-api.md).</code></pre>
       ctx.fillStyle = '#c7ced9';
       ctx.font = '11px -apple-system, sans-serif';
       ctx.textAlign = 'right'; ctx.textBaseline = 'middle';
-      ctx.fillText(`${i + 1}. ${d.name}`, 0, 0);
+      ctx.fillText(`${i + 1}. ${d.name}${d.restricted ? " *" : ""}`, 0, 0);
       ctx.restore();
 
       const cfg = d.cfg ? ` · ${d.cfg}` : '';
-      bars.push({ x, y, w: barW, h, label: `#${i + 1} ${d.name} · ${d.score}/100 ${unitLabel}${cfg} · ${d.open ? 'open-weight' : 'closed'}` });
+      bars.push({ x, y, w: barW, h, label: `#${i + 1} ${d.name} · ${d.score}/100 ${unitLabel}${cfg} · ${d.open ? 'open-weight' : 'closed'}${d.restricted ? ' · restricted access' : ''}` });
     });
 
     const tip = document.getElementById(tipId);
@@ -3648,8 +3615,8 @@ const questions = [
 
   // ---- Pricing ----
   {
-    q: "At September 2026 short-context standard API rates, which model costs $0.15 input / $0.50 output per 1M tokens?",
-    q_pt: "Nas tarifas padrão de contexto curto de setembro de 2026, qual modelo custa $0,15 input / $0,50 output por 1M tokens?",
+    q: "At October 2026 short-context standard API rates, which model costs $0.15 input / $0.50 output per 1M tokens?",
+    q_pt: "Nas tarifas padrão de contexto curto de outubro de 2026, qual modelo custa $0,15 input / $0,50 output por 1M tokens?",
     opts: ["Kimi K3", "GLM 5.3 Flash", "Qwen3.8-Max", "Claude Opus 5.5"],
     opts_pt: ["Kimi K3", "GLM 5.3 Flash", "Qwen3.8-Max", "Claude Opus 5.5"],
     correct: 1,
@@ -3657,13 +3624,13 @@ const questions = [
     explain_pt: "A Z.ai lista GLM 5.3 Flash a $0,15/$0,50 na API direta. Hospedagem e cache mudam o custo efetivo."
   },
   {
-    q: "Which July 2026 release is the largest open-weight model ever shipped (2.8T params), scoring top-3 overall on GDPval-AA?",
-    q_pt: "Qual lançamento de julho de 2026 é o maior modelo open-weight já publicado (2.8T params), com top-3 geral no GDPval-AA?",
-    opts: ["Claude Sonnet 5", "Gemini 3.8 Flash", "Kimi K3", "GPT-6 Sol"],
-    opts_pt: ["Claude Sonnet 5", "Gemini 3.8 Flash", "Kimi K3", "GPT-6 Sol"],
+    q: "Which model card lists 2.8T total parameters, 104B active parameters and 16 of 896 routed experts selected per token?",
+    q_pt: "Qual model card lista 2,8T parâmetros totais, 104B ativos e 16 de 896 experts roteados selecionados por token?",
+    opts: ["Claude Sonnet 5.5", "Gemini 3.8 Flash", "Kimi K3", "GPT-6.1 Sol"],
+    opts_pt: ["Claude Sonnet 5.5", "Gemini 3.8 Flash", "Kimi K3", "GPT-6.1 Sol"],
     correct: 2,
-    explain: "Kimi K3 from Moonshot AI: 2.8T-param MoE (16 of 896 experts active), multimodal, 1M context, #1 on the WebDev preference arena. Notably it prices like a closed frontier model ($3/$15) — the open/closed price gap is closing from both ends.",
-    explain_pt: "Kimi K3 da Moonshot AI: MoE de 2.8T params (16 de 896 experts ativos), multimodal, 1M de contexto, #1 na arena de preferência WebDev. Detalhe: tem preço de modelo frontier fechado ($3/$15) — o gap de preço open/fechado está fechando pelos dois lados."
+    explain: "Kimi K3: 2.8T total / 104B active parameters, 16 selected routed experts out of 896, native visual understanding and 1,048,576 context tokens. Source: Moonshot AI model card, checked October 3, 2026. Open weights do not imply low API prices: the direct rate is $3/$15.",
+    explain_pt: "Kimi K3: 2,8T parâmetros totais / 104B ativos, 16 experts roteados selecionados de 896, compreensão visual nativa e 1.048.576 tokens de contexto. Fonte: model card da Moonshot AI, verificado em 3 out 2026. Pesos abertos não implicam API barata: a tarifa direta é $3/$15."
   },
   {
     q: "DeepSeek's 2026 API pricing introduced a new billing dimension. Which one?",
@@ -4337,13 +4304,13 @@ const questions = [
     q_pt: "Você vê <code>context window</code> e <code>context length</code> sendo usados de forma intercambiável. Qual é a formulação mais precisa?",
     opts: [
       "They mean the same thing; the difference is regional English",
-      "Context <em>window</em> is the model's hard <em>capacity</em> (e.g. 1M tokens for Claude Sonnet 5); context <em>length</em> is the <em>actual</em> number of tokens you sent on a given request. Pricing tiers and KV-cache behavior depend on context <em>length</em>, not the window",
+      "Context <em>window</em> is the model's hard <em>capacity</em> (e.g. 1M tokens for Claude Sonnet 5.5); context <em>length</em> is the <em>actual</em> number of tokens you sent on a given request. Pricing tiers and KV-cache behavior depend on context <em>length</em>, not the window",
       "Context window is input-only; context length is input+output combined",
       "Context length applies only to reasoning models"
     ],
     opts_pt: [
       "Significam a mesma coisa; a diferença é inglês regional",
-      "Context <em>window</em> é a <em>capacidade</em> rígida do modelo (ex.: 1M tokens para o Claude Sonnet 5); context <em>length</em> é o número <em>real</em> de tokens que você enviou num dado request. Pricing tiers e comportamento do KV-cache dependem do context <em>length</em>, não da window",
+      "Context <em>window</em> é a <em>capacidade</em> rígida do modelo (ex.: 1M tokens para o Claude Sonnet 5.5); context <em>length</em> é o número <em>real</em> de tokens que você enviou num dado request. Pricing tiers e comportamento do KV-cache dependem do context <em>length</em>, não da window",
       "Context window é só input; context length é input+output combinados",
       "Context length se aplica somente a modelos de reasoning"
     ],
