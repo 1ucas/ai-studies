@@ -223,6 +223,17 @@
   table.sortable th.sortable.desc::after{border-bottom:0; border-top:5px solid var(--accent); opacity:1}
   table.sortable tbody tr{transition:background .12s}
 
+  #priceTable td.intel{white-space:nowrap; font-variant-numeric:tabular-nums}
+  /* ============ Table filter chips ============ */
+  .table-filter{display:flex; flex-wrap:wrap; align-items:center; gap:8px; margin:14px 0 8px}
+  .filter-chip{font:inherit; font-size:12.5px; padding:5px 12px; border-radius:99px; cursor:pointer;
+    background:var(--pill); color:var(--muted); border:1px solid var(--line); transition:border-color .15s, color .15s, background .15s}
+  .filter-chip:hover{border-color:var(--accent); color:var(--text)}
+  .filter-chip:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+  .filter-chip[aria-pressed="true"]{background:rgba(124,240,193,.12); border-color:var(--accent); color:var(--accent)}
+  .table-filter .filter-count{margin-left:auto}
+  @media (max-width:760px){.table-filter .filter-count{margin-left:0; flex-basis:100%}}
+
   /* ============ Tooling cards ============ */
   .tool-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:14px; margin:18px 0}
   .tool-card{
@@ -1409,24 +1420,25 @@
   <h3 data-pt="2.3 Preços de API — verificados em 3 out 2026">2.3 API prices — verified October 3, 2026</h3>
   <p data-pt="USD por 1M tokens de texto, API direta padrão, contexto curto sem cache salvo indicação. Tarifas de input cacheado aparecem separadamente; escrita de cache, armazenamento, ferramentas, impostos e adicionais regionais são extras. Faixas de preço são agrupamentos editoriais de custo, não rankings de capacidade.">USD per 1M text tokens, standard direct API, uncached short context unless marked. Cached-input rates are shown separately; cache writes, storage, tools, taxes and region premiums are additional. Price bands are editorial cost groupings, not capability rankings.</p>
   <div class="callout warn" data-pt="&lt;strong&gt;Condições de cobrança:&lt;/strong&gt; Requests GPT-6 acima de 272K tokens de input custam 2× as tarifas de input/cache e 1,5× output para todo o request. Grok lista tarifas maiores acima de 200K; confira a tabela regional antes de planejar gastos. O pico da DeepSeek é 01:00–04:00 e 06:00–10:00 UTC, seg–sex; os demais horários custam metade. O preço introdutório de $0,75 / $3,75 do Gemini 3.8 Flash vale até 31 dez 2026, depois passa a $1,50 / $7,50. O input cacheado Qwen aqui usa cache implícito."><strong>Billing conditions:</strong> GPT-6 requests above 272K input tokens cost 2× input/cache rates and 1.5× output for the full request. Grok lists higher-context pricing above 200K; check its regional table before budgeting. DeepSeek peak hours are 01:00–04:00 and 06:00–10:00 UTC, Monday–Friday; all other hours cost half. Gemini 3.8 Flash’s introductory $0.75 / $3.75 lasts through December 31, 2026, then becomes $1.50 / $7.50. Qwen cached input here is implicit caching.</div>
-  <table class="sortable" id="priceTable"><caption><span data-pt="Preços oficiais vinculados por modelo; consultados em 3 out 2026. DeepSeek: pico; Gemini Flash: introdutório.">Official provider price pages linked by model; retrieved October 3, 2026. DeepSeek: peak; Gemini Flash: introductory.</span></caption><thead><tr><th class="sortable" data-sort="model" data-type="str" data-pt="Modelo">Model</th><th class="sortable" data-sort="provider" data-type="str" data-pt="Provedor">Provider</th><th class="sortable" data-sort="tier" data-type="tier" data-pt="Faixa de preço">Price band</th><th class="sortable" data-sort="input" data-type="num" data-pt="Input $/1M">Input $/1M</th><th class="sortable" data-sort="cached" data-type="num" data-pt="Input cacheado $/1M">Cached input $/1M</th><th class="sortable" data-sort="output" data-type="num" data-pt="Output $/1M">Output $/1M</th><th class="sortable" data-sort="ratio" data-type="num" data-pt="Output / input">Output / input</th></tr></thead><tbody>
-  <tr data-model="GPT-6 Luna" data-tier="budget"><td><a href="https://developers.openai.com/api/docs/pricing">GPT-6 Luna</a></td><td>OpenAI</td><td><span class="tag good" data-pt="econômico">budget</span></td><td class="price">$0.10</td><td class="price">$0.010</td><td class="price">$0.50</td><td>5×</td></tr>
-  <tr data-model="GLM 5.3 Flash" data-tier="budget"><td><a href="https://docs.z.ai/guides/overview/pricing">GLM 5.3 Flash</a></td><td>Z.ai</td><td><span class="tag good" data-pt="econômico">budget</span></td><td class="price">$0.15</td><td class="price">$0.030</td><td class="price">$0.50</td><td>3.3×</td></tr>
-  <tr data-model="DeepSeek V4.1 Flash" data-tier="budget"><td><a href="https://api-docs.deepseek.com/quick_start/pricing/">DeepSeek V4.1 Flash</a> <span class="small" data-pt="pico">peak</span></td><td>DeepSeek</td><td><span class="tag good" data-pt="econômico">budget</span></td><td class="price">$0.30</td><td class="price">$0.006</td><td class="price">$1.20</td><td>4×</td></tr>
-  <tr data-model="Gemini 3.5 Flash-Lite" data-tier="budget"><td><a href="https://ai.google.dev/gemini-api/docs/pricing">Gemini 3.5 Flash-Lite</a></td><td>Google</td><td><span class="tag good" data-pt="econômico">budget</span></td><td class="price">$0.30</td><td class="price">$0.030</td><td class="price">$2.50</td><td>8.3×</td></tr>
-  <tr data-model="GLM 5.3 FlashX" data-tier="budget"><td><a href="https://docs.z.ai/guides/overview/pricing">GLM 5.3 FlashX</a></td><td>Z.ai</td><td><span class="tag good" data-pt="econômico">budget</span></td><td class="price">$0.37</td><td class="price">$0.075</td><td class="price">$1.25</td><td>3.4×</td></tr>
-  <tr data-model="Gemini 3.8 Flash" data-tier="budget"><td><a href="https://ai.google.dev/gemini-api/docs/pricing">Gemini 3.8 Flash</a> <span class="small" data-pt="introdutório">intro</span></td><td>Google</td><td><span class="tag good" data-pt="econômico">budget</span></td><td class="price">$0.75</td><td class="price">$0.075</td><td class="price">$3.75</td><td>5×</td></tr>
-  <tr data-model="Claude Haiku 4.5" data-tier="budget"><td><a href="https://platform.claude.com/docs/en/about-claude/pricing">Claude Haiku 4.5</a></td><td>Anthropic</td><td><span class="tag good" data-pt="econômico">budget</span></td><td class="price">$1.00</td><td class="price">$0.10</td><td class="price">$5.00</td><td>5×</td></tr>
-  <tr data-model="DeepSeek V4 Pro" data-tier="mid"><td><a href="https://api-docs.deepseek.com/quick_start/pricing/">DeepSeek V4 Pro</a> <span class="small" data-pt="pico">peak</span></td><td>DeepSeek</td><td><span class="tag warn" data-pt="intermediário">mid</span></td><td class="price">$1.32</td><td class="price">$0.044</td><td class="price">$3.96</td><td>3×</td></tr>
-  <tr data-model="GLM 5.3" data-tier="mid"><td><a href="https://docs.z.ai/guides/overview/pricing">GLM 5.3</a></td><td>Z.ai</td><td><span class="tag warn" data-pt="intermediário">mid</span></td><td class="price">$1.40</td><td class="price">$0.26</td><td class="price">$4.40</td><td>3.1×</td></tr>
-  <tr data-model="GPT-6.1 Sol" data-tier="mid"><td><a href="https://developers.openai.com/api/docs/pricing">GPT-6.1 Sol</a></td><td>OpenAI</td><td><span class="tag warn" data-pt="intermediário">mid</span></td><td class="price">$2.00</td><td class="price">$0.10</td><td class="price">$10.00</td><td>5×</td></tr>
-  <tr data-model="Claude Sonnet 5.5" data-tier="mid"><td><a href="https://platform.claude.com/docs/en/about-claude/pricing">Claude Sonnet 5.5</a></td><td>Anthropic</td><td><span class="tag warn" data-pt="intermediário">mid</span></td><td class="price">$2.00</td><td class="price">$0.20</td><td class="price">$10.00</td><td>5×</td></tr>
-  <tr data-model="Grok 4.7" data-tier="mid"><td><a href="https://docs.x.ai/developers/models/grok-4.7">Grok 4.7</a></td><td>xAI / SpaceXAI</td><td><span class="tag warn" data-pt="intermediário">mid</span></td><td class="price">$2.00</td><td class="price">$0.50</td><td class="price">$6.00</td><td>3×</td></tr>
-  <tr data-model="Qwen3.8-Max" data-tier="mid"><td><a href="https://www.qwencloud.com/models/qwen3.8-max">Qwen3.8-Max</a></td><td>Alibaba / QwenCloud</td><td><span class="tag warn" data-pt="intermediário">mid</span></td><td class="price">$2.00</td><td class="price">$0.25</td><td class="price">$6.00</td><td>3×</td></tr>
-  <tr data-model="Kimi K3" data-tier="mid"><td><a href="https://platform.kimi.ai/docs/pricing/chat">Kimi K3</a></td><td>Moonshot / Kimi</td><td><span class="tag warn" data-pt="intermediário">mid</span></td><td class="price">$3.00</td><td class="price">$0.30</td><td class="price">$15.00</td><td>5×</td></tr>
-  <tr data-model="Claude Opus 5.5" data-tier="premium"><td><a href="https://platform.claude.com/docs/en/about-claude/pricing">Claude Opus 5.5</a></td><td>Anthropic</td><td><span class="tag bad" data-pt="premium">premium</span></td><td class="price">$4.00</td><td class="price">$0.20</td><td class="price">$20.00</td><td>5×</td></tr>
-  <tr data-model="GPT-6 Astra" data-tier="premium"><td><a href="https://developers.openai.com/api/docs/pricing">GPT-6 Astra</a></td><td>OpenAI</td><td><span class="tag bad" data-pt="premium">premium</span></td><td class="price">$10.00</td><td class="price">$1.00</td><td class="price">$50.00</td><td>5×</td></tr>
-  <tr data-model="Claude Fable 5.1" data-tier="premium"><td><a href="https://platform.claude.com/docs/en/about-claude/pricing">Claude Fable 5.1</a></td><td>Anthropic</td><td><span class="tag bad" data-pt="premium">premium</span></td><td class="price">$10.00</td><td class="price">$0.25</td><td class="price">$50.00</td><td>5×</td></tr>
+  <div class="table-filter" id="priceFilter" role="group"></div>
+  <table class="sortable" id="priceTable"><caption><span data-pt="Preços oficiais vinculados por modelo; consultados em 3 out 2026. DeepSeek: pico; Gemini Flash: introdutório. Inteligência: &lt;a href=&quot;https://artificialanalysis.ai/leaderboards/models&quot;&gt;Artificial Analysis Intelligence Index v4.3.2&lt;/a&gt;, configuração publicada (não estimada) de maior score, uma casa decimal; consultado em 3 out 2026. GLM 5.3 FlashX não foi avaliado pela AA.">Official provider price pages linked by model; retrieved October 3, 2026. DeepSeek: peak; Gemini Flash: introductory. Intelligence: <a href="https://artificialanalysis.ai/leaderboards/models">Artificial Analysis Intelligence Index v4.3.2</a>, highest-scoring published (non-estimated) configuration, one decimal; retrieved October 3, 2026. GLM 5.3 FlashX is not evaluated by AA.</span></caption><thead><tr><th class="sortable" data-sort="model" data-type="str" data-pt="Modelo">Model</th><th class="sortable" data-sort="provider" data-type="str" data-pt="Provedor">Provider</th><th class="sortable" data-sort="tier" data-type="tier" data-pt="Faixa de preço">Price band</th><th class="sortable" data-sort="input" data-type="num" data-pt="Input $/1M">Input $/1M</th><th class="sortable" data-sort="cached" data-type="num" data-pt="Input cacheado $/1M">Cached input $/1M</th><th class="sortable" data-sort="output" data-type="num" data-pt="Output $/1M">Output $/1M</th><th class="sortable" data-sort="ratio" data-type="num" data-pt="Output / input">Output / input</th><th class="sortable" data-sort="intel" data-type="intel" data-pt="Inteligência (AA)">Intelligence (AA)</th></tr></thead><tbody>
+  <tr data-model="GPT-6 Luna" data-intel="38.1" data-tier="budget"><td><a href="https://developers.openai.com/api/docs/pricing">GPT-6 Luna</a></td><td>OpenAI</td><td><span class="tag good" data-pt="econômico">budget</span></td><td class="price">$0.10</td><td class="price">$0.010</td><td class="price">$0.50</td><td>5×</td><td class="intel"><strong>38.1</strong> <span class="small" data-pt="Max">Max</span></td></tr>
+  <tr data-model="GLM 5.3 Flash" data-intel="41.8" data-tier="budget"><td><a href="https://docs.z.ai/guides/overview/pricing">GLM 5.3 Flash</a></td><td>Z.ai</td><td><span class="tag good" data-pt="econômico">budget</span></td><td class="price">$0.15</td><td class="price">$0.030</td><td class="price">$0.50</td><td>3.3×</td><td class="intel"><strong>41.8</strong></td></tr>
+  <tr data-model="DeepSeek V4.1 Flash" data-intel="39.5" data-tier="budget"><td><a href="https://api-docs.deepseek.com/quick_start/pricing/">DeepSeek V4.1 Flash</a> <span class="small" data-pt="pico">peak</span></td><td>DeepSeek</td><td><span class="tag good" data-pt="econômico">budget</span></td><td class="price">$0.30</td><td class="price">$0.006</td><td class="price">$1.20</td><td>4×</td><td class="intel"><strong>39.5</strong> <span class="small" data-pt="Max">Max</span></td></tr>
+  <tr data-model="Gemini 3.5 Flash-Lite" data-intel="22.2" data-tier="budget"><td><a href="https://ai.google.dev/gemini-api/docs/pricing">Gemini 3.5 Flash-Lite</a></td><td>Google</td><td><span class="tag good" data-pt="econômico">budget</span></td><td class="price">$0.30</td><td class="price">$0.030</td><td class="price">$2.50</td><td>8.3×</td><td class="intel"><strong>22.2</strong></td></tr>
+  <tr data-model="GLM 5.3 FlashX" data-tier="budget"><td><a href="https://docs.z.ai/guides/overview/pricing">GLM 5.3 FlashX</a></td><td>Z.ai</td><td><span class="tag good" data-pt="econômico">budget</span></td><td class="price">$0.37</td><td class="price">$0.075</td><td class="price">$1.25</td><td>3.4×</td><td class="intel"><span class="small" data-pt="não avaliado">not evaluated</span></td></tr>
+  <tr data-model="Gemini 3.8 Flash" data-intel="40.9" data-tier="budget"><td><a href="https://ai.google.dev/gemini-api/docs/pricing">Gemini 3.8 Flash</a> <span class="small" data-pt="introdutório">intro</span></td><td>Google</td><td><span class="tag good" data-pt="econômico">budget</span></td><td class="price">$0.75</td><td class="price">$0.075</td><td class="price">$3.75</td><td>5×</td><td class="intel"><strong>40.9</strong> <span class="small" data-pt="High">High</span></td></tr>
+  <tr data-model="Claude Haiku 4.5" data-intel="16.9" data-tier="budget"><td><a href="https://platform.claude.com/docs/en/about-claude/pricing">Claude Haiku 4.5</a></td><td>Anthropic</td><td><span class="tag good" data-pt="econômico">budget</span></td><td class="price">$1.00</td><td class="price">$0.10</td><td class="price">$5.00</td><td>5×</td><td class="intel"><strong>16.9</strong> <span class="small" data-pt="Reasoning">Reasoning</span></td></tr>
+  <tr data-model="DeepSeek V4 Pro" data-intel="36.0" data-tier="mid"><td><a href="https://api-docs.deepseek.com/quick_start/pricing/">DeepSeek V4 Pro</a> <span class="small" data-pt="pico">peak</span></td><td>DeepSeek</td><td><span class="tag warn" data-pt="intermediário">mid</span></td><td class="price">$1.32</td><td class="price">$0.044</td><td class="price">$3.96</td><td>3×</td><td class="intel"><strong>36.0</strong> <span class="small" data-pt="Max (0813)">Max (0813)</span></td></tr>
+  <tr data-model="GLM 5.3" data-intel="44.8" data-tier="mid"><td><a href="https://docs.z.ai/guides/overview/pricing">GLM 5.3</a></td><td>Z.ai</td><td><span class="tag warn" data-pt="intermediário">mid</span></td><td class="price">$1.40</td><td class="price">$0.26</td><td class="price">$4.40</td><td>3.1×</td><td class="intel"><strong>44.8</strong> <span class="small" data-pt="Max">Max</span></td></tr>
+  <tr data-model="GPT-6.1 Sol" data-intel="51.8" data-tier="mid"><td><a href="https://developers.openai.com/api/docs/pricing">GPT-6.1 Sol</a></td><td>OpenAI</td><td><span class="tag warn" data-pt="intermediário">mid</span></td><td class="price">$2.00</td><td class="price">$0.10</td><td class="price">$10.00</td><td>5×</td><td class="intel"><strong>51.8</strong> <span class="small" data-pt="Max">Max</span></td></tr>
+  <tr data-model="Claude Sonnet 5.5" data-intel="56.0" data-tier="mid"><td><a href="https://platform.claude.com/docs/en/about-claude/pricing">Claude Sonnet 5.5</a></td><td>Anthropic</td><td><span class="tag warn" data-pt="intermediário">mid</span></td><td class="price">$2.00</td><td class="price">$0.20</td><td class="price">$10.00</td><td>5×</td><td class="intel"><strong>56.0</strong> <span class="small" data-pt="Max, fallback">Max, fallback</span></td></tr>
+  <tr data-model="Grok 4.7" data-intel="46.4" data-tier="mid"><td><a href="https://docs.x.ai/developers/models/grok-4.7">Grok 4.7</a></td><td>xAI / SpaceXAI</td><td><span class="tag warn" data-pt="intermediário">mid</span></td><td class="price">$2.00</td><td class="price">$0.50</td><td class="price">$6.00</td><td>3×</td><td class="intel"><strong>46.4</strong> <span class="small" data-pt="Xhigh">Xhigh</span></td></tr>
+  <tr data-model="Qwen3.8-Max" data-intel="45.4" data-tier="mid"><td><a href="https://www.qwencloud.com/models/qwen3.8-max">Qwen3.8-Max</a></td><td>Alibaba / QwenCloud</td><td><span class="tag warn" data-pt="intermediário">mid</span></td><td class="price">$2.00</td><td class="price">$0.25</td><td class="price">$6.00</td><td>3×</td><td class="intel"><strong>45.4</strong> <span class="small" data-pt="0902">0902</span></td></tr>
+  <tr data-model="Kimi K3" data-intel="43.6" data-tier="mid"><td><a href="https://platform.kimi.ai/docs/pricing/chat">Kimi K3</a></td><td>Moonshot / Kimi</td><td><span class="tag warn" data-pt="intermediário">mid</span></td><td class="price">$3.00</td><td class="price">$0.30</td><td class="price">$15.00</td><td>5×</td><td class="intel"><strong>43.6</strong> <span class="small" data-pt="Max">Max</span></td></tr>
+  <tr data-model="Claude Opus 5.5" data-intel="57.6" data-tier="premium"><td><a href="https://platform.claude.com/docs/en/about-claude/pricing">Claude Opus 5.5</a></td><td>Anthropic</td><td><span class="tag bad" data-pt="premium">premium</span></td><td class="price">$4.00</td><td class="price">$0.20</td><td class="price">$20.00</td><td>5×</td><td class="intel"><strong>57.6</strong> <span class="small" data-pt="Max, fallback">Max, fallback</span></td></tr>
+  <tr data-model="GPT-6 Astra" data-intel="52.7" data-tier="premium"><td><a href="https://developers.openai.com/api/docs/pricing">GPT-6 Astra</a></td><td>OpenAI</td><td><span class="tag bad" data-pt="premium">premium</span></td><td class="price">$10.00</td><td class="price">$1.00</td><td class="price">$50.00</td><td>5×</td><td class="intel"><strong>52.7</strong> <span class="small" data-pt="Max">Max</span></td></tr>
+  <tr data-model="Claude Fable 5.1" data-intel="53.4" data-tier="premium"><td><a href="https://platform.claude.com/docs/en/about-claude/pricing">Claude Fable 5.1</a></td><td>Anthropic</td><td><span class="tag bad" data-pt="premium">premium</span></td><td class="price">$10.00</td><td class="price">$0.25</td><td class="price">$50.00</td><td>5×</td><td class="intel"><strong>53.4</strong> <span class="small" data-pt="Max, fallback">Max, fallback</span></td></tr>
   </tbody></table>
   <p data-pt="Input cacheado difere mesmo com preços base iguais: GPT-6.1 Sol custa $0,10 / 1M versus $0,20 do Sonnet 5.5. Leituras de cache do Fable 5.1 custam $0,25; do Opus 5.5, $0,20. Fontes: preços dos provedores vinculados, 3 out 2026. A página atual da DeepSeek mantém V4 Pro (0813) disponível, substituindo o anúncio anterior de retirada; IDs Flash antigos encaminham para V4.1 Flash.">Cached input differs materially at the same headline price: GPT-6.1 Sol is $0.10 / 1M versus $0.20 for Sonnet 5.5. Fable 5.1 cache reads are $0.25; Opus 5.5 reads are $0.20. Sources: linked provider pricing pages, October 3, 2026. DeepSeek’s current price page keeps V4 Pro (0813) available, superseding its earlier phase-out announcement; the old Flash IDs route to V4.1 Flash.</p>
   <figure class="diagram" style="position:relative"><div style="font-size:13px;color:var(--accent);text-align:center;font-weight:600" data-pt="Preço por 1M tokens — input e output (escala log)">Price per 1M tokens — input vs output (log scale)</div><canvas id="priceChart" width="960" height="450"></canvas><div id="priceTip" class="bar-tooltip"></div><div class="legend"><span><span class="sw" style="background:#7cf0c1"></span>Input</span><span><span class="sw" style="background:#ffb86b"></span>Output</span></div><figcaption data-pt="Fonte: links oficiais dos provedores na tabela de preços, 3 out 2026. Mesmas tarifas de contexto curto sem cache e condições de cobrança; Argon excluído durante acesso restrito.">Source: official provider links in the price table, October 3, 2026. Same short-context, uncached rates and billing scenarios; Argon is excluded during restricted rollout.</figcaption></figure>
@@ -3001,9 +3013,10 @@ See [Billing API](../systems/billing-api.md).</code></pre>
   function getVal(row, col, type) {
     const cells = row.cells;
     // Column indexes include cached input; tier keys stay stable across languages.
-    const idx = { model:0, provider:1, tier:2, input:3, cached:4, output:5, ratio:6 }[col];
+    const idx = { model:0, provider:1, tier:2, input:3, cached:4, output:5, ratio:6, intel:7 }[col];
     const cell = cells[idx];
     if (type === 'num') return parseNum(cell.textContent);
+    if (type === 'intel') return row.dataset.intel ? Number(row.dataset.intel) : null;
     if (type === 'tier') {
       const t = row.dataset.tier;
       return tierRank[t] ?? 99;
@@ -3023,6 +3036,8 @@ See [Billing API](../systems/billing-api.md).</code></pre>
     rows.sort((a, b) => {
       const va = getVal(a, col, type);
       const vb = getVal(b, col, type);
+      // Unscored models always sort last, whichever direction.
+      if (va === null || vb === null) return (va === null) - (vb === null);
       if (va < vb) return -1 * sign;
       if (va > vb) return  1 * sign;
       return 0;
@@ -3040,6 +3055,74 @@ See [Billing API](../systems/billing-api.md).</code></pre>
     def.classList.remove('asc');   // toggle will flip back to asc
     sortBy(def);
   }
+})();
+
+/* ============== pricing table filters ==============
+   To redefine "cost-efficient", edit only COST_EFFICIENT below:
+     metric: 'output' | 'input' | 'cached' | 'inputPlusOutput'  (USD per 1M tokens)
+     max:    price threshold in USD; a model qualifies when metric < max
+   e.g. { metric: 'inputPlusOutput', max: 4 } = input + output under $4 / 1M.
+   Chip labels and the count are generated from this config in EN and PT. */
+const COST_EFFICIENT = { metric: 'output', max: 3 };
+
+(function () {
+  const table = document.getElementById('priceTable');
+  const bar = document.getElementById('priceFilter');
+  if (!table || !bar) return;
+  const rows = Array.from(table.tBodies[0].rows);
+  const price = (row, idx) => parseFloat(row.cells[idx].textContent.replace(/[^0-9.]/g, ''));
+  const METRICS = {
+    input:           { get: r => price(r, 3),                 en: 'input',          pt: 'input' },
+    cached:          { get: r => price(r, 4),                 en: 'cached input',   pt: 'input cacheado' },
+    output:          { get: r => price(r, 5),                 en: 'output',         pt: 'output' },
+    inputPlusOutput: { get: r => price(r, 3) + price(r, 5),   en: 'input + output', pt: 'input + output' }
+  };
+  const metric = METRICS[COST_EFFICIENT.metric];
+  if (!metric) { console.warn('COST_EFFICIENT: unknown metric', COST_EFFICIENT.metric); return; }
+
+  const FILTERS = {
+    all: () => true,
+    costEfficient: row => metric.get(row) < COST_EFFICIENT.max
+  };
+  let active = 'all';
+
+  const isPt = () => document.documentElement.dataset.lang === 'pt';
+  const money = n => '$' + (isPt() ? n.toLocaleString('pt-BR') : n.toLocaleString('en-US'));
+
+  function render() {
+    const pt = isPt();
+    const labels = {
+      all: pt ? 'Todos os modelos' : 'All models',
+      costEfficient: pt
+        ? `Custo-eficientes · ${metric.pt} abaixo de ${money(COST_EFFICIENT.max)} / 1M`
+        : `Cost-efficient · ${metric.en} under ${money(COST_EFFICIENT.max)} / 1M`
+    };
+    bar.setAttribute('aria-label', pt ? 'Filtrar modelos' : 'Filter models');
+    bar.innerHTML = Object.keys(FILTERS).map(key =>
+      `<button type="button" class="filter-chip" data-filter="${key}" aria-pressed="${key === active}">${labels[key]}</button>`
+    ).join('');
+    let shown = 0;
+    rows.forEach(row => {
+      const match = FILTERS[active](row);
+      row.hidden = !match;
+      if (match) shown++;
+    });
+    const count = document.createElement('span');
+    count.className = 'small filter-count';
+    count.setAttribute('aria-live', 'polite');
+    count.textContent = pt ? `${shown} de ${rows.length} modelos` : `${shown} of ${rows.length} models`;
+    bar.appendChild(count);
+  }
+
+  bar.addEventListener('click', e => {
+    const chip = e.target.closest('.filter-chip');
+    if (!chip) return;
+    active = chip.dataset.filter;
+    render();
+    bar.querySelector(`[data-filter="${active}"]`)?.focus();
+  });
+  window.addEventListener('langchange', render);
+  render();
 })();
 
 // Both cost charts use the same verified rows as the sortable pricing table.
