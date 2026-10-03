@@ -664,7 +664,7 @@
 <div class="view view-home" data-view="home">
   <div class="home-inner">
     <header class="home-hero">
-      <span class="badge" data-pt="Estudo · 19 tópicos · quiz de 48 perguntas · ~5–6h leitura rápida · ~10–12h estudo profundo">Study · 19 topics · 48-question quiz · ~5–6 hour skim · ~10–12 hour deep study</span>
+      <span class="badge" data-pt="Estudo · 21 tópicos · quiz de 50 perguntas · ~5–6h leitura rápida · ~10–12h estudo profundo">Study · 21 topics · 50-question quiz · ~5–6 hour skim · ~10–12 hour deep study</span>
       <h1 data-pt="Guia Rápido de IA">AI Cheat Sheet</h1>
       <p class="lead" data-pt="Tudo o que você precisa sobre economia de modelos, encanamento de agents e o vocabulário de SDD / MCP / RAG essencial para dominar como engenheiro de software trabalhando com IA. Os números são preços de tabela de outubro de 2026; confira as páginas oficiais antes de planejar gastos.">Everything you need on model economics, agent plumbing, and the SDD / MCP / RAG vocabulary that's essential to master as a software engineer working with AI. Numbers are October 2026 list prices; check official pages before budgeting.</p>
     </header>
@@ -717,7 +717,7 @@
 
       <div class="settings-section">
         <h3 class="settings-section-title" data-pt="Agents e Orquestração">Agents &amp; Orchestration</h3>
-        <p class="settings-section-lead" data-pt="O runtime em volta do modelo: o loop do harness, como o agent se lembra, como o contexto é orçado, como ele acessa tools e como o trabalho é agendado.">The runtime around the model: the harness loop, how the agent remembers, how context is budgeted, how it reaches tools, and how its work is scheduled.</p>
+        <p class="settings-section-lead" data-pt="O runtime em volta do modelo: o loop do harness, como o agent se lembra, como o contexto é orçado, como ele acessa tools, como aprende procedimentos, como delega a outros agents e como o trabalho é agendado.">The runtime around the model: the harness loop, how the agent remembers, how context is budgeted, how it reaches tools, how it learns procedures, how it delegates to other agents, and how its work is scheduled.</p>
         <div class="settings-group">
           <a class="settings-row" href="#/harness" data-section="harness">
             <span class="settings-row-icon is-harness">
@@ -759,6 +759,20 @@
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="12" cy="18" r="2.5"/><path d="M7.5 7.5 L11 16 M16.5 7.5 L13 16 M8 6 h8"/></svg>
             </span>
             <span class="settings-row-label" data-pt="MCP — Protocolo de Tools">MCP — Tools Protocol</span>
+            <svg class="settings-row-chevron" viewBox="0 0 9 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 2 L7 7 L2 12"/></svg>
+          </a>
+          <a class="settings-row" href="#/skills" data-section="skills">
+            <span class="settings-row-icon is-components">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7 h6 l2 2 h8 v10 h-16 z"/><path d="M9 14 h6 M9 17 h4"/></svg>
+            </span>
+            <span class="settings-row-label" data-pt="Agent Skills (SKILL.md)">Agent Skills (SKILL.md)</span>
+            <svg class="settings-row-chevron" viewBox="0 0 9 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 2 L7 7 L2 12"/></svg>
+          </a>
+          <a class="settings-row" href="#/multi-agent" data-section="multi-agent">
+            <span class="settings-row-icon is-harness">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="2.5"/><circle cx="5" cy="18" r="2.5"/><circle cx="19" cy="18" r="2.5"/><path d="M10.8 7.2 L6.2 15.8 M13.2 7.2 L17.8 15.8 M7.5 18 h9"/></svg>
+            </span>
+            <span class="settings-row-label" data-pt="Multi-agent e A2A">Multi-agent &amp; A2A</span>
             <svg class="settings-row-chevron" viewBox="0 0 9 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 2 L7 7 L2 12"/></svg>
           </a>
           <a class="settings-row" href="#/dag" data-section="dag">
@@ -928,6 +942,8 @@
         <li><a href="#context-engineering" data-pt="Engenharia de Contexto">Context Engineering</a></li>
         <li><a href="#loop-engineering" data-pt="Engenharia de Loop">Loop Engineering</a></li>
         <li><a href="#mcp" data-pt="MCP — Protocolo de Tools">MCP — Tools Protocol</a></li>
+        <li><a href="#skills" data-pt="Agent Skills (SKILL.md)">Agent Skills (SKILL.md)</a></li>
+        <li><a href="#multi-agent" data-pt="Multi-agent e A2A">Multi-agent &amp; A2A</a></li>
         <li><a href="#dag">DAG</a></li>
       </ol>
     </div>
@@ -1003,7 +1019,7 @@
   </header>
   <main class="detail-content">
     <header class="hero desktop-hero">
-      <span class="badge" data-pt="Estudo · 19 tópicos · quiz de 48 perguntas · ~5–6h leitura rápida · ~10–12h estudo profundo">Study · 19 topics · 48-question quiz · ~5–6 hour skim · ~10–12 hour deep study</span>
+      <span class="badge" data-pt="Estudo · 21 tópicos · quiz de 50 perguntas · ~5–6h leitura rápida · ~10–12h estudo profundo">Study · 21 topics · 50-question quiz · ~5–6 hour skim · ~10–12 hour deep study</span>
       <h1 data-pt="Guia de Estudos de IA — Cheat Sheet">AI Study Guide — Cheat Sheet</h1>
       <p class="lead" data-pt="Tudo o que você precisa sobre economia de modelos, encanamento de agents e o vocabulário de SDD / MCP / RAG essencial para dominar como engenheiro de software trabalhando com IA. Os números são preços de tabela de outubro de 2026; confira as páginas oficiais antes de planejar gastos.">Everything you need on model economics, agent plumbing, and the SDD / MCP / RAG vocabulary that's essential to master as a software engineer working with AI. Numbers are October 2026 list prices; check official pages before budgeting.</p>
     </header>
@@ -1958,13 +1974,13 @@ await client.responses.create({
     <li data-pt="<strong>Estender um harness existente</strong> — primeiro instinto para agentes de código. Claude Code, Cursor e Codex são extensíveis via <em>servidores MCP</em>, <em>subagentes</em>, <em>hooks</em>, <em>slash commands</em> e <em>skills</em>. Reconstruir o loop só para adicionar uma ferramenta é trabalho desperdiçado."><strong>Extend an existing harness</strong> — first instinct for coding agents. Claude Code, Cursor, and Codex are extensible via <em>MCP servers</em>, <em>subagents</em>, <em>hooks</em>, <em>slash commands</em>, and <em>skills</em>. Rebuilding the loop yourself just to add a tool is wasted work.</li>
     <li data-pt="<strong>Construir com um SDK</strong> — quando você precisa de um agente embutido no seu próprio produto (um bot de suporte, um agente de ops interno, um step de CI). Claude Agent SDK ou OpenAI Agents SDK te dão o loop, execução de ferramentas e streaming de graça; você traz o system prompt e as ferramentas."><strong>Build with an SDK</strong> — when you need an agent embedded inside your own product (a support bot, an internal ops agent, a CI step). Claude Agent SDK or OpenAI Agents SDK give you the loop, tool execution, and streaming for free; you bring the system prompt and tools.</li>
     <li data-pt="<strong>Construir do zero com chamadas raw de API</strong> — só quando você precisa de controle muito rigoroso sobre contexto, estrutura de turno customizada ou protocolo de ferramenta não-padrão. A maioria dos times que tenta isso acaba reinventando um SDK pior."><strong>Build from scratch on raw API calls</strong> — only when you need very tight control over context, custom turn structure, or a non-standard tool protocol. Most teams who try this end up reinventing a worse SDK.</li>
-    <li data-pt="<strong>Use um graph framework</strong> (LangGraph, LlamaIndex Workflows) quando o agente é na verdade um DAG fixo de passos, não um loop livre. Veja <a href=&quot;#dag&quot;>§11</a>."><strong>Use a graph framework</strong> (LangGraph, LlamaIndex Workflows) when the agent is actually a fixed DAG of steps, not a free-form loop. See <a href="#dag">§11</a>.</li>
+    <li data-pt="<strong>Use um graph framework</strong> (LangGraph, LlamaIndex Workflows) quando o agente é na verdade um DAG fixo de passos, não um loop livre. Veja <a href=&quot;#dag&quot;>§13</a>."><strong>Use a graph framework</strong> (LangGraph, LlamaIndex Workflows) when the agent is actually a fixed DAG of steps, not a free-form loop. See <a href="#dag">§13</a>.</li>
   </ul>
 
   <h3 data-pt="Armadilhas comuns do harness">Common harness pitfalls</h3>
   <ul>
     <li data-pt="<strong>Descartar blocos <code>thinking</code> em continuações.</strong> A Anthropic exige que os thinking blocks da última mensagem do assistente sejam passados de volta em turnos de tool-use; descarte-os e você tem erros ou raciocínio degradado."><strong>Dropping <code>thinking</code> blocks on continuations.</strong> Anthropic requires the last assistant message's thinking blocks be passed back on tool-use turns; strip them and you get errors or degraded reasoning.</li>
-    <li data-pt="<strong>Retornar output bruto de ferramenta.</strong> Um blob JSON de 350KB em <code>tool_result</code> dilui a atenção, expulsa prefixos cached, e cruza tiers de preço de contexto longo. Resuma antes de ecoar. Veja <a href=&quot;#evals&quot;>§15</a>."><strong>Returning raw tool output.</strong> A 350KB JSON blob in <code>tool_result</code> dilutes attention, evicts cached prefixes, and crosses long-context pricing tiers. Summarize before you echo. See <a href="#evals">§15</a>.</li>
+    <li data-pt="<strong>Retornar output bruto de ferramenta.</strong> Um blob JSON de 350KB em <code>tool_result</code> dilui a atenção, expulsa prefixos cached, e cruza tiers de preço de contexto longo. Resuma antes de ecoar. Veja <a href=&quot;#evals&quot;>§17</a>."><strong>Returning raw tool output.</strong> A 350KB JSON blob in <code>tool_result</code> dilutes attention, evicts cached prefixes, and crosses long-context pricing tiers. Summarize before you echo. See <a href="#evals">§17</a>.</li>
     <li data-pt="<strong>Loops sem limite.</strong> &quot;Continue até o modelo dizer para parar&quot; sem um cap de iterações é como agentes queimam $50 em tokens durante a noite."><strong>Unbounded loops.</strong> "Keep going until the model says stop" without an iteration cap is how agents burn $50 in tokens overnight.</li>
     <li data-pt="<strong>Sem fronteira de permissão.</strong> Se o modelo pode escrever arquivos, acessar APIs de produção ou fazer push no git sem um gate de confirmação, o blast radius de uma única alucinação é o repositório inteiro."><strong>No permission boundary.</strong> If the model can write files, hit prod APIs, or push to git without a confirmation gate, the blast radius of a single hallucination is the whole repo.</li>
     <li data-pt="<strong>Execução de ferramenta stateless.</strong> Cada chamada de ferramenta precisa de uma história de idempotência — retries em falhas transitórias, sem cobrar duas vezes, sem postar duas vezes."><strong>Stateless tool execution.</strong> Each tool call needs an idempotency story — retries on transient failures, no double-charging, no double-posting.</li>
@@ -1972,7 +1988,7 @@ await client.responses.create({
   </ul>
 
   <h3 data-pt="Nuance de 2026">2026 nuance</h3>
-  <p data-pt="Os harnesses estão convergindo para um pequeno conjunto de convenções: MCP para ferramentas, subagentes para paralelismo e isolamento de contexto, hooks para aplicação determinística de políticas, skills para conhecimento procedural reutilizável. Escolher um harness em 2026 é principalmente escolher uma UX (terminal vs IDE vs web vs autônomo) e um modelo de extensão — o loop subjacente não é mais o diferencial.">Harnesses are converging on a small set of conventions: MCP for tools, subagents for parallelism and context isolation, hooks for deterministic policy enforcement, skills for reusable procedural knowledge. Choosing a harness in 2026 is mostly choosing a UX (terminal vs IDE vs web vs autonomous) and an extension model — the underlying loop is no longer the differentiator.</p>
+  <p data-pt="Os harnesses estão convergindo para um pequeno conjunto de convenções: MCP para ferramentas (<a href=&quot;#mcp&quot;>§10</a>), subagentes para paralelismo e isolamento de contexto (<a href=&quot;#multi-agent&quot;>§12</a>), hooks para aplicação determinística de políticas, skills para conhecimento procedural reutilizável (<a href=&quot;#skills&quot;>§11</a>). Escolher um harness em 2026 é principalmente escolher uma UX (terminal vs IDE vs web vs autônomo) e um modelo de extensão — o loop subjacente não é mais o diferencial.">Harnesses are converging on a small set of conventions: MCP for tools (<a href="#mcp">§10</a>), subagents for parallelism and context isolation (<a href="#multi-agent">§12</a>), hooks for deterministic policy enforcement, skills for reusable procedural knowledge (<a href="#skills">§11</a>). Choosing a harness in 2026 is mostly choosing a UX (terminal vs IDE vs web vs autonomous) and an extension model — the underlying loop is no longer the differentiator.</p>
 </section>
 
 
@@ -2220,9 +2236,357 @@ await server.connect(new StdioServerTransport());
 </section>
 
 
+<!-- =================== AGENT SKILLS =================== -->
+<section id="skills">
+  <h2 data-pt="<span class=&quot;num&quot;>11</span> Agent Skills — know-how empacotado (SKILL.md)"><span class="num">11</span> Agent Skills — packaged know-how (SKILL.md)</h2>
+  <p data-pt="Uma <strong>Agent Skill</strong> é uma pasta com um arquivo <code>SKILL.md</code> — frontmatter YAML (um <code>name</code> e uma <code>description</code>) mais instruções em Markdown — e, opcionalmente, scripts, docs de referência e templates. O agent carrega a skill <em>sob demanda</em>, quando uma task bate com a descrição. A Anthropic lançou as Agent Skills em 16 out 2025 e publicou o formato como padrão aberto em <a href=&quot;https://agentskills.io/&quot;>agentskills.io</a> em 18 dez 2025.">An <strong>Agent Skill</strong> is a folder with a <code>SKILL.md</code> file — YAML frontmatter (a <code>name</code> and a <code>description</code>) plus Markdown instructions — and, optionally, scripts, reference docs and templates. The agent loads it <em>on demand</em>, when a task matches the description. Anthropic introduced Agent Skills on October 16, 2025 and published the format as an open standard at <a href="https://agentskills.io/">agentskills.io</a> on December 18, 2025.</p>
+  <p data-pt="A vitrine de clientes do agentskills.io lista mais de 40 produtos que suportam o formato — entre eles Claude Code, OpenAI Codex, GitHub Copilot, VS Code, Cursor, Gemini CLI, JetBrains Junie, Goose e OpenCode (verificado em 3 out 2026). Escreva a skill uma vez e ela funciona em qualquer cliente compatível.">The agentskills.io client showcase lists 40+ products that support the format — among them Claude Code, OpenAI Codex, GitHub Copilot, VS Code, Cursor, Gemini CLI, JetBrains Junie, Goose and OpenCode (checked October 3, 2026). Write a skill once and it works in any compatible client.</p>
+
+  <div class="callout" data-pt="<strong>Mental model:</strong> MCP (<a href=&quot;#mcp&quot;>§10</a>) dá ao agent novas <em>capacidades</em> — tools que ele pode chamar. Uma skill dá <em>know-how</em> — o procedimento, as convenções e os scripts para fazer um trabalho específico com as tools que ele já tem. MCP são as mãos; a skill é o playbook.">
+    <strong>Mental model:</strong> MCP (<a href="#mcp">§10</a>) gives the agent new <em>capabilities</em> — tools it can call. A skill gives it <em>know-how</em> — the procedure, conventions and scripts for doing one specific job with the tools it already has. MCP is the hands; a skill is the playbook.
+  </div>
+
+  <h3 data-pt="Por que skills existem">Why skills exist</h3>
+  <ul>
+    <li data-pt="<strong>Contexto é orçamento</strong> (<a href=&quot;#context-engineering&quot;>§08</a>). Colar todo runbook no system prompt ou no <code>CLAUDE.md</code> custa tokens em todo turno, precisando ou não."><strong>Context is a budget</strong> (<a href="#context-engineering">§08</a>). Pasting every runbook into the system prompt or <code>CLAUDE.md</code> costs tokens on every turn, whether the task needs it or not.</li>
+    <li data-pt="<strong>Só a descrição fica residente.</strong> O corpo é puxado quando relevante — então um agent pode carregar dezenas de playbooks com uma pegada pequena."><strong>Only the description stays resident.</strong> The body is pulled in when relevant — so an agent can carry dozens of playbooks with a small footprint.</li>
+    <li data-pt="<strong>Portável e versionável.</strong> É só uma pasta: vai para o git, passa por code review e roda em qualquer cliente que implemente o padrão."><strong>Portable and versionable.</strong> It's just a folder: it goes in git, goes through code review, and runs in any client that implements the standard.</li>
+    <li data-pt="<strong>Passos determinísticos viram scripts.</strong> A skill pode empacotar código que o agent <em>executa</em> em vez de regenerar — mais barato e mais confiável que pedir ao modelo para reescrever a mesma lógica toda vez."><strong>Deterministic steps become scripts.</strong> A skill can bundle code the agent <em>runs</em> instead of regenerating — cheaper and more reliable than asking the model to rewrite the same logic every time.</li>
+  </ul>
+
+  <h3 data-pt="Progressive disclosure — três níveis">Progressive disclosure — three levels</h3>
+  <figure class="diagram">
+    <svg viewBox="0 0 640 250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Agent Skills progressive disclosure: metadata, instructions, resources">
+      <text x="320" y="22" text-anchor="middle" class="svg-label" font-weight="600" font-size="14">What an agent loads, and when</text>
+      <rect x="40" y="42" width="560" height="52" rx="6" fill="#1d242e" stroke="#7cf0c1" stroke-width="1.5"/>
+      <text x="60" y="64" class="svg-label" font-weight="700" fill="#7cf0c1">1 · Metadata</text>
+      <text x="60" y="82" class="svg-mute">name + description of EVERY installed skill</text>
+      <text x="580" y="64" text-anchor="end" class="svg-label">at startup</text>
+      <text x="580" y="82" text-anchor="end" class="svg-mute">~100 tokens per skill</text>
+      <rect x="40" y="104" width="560" height="52" rx="6" fill="#1d242e" stroke="#82b8ff" stroke-width="1.5"/>
+      <text x="60" y="126" class="svg-label" font-weight="700" fill="#82b8ff">2 · Instructions</text>
+      <text x="60" y="144" class="svg-mute">full SKILL.md body of each skill that matched</text>
+      <text x="580" y="126" text-anchor="end" class="svg-label">on activation</text>
+      <text x="580" y="144" text-anchor="end" class="svg-mute">&lt; 5,000 tokens recommended</text>
+      <rect x="40" y="166" width="560" height="52" rx="6" fill="#1d242e" stroke="#ffb86b" stroke-width="1.5"/>
+      <text x="60" y="188" class="svg-label" font-weight="700" fill="#ffb86b">3 · Resources</text>
+      <text x="60" y="206" class="svg-mute">scripts/ · references/ · assets/ — read or run on demand</text>
+      <text x="580" y="188" text-anchor="end" class="svg-label">only when needed</text>
+      <text x="580" y="206" text-anchor="end" class="svg-mute">scripts run; output enters context</text>
+      <text x="320" y="240" text-anchor="middle" class="svg-mute">Each level is loaded only if the one above decided it is relevant.</text>
+    </svg>
+    <figcaption data-pt="Fonte: <a href=&quot;https://agentskills.io/specification&quot;>especificação Agent Skills</a> (orçamentos de tokens são a orientação da spec) e <a href=&quot;https://www.anthropic.com/engineering/equipping-agents-for-the-real-world-with-agent-skills&quot;>Anthropic Engineering, 16 out 2025</a>; consultados em 3 out 2026. A spec também recomenda manter o <code>SKILL.md</code> abaixo de 500 linhas e referências a arquivos a um nível de profundidade.">Source: <a href="https://agentskills.io/specification">Agent Skills specification</a> (token budgets are the spec's guidance) and <a href="https://www.anthropic.com/engineering/equipping-agents-for-the-real-world-with-agent-skills">Anthropic Engineering, October 16, 2025</a>; retrieved October 3, 2026. The spec also recommends keeping <code>SKILL.md</code> under 500 lines and file references one level deep.</figcaption>
+  </figure>
+  <p data-pt="O ponto do nível 3: um script empacotado pode rodar <em>sem</em> que seu código-fonte entre no contexto — só o output entra. É assim que uma skill de PDF extrai campos de formulário sem gastar tokens lendo o script ou o PDF.">The point of level 3: a bundled script can run <em>without</em> its source entering the context — only its output does. That's how a PDF skill can extract form fields without spending tokens reading either the script or the PDF.</p>
+
+  <h3 data-pt="Anatomia de uma skill">Anatomy of a skill</h3>
+<pre><code>release-notes/
+├── SKILL.md              # required: frontmatter + instructions
+├── scripts/
+│   └── collect_prs.sh    # executable code the agent runs
+├── references/
+│   └── LABELS.md         # read only when a step needs it
+└── assets/
+    └── TEMPLATE.md       # templates, schemas, lookup tables
+</code></pre>
+<pre><code>---
+name: release-notes
+description: Drafts release notes from PRs merged since the last git tag,
+  grouped into Features / Fixes / Breaking. Use when the user asks for
+  release notes, a changelog entry, or "what shipped" in a version.
+license: MIT
+metadata:
+  author: platform-team
+  version: "1.2"
+---
+
+# Release notes
+
+1. Find the previous tag: `git describe --tags --abbrev=0`.
+2. List merged PRs since that tag: run `scripts/collect_prs.sh &lt;tag&gt;`.
+3. Map each PR label to a group using [the label guide](references/LABELS.md).
+4. Fill `assets/TEMPLATE.md`. Breaking changes go first, each with a migration line.
+5. Never invent a PR. Unlabelled PRs go under "Other".
+</code></pre>
+
+  <h3 data-pt="Campos do frontmatter (spec aberta)">Frontmatter fields (open spec)</h3>
+  <table>
+    <thead><tr><th data-pt="Campo">Field</th><th data-pt="Obrigatório">Required</th><th data-pt="Regras">Rules</th></tr></thead>
+    <tbody>
+      <tr><td><code>name</code></td><td data-pt="Sim">Yes</td><td data-pt="1–64 caracteres; só <code>a-z</code>, <code>0-9</code> e hífens; sem hífen no início, no fim ou duplo (<code>--</code>); deve ser igual ao nome da pasta.">1–64 chars; only <code>a-z</code>, <code>0-9</code> and hyphens; no leading, trailing or double (<code>--</code>) hyphen; must match the folder name.</td></tr>
+      <tr><td><code>description</code></td><td data-pt="Sim">Yes</td><td data-pt="1–1024 caracteres. O que a skill faz <em>e</em> quando usar, com palavras-chave que ajudem o agent a reconhecer a task.">1–1024 chars. What the skill does <em>and</em> when to use it, with keywords that help the agent recognise the task.</td></tr>
+      <tr><td><code>license</code></td><td data-pt="Não">No</td><td data-pt="Nome da licença ou referência a um arquivo de licença empacotado.">License name or a reference to a bundled license file.</td></tr>
+      <tr><td><code>compatibility</code></td><td data-pt="Não">No</td><td data-pt="1–500 caracteres. Requisitos de ambiente (produto, pacotes do sistema, acesso à rede). A maioria das skills não precisa.">1–500 chars. Environment requirements (product, system packages, network access). Most skills don't need it.</td></tr>
+      <tr><td><code>metadata</code></td><td data-pt="Não">No</td><td data-pt="Mapa string → string livre (autor, versão…).">Free string → string map (author, version…).</td></tr>
+      <tr><td><code>allowed-tools</code></td><td data-pt="Não">No</td><td data-pt="Lista separada por espaço de tools pré-aprovadas, e.g. <code>Bash(git:*) Read</code>. <strong>Experimental</strong> — suporte varia por cliente.">Space-separated list of pre-approved tools, e.g. <code>Bash(git:*) Read</code>. <strong>Experimental</strong> — support varies by client.</td></tr>
+    </tbody>
+  </table>
+  <p class="small" data-pt="Validação: <code>skills-ref validate ./my-skill</code> (biblioteca de referência do repositório <a href=&quot;https://github.com/agentskills/agentskills&quot;>agentskills/agentskills</a>) checa o frontmatter e as convenções de nome.">Validation: <code>skills-ref validate ./my-skill</code> (reference library in the <a href="https://github.com/agentskills/agentskills">agentskills/agentskills</a> repo) checks the frontmatter and naming conventions.</p>
+
+  <h3 data-pt="A description é o gatilho">The description is the trigger</h3>
+  <p data-pt="No início, o agent só enxerga <code>name</code> + <code>description</code> de cada skill. Se a descrição não disser <em>quando</em> usar, a skill nunca é ativada — ou é ativada na hora errada. Exemplos da própria spec:">At startup the agent only sees each skill's <code>name</code> + <code>description</code>. If the description doesn't say <em>when</em> to use it, the skill never fires — or fires at the wrong time. Examples from the spec itself:</p>
+<pre><code># Good — what it does + when + keywords
+description: Extracts text and tables from PDF files, fills PDF forms, and
+  merges multiple PDFs. Use when working with PDF documents or when the user
+  mentions PDFs, forms, or document extraction.
+
+# Poor — the agent can't tell when this applies
+description: Helps with PDFs.
+</code></pre>
+
+  <h3 data-pt="Skill vs MCP vs CLAUDE.md vs subagent">Skill vs MCP vs CLAUDE.md vs subagent</h3>
+  <table>
+    <thead><tr><th data-pt="Mecanismo">Mechanism</th><th data-pt="O que carrega">What it carries</th><th data-pt="Quando entra no contexto">When it enters context</th><th data-pt="Use para">Use it for</th></tr></thead>
+    <tbody>
+      <tr><td data-pt="<strong>Arquivo de memória do projeto</strong> (<code>CLAUDE.md</code>, <code>AGENTS.md</code>)"><strong>Project memory file</strong> (<code>CLAUDE.md</code>, <code>AGENTS.md</code>)</td><td data-pt="Regras e convenções sempre válidas">Always-true rules and conventions</td><td data-pt="Toda sessão, inteiro">Every session, in full</td><td data-pt="Regras curtas e universais (&quot;rode os testes antes de commitar&quot;)">Short, universal rules ("run the tests before committing")</td></tr>
+      <tr><td><strong>Skill</strong></td><td data-pt="Procedimento + scripts + referências">Procedure + scripts + references</td><td data-pt="Descrição sempre; corpo sob demanda">Description always; body on demand</td><td data-pt="Workflows repetíveis, know-how de domínio">Repeatable workflows, domain know-how</td></tr>
+      <tr><td data-pt="<strong>Servidor MCP</strong> (<a href=&quot;#mcp&quot;>§10</a>)"><strong>MCP server</strong> (<a href="#mcp">§10</a>)</td><td data-pt="Novas tools / dados via protocolo">New tools / data over a protocol</td><td data-pt="Definições de tool ao conectar">Tool definitions on connect</td><td data-pt="Alcançar um sistema que o agent não consegue tocar de outro jeito">Reaching a system the agent can't otherwise touch</td></tr>
+      <tr><td data-pt="<strong>Subagent</strong> (<a href=&quot;#multi-agent&quot;>§12</a>)"><strong>Subagent</strong> (<a href="#multi-agent">§12</a>)</td><td data-pt="Um loop de agent separado, com sua própria janela de contexto">A separate agent loop with its own context window</td><td data-pt="Criado por task; devolve um resumo">Spawned per task; returns a summary</td><td data-pt="Isolar uma sub-task barulhenta (busca, leitura de logs)">Isolating a noisy sub-task (search, log reading)</td></tr>
+    </tbody>
+  </table>
+  <p data-pt="Eles se combinam: uma skill de &quot;investigar incidente&quot; pode dizer ao agent para chamar o MCP de observabilidade, delegar a leitura de logs a um subagent e seguir as regras do <code>CLAUDE.md</code> para o post-mortem.">They compose: an "investigate incident" skill can tell the agent to call the observability MCP, hand log reading to a subagent, and follow <code>CLAUDE.md</code> rules for the post-mortem.</p>
+
+  <h3 data-pt="No Claude Code">In Claude Code</h3>
+  <ul>
+    <li data-pt="<strong>Onde ficam:</strong> <code>~/.claude/skills/&lt;name&gt;/SKILL.md</code> (pessoal, todos os projetos), <code>.claude/skills/&lt;name&gt;/SKILL.md</code> (projeto, versionado no repo) ou dentro de um plugin (<code>&lt;plugin&gt;/skills/</code>)."><strong>Where they live:</strong> <code>~/.claude/skills/&lt;name&gt;/SKILL.md</code> (personal, all projects), <code>.claude/skills/&lt;name&gt;/SKILL.md</code> (project, versioned in the repo) or inside a plugin (<code>&lt;plugin&gt;/skills/</code>).</li>
+    <li data-pt="<strong>Duas formas de invocar:</strong> automática, quando a task bate com a <code>description</code>; ou explícita, digitando <code>/&lt;name&gt;</code>. Os antigos custom commands (<code>.claude/commands/</code>) foram fundidos às skills e continuam funcionando."><strong>Two ways in:</strong> automatically, when the task matches the <code>description</code>; or explicitly, by typing <code>/&lt;name&gt;</code>. The old custom commands (<code>.claude/commands/</code>) were merged into skills and keep working.</li>
+    <li data-pt="<strong>Extensões do Claude Code</strong> (fora da spec aberta): <code>disable-model-invocation: true</code> deixa só você invocar (bom para <code>/deploy</code>); <code>user-invocable: false</code> deixa só o modelo invocar (conhecimento de fundo)."><strong>Claude Code extensions</strong> (outside the open spec): <code>disable-model-invocation: true</code> means only you can invoke it (good for <code>/deploy</code>); <code>user-invocable: false</code> means only the model can (background knowledge).</li>
+  </ul>
+
+  <div class="callout warn" data-pt="<strong>Segurança — uma skill é código que você está instalando.</strong> Ela pode trazer scripts que o agent executa com as suas permissões. A Anthropic recomenda instalar skills só de fontes confiáveis e auditar as de fontes menos confiáveis antes de usar — atenção especial a dependências de código e conexões de rede externas. Trate marketplaces de skills como qualquer registry de pacotes: revise antes de aprovar <code>allowed-tools</code>.">
+    <strong>Security — a skill is code you're installing.</strong> It can ship scripts the agent runs with your permissions. Anthropic recommends installing skills only from trusted sources and auditing ones from less-trusted sources before use — paying particular attention to code dependencies and external network connections. Treat skill marketplaces like any package registry: review before you grant <code>allowed-tools</code>.
+  </div>
+
+  <h3 data-pt="Quando escrever uma">When to write one</h3>
+  <ul>
+    <li data-pt="Você já colou as mesmas instruções no chat três vezes.">You've pasted the same instructions into the chat three times.</li>
+    <li data-pt="A task tem um procedimento fixo (release, onboarding de serviço, revisão de segurança) que o time quer executado do mesmo jeito sempre.">The task has a fixed procedure (release, service onboarding, security review) the team wants done the same way every time.</li>
+    <li data-pt="Um passo é determinístico e melhor como script do que como texto gerado.">A step is deterministic and better as a script than as generated text.</li>
+    <li data-pt="As instruções são longas demais para o <code>CLAUDE.md</code>, mas só importam para algumas tasks.">The instructions are too long for <code>CLAUDE.md</code> but only matter for some tasks.</li>
+  </ul>
+
+  <p class="small" data-pt="Fontes: <a href=&quot;https://agentskills.io/specification&quot;>especificação Agent Skills</a> e <a href=&quot;https://agentskills.io/&quot;>visão geral + vitrine de clientes</a>; <a href=&quot;https://www.anthropic.com/engineering/equipping-agents-for-the-real-world-with-agent-skills&quot;>Anthropic, &quot;Equipping agents for the real world with Agent Skills&quot;</a> (16 out 2025; atualização de padrão aberto em 18 dez 2025); <a href=&quot;https://code.claude.com/docs/en/skills&quot;>docs do Claude Code — Skills</a>. Todos consultados em 3 out 2026.">Sources: <a href="https://agentskills.io/specification">Agent Skills specification</a> and <a href="https://agentskills.io/">overview + client showcase</a>; <a href="https://www.anthropic.com/engineering/equipping-agents-for-the-real-world-with-agent-skills">Anthropic, "Equipping agents for the real world with Agent Skills"</a> (October 16, 2025; open-standard update December 18, 2025); <a href="https://code.claude.com/docs/en/skills">Claude Code docs — Skills</a>. All retrieved October 3, 2026.</p>
+</section>
+
+
+<!-- =================== MULTI-AGENT & A2A =================== -->
+<section id="multi-agent">
+  <h2 data-pt="<span class=&quot;num&quot;>12</span> Sistemas multi-agent e A2A — agents conversando com agents"><span class="num">12</span> Multi-agent systems &amp; A2A — agents talking to agents</h2>
+  <p data-pt="Um único loop de agent (<a href=&quot;#loop-engineering&quot;>§09</a>) com bom contexto (<a href=&quot;#context-engineering&quot;>§08</a>) e tools (<a href=&quot;#mcp&quot;>§10</a>) resolve a maioria das tasks. Designs multi-agent dividem o trabalho entre vários loops de modelo — e, quando esses agents vivem em serviços ou fornecedores diferentes, você precisa de um protocolo entre eles. Esse protocolo é o A2A.">One agent loop (<a href="#loop-engineering">§09</a>) with good context (<a href="#context-engineering">§08</a>) and tools (<a href="#mcp">§10</a>) solves most tasks. Multi-agent designs split work across several model loops — and once those agents live in different services or vendors, you need a protocol between them. That protocol is A2A.</p>
+
+  <h3 data-pt="Workflows vs agents — os cinco padrões básicos">Workflows vs agents — the five building-block patterns</h3>
+  <p data-pt="O post &quot;Building effective agents&quot; da Anthropic (19 dez 2024) traça a linha: <strong>workflows</strong> orquestram LLMs e tools por caminhos de código predefinidos; <strong>agents</strong> dirigem dinamicamente o próprio processo e o uso de tools. Cinco padrões combináveis:">Anthropic's "Building effective agents" (December 19, 2024) draws the line: <strong>workflows</strong> orchestrate LLMs and tools through predefined code paths; <strong>agents</strong> dynamically direct their own process and tool use. Five composable patterns:</p>
+  <table>
+    <thead><tr><th data-pt="Padrão">Pattern</th><th data-pt="Forma">Shape</th><th data-pt="Use quando">Use when</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Prompt chaining</strong></td><td data-pt="Passo 1 → passo 2 → passo 3; cada um consome o output anterior">Step 1 → step 2 → step 3; each consumes the previous output</td><td data-pt="A task se decompõe em passos fixos e sequenciais">The task decomposes into fixed, sequential steps</td></tr>
+      <tr><td><strong>Routing</strong></td><td data-pt="Classifica o input e entrega a um caminho especialista">Classify the input, hand it to a specialist path</td><td data-pt="Categorias distintas de input pedem tratamento diferente (<a href=&quot;#routing&quot;>§03</a>)">Distinct input categories need different handling (<a href="#routing">§03</a>)</td></tr>
+      <tr><td><strong>Parallelization</strong></td><td data-pt="Sub-tasks independentes ao mesmo tempo (<em>sectioning</em>) ou a mesma task várias vezes (<em>voting</em>)">Independent subtasks at once (<em>sectioning</em>) or the same task several times (<em>voting</em>)</td><td data-pt="Velocidade, ou mais confiança via tentativas diversas">Speed, or more confidence via diverse attempts</td></tr>
+      <tr><td><strong>Orchestrator–workers</strong></td><td data-pt="Um LLM líder quebra a task em runtime e delega a workers">A lead LLM breaks the task down at runtime and delegates to workers</td><td data-pt="As sub-tasks não podem ser previstas de antemão">Subtasks can't be predicted in advance</td></tr>
+      <tr><td><strong>Evaluator–optimizer</strong></td><td data-pt="Um LLM gera, outro critica, em loop">One LLM generates, another critiques, in a loop</td><td data-pt="Há critérios claros de avaliação e iterar agrega valor">There are clear evaluation criteria and iteration adds value</td></tr>
+    </tbody>
+  </table>
+  <p data-pt="O conselho do mesmo post: comece com prompts simples, otimize com avaliação (<a href=&quot;#evals&quot;>§17</a>) e só adicione sistemas agentic de vários passos quando soluções mais simples não bastarem.">The same post's advice: start with simple prompts, optimise them with evaluation (<a href="#evals">§17</a>), and add multi-step agentic systems only when simpler solutions fall short.</p>
+
+  <figure class="diagram">
+    <svg viewBox="0 0 640 280" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Orchestrator-worker multi-agent pattern">
+      <defs>
+        <marker id="arrMA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#5a6678"/></marker>
+        <marker id="arrMAg" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7cf0c1"/></marker>
+      </defs>
+      <text x="320" y="22" text-anchor="middle" class="svg-label" font-weight="600" font-size="14">Orchestrator–workers: each worker burns its own context window</text>
+      <rect x="220" y="40" width="200" height="54" rx="6" fill="#1d242e" stroke="#82b8ff" stroke-width="2"/>
+      <text x="320" y="62" text-anchor="middle" class="svg-label" font-weight="700">Lead agent</text>
+      <text x="320" y="80" text-anchor="middle" class="svg-mute">plans · delegates · synthesises</text>
+      <!-- briefs down (solid) -->
+      <line x1="250" y1="94" x2="96" y2="150" stroke="#5a6678" stroke-width="1.5" marker-end="url(#arrMA)"/>
+      <line x1="308" y1="94" x2="308" y2="150" stroke="#5a6678" stroke-width="1.5" marker-end="url(#arrMA)"/>
+      <line x1="390" y1="94" x2="544" y2="150" stroke="#5a6678" stroke-width="1.5" marker-end="url(#arrMA)"/>
+      <!-- summaries up (dashed) -->
+      <line x1="144" y1="150" x2="278" y2="97" stroke="#7cf0c1" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#arrMAg)"/>
+      <line x1="332" y1="150" x2="332" y2="97" stroke="#7cf0c1" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#arrMAg)"/>
+      <line x1="496" y1="150" x2="362" y2="97" stroke="#7cf0c1" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#arrMAg)"/>
+      <text x="138" y="112" text-anchor="middle" class="svg-mute" font-size="10">brief</text>
+      <text x="214" y="142" text-anchor="middle" class="svg-accent" font-size="10">summary</text>
+      <text x="502" y="112" text-anchor="middle" class="svg-mute" font-size="10">brief</text>
+      <text x="426" y="142" text-anchor="middle" class="svg-accent" font-size="10">summary</text>
+      <g>
+        <rect x="40" y="152" width="160" height="78" rx="6" fill="#12161c" stroke="#7cf0c1" stroke-width="1.5"/>
+        <text x="120" y="174" text-anchor="middle" class="svg-label" font-weight="600">Worker A</text>
+        <text x="120" y="192" text-anchor="middle" class="svg-mute">own context window</text>
+        <text x="120" y="210" text-anchor="middle" class="svg-mute">searches · reads · tools</text>
+      </g>
+      <g>
+        <rect x="240" y="152" width="160" height="78" rx="6" fill="#12161c" stroke="#7cf0c1" stroke-width="1.5"/>
+        <text x="320" y="174" text-anchor="middle" class="svg-label" font-weight="600">Worker B</text>
+        <text x="320" y="192" text-anchor="middle" class="svg-mute">own context window</text>
+        <text x="320" y="210" text-anchor="middle" class="svg-mute">searches · reads · tools</text>
+      </g>
+      <g>
+        <rect x="440" y="152" width="160" height="78" rx="6" fill="#12161c" stroke="#7cf0c1" stroke-width="1.5"/>
+        <text x="520" y="174" text-anchor="middle" class="svg-label" font-weight="600">Worker C</text>
+        <text x="520" y="192" text-anchor="middle" class="svg-mute">own context window</text>
+        <text x="520" y="210" text-anchor="middle" class="svg-mute">searches · reads · tools</text>
+      </g>
+      <text x="320" y="262" text-anchor="middle" class="svg-accent" font-size="11">condensed summaries flow back — not full transcripts</text>
+    </svg>
+    <figcaption data-pt="O ganho principal é isolamento de contexto: cada worker explora em paralelo com a própria janela e devolve só o essencial. O líder nunca vê o ruído da busca.">The main win is context isolation: each worker explores in parallel with its own window and hands back only what matters. The lead never sees the search noise.</figcaption>
+  </figure>
+
+  <h3 data-pt="O que multi-agent compra — e quanto custa">What multi-agent buys you — and what it costs</h3>
+  <p data-pt="O sistema de Research da Anthropic é o caso público mais detalhado. Com Claude Opus 4 como líder e subagents Claude Sonnet 4, ele <strong>superou um único agent Claude Opus 4 em 90,2%</strong> na eval interna de pesquisa. O preço é em tokens:">Anthropic's Research system is the most detailed public case. With Claude Opus 4 as lead and Claude Sonnet 4 subagents, it <strong>outperformed single-agent Claude Opus 4 by 90.2%</strong> on Anthropic's internal research eval. The price is paid in tokens:</p>
+  <table>
+    <thead><tr><th data-pt="Modo">Mode</th><th data-pt="Tokens vs um chat">Tokens vs a chat</th></tr></thead>
+    <tbody>
+      <tr><td data-pt="Interação de chat">Chat interaction</td><td data-pt="1× (base)">1× (baseline)</td></tr>
+      <tr><td data-pt="Agent único">Single agent</td><td data-pt="~4×">~4×</td></tr>
+      <tr><td data-pt="Sistema multi-agent">Multi-agent system</td><td data-pt="~15×">~15×</td></tr>
+    </tbody>
+  </table>
+  <p class="small" data-pt="Fonte: <a href=&quot;https://www.anthropic.com/engineering/multi-agent-research-system&quot;>Anthropic Engineering, &quot;How we built our multi-agent research system&quot;</a>, 13 jun 2025; consultado em 3 out 2026. Mesma fonte: o uso de tokens sozinho explicou 80% da variância de desempenho no BrowseComp. Os números são da carga de pesquisa da Anthropic, não uma regra geral.">Source: <a href="https://www.anthropic.com/engineering/multi-agent-research-system">Anthropic Engineering, "How we built our multi-agent research system"</a>, June 13, 2025; retrieved October 3, 2026. Same source: token usage alone explained 80% of the performance variance on BrowseComp. Figures are from Anthropic's research workload, not a general rule.</p>
+  <p data-pt="O mesmo post diz onde isso <em>não</em> funciona: domínios em que todos os agents precisam compartilhar o mesmo contexto ou com muitas dependências entre agents — e observa que a maioria das tasks de código tem menos partes verdadeiramente paralelizáveis do que pesquisa.">The same post says where it <em>doesn't</em> work: domains where all agents need to share the same context, or with many dependencies between agents — noting that most coding tasks have fewer truly parallelisable parts than research.</p>
+
+  <div class="callout warn" data-pt="<strong>Contraponto:</strong> em &quot;Don't Build Multi-Agents&quot; (Cognition, Walden Yan, 12 jun 2025), dois princípios: <em>&quot;Share context, and share full agent traces, not just individual messages&quot;</em> e <em>&quot;Actions carry implicit decisions, and conflicting decisions carry bad results&quot;</em>. O exemplo: peça um clone de Flappy Bird a dois subagents paralelos — um faz um cenário estilo Super Mario, o outro um pássaro que não combina — e o agent final não consegue reconciliar as duas decisões.">
+    <strong>Counterpoint:</strong> in "Don't Build Multi-Agents" (Cognition, Walden Yan, June 12, 2025), two principles: <em>"Share context, and share full agent traces, not just individual messages"</em> and <em>"Actions carry implicit decisions, and conflicting decisions carry bad results"</em>. The example: ask two parallel subagents for a Flappy Bird clone — one builds a Super Mario-style background, the other a bird that doesn't match — and the final agent can't reconcile the two decisions.
+  </div>
+
+  <h3 data-pt="Regras práticas">Rules of thumb</h3>
+  <ul>
+    <li data-pt="<strong>Paralelize leituras, serialize escritas.</strong> Espalhe pesquisa, busca e revisão; mantenha em um único agent as decisões que precisam concordar (arquitetura, arquivos compartilhados)."><strong>Parallelise reads, serialise writes.</strong> Fan out research, search and review; keep decisions that must agree (architecture, shared files) in one agent.</li>
+    <li data-pt="<strong>Delegue como um gestor.</strong> Cada brief precisa de objetivo, formato de output, orientação sobre tools e fontes, e limites claros da task — sem isso, a Anthropic viu subagents duplicarem trabalho, deixarem lacunas ou não acharem o que precisavam."><strong>Brief like a manager.</strong> Each delegation needs an objective, an output format, guidance on tools and sources, and clear task boundaries — without them, Anthropic saw subagents duplicate work, leave gaps, or miss what they needed.</li>
+    <li data-pt="<strong>Devolva resumos, não transcripts.</strong> O valor de um subagent é o isolamento de contexto (<a href=&quot;#context-engineering&quot;>§08</a>): ele gasta a própria janela e entrega um resultado condensado."><strong>Return summaries, not transcripts.</strong> A subagent's value is context isolation (<a href="#context-engineering">§08</a>): it spends its own window and hands back a condensed result.</li>
+    <li data-pt="<strong>Pague os tokens só quando valer.</strong> Reserve multi-agent para tasks de alto valor e amplitude (pesquisa, auditorias). Rotear workers para um modelo mais barato (<a href=&quot;#routing&quot;>§03</a>) ajuda — o sistema da Anthropic usava workers Sonnet sob um líder Opus."><strong>Only pay the tokens when it's worth it.</strong> Keep multi-agent for high-value, breadth-first tasks (research, audits). Routing workers to a cheaper model (<a href="#routing">§03</a>) helps — Anthropic's system ran Sonnet workers under an Opus lead.</li>
+    <li data-pt="<strong>Trace tudo.</strong> Falhas multi-agent são emergentes; registre o input e o output de cada agent para poder rodar evals (<a href=&quot;#evals&quot;>§17</a>) sobre o sistema, não só sobre cada chamada."><strong>Trace everything.</strong> Multi-agent failures are emergent; log every agent's input and output so you can run evals (<a href="#evals">§17</a>) over the system, not just each call.</li>
+  </ul>
+
+  <h3 data-pt="A2A — o protocolo Agent2Agent">A2A — the Agent2Agent protocol</h3>
+  <p data-pt="Dentro de um único harness, &quot;multi-agent&quot; é só chamada de função. Entre times, empresas e frameworks, agents são serviços <strong>opacos</strong> — você não compartilha memória nem tools, só mensagens. O A2A é o padrão aberto para isso: como um agent descobre outro, delega uma task, acompanha o progresso e recebe o resultado.">Inside one harness, "multi-agent" is just function calls. Across teams, companies and frameworks, agents are <strong>opaque</strong> services — you can't share memory or tools, only messages. A2A is the open standard for that: how one agent discovers another, delegates a task, tracks its progress and gets the result back.</p>
+  <ul>
+    <li data-pt="<strong>9 abr 2025</strong> — Google anuncia o A2A."><strong>April 9, 2025</strong> — Google announces A2A.</li>
+    <li data-pt="<strong>23 jun 2025</strong> — vira projeto da Linux Foundation, anunciado com AWS, Cisco, Google, Microsoft, Salesforce, SAP e ServiceNow."><strong>June 23, 2025</strong> — becomes a Linux Foundation project, announced with AWS, Cisco, Google, Microsoft, Salesforce, SAP and ServiceNow.</li>
+    <li data-pt="<strong>12 mar 2026</strong> — spec v1.0.0 (com breaking changes em relação à v0.3)."><strong>March 12, 2026</strong> — spec v1.0.0 (with breaking changes from v0.3).</li>
+    <li data-pt="<strong>28 mai 2026</strong> — v1.0.1, a release atual."><strong>May 28, 2026</strong> — v1.0.1, the current release.</li>
+  </ul>
+
+  <figure class="diagram">
+    <svg viewBox="0 0 640 270" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A2A between agents, MCP from agent to tools">
+      <defs>
+        <marker id="arrA2A" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#82b8ff"/></marker>
+        <marker id="arrMCP2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#ffb86b"/></marker>
+      </defs>
+      <text x="320" y="22" text-anchor="middle" class="svg-label" font-weight="600" font-size="14">A2A is agent ↔ agent · MCP is agent → tool</text>
+      <rect x="30" y="100" width="150" height="64" rx="6" fill="#1d242e" stroke="#82b8ff" stroke-width="2"/>
+      <text x="105" y="126" text-anchor="middle" class="svg-label" font-weight="700">Client agent</text>
+      <text x="105" y="144" text-anchor="middle" class="svg-mute">your orchestrator</text>
+      <rect x="290" y="48" width="160" height="64" rx="6" fill="#1d242e" stroke="#7cf0c1" stroke-width="1.5"/>
+      <text x="370" y="74" text-anchor="middle" class="svg-label" font-weight="700">Remote agent 1</text>
+      <text x="370" y="92" text-anchor="middle" class="svg-mute">other team · opaque</text>
+      <rect x="290" y="156" width="160" height="64" rx="6" fill="#1d242e" stroke="#7cf0c1" stroke-width="1.5"/>
+      <text x="370" y="182" text-anchor="middle" class="svg-label" font-weight="700">Remote agent 2</text>
+      <text x="370" y="200" text-anchor="middle" class="svg-mute">vendor · opaque</text>
+      <line x1="180" y1="122" x2="288" y2="82" stroke="#82b8ff" stroke-width="2" marker-end="url(#arrA2A)" marker-start="url(#arrA2A)"/>
+      <line x1="180" y1="142" x2="288" y2="186" stroke="#82b8ff" stroke-width="2" marker-end="url(#arrA2A)" marker-start="url(#arrA2A)"/>
+      <text x="222" y="92" class="svg-label" fill="#82b8ff" font-weight="600">A2A</text>
+      <text x="222" y="184" class="svg-label" fill="#82b8ff" font-weight="600">A2A</text>
+      <rect x="520" y="40" width="96" height="34" rx="5" fill="#12161c" stroke="#ffb86b"/>
+      <text x="568" y="62" text-anchor="middle" class="svg-label">DB</text>
+      <rect x="520" y="86" width="96" height="34" rx="5" fill="#12161c" stroke="#ffb86b"/>
+      <text x="568" y="108" text-anchor="middle" class="svg-label">Search API</text>
+      <rect x="520" y="154" width="96" height="34" rx="5" fill="#12161c" stroke="#ffb86b"/>
+      <text x="568" y="176" text-anchor="middle" class="svg-label">Billing</text>
+      <rect x="520" y="200" width="96" height="34" rx="5" fill="#12161c" stroke="#ffb86b"/>
+      <text x="568" y="222" text-anchor="middle" class="svg-label">Files</text>
+      <line x1="450" y1="72" x2="518" y2="57" stroke="#ffb86b" stroke-width="1.5" marker-end="url(#arrMCP2)"/>
+      <line x1="450" y1="90" x2="518" y2="103" stroke="#ffb86b" stroke-width="1.5" marker-end="url(#arrMCP2)"/>
+      <line x1="450" y1="180" x2="518" y2="171" stroke="#ffb86b" stroke-width="1.5" marker-end="url(#arrMCP2)"/>
+      <line x1="450" y1="198" x2="518" y2="217" stroke="#ffb86b" stroke-width="1.5" marker-end="url(#arrMCP2)"/>
+      <text x="484" y="138" text-anchor="middle" class="svg-warn" font-weight="600" font-size="12">MCP</text>
+      <text x="320" y="258" text-anchor="middle" class="svg-mute">The client sees each remote agent's Agent Card and task results — never its tools, memory or prompts.</text>
+    </svg>
+    <figcaption data-pt="A spec do A2A descreve os dois como complementares: um agent cliente pede uma task complexa a um agent servidor via A2A, e o servidor pode usar MCP para falar com as tools e fontes de dados de que precisa.">The A2A spec describes the two as complementary: a client agent asks a server agent for a complex task over A2A, and the server may use MCP to reach the tools and data sources it needs.</figcaption>
+  </figure>
+
+  <h3 data-pt="MCP vs A2A — lado a lado">MCP vs A2A — side-by-side</h3>
+  <table>
+    <thead><tr><th data-pt="Aspecto">Aspect</th><th>MCP</th><th>A2A</th></tr></thead>
+    <tbody>
+      <tr><td data-pt="<strong>Conecta</strong>"><strong>Connects</strong></td><td data-pt="Agent → tools, dados, prompts">Agent → tools, data, prompts</td><td data-pt="Agent ↔ agent, como pares">Agent ↔ agent, as peers</td></tr>
+      <tr><td data-pt="<strong>Do outro lado</strong>"><strong>Other side</strong></td><td data-pt="Uma capacidade que você chama">A capability you call</td><td data-pt="Um agent opaco que planeja, usa as próprias tools e devolve estado">An opaque agent that plans, uses its own tools and returns state</td></tr>
+      <tr><td data-pt="<strong>Descoberta</strong>"><strong>Discovery</strong></td><td data-pt="<code>tools/list</code> após conectar"><code>tools/list</code> after connecting</td><td data-pt="<strong>Agent Card</strong> JSON em <code>/.well-known/agent-card.json</code>"><strong>Agent Card</strong> JSON at <code>/.well-known/agent-card.json</code></td></tr>
+      <tr><td data-pt="<strong>Unidade de trabalho</strong>"><strong>Unit of work</strong></td><td data-pt="Tool call (request → result)">Tool call (request → result)</td><td data-pt="<strong>Task</strong> com estado e ciclo de vida, possivelmente longa e multi-turno"><strong>Task</strong> with state and lifecycle, possibly long-running and multi-turn</td></tr>
+      <tr><td data-pt="<strong>Bindings</strong>"><strong>Bindings</strong></td><td data-pt="JSON-RPC 2.0 sobre stdio ou Streamable HTTP">JSON-RPC 2.0 over stdio or Streamable HTTP</td><td data-pt="JSON-RPC 2.0, gRPC ou HTTP+JSON/REST">JSON-RPC 2.0, gRPC, or HTTP+JSON/REST</td></tr>
+      <tr><td data-pt="<strong>Updates</strong>"><strong>Updates</strong></td><td data-pt="Notificações na sessão">In-session notifications</td><td data-pt="Polling, streaming SSE ou push notifications para um webhook">Polling, SSE streaming, or push notifications to a webhook</td></tr>
+      <tr><td data-pt="<strong>Auth</strong>"><strong>Auth</strong></td><td data-pt="OAuth 2.1 para servidores remotos">OAuth 2.1 for remote servers</td><td data-pt="Declarada no Agent Card: API key, HTTP auth, OAuth 2.0, OpenID Connect ou mTLS">Declared in the Agent Card: API key, HTTP auth, OAuth 2.0, OpenID Connect, or mTLS</td></tr>
+    </tbody>
+  </table>
+
+  <h3 data-pt="Conceitos centrais do A2A">A2A core concepts</h3>
+  <ul>
+    <li data-pt="<strong>Agent Card</strong> — documento JSON que o servidor publica: identidade, endpoints, capacidades (streaming, push), <em>skills</em> que oferece e esquemas de segurança. Os &quot;skills&quot; do A2A são entradas de catálogo para outros agents — não confunda com Agent Skills (<a href=&quot;#skills&quot;>§11</a>)."><strong>Agent Card</strong> — JSON document the server publishes: identity, endpoints, capabilities (streaming, push), the <em>skills</em> it offers, and security schemes. A2A "skills" are catalogue entries for other agents — not the same thing as Agent Skills (<a href="#skills">§11</a>).</li>
+    <li data-pt="<strong>Task</strong> — a unidade de trabalho, com ID único e ciclo de vida."><strong>Task</strong> — the unit of work, with a unique ID and a lifecycle.</li>
+    <li data-pt="<strong>Message</strong> — um turno, com <code>role</code> de usuário ou agent, contendo uma ou mais <strong>Parts</strong> (texto, referência a arquivo ou dados estruturados)."><strong>Message</strong> — one turn, with a user or agent <code>role</code>, holding one or more <strong>Parts</strong> (text, a file reference, or structured data).</li>
+    <li data-pt="<strong>Artifact</strong> — o output da task (documento, imagem, dados), também feito de Parts."><strong>Artifact</strong> — the task's output (document, image, data), also made of Parts.</li>
+    <li data-pt="<strong>contextId</strong> — agrupa tasks e mensagens relacionadas numa mesma conversa."><strong>contextId</strong> — groups related tasks and messages into one conversation.</li>
+  </ul>
+
+  <h3 data-pt="Ciclo de vida da task">Task lifecycle</h3>
+  <table>
+    <thead><tr><th data-pt="Tipo">Kind</th><th data-pt="Estados (<code>TASK_STATE_*</code>)">States (<code>TASK_STATE_*</code>)</th></tr></thead>
+    <tbody>
+      <tr><td data-pt="Em andamento">In progress</td><td><code>SUBMITTED</code> · <code>WORKING</code></td></tr>
+      <tr><td data-pt="Interrompido — precisa do cliente">Interrupted — needs the client</td><td><code>INPUT_REQUIRED</code> · <code>AUTH_REQUIRED</code></td></tr>
+      <tr><td data-pt="Terminal — não aceita mais mensagens">Terminal — accepts no more messages</td><td><code>COMPLETED</code> · <code>FAILED</code> · <code>CANCELED</code> · <code>REJECTED</code></td></tr>
+    </tbody>
+  </table>
+  <p data-pt="Operações principais: <code>SendMessage</code>, <code>SendStreamingMessage</code> (SSE), <code>GetTask</code>, <code>ListTasks</code>, <code>CancelTask</code>, <code>SubscribeToTask</code>, configuração de push notifications e <code>GetExtendedAgentCard</code> (card completo para clientes autenticados).">Core operations: <code>SendMessage</code>, <code>SendStreamingMessage</code> (SSE), <code>GetTask</code>, <code>ListTasks</code>, <code>CancelTask</code>, <code>SubscribeToTask</code>, push-notification config, and <code>GetExtendedAgentCard</code> (the full card for authenticated clients).</p>
+
+  <h3 data-pt="Agent Card e uma chamada (resumidos do exemplo da spec)">Agent Card and one call (trimmed from the spec's examples)</h3>
+<pre><code>GET /.well-known/agent-card.json
+
+{
+  "name": "GeoSpatial Route Planner Agent",
+  "description": "Provides advanced route planning, traffic analysis, ...",
+  "supportedInterfaces": [
+    {"url": "https://georoute-agent.example.com/a2a/v1",
+     "protocolBinding": "JSONRPC", "protocolVersion": "1.0"}
+  ],
+  "version": "1.2.0",
+  "capabilities": { "streaming": true, "pushNotifications": true },
+  "defaultInputModes": ["application/json", "text/plain"],
+  "defaultOutputModes": ["application/json", "image/png"],
+  "skills": [
+    { "id": "route-optimizer-traffic",
+      "name": "Traffic-Aware Route Optimizer",
+      "tags": ["maps", "routing", "traffic"] }
+  ]
+}
+
+POST /message:send            # HTTP+JSON binding
+Content-Type: application/a2a+json
+
+{
+  "message": {
+    "role": "ROLE_USER",
+    "parts": [{"text": "What is the weather today?"}],
+    "messageId": "msg-uuid"
+  }
+}
+</code></pre>
+
+  <h3 data-pt="Quando usar A2A — e quando não">When to use A2A — and when not to</h3>
+  <ul>
+    <li data-pt="<strong>Use</strong> quando o outro agent é de outro time, empresa ou framework e você só pode falar com ele pela rede — e a task pode ser longa, multi-turno ou precisar de input humano no meio."><strong>Use it</strong> when the other agent belongs to another team, company or framework and you can only reach it over the network — and the task may be long-running, multi-turn, or need human input midway.</li>
+    <li data-pt="<strong>Não use</strong> para subagents dentro do seu próprio harness: ali, uma chamada de função ou o mecanismo de subagent do harness (<a href=&quot;#harness&quot;>§05</a>) é mais simples e mais barato."><strong>Don't use it</strong> for subagents inside your own harness: there, a function call or the harness's subagent mechanism (<a href="#harness">§05</a>) is simpler and cheaper.</li>
+    <li data-pt="<strong>Não use</strong> para expor uma API determinística: se o outro lado não planeja nem decide, é uma tool — exponha via MCP."><strong>Don't use it</strong> to expose a deterministic API: if the other side doesn't plan or decide, it's a tool — expose it over MCP.</li>
+  </ul>
+
+  <p class="small" data-pt="Fontes: <a href=&quot;https://www.anthropic.com/engineering/building-effective-agents&quot;>Anthropic, &quot;Building effective agents&quot;</a> (19 dez 2024); <a href=&quot;https://www.anthropic.com/engineering/multi-agent-research-system&quot;>Anthropic, &quot;How we built our multi-agent research system&quot;</a> (13 jun 2025); <a href=&quot;https://cognition.com/blog/dont-build-multi-agents&quot;>Cognition, &quot;Don't Build Multi-Agents&quot;</a> (12 jun 2025); <a href=&quot;https://a2a-protocol.org/latest/specification/&quot;>especificação A2A v1.0</a> e <a href=&quot;https://github.com/a2aproject/A2A/releases&quot;>releases</a>; <a href=&quot;https://developers.googleblog.com/en/a2a-a-new-era-of-agent-interoperability/&quot;>Google Developers Blog</a> (9 abr 2025); <a href=&quot;https://linuxfoundation.org/press/linux-foundation-launches-the-agent2agent-protocol-project-to-enable-secure-intelligent-communication-between-ai-agents&quot;>press release da Linux Foundation</a> (23 jun 2025). Todos consultados em 3 out 2026.">Sources: <a href="https://www.anthropic.com/engineering/building-effective-agents">Anthropic, "Building effective agents"</a> (December 19, 2024); <a href="https://www.anthropic.com/engineering/multi-agent-research-system">Anthropic, "How we built our multi-agent research system"</a> (June 13, 2025); <a href="https://cognition.com/blog/dont-build-multi-agents">Cognition, "Don't Build Multi-Agents"</a> (June 12, 2025); <a href="https://a2a-protocol.org/latest/specification/">A2A v1.0 specification</a> and <a href="https://github.com/a2aproject/A2A/releases">releases</a>; <a href="https://developers.googleblog.com/en/a2a-a-new-era-of-agent-interoperability/">Google Developers Blog</a> (April 9, 2025); <a href="https://linuxfoundation.org/press/linux-foundation-launches-the-agent2agent-protocol-project-to-enable-secure-intelligent-communication-between-ai-agents">Linux Foundation press release</a> (June 23, 2025). All retrieved October 3, 2026.</p>
+</section>
+
+
 <!-- =================== DAG =================== -->
 <section id="dag">
-  <h2 data-pt="<span class=&quot;num&quot;>11</span> DAG — Directed Acyclic Graph"><span class="num">11</span> DAG — Directed Acyclic Graph</h2>
+  <h2 data-pt="<span class=&quot;num&quot;>13</span> DAG — Directed Acyclic Graph"><span class="num">13</span> DAG — Directed Acyclic Graph</h2>
   <p data-pt="Um grafo de nós + arestas direcionadas <strong>sem ciclos</strong>. No mundo de agents AI, nós são chamadas LLM / tools / retrievers / branches; arestas são dependências. Sem ciclos = execução sempre termina.">A graph of nodes + directed edges with <strong>no cycles</strong>. In AI agent land, nodes are LLM calls / tools / retrievers / branches; edges are dependencies. No cycles = execution always terminates.</p>
 
   <figure class="diagram">
@@ -2328,7 +2692,7 @@ await server.connect(new StdioServerTransport());
 
 <!-- =================== RAG =================== -->
 <section id="rag">
-  <h2 data-pt="<span class=&quot;num&quot;>12</span> RAG — Retrieval Augmented Generation"><span class="num">12</span> RAG — Retrieval Augmented Generation</h2>
+  <h2 data-pt="<span class=&quot;num&quot;>14</span> RAG — Retrieval Augmented Generation"><span class="num">14</span> RAG — Retrieval Augmented Generation</h2>
   <p data-pt="&quot;Pré-adicionar contexto relevante ao prompt.&quot; A versão ingênua falha 40% das vezes no retrieval — a stack de 2026 é hybrid + reranked + às vezes grafo.">"Pre-pend relevant context to the prompt." The naive version fails 40% of the time at retrieval — the 2026 stack is hybrid + reranked + sometimes graph.</p>
 
   <figure class="diagram">
@@ -2421,7 +2785,7 @@ await server.connect(new StdioServerTransport());
 
 <!-- =================== LLM-WIKI & OKF =================== -->
 <section id="llm-wiki-okf">
-  <h2 data-pt="<span class=&quot;num&quot;>13</span> LLM-wiki e Open Knowledge Format"><span class="num">13</span> LLM-wiki &amp; Open Knowledge Format</h2>
+  <h2 data-pt="<span class=&quot;num&quot;>15</span> LLM-wiki e Open Knowledge Format"><span class="num">15</span> LLM-wiki &amp; Open Knowledge Format</h2>
   <p data-pt="Um <strong>LLM-wiki</strong> é uma base de conhecimento persistente, em texto simples, que um agent mantém para outros agents e humanos. O <strong>Open Knowledge Format (OKF)</strong> transforma esse padrão informal em um formato portátil e vendor-neutral: uma árvore de arquivos Markdown, com metadados YAML e links normais entre conceitos.">An <strong>LLM-wiki</strong> is a persistent, plain-text knowledge base that an agent maintains for other agents and humans. The <strong>Open Knowledge Format (OKF)</strong> turns that informal pattern into a portable, vendor-neutral format: a tree of Markdown files with YAML metadata and ordinary links between concepts.</p>
 
   <h3 data-pt="O problema que resolve">The problem it solves</h3>
@@ -2471,7 +2835,7 @@ See [Billing API](../systems/billing-api.md).</code></pre>
 
 <!-- =================== RESEARCH GRAPH =================== -->
 <section id="research-graph">
-  <h2 data-pt="<span class=&quot;num&quot;>14</span> Grafo de Pesquisa (Research Graph)"><span class="num">14</span> Grafo de Pesquisa (Research Graph)</h2>
+  <h2 data-pt="<span class=&quot;num&quot;>16</span> Grafo de Pesquisa (Research Graph)"><span class="num">16</span> Grafo de Pesquisa (Research Graph)</h2>
   <p data-pt="&quot;Research graph&quot; aparece em dois contextos relacionados — certifique-se de poder distingui-los.">"Research graph" shows up in two related contexts — make sure you can distinguish them.</p>
 
   <h3 data-pt="1. Agents de Deep Research (o &quot;research graph&quot; como workflow)">1. Deep Research agents (the "research graph" as workflow)</h3>
@@ -2499,7 +2863,7 @@ See [Billing API](../systems/billing-api.md).</code></pre>
 
 <!-- =================== EVALS =================== -->
 <section id="evals">
-  <h2 data-pt="<span class=&quot;num&quot;>15</span> Evals vs Benchmarks — e como construir cada um"><span class="num">15</span> Evals vs Benchmarks — and how to build each</h2>
+  <h2 data-pt="<span class=&quot;num&quot;>17</span> Evals vs Benchmarks — e como construir cada um"><span class="num">17</span> Evals vs Benchmarks — and how to build each</h2>
 
   <table>
     <thead><tr><th></th><th data-pt="Benchmarks">Benchmarks</th><th data-pt="Evals">Evals</th></tr></thead>
@@ -2550,7 +2914,7 @@ See [Billing API](../systems/billing-api.md).</code></pre>
 
 <!-- =================== PROMPTS =================== -->
 <section id="prompts">
-  <h2 data-pt="<span class=&quot;num&quot;>16</span> Versionamento de Prompts"><span class="num">16</span> Prompt Versioning</h2>
+  <h2 data-pt="<span class=&quot;num&quot;>18</span> Versionamento de Prompts"><span class="num">18</span> Prompt Versioning</h2>
   <p data-pt="Trate prompts como <strong>artefatos de produção versionados</strong>, igual a código. PromptOps é a camada de DevOps que falta no mundo de IA.">Treat prompts as <strong>versioned production artifacts</strong>, same as code. PromptOps is the missing DevOps layer of AI.</p>
 
   <h3 data-pt="O que uma ferramenta de versionamento oferece">What a versioning tool gives you</h3>
@@ -2586,7 +2950,7 @@ See [Billing API](../systems/billing-api.md).</code></pre>
 
 <!-- =================== SDD =================== -->
 <section id="sdd">
-  <h2 data-pt="<span class=&quot;num&quot;>17</span> Desenvolvimento Orientado por Spec (SDD)"><span class="num">17</span> Spec-Driven Development (SDD)</h2>
+  <h2 data-pt="<span class=&quot;num&quot;>19</span> Desenvolvimento Orientado por Spec (SDD)"><span class="num">19</span> Spec-Driven Development (SDD)</h2>
   <p data-pt="&quot;Inversão da estrutura de poder: as specs não servem mais ao código — o código serve às specs.&quot; Specs viram artefatos executáveis que controlam a geração de código por IA.">"Inversion of the power structure: specifications no longer serve code — code serves specifications." Specs become executable artifacts that gate AI codegen.</p>
 
   <h3 data-pt="As quatro (às vezes cinco) fases">The four (sometimes five) phases</h3>
@@ -2621,19 +2985,19 @@ See [Billing API](../systems/billing-api.md).</code></pre>
 
   <h3 data-pt="Onde isso se intersecta com o resto do guia">Where it intersects everything else in this guide</h3>
   <ul>
-    <li data-pt="O <strong>Task Graph é um DAG</strong> (<a href=&quot;#dag&quot;>§11</a>).">The <strong>Task Graph is a DAG</strong> (<a href="#dag">§11</a>).</li>
-    <li data-pt="Cada tarefa frequentemente passa por um <strong>research graph</strong> (<a href=&quot;#research-graph&quot;>§14</a>) — lê código relacionado, encontra padrões anteriores.">Each task often runs through a <strong>research graph</strong> (<a href="#research-graph">§14</a>) — read related code, find prior patterns.</li>
-    <li data-pt="Evals (<a href=&quot;#evals&quot;>§15</a>) viram os critérios de aceitação executáveis.">Evals (<a href="#evals">§15</a>) become the executable acceptance criteria.</li>
-    <li data-pt="Prompts que conduzem cada fase são <strong>versionados</strong> (<a href=&quot;#prompts&quot;>§16</a>).">Prompts driving each phase are <strong>versioned</strong> (<a href="#prompts">§16</a>).</li>
+    <li data-pt="O <strong>Task Graph é um DAG</strong> (<a href=&quot;#dag&quot;>§13</a>).">The <strong>Task Graph is a DAG</strong> (<a href="#dag">§13</a>).</li>
+    <li data-pt="Cada tarefa frequentemente passa por um <strong>research graph</strong> (<a href=&quot;#research-graph&quot;>§16</a>) — lê código relacionado, encontra padrões anteriores.">Each task often runs through a <strong>research graph</strong> (<a href="#research-graph">§16</a>) — read related code, find prior patterns.</li>
+    <li data-pt="Evals (<a href=&quot;#evals&quot;>§17</a>) viram os critérios de aceitação executáveis.">Evals (<a href="#evals">§17</a>) become the executable acceptance criteria.</li>
+    <li data-pt="Prompts que conduzem cada fase são <strong>versionados</strong> (<a href=&quot;#prompts&quot;>§18</a>).">Prompts driving each phase are <strong>versioned</strong> (<a href="#prompts">§18</a>).</li>
     <li data-pt="O agente usa <strong>MCP</strong> (<a href=&quot;#mcp&quot;>§10</a>) para falar com git, o build, o test runner.">The agent uses <strong>MCP</strong> (<a href="#mcp">§10</a>) to talk to git, the build, the test runner.</li>
-    <li data-pt="<strong>Context7</strong> (<a href=&quot;#context7&quot;>§19</a>) alimenta com as APIs reais das bibliotecas a usar."><strong>Context7</strong> (<a href="#context7">§19</a>) feeds it the actual library APIs to use.</li>
+    <li data-pt="<strong>Context7</strong> (<a href=&quot;#context7&quot;>§21</a>) alimenta com as APIs reais das bibliotecas a usar."><strong>Context7</strong> (<a href="#context7">§21</a>) feeds it the actual library APIs to use.</li>
   </ul>
 </section>
 
 
 <!-- =================== COMMUNITY TOOLING — OVERVIEW =================== -->
 <section id="tooling">
-  <h2 data-pt="<span class=&quot;num&quot;>18</span> Ferramentas da comunidade — o que realmente usar"><span class="num">18</span> Community tooling — what to actually reach for</h2>
+  <h2 data-pt="<span class=&quot;num&quot;>20</span> Ferramentas da comunidade — o que realmente usar"><span class="num">20</span> Community tooling — what to actually reach for</h2>
   <p data-pt="Sete ferramentas em torno das quais a comunidade de engenharia de IA se consolidou em 2026. Cada uma corresponde a uma seção acima: é a camada do &quot;o que você instalaria de verdade na segunda-feira?&quot;.">Seven tools the AI engineering community has settled around in 2026. Each one corresponds to a section above: this is the "what would you actually install on Monday?" layer.</p>
 
   <div class="tool-grid" id="toolGrid">
@@ -2670,7 +3034,7 @@ See [Billing API](../systems/billing-api.md).</code></pre>
       <div class="tc-foot">
         <span>MIT</span><span>GitHub-native</span><span>CLI</span>
       </div>
-      <a class="tc-link" href="#sdd">See §17 SDD ↑</a>
+      <a class="tc-link" href="#sdd">See §19 SDD ↑</a>
     </article>
 
     <article class="tool-card" data-cat="spec">
@@ -2689,7 +3053,7 @@ See [Billing API](../systems/billing-api.md).</code></pre>
       <div class="tc-foot">
         <span>open source</span><span>CLI</span><span>git-native</span>
       </div>
-      <a class="tc-link" href="#sdd">See §17 SDD ↑</a>
+      <a class="tc-link" href="#sdd">See §19 SDD ↑</a>
     </article>
 
     <article class="tool-card" data-cat="skills">
@@ -2723,7 +3087,7 @@ See [Billing API](../systems/billing-api.md).</code></pre>
       <div class="tc-foot">
         <span>SaaS</span><span>LangChain</span><span>tracing</span>
       </div>
-      <a class="tc-link" href="#evals">See §15 Evals ↑</a>
+      <a class="tc-link" href="#evals">See §17 Evals ↑</a>
     </article>
 
     <article class="tool-card" data-cat="evals">
@@ -2741,7 +3105,7 @@ See [Billing API](../systems/billing-api.md).</code></pre>
       <div class="tc-foot">
         <span>SaaS</span><span>OSS SDK</span><span>experiments</span>
       </div>
-      <a class="tc-link" href="#evals">See §15 Evals ↑</a>
+      <a class="tc-link" href="#evals">See §17 Evals ↑</a>
     </article>
 
     <article class="tool-card" data-cat="evals">
@@ -2761,7 +3125,7 @@ See [Billing API](../systems/billing-api.md).</code></pre>
       <div class="tc-foot">
         <span>MIT</span><span>CLI</span><span>CI-friendly</span>
       </div>
-      <a class="tc-link" href="#prompts">See §16 Prompts ↑</a>
+      <a class="tc-link" href="#prompts">See §18 Prompts ↑</a>
     </article>
   </div>
 
@@ -2772,7 +3136,7 @@ See [Billing API](../systems/billing-api.md).</code></pre>
 
 <!-- =================== CONTEXT7 =================== -->
 <section id="context7">
-  <h2 data-pt="<span class=&quot;num&quot;>19</span> O que é o Context7?"><span class="num">19</span> What is Context7?</h2>
+  <h2 data-pt="<span class=&quot;num&quot;>21</span> O que é o Context7?"><span class="num">21</span> What is Context7?</h2>
   <p data-pt="<strong>Context7</strong> é um servidor MCP (feito pela <strong>Upstash</strong>) que serve <em>documentação de bibliotecas atualizada e por versão específica</em> nas suas ferramentas de código com IA — Cursor, Claude Code, Windsurf, OpenCode, qualquer coisa que fale MCP."><strong>Context7</strong> is an MCP server (built by <strong>Upstash</strong>) that serves <em>up-to-date, version-specific library documentation</em> into your AI coding tools — Cursor, Claude Code, Windsurf, OpenCode, anything that speaks MCP.</p>
 
   <h3 data-pt="O problema que ele resolve">The problem it solves</h3>
@@ -2805,7 +3169,7 @@ See [Billing API](../systems/billing-api.md).</code></pre>
 
 <!-- =================== QUIZ =================== -->
 <section id="quiz">
-  <h2><span class="num">20</span> <span data-quiz-h2>Knowledge check — graded quiz</span></h2>
+  <h2><span class="num">22</span> <span data-quiz-h2>Knowledge check — graded quiz</span></h2>
   <p class="small" data-quiz-intro>Pick an answer for each. Hit <em>Grade</em> at the bottom. Explanations appear after grading.</p>
 
   <div class="quiz-tracker" id="quizTracker"></div>
@@ -3972,6 +4336,87 @@ const questions = [
     correct: 1,
     explain: "Function-calling works — per client. MCP's value is standardization: build the integration once, every MCP-aware client uses it, and you centralize auth/policy/logging instead of duplicating across each AI tool.",
     explain_pt: "Function-calling funciona — por cliente. O valor do MCP é a padronização: construa a integração uma vez, todo cliente compatível com MCP usa, e você centraliza auth/política/logging em vez de duplicar em cada ferramenta de IA."
+  },
+
+  // ---- Agent Skills ----
+  {
+    q: "You have 30 Agent Skills installed. What does the agent load into context at startup?",
+    q_pt: "Você tem 30 Agent Skills instaladas. O que o agent carrega no contexto ao iniciar?",
+    opts: [
+      "The full SKILL.md of all 30 skills, so it can pick the best one",
+      "Only each skill's name and description; a SKILL.md body loads when a task matches, and bundled files only when a step needs them",
+      "Nothing — skills are only loaded when the user types /skill-name",
+      "Every script in each skill's scripts/ folder, pre-executed"
+    ],
+    opts_pt: [
+      "O SKILL.md completo das 30 skills, para escolher a melhor",
+      "Só o name e a description de cada skill; o corpo do SKILL.md entra quando uma task bate, e os arquivos empacotados só quando um passo precisa deles",
+      "Nada — skills só são carregadas quando o usuário digita /skill-name",
+      "Todos os scripts da pasta scripts/ de cada skill, pré-executados"
+    ],
+    correct: 1,
+    explain: "Progressive disclosure: metadata (~100 tokens per skill) at startup, the SKILL.md body (<5,000 tokens recommended) on activation, resources only as needed. That is why the description must say what the skill does AND when to use it — it's the only part the agent sees before deciding.",
+    explain_pt: "Progressive disclosure: metadata (~100 tokens por skill) no início, o corpo do SKILL.md (<5.000 tokens recomendados) na ativação, recursos só quando necessário. Por isso a description precisa dizer o que a skill faz E quando usar — é a única parte que o agent vê antes de decidir."
+  },
+  {
+    q: "Your team runs a 12-step release procedure using git and an existing internal CLI the agent can already call. What's the best way to give the agent this know-how?",
+    q_pt: "Seu time roda um procedimento de release de 12 passos usando git e uma CLI interna que o agent já consegue chamar. Qual a melhor forma de dar esse know-how ao agent?",
+    opts: [
+      "Build an MCP server that wraps the CLI",
+      "Paste the whole procedure into CLAUDE.md so it's always in context",
+      "Write an Agent Skill: SKILL.md with the steps, plus scripts for the deterministic parts",
+      "Fine-tune a model on past release logs"
+    ],
+    opts_pt: [
+      "Construir um servidor MCP que embrulha a CLI",
+      "Colar o procedimento inteiro no CLAUDE.md para ficar sempre no contexto",
+      "Escrever uma Agent Skill: SKILL.md com os passos, mais scripts para as partes determinísticas",
+      "Fazer fine-tuning de um modelo com logs de releases passados"
+    ],
+    correct: 2,
+    explain: "The agent already has the capability (git + CLI); what it lacks is the procedure. That's a skill. MCP adds new capabilities, CLAUDE.md would spend tokens on every unrelated turn, and fine-tuning is the wrong tool for a documented procedure that changes over time.",
+    explain_pt: "O agent já tem a capacidade (git + CLI); falta o procedimento. Isso é uma skill. MCP adiciona capacidades novas, o CLAUDE.md gastaria tokens em todo turno não relacionado, e fine-tuning é a ferramenta errada para um procedimento documentado que muda com o tempo."
+  },
+
+  // ---- Multi-agent & A2A ----
+  {
+    q: "Which statement about MCP and A2A is correct?",
+    q_pt: "Qual afirmação sobre MCP e A2A está correta?",
+    opts: [
+      "A2A replaces MCP; new agents should use only A2A",
+      "MCP connects an agent to tools and data; A2A connects independent, opaque agents as peers — and an A2A server agent may itself use MCP",
+      "A2A is a Python framework for spawning subagents in the same process",
+      "MCP is for remote servers, A2A for local stdio processes"
+    ],
+    opts_pt: [
+      "A2A substitui o MCP; novos agents devem usar só A2A",
+      "MCP conecta um agent a tools e dados; A2A conecta agents independentes e opacos como pares — e um agent servidor A2A pode usar MCP por baixo",
+      "A2A é um framework Python para criar subagents no mesmo processo",
+      "MCP é para servidores remotos, A2A para processos stdio locais"
+    ],
+    correct: 1,
+    explain: "The A2A spec calls them complementary. A2A agents discover each other via an Agent Card (/.well-known/agent-card.json) and exchange stateful Tasks; behind the scenes the remote agent can call its own tools over MCP. Subagents inside one harness don't need A2A at all.",
+    explain_pt: "A spec do A2A os chama de complementares. Agents A2A se descobrem via Agent Card (/.well-known/agent-card.json) e trocam Tasks com estado; por trás, o agent remoto pode chamar suas próprias tools via MCP. Subagents dentro de um harness nem precisam de A2A."
+  },
+  {
+    q: "Anthropic's multi-agent Research system (Opus 4 lead + Sonnet 4 subagents) beat single-agent Opus 4 by 90.2% on its research eval. What's the main trade-off it reported?",
+    q_pt: "O sistema multi-agent de Research da Anthropic (líder Opus 4 + subagents Sonnet 4) superou um único agent Opus 4 em 90,2% na eval de pesquisa. Qual o principal trade-off reportado?",
+    opts: [
+      "Lower token usage but higher latency",
+      "No downside — multi-agent should be the default for every task",
+      "About 15× the tokens of a chat, and a poor fit for tightly coupled work with shared context, like most coding",
+      "It only works with open-weight models"
+    ],
+    opts_pt: [
+      "Menos tokens, porém mais latência",
+      "Nenhuma desvantagem — multi-agent deve ser o padrão para toda task",
+      "Cerca de 15× os tokens de um chat, e pouco adequado a trabalho acoplado com contexto compartilhado, como a maioria das tasks de código",
+      "Só funciona com modelos open-weight"
+    ],
+    correct: 2,
+    difficulty: "hard",
+    explain: "Anthropic (June 2025): agents use ~4× the tokens of chat, multi-agent systems ~15×. It shines on breadth-first, parallelisable work like research; Cognition's 'Don't Build Multi-Agents' makes the same point from the other side — parallel agents making conflicting implicit decisions produce incoherent results.",
+    explain_pt: "Anthropic (jun 2025): agents usam ~4× os tokens de um chat, sistemas multi-agent ~15×. Brilha em trabalho amplo e paralelizável como pesquisa; o 'Don't Build Multi-Agents' da Cognition diz o mesmo pelo outro lado — agents paralelos tomando decisões implícitas conflitantes geram resultados incoerentes."
   },
 
   // ---- RAG ----
