@@ -5,6 +5,11 @@ Single deliverable: `index.html` — a self-contained HTML/CSS/JS study guide
 attributes, and behaves as an SPA with numbered `<section>`s wired into the
 sidebar nav and the home menu.
 
+`og-image.png` (1200×630) is the link-preview card referenced by the Open Graph /
+Twitter tags in `<head>`; it is only fetched by link crawlers, not by the page.
+Those tags use absolute URLs on `https://1ucas.github.io/ai-studies/`. When the
+`<title>` month changes, update `og:title` and `twitter:title` to match.
+
 ## Data sourcing (required)
 
 **Never invent data.** Every factual figure in the guide — model prices, context
