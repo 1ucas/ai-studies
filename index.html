@@ -4,14 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title data-pt="Guia de Estudos de IA — Novembro de 2026">AI Study Guide — November 2026</title>
-<meta name="description" content="Bilingual (EN / PT-BR) study guide for software engineers working with AI: sourced model prices and benchmarks, agents, SDD, MCP and RAG, plus a graded quiz.">
+<meta name="description" content="Bilingual (EN / PT-BR) study guide for software engineers working with AI: sourced model prices and benchmarks, agents, SDD, AI-DLC, MCP and RAG, plus a graded quiz.">
 <meta name="theme-color" content="#0b0d10">
 <link rel="canonical" href="https://1ucas.github.io/ai-studies/">
 <!-- Sharing card (Open Graph / X). Image and URL must be absolute; og-image.png is 1200×630. -->
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="AI Study Guide">
 <meta property="og:title" content="AI Study Guide — November 2026">
-<meta property="og:description" content="Bilingual (EN / PT-BR) study guide for software engineers working with AI: sourced model prices and benchmarks, agents, SDD, MCP and RAG, plus a graded quiz.">
+<meta property="og:description" content="Bilingual (EN / PT-BR) study guide for software engineers working with AI: sourced model prices and benchmarks, agents, SDD, AI-DLC, MCP and RAG, plus a graded quiz.">
 <meta property="og:url" content="https://1ucas.github.io/ai-studies/">
 <meta property="og:image" content="https://1ucas.github.io/ai-studies/og-image.png">
 <meta property="og:image:type" content="image/png">
@@ -22,7 +22,7 @@
 <meta property="og:locale:alternate" content="pt_BR">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="AI Study Guide — November 2026">
-<meta name="twitter:description" content="Bilingual (EN / PT-BR) study guide for software engineers working with AI: sourced model prices and benchmarks, agents, SDD, MCP and RAG, plus a graded quiz.">
+<meta name="twitter:description" content="Bilingual (EN / PT-BR) study guide for software engineers working with AI: sourced model prices and benchmarks, agents, SDD, AI-DLC, MCP and RAG, plus a graded quiz.">
 <meta name="twitter:image" content="https://1ucas.github.io/ai-studies/og-image.png">
 <meta name="twitter:image:alt" content="AI Study Guide — model economics, agent plumbing and the SDD / MCP / RAG vocabulary for software engineers working with AI.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='5' fill='%230b0d10'/%3E%3Cg fill='none' stroke='%237cf0c1' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 3 L3 7.5 l9 4.5 l9-4.5 z'/%3E%3Cpath d='M3 16.5 l9 4.5 l9-4.5'/%3E%3Cpath d='M3 12 l9 4.5 l9-4.5'/%3E%3C/g%3E%3C/svg%3E">
@@ -133,6 +133,22 @@
   .svg-accent{fill:#7cf0c1}
   .svg-warn{fill:#ffb86b}
   .svg-pink{fill:#ff6b8b}
+  /* single-series horizontal bars (AI-DLC profiles) */
+  .hbars-title{font-size:13px; color:var(--accent); text-align:center; font-weight:600; margin-bottom:10px}
+  .hbars{display:grid; gap:2px}
+  .hbar-row{display:grid; grid-template-columns:minmax(150px,240px) minmax(0,1fr) 30px; align-items:center; gap:12px; padding:4px 6px; border-radius:6px}
+  .hbar-row:hover{background:var(--panel2)}
+  .hbar-name{min-width:0; line-height:1.25}
+  .hbar-name code{font-size:12px}
+  .hbar-sub{display:block; font-size:11px; color:var(--muted); margin-top:2px}
+  .hbar-track{height:12px; background:var(--pill); border-radius:0 4px 4px 0}
+  .hbar-fill{height:100%; background:var(--accent); border-radius:0 4px 4px 0}
+  .hbar-val{font-size:12.5px; font-variant-numeric:tabular-nums; text-align:right; color:var(--text)}
+  @media (max-width:640px){
+    .hbar-row{grid-template-columns:minmax(0,1fr) 26px; gap:4px 8px}
+    .hbar-name{grid-column:1 / -1}
+    .hbar-track{grid-column:1}
+  }
   /* cost chart */
   #costChart{display:block; margin:0 auto; background:#0e1217; border-radius:8px}
   .bar-tooltip{position:absolute; padding:6px 10px; background:#1d242e; border:1px solid var(--line);
@@ -664,9 +680,9 @@
 <div class="view view-home" data-view="home">
   <div class="home-inner">
     <header class="home-hero">
-      <span class="badge" data-pt="Estudo · 21 tópicos · quiz de 57 perguntas · ~5–6h leitura rápida · ~10–12h estudo profundo">Study · 21 topics · 57-question quiz · ~5–6 hour skim · ~10–12 hour deep study</span>
+      <span class="badge" data-pt="Estudo · 23 tópicos · quiz de 65 perguntas · ~5–6h leitura rápida · ~10–12h estudo profundo">Study · 23 topics · 65-question quiz · ~5–6 hour skim · ~10–12 hour deep study</span>
       <h1 data-pt="Guia Rápido de IA">AI Cheat Sheet</h1>
-      <p class="lead" data-pt="Tudo o que você precisa sobre economia de modelos, encanamento de agents e o vocabulário de SDD / MCP / RAG essencial para dominar como engenheiro de software trabalhando com IA. Os números são preços de tabela de novembro de 2026; confira as páginas oficiais antes de planejar gastos.">Everything you need on model economics, agent plumbing, and the SDD / MCP / RAG vocabulary that's essential to master as a software engineer working with AI. Numbers are November 2026 list prices; check official pages before budgeting.</p>
+      <p class="lead" data-pt="Tudo o que você precisa sobre economia de modelos, encanamento de agents e o vocabulário de SDD / AI-DLC / MCP / RAG essencial para dominar como engenheiro de software trabalhando com IA. Os números são preços de tabela de novembro de 2026; confira as páginas oficiais antes de planejar gastos.">Everything you need on model economics, agent plumbing, and the SDD / AI-DLC / MCP / RAG vocabulary that's essential to master as a software engineer working with AI. Numbers are November 2026 list prices; check official pages before budgeting.</p>
     </header>
 
     <div class="journey-slot" id="journeyHome"></div>
@@ -815,7 +831,7 @@
 
       <div class="settings-section">
         <h3 class="settings-section-title" data-pt="Prática de Engenharia">Engineering Practice</h3>
-        <p class="settings-section-lead" data-pt="Como você de fato roda LLMs em produção: avaliando qualidade, versionando prompts e dirigindo codegen com specs executáveis.">How you actually run LLMs in production: evaluating quality, versioning prompts, and driving codegen with executable specs.</p>
+        <p class="settings-section-lead" data-pt="Como você de fato roda LLMs em produção: avaliando qualidade, versionando prompts, dirigindo codegen com specs executáveis e reconstruindo o ciclo de vida em torno de agents.">How you actually run LLMs in production: evaluating quality, versioning prompts, driving codegen with executable specs, and rebuilding the lifecycle around agents.</p>
         <div class="settings-group">
           <a class="settings-row" href="#/evals" data-section="evals">
             <span class="settings-row-icon is-execution">
@@ -836,6 +852,20 @@
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4 h16 v16 h-16 z"/><path d="M8 9 l3 3 l-3 3 M14 15 h3"/></svg>
             </span>
             <span class="settings-row-label" data-pt="Spec-Driven Dev">Spec-Driven Dev</span>
+            <svg class="settings-row-chevron" viewBox="0 0 9 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 2 L7 7 L2 12"/></svg>
+          </a>
+          <a class="settings-row" href="#/ai-dlc" data-section="ai-dlc">
+            <span class="settings-row-icon is-execution">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12 a8 8 0 1 1 -2.3 -5.6"/><path d="M20 4 v5 h-5"/><path d="M9 12 l2 2 l4 -4"/></svg>
+            </span>
+            <span class="settings-row-label" data-pt="AI-DLC e SDLC AI-native">AI-DLC &amp; AI-native SDLC</span>
+            <svg class="settings-row-chevron" viewBox="0 0 9 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 2 L7 7 L2 12"/></svg>
+          </a>
+          <a class="settings-row" href="#/agentic-engineering" data-section="agentic-engineering">
+            <span class="settings-row-icon is-execution">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5 h7 a2 2 0 0 1 2 2 v12 a2 2 0 0 0 -2 -2 h-7 z"/><path d="M20 5 h-7 M20 5 v12 h-7"/></svg>
+            </span>
+            <span class="settings-row-label" data-pt="Vocabulário de engenharia agêntica">Agentic engineering vocabulary</span>
             <svg class="settings-row-chevron" viewBox="0 0 9 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 2 L7 7 L2 12"/></svg>
           </a>
         </div>
@@ -977,6 +1007,8 @@
         <li><a href="#evals" data-pt="Evals vs Benchmarks">Evals vs Benchmarks</a></li>
         <li><a href="#prompts" data-pt="Versionamento de Prompts">Prompt Versioning</a></li>
         <li><a href="#sdd" data-pt="Spec-Driven Dev">Spec-Driven Dev</a></li>
+        <li><a href="#ai-dlc" data-pt="AI-DLC e SDLC AI-native">AI-DLC &amp; AI-native SDLC</a> <span class="pill" data-pt="novo">new</span></li>
+        <li><a href="#agentic-engineering" data-pt="Vocabulário de engenharia agêntica">Agentic engineering vocabulary</a> <span class="pill" data-pt="novo">new</span></li>
       </ol>
     </div>
 
@@ -1019,9 +1051,9 @@
   </header>
   <main class="detail-content">
     <header class="hero desktop-hero">
-      <span class="badge" data-pt="Estudo · 21 tópicos · quiz de 57 perguntas · ~5–6h leitura rápida · ~10–12h estudo profundo">Study · 21 topics · 57-question quiz · ~5–6 hour skim · ~10–12 hour deep study</span>
+      <span class="badge" data-pt="Estudo · 23 tópicos · quiz de 65 perguntas · ~5–6h leitura rápida · ~10–12h estudo profundo">Study · 23 topics · 65-question quiz · ~5–6 hour skim · ~10–12 hour deep study</span>
       <h1 data-pt="Guia de Estudos de IA — Cheat Sheet">AI Study Guide — Cheat Sheet</h1>
-      <p class="lead" data-pt="Tudo o que você precisa sobre economia de modelos, encanamento de agents e o vocabulário de SDD / MCP / RAG essencial para dominar como engenheiro de software trabalhando com IA. Os números são preços de tabela de novembro de 2026; confira as páginas oficiais antes de planejar gastos.">Everything you need on model economics, agent plumbing, and the SDD / MCP / RAG vocabulary that's essential to master as a software engineer working with AI. Numbers are November 2026 list prices; check official pages before budgeting.</p>
+      <p class="lead" data-pt="Tudo o que você precisa sobre economia de modelos, encanamento de agents e o vocabulário de SDD / AI-DLC / MCP / RAG essencial para dominar como engenheiro de software trabalhando com IA. Os números são preços de tabela de novembro de 2026; confira as páginas oficiais antes de planejar gastos.">Everything you need on model economics, agent plumbing, and the SDD / AI-DLC / MCP / RAG vocabulary that's essential to master as a software engineer working with AI. Numbers are November 2026 list prices; check official pages before budgeting.</p>
     </header>
 
     <div class="journey-slot" id="journeyDesktop"></div>
@@ -3036,14 +3068,278 @@ See [Billing API](../systems/billing-api.md).</code></pre>
     <li data-pt="Evals (<a href=&quot;#evals&quot;>§17</a>) viram os critérios de aceitação executáveis.">Evals (<a href="#evals">§17</a>) become the executable acceptance criteria.</li>
     <li data-pt="Prompts que conduzem cada fase são <strong>versionados</strong> (<a href=&quot;#prompts&quot;>§18</a>).">Prompts driving each phase are <strong>versioned</strong> (<a href="#prompts">§18</a>).</li>
     <li data-pt="O agente usa <strong>MCP</strong> (<a href=&quot;#mcp&quot;>§10</a>) para falar com git, o build, o test runner.">The agent uses <strong>MCP</strong> (<a href="#mcp">§10</a>) to talk to git, the build, the test runner.</li>
-    <li data-pt="<strong>Context7</strong> (<a href=&quot;#context7&quot;>§21</a>) alimenta com as APIs reais das bibliotecas a usar."><strong>Context7</strong> (<a href="#context7">§21</a>) feeds it the actual library APIs to use.</li>
+    <li data-pt="<strong>Context7</strong> (<a href=&quot;#context7&quot;>§23</a>) alimenta com as APIs reais das bibliotecas a usar."><strong>Context7</strong> (<a href="#context7">§23</a>) feeds it the actual library APIs to use.</li>
+    <li data-pt="Um nível acima: o <strong>AI-DLC</strong> (<a href=&quot;#ai-dlc&quot;>§20</a>) envolve esse loop no ciclo de vida inteiro — rituais do time, profundidade adaptativa e a fase de Operations."><strong>One level up:</strong> <strong>AI-DLC</strong> (<a href="#ai-dlc">§20</a>) wraps this loop in the whole lifecycle — team rituals, adaptive depth and an Operations phase.</li>
   </ul>
 </section>
 
 
+<!-- =================== AI-DLC / AI-NATIVE SDLC =================== -->
+<section id="ai-dlc">
+  <h2 data-pt="&lt;span class=&quot;num&quot;&gt;20&lt;/span&gt; AI-DLC e o SDLC AI-native — o ciclo de vida reconstruído em torno de agents &lt;span class=&quot;badge&quot; style=&quot;background:var(--warn); color:#0b0d10&quot;&gt;NOVO&lt;/span&gt;"><span class="num">20</span> AI-DLC &amp; the AI-native SDLC — the lifecycle rebuilt around agents <span class="badge" style="background:var(--warn); color:#0b0d10">NEW</span></h2>
+  <p data-pt="O SDD (&lt;a href=&quot;#sdd&quot;&gt;§19&lt;/a&gt;) muda como &lt;em&gt;uma feature&lt;/em&gt; é especificada e construída. A próxima pergunta que todo time encontra é maior: quando agents escrevem o rascunho dos requisitos, do código, dos testes e dos scripts de deploy, o que acontece com sprints, dailies, hand-offs e review? É disso que tratam as conversas sobre &lt;strong&gt;AI-SDLC&lt;/strong&gt; — e o &lt;strong&gt;AI-DLC&lt;/strong&gt; (AI-Driven Development Life Cycle) da AWS é uma metodologia concreta e nomeada para isso, com fases, rituais e tooling open-source próprios.">SDD (<a href="#sdd">§19</a>) changes how <em>one feature</em> gets specified and built. The next question every team hits is bigger: once agents draft the requirements, code, tests and deploy scripts, what happens to sprints, stand-ups, hand-offs and review? That is what <strong>AI-SDLC</strong> conversations are about — and AWS's <strong>AI-DLC</strong> (AI-Driven Development Life Cycle) is a concrete, named methodology for it, with its own phases, rituals and open-source tooling.</p>
+
+  <h3 data-pt="20.1 Desembaraçando as siglas">20.1 Untangling the acronyms</h3>
+  <table>
+  <caption data-pt="Fontes: &lt;a href=&quot;https://www.endorlabs.com/learn/what-is-the-ai-native-sdlc&quot;&gt;Endor Labs, &amp;quot;What is the AI-native SDLC?&amp;quot;&lt;/a&gt; (22 out 2026); &lt;a href=&quot;https://aws.amazon.com/blogs/devops/ai-driven-development-life-cycle/&quot;&gt;AWS DevOps Blog, &amp;quot;AI-Driven Development Life Cycle&amp;quot;&lt;/a&gt; (31 jul 2025); &lt;a href=&quot;https://claude.com/resources/articles/the-ai-native-sdlc-playbook&quot;&gt;Anthropic, &amp;quot;The AI-native SDLC playbook&amp;quot;&lt;/a&gt; (21 ago 2026). Consultados em 20 nov 2026.">Sources: <a href="https://www.endorlabs.com/learn/what-is-the-ai-native-sdlc">Endor Labs, "What is the AI-native SDLC?"</a> (22 Oct 2026); <a href="https://aws.amazon.com/blogs/devops/ai-driven-development-life-cycle/">AWS DevOps Blog, "AI-Driven Development Life Cycle"</a> (31 Jul 2025); <a href="https://claude.com/resources/articles/the-ai-native-sdlc-playbook">Anthropic, "The AI-native SDLC playbook"</a> (21 Aug 2026). Consulted 20 Nov 2026.</caption>
+  <tr><th data-pt="Termo">Term</th><th data-pt="O que significa">What it means</th><th data-pt="Quem usa">Who uses it</th></tr>
+  <tr><td><strong>AI-SDLC</strong> / AI SDLC</td><td data-pt="Termo guarda-chuva para IA ao longo do ciclo de vida de software. Ambíguo: também pode significar o ciclo de vida para &lt;em&gt;construir&lt;/em&gt; sistemas de IA/ML.">Umbrella term for AI across the software lifecycle. Ambiguous: it can also mean the lifecycle for <em>building</em> AI/ML systems.</td><td data-pt="Uso genérico da indústria">Generic industry usage</td></tr>
+  <tr><td><strong>AI-assisted</strong> SDLC</td><td data-pt="Mesmos estágios e papéis; a IA sugere código, testes ou texto para um humano aceitar. O degrau antes do AI-native.">Same stages and roles; AI suggests code, tests or text for a human to accept. The step before AI-native.</td><td>AWS, Endor Labs</td></tr>
+  <tr><td><strong>AI-native</strong> SDLC</td><td data-pt="Ciclo de vida redesenhado em torno da participação da IA — mudam trabalho, hand-offs e controles, não só a velocidade. &amp;quot;Em vez de um fluxo linear, o processo vira um loop, e a IA está embutida em cada ponto.&amp;quot;">Lifecycle redesigned around AI participation — work, hand-offs and controls change, not just speed. "Instead of a linear flow, the process becomes a loop, and AI is embedded at each point."</td><td data-pt="Playbook da Anthropic (ago 2026), Endor Labs">Anthropic playbook (Aug 2026), Endor Labs</td></tr>
+  <tr><td><strong>Agentic SDLC</strong> / ADLC</td><td data-pt="O SDLC AI-native com agents autônomos atuando dentro dele. Cuidado: ADLC também é expandido como &lt;em&gt;Agent&lt;/em&gt; Development Lifecycle — construir e operar agents como produtos.">The AI-native SDLC with autonomous agents acting inside it. Careful: ADLC also expands to <em>Agent</em> Development Lifecycle — building and operating agents as products.</td><td data-pt="Endor Labs (agentic); IBM, Atlan (agent)">Endor Labs (agentic); IBM, Atlan (agent)</td></tr>
+  <tr><td><strong>AI-DLC</strong></td><td data-pt="Uma metodologia específica e nomeada: a IA conduz a execução, humanos dão supervisão e decisões. Tem fases, rituais e vocabulário próprios — não é só abreviação de &amp;quot;SDLC conduzido por IA&amp;quot;.">A specific, named methodology: AI drives execution, humans provide oversight and decisions. Has its own phases, rituals and vocabulary — not just shorthand for "AI-driven SDLC".</td><td data-pt="AWS (Raja SP, 31 jul 2025); open source desde 29 nov 2025">AWS (Raja SP, 31 Jul 2025); open source since 29 Nov 2025</td></tr>
+  </table>
+  <div class="callout warn" data-pt="&lt;strong&gt;Numa reunião:&lt;/strong&gt; quando alguém disser &amp;quot;AI-SDLC&amp;quot;, pergunte qual deles — a ideia guarda-chuva (o playbook da Anthropic observa que você vai &amp;quot;ouvir essa mudança chamada também de agentic SDLC, AI SDLC ou simplesmente desenvolvimento de software agêntico&amp;quot;), ou o AI-DLC da AWS, com fases, rituais e tooling definidos."><strong>In a meeting:</strong> when someone says "AI-SDLC", ask which one they mean — the umbrella idea (Anthropic's playbook notes you'll "also hear this shift called the agentic SDLC, the AI SDLC, or simply agentic software development"), or AWS's AI-DLC with its defined phases, rituals and tooling.</div>
+
+  <h3 data-pt="20.2 Por que um novo ciclo de vida — o diagnóstico da AWS">20.2 Why a new lifecycle — AWS's diagnosis</h3>
+  <p data-pt="O post de lançamento da AWS nomeia as duas formas como as organizações usavam IA, e argumenta que ambas deram resultados abaixo do ideal em velocidade e qualidade:">AWS's launch post names the two ways organizations were using AI, and argues both produced suboptimal results in velocity and quality:</p>
+  <ul>
+    <li data-pt="&lt;strong&gt;Desenvolvimento assistido por IA&lt;/strong&gt; — a IA melhora tarefas específicas (documentação, autocomplete, testes) dentro de métodos feitos para &amp;quot;processos longos conduzidos por humanos&amp;quot;. Encaixar a IA como assistente &amp;quot;reforça ineficiências ultrapassadas&amp;quot;."><strong>AI-assisted development</strong> — AI enhances specific tasks (documentation, code completion, testing) inside methods built for "human-driven, long running processes". Retrofitting AI as an assistant "reinforces outdated inefficiencies."</li>
+    <li data-pt="&lt;strong&gt;Desenvolvimento autônomo por IA&lt;/strong&gt; — espera-se que a IA gere aplicações inteiras a partir dos requisitos, sem intervenção humana."><strong>AI-autonomous development</strong> — AI is expected to generate entire applications from requirements without human intervention.</li>
+  </ul>
+  <p data-pt="O AI-DLC fica entre os dois, apoiado em duas dimensões:">AI-DLC sits between them, on two dimensions:</p>
+  <ul>
+    <li data-pt="&lt;strong&gt;Execução pela IA com supervisão humana&lt;/strong&gt; — a IA &amp;quot;cria sistematicamente planos de trabalho detalhados, busca ativamente esclarecimentos e orientação, e delega decisões críticas aos humanos&amp;quot;."><strong>AI-powered execution with human oversight</strong> — AI "systematically creates detailed work plans, actively seeks clarification and guidance, and defers critical decisions to humans."</li>
+    <li data-pt="&lt;strong&gt;Colaboração dinâmica do time&lt;/strong&gt; — conforme a IA assume o trabalho rotineiro, o time se reúne em espaços compartilhados para resolver problemas em tempo real e decidir rápido, em vez de trabalhar isolado."><strong>Dynamic team collaboration</strong> — as AI takes the routine work, the team gathers in shared spaces for real-time problem solving and rapid decisions instead of working in isolation.</li>
+  </ul>
+
+  <h3 data-pt="20.3 O loop central — a IA inicia, humanos decidem">20.3 The core loop — AI initiates, humans decide</h3>
+  <p data-pt="O modelo mental inverte o padrão de chat que você conhece. No código assistido por IA, um humano faz o prompt e a IA responde; no AI-DLC a IA inicia e dirige o workflow, e os humanos respondem, corrigem e aprovam.">The mental model inverts the chat pattern you know. In AI-assisted coding a human prompts and the AI responds; in AI-DLC the AI initiates and directs the workflow, and the humans answer, correct and approve.</p>
+  <figure class="diagram">
+    <svg viewBox="0 0 640 250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="AI-DLC core loop: AI plans, asks, humans validate, AI implements, context persisted">
+      <defs><marker id="arrDLC" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#5a6678"/></marker></defs>
+      <rect x="20" y="30" width="180" height="62" rx="7" fill="#1d242e" stroke="#82b8ff" stroke-width="1.5"/>
+      <text x="110" y="55" text-anchor="middle" class="svg-label" font-weight="700" fill="#82b8ff" data-pt="1 · IA propõe um plano">1 · AI proposes a plan</text>
+      <text x="110" y="73" text-anchor="middle" class="svg-mute" data-pt="para esta atividade do SDLC">for this SDLC activity</text>
+      <rect x="230" y="30" width="180" height="62" rx="7" fill="#1d242e" stroke="#82b8ff" stroke-width="1.5"/>
+      <text x="320" y="55" text-anchor="middle" class="svg-label" font-weight="700" fill="#82b8ff" data-pt="2 · IA pergunta">2 · AI asks</text>
+      <text x="320" y="73" text-anchor="middle" class="svg-mute" data-pt="perguntas de esclarecimento">clarifying questions</text>
+      <rect x="440" y="30" width="180" height="62" rx="7" fill="#1d242e" stroke="#7cf0c1" stroke-width="1.5"/>
+      <text x="530" y="55" text-anchor="middle" class="svg-label" font-weight="700" fill="#7cf0c1" data-pt="3 · Humanos validam">3 · Humans validate</text>
+      <text x="530" y="73" text-anchor="middle" class="svg-mute" data-pt="respondem, corrigem, aprovam">answer, correct, approve</text>
+      <rect x="440" y="150" width="180" height="62" rx="7" fill="#1d242e" stroke="#82b8ff" stroke-width="1.5"/>
+      <text x="530" y="175" text-anchor="middle" class="svg-label" font-weight="700" fill="#82b8ff" data-pt="4 · IA implementa">4 · AI implements</text>
+      <text x="530" y="193" text-anchor="middle" class="svg-mute" data-pt="só depois da validação">only after validation</text>
+      <rect x="160" y="150" width="220" height="62" rx="7" fill="#1d242e" stroke="#ffb86b" stroke-width="1.5"/>
+      <text x="270" y="175" text-anchor="middle" class="svg-label" font-weight="700" fill="#ffb86b" data-pt="Contexto salvo no repo">Context saved to the repo</text>
+      <text x="270" y="193" text-anchor="middle" class="svg-mute" data-pt="planos · requisitos · designs">plans · requirements · designs</text>
+      <line x1="200" y1="61" x2="228" y2="61" stroke="#5a6678" stroke-width="1.5" marker-end="url(#arrDLC)"/>
+      <line x1="410" y1="61" x2="438" y2="61" stroke="#5a6678" stroke-width="1.5" marker-end="url(#arrDLC)"/>
+      <line x1="530" y1="92" x2="530" y2="148" stroke="#5a6678" stroke-width="1.5" marker-end="url(#arrDLC)"/>
+      <line x1="440" y1="181" x2="382" y2="181" stroke="#5a6678" stroke-width="1.5" marker-end="url(#arrDLC)"/>
+      <path d="M160 181 H110 V94" fill="none" stroke="#5a6678" stroke-width="1.5" marker-end="url(#arrDLC)"/>
+      <text x="320" y="240" text-anchor="middle" class="svg-mute" data-pt="a próxima atividade parte de um contexto mais rico">next activity starts from richer context</text>
+    </svg>
+    <figcaption data-pt="Azul = passos da IA, verde = passo humano. Fonte: &lt;a href=&quot;https://aws.amazon.com/blogs/devops/ai-driven-development-life-cycle/&quot;&gt;AWS DevOps Blog, Raja SP, 31 jul 2025&lt;/a&gt; — &amp;quot;a IA cria um plano, faz perguntas de esclarecimento para buscar contexto, e implementa soluções só depois de receber validação humana&amp;quot;, um padrão que &amp;quot;se repete rapidamente para cada atividade do SDLC&amp;quot;. Consultado em 20 nov 2026.">Blue = AI steps, green = human step. Source: <a href="https://aws.amazon.com/blogs/devops/ai-driven-development-life-cycle/">AWS DevOps Blog, Raja SP, 31 Jul 2025</a> — "AI creates a plan, asks clarifying questions to seek context, and implements solutions only after receiving human validation", a pattern that "repeats rapidly for every SDLC activity". Consulted 20 Nov 2026.</figcaption>
+  </figure>
+  <p data-pt="Como o mesmo loop roda em todo estágio, o AI-DLC se apoia fortemente em artefatos persistentes: a IA &amp;quot;salva e mantém contexto persistente em todas as fases, guardando planos, requisitos e artefatos de design no repositório do projeto&amp;quot;, então o próximo loop — ou a próxima sessão — parte deles em vez de um chat em branco.">Because the same loop runs at every stage, AI-DLC leans hard on persistent artifacts: the AI "saves and maintains persistent context across all phases by storing plans, requirements, and design artifacts to your project repository", so the next loop — or the next session — starts from them instead of from a blank chat.</p>
+
+  <h3 data-pt="20.4 Três fases, dois rituais de mob">20.4 Three phases, two mob rituals</h3>
+  <figure class="diagram">
+    <svg viewBox="0 0 640 215" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="AI-DLC phases: Inception, Construction, Operations over a shared repository context">
+      <defs><marker id="arrDLC2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#5a6678"/></marker></defs>
+      <rect x="20" y="20" width="180" height="104" rx="7" fill="#1d242e" stroke="#7cf0c1" stroke-width="1.5"/>
+      <text x="110" y="46" text-anchor="middle" class="svg-label" font-weight="700" font-size="14" fill="#7cf0c1" data-pt="Inception">Inception</text>
+      <text x="110" y="68" text-anchor="middle" class="svg-label" data-pt="Mob Elaboration">Mob Elaboration</text>
+      <text x="110" y="92" text-anchor="middle" class="svg-mute" data-pt="intent → requisitos,">intent → requirements,</text>
+      <text x="110" y="108" text-anchor="middle" class="svg-mute" data-pt="stories, units">stories, units</text>
+      <rect x="230" y="20" width="180" height="104" rx="7" fill="#1d242e" stroke="#82b8ff" stroke-width="1.5"/>
+      <text x="320" y="46" text-anchor="middle" class="svg-label" font-weight="700" font-size="14" fill="#82b8ff" data-pt="Construction">Construction</text>
+      <text x="320" y="68" text-anchor="middle" class="svg-label" data-pt="Mob Construction">Mob Construction</text>
+      <text x="320" y="92" text-anchor="middle" class="svg-mute" data-pt="arquitetura, modelos">architecture, domain</text>
+      <text x="320" y="108" text-anchor="middle" class="svg-mute" data-pt="de domínio, código, testes">models, code, tests</text>
+      <rect x="440" y="20" width="180" height="104" rx="7" fill="#1d242e" stroke="#ffb86b" stroke-width="1.5"/>
+      <text x="530" y="46" text-anchor="middle" class="svg-label" font-weight="700" font-size="14" fill="#ffb86b" data-pt="Operations">Operations</text>
+      <text x="530" y="68" text-anchor="middle" class="svg-label" data-pt="supervisão do time">team oversight</text>
+      <text x="530" y="92" text-anchor="middle" class="svg-mute" data-pt="infraestrutura como código,">infrastructure as code,</text>
+      <text x="530" y="108" text-anchor="middle" class="svg-mute" data-pt="deploys">deployments</text>
+      <line x1="200" y1="72" x2="228" y2="72" stroke="#5a6678" stroke-width="1.5" marker-end="url(#arrDLC2)"/>
+      <line x1="410" y1="72" x2="438" y2="72" stroke="#5a6678" stroke-width="1.5" marker-end="url(#arrDLC2)"/>
+      <rect x="20" y="152" width="600" height="40" rx="7" fill="#12161c" stroke="#e2c9ff" stroke-width="1.2" stroke-dasharray="4 3"/>
+      <text x="320" y="177" text-anchor="middle" class="svg-label" fill="#e2c9ff" data-pt="Contexto persistente no repo — cada fase passa um contexto mais rico para a próxima">Persistent context in the repo — each phase hands richer context to the next</text>
+      <line x1="110" y1="124" x2="110" y2="150" stroke="#5a6678" stroke-width="1.2" marker-end="url(#arrDLC2)"/>
+      <line x1="320" y1="124" x2="320" y2="150" stroke="#5a6678" stroke-width="1.2" marker-end="url(#arrDLC2)"/>
+      <line x1="530" y1="124" x2="530" y2="150" stroke="#5a6678" stroke-width="1.2" marker-end="url(#arrDLC2)"/>
+    </svg>
+    <figcaption data-pt="As três fases do método original. Fonte: &lt;a href=&quot;https://aws.amazon.com/blogs/devops/ai-driven-development-life-cycle/&quot;&gt;AWS DevOps Blog, 31 jul 2025&lt;/a&gt;; consultado em 20 nov 2026.">The three phases of the original method. Source: <a href="https://aws.amazon.com/blogs/devops/ai-driven-development-life-cycle/">AWS DevOps Blog, 31 Jul 2025</a>; consulted 20 Nov 2026.</figcaption>
+  </figure>
+  <ol>
+    <li data-pt="&lt;strong&gt;Inception&lt;/strong&gt; — &amp;quot;a IA transforma a intenção de negócio em requisitos, stories e units detalhados&amp;quot; via &lt;strong&gt;Mob Elaboration&lt;/strong&gt;, &amp;quot;em que o time inteiro valida ativamente as perguntas e propostas da IA&amp;quot;."><strong>Inception</strong> — "AI transforms business intent into detailed requirements, stories and units" through <strong>Mob Elaboration</strong>, "where the entire team actively validates AI's questions and proposals."</li>
+    <li data-pt="&lt;strong&gt;Construction&lt;/strong&gt; — com o contexto validado da Inception, a IA propõe &amp;quot;uma arquitetura lógica, modelos de domínio, a solução em código e testes&amp;quot; via &lt;strong&gt;Mob Construction&lt;/strong&gt;, em que o time esclarece decisões técnicas e escolhas de arquitetura em tempo real."><strong>Construction</strong> — with Inception's validated context, AI proposes "a logical architecture, domain models, code solution and tests" through <strong>Mob Construction</strong>, where the team clarifies technical decisions and architectural choices in real time.</li>
+    <li data-pt="&lt;strong&gt;Operations&lt;/strong&gt; — a IA aplica o contexto acumulado &amp;quot;para gerenciar infraestrutura como código e deploys, com supervisão do time&amp;quot;."><strong>Operations</strong> — AI applies the accumulated context "to manage infrastructure as code and deployments, with team oversight."</li>
+  </ol>
+
+  <h3 data-pt="20.5 O novo vocabulário">20.5 The new vocabulary</h3>
+  <table>
+  <caption data-pt="Fontes: &lt;a href=&quot;https://aws.amazon.com/blogs/devops/ai-driven-development-life-cycle/&quot;&gt;AWS DevOps Blog, 31 jul 2025&lt;/a&gt; (&amp;quot;as &#x27;sprints&#x27; tradicionais são substituídas por &#x27;bolts&#x27; … Epics são substituídos por Units of Work&amp;quot;); &lt;a href=&quot;https://aws.amazon.com/blogs/devops/open-sourcing-adaptive-workflows-for-ai-driven-development-life-cycle-ai-dlc/&quot;&gt;Open-Sourcing Adaptive Workflows for AI-DLC, 29 nov 2025&lt;/a&gt;; &lt;a href=&quot;https://github.com/awslabs/aidlc-workflows/blob/main/docs/guide/workflow-profiles.md&quot;&gt;aidlc-workflows Workflow Profiles&lt;/a&gt; (construção Unit por Unit). Consultados em 20 nov 2026.">Sources: <a href="https://aws.amazon.com/blogs/devops/ai-driven-development-life-cycle/">AWS DevOps Blog, 31 Jul 2025</a> ("Traditional 'sprints' are replaced by 'bolts' … Epics are replaced by Units of Work"); <a href="https://aws.amazon.com/blogs/devops/open-sourcing-adaptive-workflows-for-ai-driven-development-life-cycle-ai-dlc/">Open-Sourcing Adaptive Workflows for AI-DLC, 29 Nov 2025</a>; <a href="https://github.com/awslabs/aidlc-workflows/blob/main/docs/guide/workflow-profiles.md">aidlc-workflows Workflow Profiles</a> (Unit-by-Unit construction). Consulted 20 Nov 2026.</caption>
+  <tr><th data-pt="Termo">Term</th><th data-pt="Significado">Meaning</th><th data-pt="Substitui">Replaces</th></tr>
+  <tr><td><strong>Intent</strong></td><td data-pt="O ponto de partida: uma declaração simples do que você quer. &amp;quot;O desenvolvimento AI-Driven começa com uma simples declaração de intenção.&amp;quot;">The starting point: a plain statement of what you want. "AI-Driven development begins with a simple statement of intent."</td><td>—</td></tr>
+  <tr><td><strong>Bolt</strong></td><td data-pt="Um ciclo de trabalho &amp;quot;medido em horas ou dias em vez de semanas&amp;quot; — mais curto e intenso que uma sprint.">A work cycle "measured in hours or days rather than weeks" — shorter and more intense than a sprint.</td><td data-pt="Sprint">Sprint</td></tr>
+  <tr><td><strong>Unit of Work</strong></td><td data-pt="Uma fatia da intenção que a Inception produz e a Construction constrói, Unit por Unit.">A slice of the intent that Inception produces and Construction builds, Unit by Unit.</td><td data-pt="Epic">Epic</td></tr>
+  <tr><td><strong>Mob Elaboration</strong></td><td data-pt="Ritual da Inception: o time inteiro valida junto as perguntas e propostas da IA.">Inception ritual: the whole team validates the AI's questions and proposals together.</td><td data-pt="— (ritual novo)">— (new ritual)</td></tr>
+  <tr><td><strong>Mob Construction</strong></td><td data-pt="Ritual da Construction: o time responde às perguntas técnicas e de arquitetura da IA em tempo real.">Construction ritual: the team answers the AI's technical and architectural questions in real time.</td><td data-pt="— (ritual novo)">— (new ritual)</td></tr>
+  </table>
+
+  <h3 data-pt="20.6 Workflows adaptativos — o AI-DLC como regras de steering open-source">20.6 Adaptive workflows — AI-DLC as open-source steering rules</h3>
+  <p data-pt="Em &lt;a href=&quot;https://aws.amazon.com/blogs/devops/open-sourcing-adaptive-workflows-for-ai-driven-development-life-cycle-ai-dlc/&quot;&gt;29 nov 2025&lt;/a&gt; a AWS abriu o código do AI-DLC como regras e arquivos de steering — &amp;quot;workflow scaffolds&amp;quot; — para agents de código. O post nomeia três problemas das ferramentas agênticas: &lt;strong&gt;workflows tamanho único&lt;/strong&gt; que empurram todo pedido pelos mesmos passos; &lt;strong&gt;falta de profundidade flexível&lt;/strong&gt; dentro de um estágio (domain-driven design completo para uma função utilitária); e &lt;strong&gt;ferramentas que automatizam demais&lt;/strong&gt; até os devs caírem em &amp;quot;execução passiva&amp;quot; — o que a AWS chama de &lt;strong&gt;atrofia de processo&lt;/strong&gt;.">On <a href="https://aws.amazon.com/blogs/devops/open-sourcing-adaptive-workflows-for-ai-driven-development-life-cycle-ai-dlc/">29 Nov 2025</a> AWS open-sourced AI-DLC as rules and steering files — "workflow scaffolds" — for AI coding agents. The post names three problems with agentic tools: <strong>one-size-fits-all workflows</strong> that push every request through the same steps; <strong>no flexible depth</strong> inside a stage (full domain-driven design for a utility function); and <strong>tools that over-automate</strong> until developers drift into "passive execution" — what AWS calls <strong>process atrophy</strong>.</p>
+  <p data-pt="A correção é o Princípio 10 do AI-DLC Method Definition Paper — &lt;em&gt;No Hard-Wired, Opinionated SDLC Workflows&lt;/em&gt;: a IA recomenda quais estágios rodar (&lt;strong&gt;amplitude&lt;/strong&gt;) e quanto rigor cada um recebe (&lt;strong&gt;profundidade&lt;/strong&gt;) a partir da intenção, e humanos validam essa proposta antes de ela rodar.">The fix is Principle 10 of the AI-DLC Method Definition Paper — <em>No Hard-Wired, Opinionated SDLC Workflows</em>: the AI recommends which stages to run (<strong>breadth</strong>) and how much rigor each gets (<strong>depth</strong>) from the intent, and humans validate that proposal before it runs.</p>
+  <h4 data-pt="awslabs/aidlc-workflows hoje">awslabs/aidlc-workflows today</h4>
+  <p data-pt="O &lt;a href=&quot;https://github.com/awslabs/aidlc-workflows&quot;&gt;repositório&lt;/a&gt; virou desde então um engine neutro de harness (v2.11.4, MIT-0, verificado em 20 nov 2026). Configure uma vez por projeto com &lt;code&gt;aidlc config --harness claude&lt;/code&gt; (ou &lt;code&gt;kiro&lt;/code&gt;, &lt;code&gt;codex&lt;/code&gt;, &lt;code&gt;cursor&lt;/code&gt;, &lt;code&gt;opencode&lt;/code&gt;, &lt;code&gt;copilot&lt;/code&gt;) e descreva o trabalho:">The <a href="https://github.com/awslabs/aidlc-workflows">repository</a> has since grown into a harness-neutral engine (v2.11.4, MIT-0, checked 20 Nov 2026). Configure it once per project with <code>aidlc config --harness claude</code> (or <code>kiro</code>, <code>codex</code>, <code>cursor</code>, <code>opencode</code>, <code>copilot</code>), then describe the work:</p>
+<pre><code>/aidlc Build a REST API for inventory management   # Codex CLI uses $aidlc</code></pre>
+  <ul>
+    <li data-pt="&lt;strong&gt;5 fases&lt;/strong&gt; — Initialization, Ideation, Inception, Construction, Operation — e &lt;strong&gt;33 estágios&lt;/strong&gt;"><strong>5 phases</strong> — Initialization, Ideation, Inception, Construction, Operation — and <strong>33 stages</strong></li>
+    <li data-pt="&lt;strong&gt;14 agents&lt;/strong&gt;: 11 especialistas de domínio, 2 revisores e um composer adaptativo"><strong>14 agents</strong>: 11 domain experts, 2 reviewers and an adaptive composer</li>
+    <li data-pt="&lt;strong&gt;11 perfis de workflow&lt;/strong&gt; mais uma rota customizada que o agent propõe a partir das suas palavras; &lt;strong&gt;3 níveis de profundidade&lt;/strong&gt; (Minimal, Standard, Comprehensive)"><strong>11 workflow profiles</strong> plus a custom route the agent proposes from your words; <strong>3 depth levels</strong> (Minimal, Standard, Comprehensive)</li>
+    <li data-pt="&lt;strong&gt;Approval gates&lt;/strong&gt; depois de cada estágio; progresso em &lt;code&gt;aidlc-state.md&lt;/code&gt; e uma trilha de auditoria com 134 tipos de evento"><strong>Approval gates</strong> after each stage; progress in <code>aidlc-state.md</code> and an audit trail with 134 event types</li>
+  </ul>
+  <figure class="diagram hbars-fig">
+    <div class="hbars-title" data-pt="Estágios executados por perfil de workflow (de 33)">Stages executed per workflow profile (of 33)</div>
+    <div class="hbars" role="table" aria-label="AI-DLC stages per workflow profile">
+      <div class="hbar-row" role="row"><div class="hbar-name" role="rowheader"><code>enterprise</code><span class="hbar-sub" data-pt="Comprehensive · regulado, trilha de auditoria completa">Comprehensive · regulated, full audit trail</span></div><div class="hbar-track" role="cell" aria-hidden="true"><div class="hbar-fill" style="width:100.0%"></div></div><div class="hbar-val" role="cell">33</div></div>
+      <div class="hbar-row" role="row"><div class="hbar-name" role="rowheader"><code>feature</code><span class="hbar-sub" data-pt="Standard · ciclo completo para uma feature nova">Standard · full lifecycle for a new feature</span></div><div class="hbar-track" role="cell" aria-hidden="true"><div class="hbar-fill" style="width:100.0%"></div></div><div class="hbar-val" role="cell">33</div></div>
+      <div class="hbar-row" role="row"><div class="hbar-name" role="rowheader"><code>workshop</code><span class="hbar-sub" data-pt="Standard · sessão facilitada em time">Standard · facilitated team session</span></div><div class="hbar-track" role="cell" aria-hidden="true"><div class="hbar-fill" style="width:78.8%"></div></div><div class="hbar-val" role="cell">26</div></div>
+      <div class="hbar-row" role="row"><div class="hbar-name" role="rowheader"><code>mvp</code><span class="hbar-sub" data-pt="Standard · primeiro incremento, sem a fase Operation">Standard · first increment, no Operation phase</span></div><div class="hbar-track" role="cell" aria-hidden="true"><div class="hbar-fill" style="width:69.7%"></div></div><div class="hbar-val" role="cell">23</div></div>
+      <div class="hbar-row" role="row"><div class="hbar-name" role="rowheader"><code>classic</code><span class="hbar-sub" data-pt="Standard · Inception + Construction estilo v1 (padrão)">Standard · v1-style Inception + Construction (default)</span></div><div class="hbar-track" role="cell" aria-hidden="true"><div class="hbar-fill" style="width:54.5%"></div></div><div class="hbar-val" role="cell">18</div></div>
+      <div class="hbar-row" role="row"><div class="hbar-name" role="rowheader"><code>infra</code><span class="hbar-sub" data-pt="Standard · mudança de infraestrutura">Standard · infrastructure change</span></div><div class="hbar-track" role="cell" aria-hidden="true"><div class="hbar-fill" style="width:45.5%"></div></div><div class="hbar-val" role="cell">15</div></div>
+      <div class="hbar-row" role="row"><div class="hbar-name" role="rowheader"><code>express</code><span class="hbar-sub" data-pt="Minimal · requisitos → código, sem design nem revisores">Minimal · requirements → code, no design or reviewers</span></div><div class="hbar-track" role="cell" aria-hidden="true"><div class="hbar-fill" style="width:30.3%"></div></div><div class="hbar-val" role="cell">10</div></div>
+      <div class="hbar-row" role="row"><div class="hbar-name" role="rowheader"><code>refactor</code><span class="hbar-sub" data-pt="Minimal · mesmo comportamento, estrutura melhor">Minimal · same behavior, better structure</span></div><div class="hbar-track" role="cell" aria-hidden="true"><div class="hbar-fill" style="width:30.3%"></div></div><div class="hbar-val" role="cell">10</div></div>
+      <div class="hbar-row" role="row"><div class="hbar-name" role="rowheader"><code>security-patch</code><span class="hbar-sub" data-pt="Minimal · resposta a CVE">Minimal · CVE response</span></div><div class="hbar-track" role="cell" aria-hidden="true"><div class="hbar-fill" style="width:30.3%"></div></div><div class="hbar-val" role="cell">10</div></div>
+      <div class="hbar-row" role="row"><div class="hbar-name" role="rowheader"><code>bugfix</code><span class="hbar-sub" data-pt="Minimal · defeito conhecido + teste de regressão">Minimal · known defect + regression test</span></div><div class="hbar-track" role="cell" aria-hidden="true"><div class="hbar-fill" style="width:27.3%"></div></div><div class="hbar-val" role="cell">9</div></div>
+      <div class="hbar-row" role="row"><div class="hbar-name" role="rowheader"><code>poc</code><span class="hbar-sub" data-pt="Minimal · provar viabilidade rápido">Minimal · prove feasibility fast</span></div><div class="hbar-track" role="cell" aria-hidden="true"><div class="hbar-fill" style="width:24.2%"></div></div><div class="hbar-val" role="cell">8</div></div>
+    </div>
+    <figcaption data-pt="Trilho = os 33 estágios; preenchido = estágios que o perfil roda. As contagens incluem os 3 estágios de Initialization que todo perfil roda; um estágio condicional ainda pode se pular (ex.: Reverse Engineering num repo greenfield). Fonte: &lt;a href=&quot;https://github.com/awslabs/aidlc-workflows/blob/main/docs/guide/05-scopes-and-depth.md&quot;&gt;aidlc-workflows, matriz estágio-por-escopo de &amp;quot;Scopes, Depth, and Test Strategy&amp;quot;&lt;/a&gt;, v2.11.4; consultado em 20 nov 2026.">Track = all 33 stages; filled = stages the profile runs. Counts include the 3 Initialization stages every profile runs; a conditional stage can still self-skip (e.g. Reverse Engineering in a greenfield repo). Source: <a href="https://github.com/awslabs/aidlc-workflows/blob/main/docs/guide/05-scopes-and-depth.md">aidlc-workflows, "Scopes, Depth, and Test Strategy" stage-by-scope matrix</a>, v2.11.4; consulted 20 Nov 2026.</figcaption>
+  </figure>
+  <p data-pt="Leia o gráfico como a resposta do próprio AI-DLC ao excesso de cerimônia: um bugfix roda 9 estágios em profundidade Minimal; uma feature regulada roda os 33 em profundidade Comprehensive. Mesmo engine, mesmos gates — amplitude e profundidade diferentes.">Read the chart as AI-DLC's own answer to ceremony overhead: a bugfix runs 9 stages at Minimal depth; a regulated feature runs all 33 at Comprehensive depth. Same engine, same gates — different breadth and depth.</p>
+
+  <h3 data-pt="20.7 O playbook de SDLC AI-native da Anthropic">20.7 Anthropic's AI-native SDLC playbook</h3>
+  <p data-pt="O &lt;a href=&quot;https://claude.com/resources/articles/the-ai-native-sdlc-playbook&quot;&gt;playbook&lt;/a&gt; da Anthropic (Louis Claxton, 21 ago 2026) descreve a mesma mudança sem o vocabulário da AWS, em seis estágios que ele chama de não-lineares — &amp;quot;cada artefato aceito dispara o próximo gate&amp;quot;.">Anthropic's <a href="https://claude.com/resources/articles/the-ai-native-sdlc-playbook">playbook</a> (Louis Claxton, 21 Aug 2026) describes the same shift without AWS's vocabulary, across six stages it calls non-linear — "each accepted artifact fires the next gate."</p>
+  <table>
+  <caption data-pt="Fonte: &lt;a href=&quot;https://claude.com/resources/articles/the-ai-native-sdlc-playbook&quot;&gt;Anthropic, &amp;quot;The AI-native SDLC playbook&amp;quot;&lt;/a&gt;, 21 ago 2026 — tabela &amp;quot;The shifts across the six stages of an AI-native SDLC&amp;quot;, parafraseada. Consultado em 20 nov 2026. O próprio playbook observa que &amp;quot;a maioria das organizações fica em algum lugar entre as duas colunas&amp;quot;.">Source: <a href="https://claude.com/resources/articles/the-ai-native-sdlc-playbook">Anthropic, "The AI-native SDLC playbook"</a>, 21 Aug 2026 — table "The shifts across the six stages of an AI-native SDLC", paraphrased. Consulted 20 Nov 2026. The playbook itself notes "Most organizations sit somewhere between the two columns."</caption>
+  <tr><th data-pt="Estágio">Stage</th><th data-pt="SDLC tradicional">Traditional SDLC</th><th data-pt="SDLC AI-native">AI-native SDLC</th></tr>
+  <tr><td><strong>Plan</strong></td><td data-pt="Requisitos em comitê, aprovações escritas à mão">Committee requirements, hand-written sign-offs</td><td data-pt="Dores sintetizadas num &lt;code&gt;intent.md&lt;/code&gt; — &amp;quot;legível por humanos e acionável por máquinas&amp;quot;">Pain points synthesized into <code>intent.md</code> — "human readable and machine actionable"</td></tr>
+  <tr><td><strong>Design</strong></td><td data-pt="Analistas escrevem uma spec; designers a interpretam">Analysts write a spec; designers parse it</td><td data-pt="Requisitos e design comprimidos numa sessão de trabalho com um agent; padrões codificados como skills">Requirements and design compressed into one working session with an agent; standards encoded as skills</td></tr>
+  <tr><td><strong>Build</strong></td><td data-pt="Testes e código escritos à mão; docs depois">Hand-written tests and code; docs afterwards</td><td data-pt="Testes e código gerados por IA; conhecimento institucional em &lt;code&gt;CLAUDE.md&lt;/code&gt; versionados e skills">AI-generated tests and code; institutional knowledge in versioned <code>CLAUDE.md</code> files and skills</td></tr>
+  <tr><td><strong>Test</strong></td><td data-pt="Gates de QA nas fronteiras dos estágios">QA gates at stage boundaries</td><td data-pt="Evals contínuos entremeados na implementação">Continuous evals woven through implementation</td></tr>
+  <tr><td><strong>Deploy</strong></td><td data-pt="Humanos revisam cada linha">Humans review every line</td><td data-pt="Review agêntico em camadas; humanos reservados para código regulado e crítico; hooks como approval gates">Layered agentic review; humans reserved for regulated and critical code; hooks as approval gates</td></tr>
+  <tr><td><strong>Maintain</strong></td><td data-pt="Humanos vigiam produção">Humans watch production</td><td data-pt="Agents monitoram deploys em produção; violações viram um novo &lt;code&gt;intent.md&lt;/code&gt;">Agents monitor live deployments; breaches written back as a new <code>intent.md</code></td></tr>
+  </table>
+  <ul>
+    <li data-pt="&lt;strong&gt;Cadeia de artefatos&lt;/strong&gt; — commite &lt;code&gt;intent.md&lt;/code&gt;, depois &lt;code&gt;spec.md&lt;/code&gt;, depois &lt;code&gt;plan.md&lt;/code&gt;: &amp;quot;Cada estágio commita um artefato que o próximo estágio consegue ler.&amp;quot;"><strong>Artifact chain</strong> — commit <code>intent.md</code>, then <code>spec.md</code>, then <code>plan.md</code>: "Every stage commits an artifact the next stage can read."</li>
+    <li data-pt="&lt;strong&gt;Plano primeiro&lt;/strong&gt; — no plan mode o agent &amp;quot;não pode editar arquivos até o engenheiro aceitar o plano&amp;quot;."><strong>Plan first</strong> — in plan mode the agent "cannot edit files until the engineer accepts the plan."</li>
+    <li data-pt="&lt;strong&gt;Dois erros → memória&lt;/strong&gt; — &amp;quot;Quando o Claude erra duas vezes, a correção vai para o &lt;code&gt;CLAUDE.md&lt;/code&gt;&amp;quot;, que fica com menos de uma página."><strong>Two strikes → memory</strong> — "When Claude makes a mistake twice, the correction goes into <code>CLAUDE.md</code>", which stays under a page.</li>
+    <li data-pt="&lt;strong&gt;Skills aconselham, hooks garantem&lt;/strong&gt; — &amp;quot;Uma skill é um controle, embora consultivo&amp;quot;; hooks são &amp;quot;a camada determinística por trás&amp;quot; dela (bloqueiam paths protegidos, rodam linters, mantêm credenciais fora do diff)."><strong>Skills advise, hooks enforce</strong> — "A skill is a control, though an advisory one"; hooks are "the deterministic layer behind" it (block protected paths, run linters, keep credentials out of the diff).</li>
+    <li data-pt="&lt;strong&gt;Sessões paralelas&lt;/strong&gt; em git worktrees separadas — &amp;quot;Duas ou três sessões é um ponto de partida sensato.&amp;quot;"><strong>Parallel sessions</strong> in separate git worktrees — "Two or three sessions is a sensible starting point."</li>
+    <li data-pt="&lt;strong&gt;Mudança de papel&lt;/strong&gt; — &amp;quot;O trabalho do engenheiro passa a ser orquestrar e, eventualmente, construir e monitorar loops&amp;quot;, enquanto &amp;quot;humanos continuam responsáveis por toda decisão que exige julgamento&amp;quot;."><strong>Role shift</strong> — "The engineer's job shifts to orchestrating, and eventually, to building and monitoring loops", while "Humans remain accountable for every decision that requires judgment."</li>
+  </ul>
+
+  <h3 data-pt="20.8 Agile vs SDD vs AI-DLC — como se encaixam">20.8 Agile vs SDD vs AI-DLC — how they fit</h3>
+  <table>
+  <tr><th></th><th data-pt="Agile / Scrum">Agile / Scrum</th><th data-pt="SDD (§19)">SDD (§19)</th><th data-pt="AI-DLC / SDLC AI-native">AI-DLC / AI-native SDLC</th></tr>
+  <tr><td data-pt="&lt;strong&gt;Escopo&lt;/strong&gt;"><strong>Scope</strong></td><td data-pt="Processo do time">Team process</td><td data-pt="Uma feature: spec → plan → tasks → código">One feature: spec → plan → tasks → code</td><td data-pt="O ciclo inteiro, da ideação à operação, mais os rituais do time">The whole lifecycle, ideation to operations, plus team rituals</td></tr>
+  <tr><td data-pt="&lt;strong&gt;Cadência&lt;/strong&gt;"><strong>Cadence</strong></td><td data-pt="Sprint (semanas)">Sprint (weeks)</td><td data-pt="Uma execução de spec / task graph">One spec / task-graph run</td><td data-pt="Bolt (horas a dias)">Bolt (hours to days)</td></tr>
+  <tr><td data-pt="&lt;strong&gt;Quem conduz&lt;/strong&gt;"><strong>Who drives</strong></td><td data-pt="Humanos; ferramentas ajudam">Humans; tools assist</td><td data-pt="Humano escreve a spec; IA executa contra ela">Human writes the spec; AI executes against it</td><td data-pt="IA inicia e propõe; humanos validam nos gates">AI initiates and proposes; humans validate at gates</td></tr>
+  <tr><td data-pt="&lt;strong&gt;Artefato durável&lt;/strong&gt;"><strong>Durable artifact</strong></td><td data-pt="Backlog, software funcionando">Backlog, working software</td><td data-pt="A spec">The spec</td><td data-pt="A cadeia de artefatos commitados — intent, requisitos, designs, trilha de auditoria">The chain of committed artifacts — intent, requirements, designs, audit trail</td></tr>
+  </table>
+  <p data-pt="Eles se aninham em vez de competir. A Inception do AI-DLC produz o que o SDD chama de spec e quebra de tarefas (requisitos, stories, units, contratos); a fase de Construction é onde roda um loop estilo SDD spec → plan → tasks → implement. O AI-DLC adiciona em volta os rituais do time, o controle de profundidade e a fase de Operations.">They nest rather than compete. AI-DLC's Inception produces what SDD calls the spec and the task breakdown (requirements, stories, units, contracts); its Construction phase is where an SDD-style spec → plan → tasks → implement loop runs. AI-DLC adds the team rituals, the depth control and the Operations phase around it.</p>
+
+  <h3 data-pt="20.9 Armadilhas">20.9 Pitfalls</h3>
+  <ul>
+    <li data-pt="&lt;strong&gt;Atrofia de processo.&lt;/strong&gt; O alerta da própria AWS: aprovações viram carimbo — &amp;quot;human in the loop&amp;quot; &amp;quot;não é um checkbox&amp;quot;. Um gate só funciona se alguém de fato lê o que está por trás dele."><strong>Process atrophy.</strong> AWS's own warning: approvals decay into rubber stamps — "human in the loop" is "not a checkbox." A gate only works if someone actually reads what is behind it.</li>
+    <li data-pt="&lt;strong&gt;Excesso de cerimônia.&lt;/strong&gt; Passar um fix de uma linha pelo ciclo completo é a falha que tornou o AI-DLC adaptativo — escolha o perfil que combina com a intenção."><strong>Ceremony overhead.</strong> Running a one-line fix through the full lifecycle is the failure that made AI-DLC adaptive — pick the profile that matches the intent.</li>
+    <li data-pt="&lt;strong&gt;Acronym-washing.&lt;/strong&gt; &amp;quot;AI-powered SDLC&amp;quot; muitas vezes é marketing de fornecedor para IA que só acelera estágios existentes — &amp;quot;geralmente mais perto de AI-assisted do que de AI-native&amp;quot; (Endor Labs)."><strong>Acronym-washing.</strong> "AI-powered SDLC" is often vendor marketing for AI that speeds up existing stages — "usually closer to AI-assisted than AI-native" (Endor Labs).</li>
+    <li data-pt="&lt;strong&gt;Verificação vira o gargalo.&lt;/strong&gt; Testes escritos por agents podem herdar os pontos cegos do código: mantenha checagens independentes (análise estática, testes desenhados por humanos) e escalone o caminho de review por risco — uma mudança de texto e uma de autenticação &amp;quot;não deveriam ter o mesmo caminho de review&amp;quot; (Endor Labs)."><strong>Verification becomes the bottleneck.</strong> Agent-written tests can share the code's blind spots: keep independent checks (static analysis, human-designed tests) and tier the review path by risk — a copy change and an auth change "shouldn't get the same review path" (Endor Labs).</li>
+  </ul>
+  <div class="callout" data-pt="&lt;strong&gt;Frase matadora:&lt;/strong&gt; &amp;quot;O SDD faz da spec o artefato durável. O AI-DLC faz do ciclo de vida inteiro um artefato — cada intent, decisão, aprovação e design vai para o repo, então a IA pode conduzir o próximo passo e humanos podem auditar cada um. A IA propõe, o mob decide, o bolt entrega.&amp;quot;"><strong>Killer line:</strong> "SDD makes the spec the durable artifact. AI-DLC makes the whole lifecycle an artifact — every intent, decision, approval and design lands in the repo, so the AI can drive the next step and humans can audit every one. The AI proposes, the mob decides, the bolt ships."</div>
+
+  <h3 data-pt="Onde isso se conecta">Where it connects</h3>
+  <ul>
+    <li data-pt="O loop por estágio é engenharia de loop (&lt;a href=&quot;#loop-engineering&quot;&gt;§09&lt;/a&gt;) com humanos posicionados nos gates.">The per-stage loop is loop engineering (<a href="#loop-engineering">§09</a>) with humans placed at the gates.</li>
+    <li data-pt="O AI-DLC é entregue como skills, hooks e regras dentro do seu harness (&lt;a href=&quot;#harness&quot;&gt;§05&lt;/a&gt;, &lt;a href=&quot;#skills&quot;&gt;§11&lt;/a&gt;) — não é um app separado.">AI-DLC is delivered as skills, hooks and rules inside your harness (<a href="#harness">§05</a>, <a href="#skills">§11</a>) — it is not a separate app.</li>
+    <li data-pt="Evals contínuos (&lt;a href=&quot;#evals&quot;&gt;§17&lt;/a&gt;) substituem o QA na fronteira dos estágios.">Continuous evals (<a href="#evals">§17</a>) replace QA at the stage boundary.</li>
+    <li data-pt="O output da Inception alimenta um loop de SDD (&lt;a href=&quot;#sdd&quot;&gt;§19&lt;/a&gt;); o vocabulário em volta — harness engineering, agentic engineering — está na &lt;a href=&quot;#agentic-engineering&quot;&gt;§21&lt;/a&gt;.">Inception output feeds an SDD loop (<a href="#sdd">§19</a>); the vocabulary around it — harness engineering, agentic engineering — is in <a href="#agentic-engineering">§21</a>.</li>
+  </ul>
+</section>
+
+
+<!-- =================== AGENTIC ENGINEERING VOCABULARY =================== -->
+<section id="agentic-engineering">
+  <h2 data-pt="&lt;span class=&quot;num&quot;&gt;21&lt;/span&gt; Engenharia agêntica — o vocabulário de campo de 2025–26 &lt;span class=&quot;badge&quot; style=&quot;background:var(--warn); color:#0b0d10&quot;&gt;NOVO&lt;/span&gt;"><span class="num">21</span> Agentic engineering — the 2025–26 field vocabulary <span class="badge" style="background:var(--warn); color:#0b0d10">NEW</span></h2>
+  <p data-pt="Termos que foram de um post de blog ao vocabulário diário da daily em cerca de um ano. Cada um vem com origem e data para você poder citar — e a seção deste guia que ele estende.">Terms that went from a blog post to everyday stand-up vocabulary in about a year. Each one comes with its origin and date so you can cite it — and the section of this guide it extends.</p>
+  <table>
+  <caption data-pt="As datas são as de primeira publicação dos posts primários linkados; consultados em 20 nov 2026.">Dates are the first-publication dates of the linked primary posts; consulted 20 Nov 2026.</caption>
+  <tr><th data-pt="Termo">Term</th><th data-pt="Origem">Origin</th><th data-pt="Em uma linha">In one line</th><th data-pt="Estende">Extends</th></tr>
+  <tr><td><strong>Vibe coding</strong></td><td data-pt="Andrej Karpathy, &lt;a href=&quot;https://twitter.com/karpathy/status/1886192184808149383&quot;&gt;2 fev 2025&lt;/a&gt;">Andrej Karpathy, <a href="https://twitter.com/karpathy/status/1886192184808149383">2 Feb 2025</a></td><td data-pt="Prompt, aceita, não lê o código.">Prompt, accept, don't read the code.</td><td>—</td></tr>
+  <tr><td><strong>Agentic engineering</strong></td><td data-pt="Karpathy, &lt;a href=&quot;https://twitter.com/karpathy/status/2019137879310836075&quot;&gt;4 fev 2026&lt;/a&gt;; &lt;a href=&quot;https://simonwillison.net/guides/agentic-engineering-patterns/what-is-agentic-engineering/&quot;&gt;Simon Willison&lt;/a&gt;">Karpathy, <a href="https://twitter.com/karpathy/status/2019137879310836075">4 Feb 2026</a>; <a href="https://simonwillison.net/guides/agentic-engineering-patterns/what-is-agentic-engineering/">Simon Willison</a></td><td data-pt="Construir software com agents de código enquanto você é dono da barra de qualidade.">Building software with coding agents while you own the quality bar.</td><td><a href="#harness">§05</a>, <a href="#loop-engineering">§09</a></td></tr>
+  <tr><td><strong>Harness engineering</strong></td><td data-pt="Time do Codex da OpenAI, &lt;a href=&quot;https://openai.com/index/harness-engineering/&quot;&gt;fev 2026&lt;/a&gt;">OpenAI Codex team, <a href="https://openai.com/index/harness-engineering/">Feb 2026</a></td><td data-pt="Projetar o ambiente — docs, restrições, feedback — em que os agents trabalham.">Designing the environment — docs, constraints, feedback — that agents work inside.</td><td><a href="#harness">§05</a>, <a href="#context-engineering">§08</a></td></tr>
+  <tr><td><strong>Ralph loop</strong></td><td data-pt="Geoffrey Huntley, &lt;a href=&quot;https://ghuntley.com/ralph/&quot;&gt;14 jul 2025&lt;/a&gt;">Geoffrey Huntley, <a href="https://ghuntley.com/ralph/">14 Jul 2025</a></td><td data-pt="Um loop em bash que roda de novo um agent sobre o mesmo arquivo de prompt.">A bash loop that re-runs an agent on the same prompt file.</td><td><a href="#loop-engineering">§09</a></td></tr>
+  <tr><td><strong>Lethal trifecta</strong></td><td data-pt="Simon Willison, &lt;a href=&quot;https://simonwillison.net/2025/Jun/16/the-lethal-trifecta/&quot;&gt;16 jun 2025&lt;/a&gt;">Simon Willison, <a href="https://simonwillison.net/2025/Jun/16/the-lethal-trifecta/">16 Jun 2025</a></td><td data-pt="Dados privados + conteúdo não confiável + comunicação externa = roubo de dados.">Private data + untrusted content + external communication = data theft.</td><td><a href="#mcp">§10</a>, <a href="#multi-agent">§12</a></td></tr>
+  <tr><td><strong>Agents Rule of Two</strong></td><td data-pt="Meta, &lt;a href=&quot;https://ai.meta.com/blog/practical-ai-agent-security/&quot;&gt;31 out 2025&lt;/a&gt;">Meta, <a href="https://ai.meta.com/blog/practical-ai-agent-security/">31 Oct 2025</a></td><td data-pt="No máximo duas das propriedades de risco por sessão.">At most two of the risky properties per session.</td><td><a href="#mcp">§10</a>, <a href="#multi-agent">§12</a></td></tr>
+  <tr><td><strong>AI-DLC</strong></td><td data-pt="AWS, &lt;a href=&quot;https://aws.amazon.com/blogs/devops/ai-driven-development-life-cycle/&quot;&gt;31 jul 2025&lt;/a&gt;">AWS, <a href="https://aws.amazon.com/blogs/devops/ai-driven-development-life-cycle/">31 Jul 2025</a></td><td data-pt="A IA propõe, humanos validam, ao longo de todo o ciclo de vida.">AI proposes, humans validate, across the whole lifecycle.</td><td><a href="#ai-dlc">§20</a></td></tr>
+  </table>
+
+  <h3 data-pt="21.1 Vibe coding → engenharia agêntica">21.1 Vibe coding → agentic engineering</h3>
+  <p data-pt="Karpathy cunhou &lt;strong&gt;vibe coding&lt;/strong&gt; em fevereiro de 2025 para um modo &amp;quot;em que você se entrega totalmente às vibes, abraça exponenciais e esquece que o código sequer existe&amp;quot; — e disse que &amp;quot;não é tão ruim para projetos descartáveis de fim de semana&amp;quot; (&lt;a href=&quot;https://simonwillison.net/2025/Mar/19/vibe-coding/&quot;&gt;citado na íntegra por Simon Willison&lt;/a&gt;). Um ano depois, em &lt;a href=&quot;https://twitter.com/karpathy/status/2019137879310836075&quot;&gt;4 fev 2026&lt;/a&gt;, ele propôs &lt;strong&gt;agentic engineering&lt;/strong&gt; como nome para a versão disciplinada. O guia &lt;em&gt;Agentic Engineering Patterns&lt;/em&gt; de Willison define: &amp;quot;a prática de desenvolver software com a assistência de agents de código&amp;quot; — e &amp;quot;execução de código é a capacidade definidora que torna a engenharia agêntica possível&amp;quot;.">Karpathy coined <strong>vibe coding</strong> in February 2025 for a mode "where you fully give in to the vibes, embrace exponentials, and forget that the code even exists" — and said it was "not too bad for throwaway weekend projects" (<a href="https://simonwillison.net/2025/Mar/19/vibe-coding/">quoted in full by Simon Willison</a>). A year later, on <a href="https://twitter.com/karpathy/status/2019137879310836075">4 Feb 2026</a>, he floated <strong>agentic engineering</strong> as the name for the disciplined version. Willison's <em>Agentic Engineering Patterns</em> guide pins it down: "the practice of developing software with the assistance of coding agents" — and "Code execution is the defining capability that makes agentic engineering possible."</p>
+  <div class="grid2">
+    <div class="card" data-pt="&lt;strong&gt;Vibe coding&lt;/strong&gt;&lt;br&gt;Você não lê o código; se parece funcionar, segue em frente. Certo para protótipos descartáveis e scripts pessoais. Errado para qualquer coisa de que outra pessoa vá depender."><strong>Vibe coding</strong><br>You don't read the code; if it seems to work, you move on. Right for throwaway prototypes and personal scripts. Wrong for anything someone else will depend on.</div>
+    <div class="card" data-pt="&lt;strong&gt;Engenharia agêntica&lt;/strong&gt;&lt;br&gt;Agents escrevem a maior parte do código; você é dono do plano, dos testes, do review e do que vai para produção. Tudo nas seções de agents e prática deste guia — harness, contexto, loops, skills, evals, SDD, AI-DLC — é a caixa de ferramentas dela."><strong>Agentic engineering</strong><br>Agents write most of the code; you own the plan, the tests, the review and what ships. Everything in this guide's agent and practice sections — harness, context, loops, skills, evals, SDD, AI-DLC — is its toolbox.</div>
+  </div>
+
+  <h3 data-pt="21.2 Harness engineering">21.2 Harness engineering</h3>
+  <p data-pt="O time do Codex da OpenAI popularizou o termo em &lt;a href=&quot;https://openai.com/index/harness-engineering/&quot;&gt;&amp;quot;Harness engineering: leveraging Codex in an agent-first world&amp;quot;&lt;/a&gt; (Ryan Lopopolo, fev 2026). Segundo a &lt;a href=&quot;https://www.infoq.com/news/2026/02/openai-harness-engineering-codex/&quot;&gt;matéria da InfoQ&lt;/a&gt; (21 fev 2026), um time pequeno passou cinco meses construindo e lançando um beta interno de cerca de um milhão de linhas de código sem nenhum código-fonte escrito à mão: engenheiros davam prompts, revisavam pull requests e davam feedback; agents do Codex escreveram a lógica da aplicação, testes, configuração de CI e observabilidade.">OpenAI's Codex team popularized the term in <a href="https://openai.com/index/harness-engineering/">"Harness engineering: leveraging Codex in an agent-first world"</a> (Ryan Lopopolo, Feb 2026). Per <a href="https://www.infoq.com/news/2026/02/openai-harness-engineering-codex/">InfoQ's write-up</a> (21 Feb 2026), a small team spent five months building and shipping an internal beta of roughly a million lines of code with no manually written source code: engineers gave prompts, reviewed pull requests and fed back; Codex agents wrote the application logic, tests, CI configuration and observability setup.</p>
+  <ul>
+    <li data-pt="&lt;strong&gt;&lt;code&gt;docs/&lt;/code&gt; como sistema de registro&lt;/strong&gt; — mapas, planos de execução e specs de design que os agents tratam como fonte da verdade, com links cruzados e checados no CI."><strong><code>docs/</code> as the system of record</strong> — maps, execution plans and design specs the agents treat as their source of truth, cross-linked and checked in CI.</li>
+    <li data-pt="&lt;strong&gt;Enforcement mecânico&lt;/strong&gt; — linters e testes estruturais mantêm as dependências fluindo num só sentido (Types → Config → Repo → Service → Runtime → UI)."><strong>Mechanical enforcement</strong> — linters and structural tests keep dependencies flowing one way (Types → Config → Repo → Service → Runtime → UI).</li>
+    <li data-pt="&lt;strong&gt;Telemetria que o agent consegue ler&lt;/strong&gt; — logs, métricas e spans, para ele reproduzir bugs e verificar os próprios fixes."><strong>Telemetry the agent can read</strong> — logs, metrics and spans, so it can reproduce bugs and verify its own fixes.</li>
+  </ul>
+  <p data-pt="O resumo de Martin Fowler (via InfoQ): &amp;quot;Harness inclui context engineering, restrições de arquitetura e garbage collection.&amp;quot; Onde a &lt;a href=&quot;#harness&quot;&gt;§05&lt;/a&gt; descreveu o harness como o loop de runtime e a &lt;a href=&quot;#context-engineering&quot;&gt;§08&lt;/a&gt; a janela, harness engineering é a disciplina de moldar tudo em volta do agent para que o resultado certo seja o fácil. Já virou nome de função: o aidlc-workflows (&lt;a href=&quot;#ai-dlc&quot;&gt;§20&lt;/a&gt;) traz um &amp;quot;Harness Engineer Guide&amp;quot; para remodelar seus estágios, agents, regras e sensores.">Martin Fowler's summary (via InfoQ): "Harness includes context engineering, architectural constraints, and garbage collection." Where <a href="#harness">§05</a> described the harness as the runtime loop and <a href="#context-engineering">§08</a> the window, harness engineering is the discipline of shaping everything around the agent so the right outcome is the easy one. It already names a job: aidlc-workflows (<a href="#ai-dlc">§20</a>) ships a "Harness Engineer Guide" for reshaping its stages, agents, rules and sensors.</p>
+
+  <h3 data-pt="21.3 O Ralph loop">21.3 The Ralph loop</h3>
+<pre><code>while :; do cat PROMPT.md | claude-code ; done</code></pre>
+  <p data-pt="Geoffrey Huntley (&lt;a href=&quot;https://ghuntley.com/ralph/&quot;&gt;14 jul 2025&lt;/a&gt;): &amp;quot;Ralph é uma técnica. Na forma mais pura, Ralph é um loop em Bash.&amp;quot; Cada passada começa com uma context window nova e faz &amp;quot;um item por loop&amp;quot;; o estado vive em disco — o prompt, um arquivo de plano, as specs, o histórico do git. Huntley o chama de &amp;quot;deterministicamente ruim num mundo não determinístico&amp;quot;: as falhas se repetem de formas reconhecíveis, então você as corrige ajustando o prompt em vez de ficar de babá de uma sessão.">Geoffrey Huntley (<a href="https://ghuntley.com/ralph/">14 Jul 2025</a>): "Ralph is a technique. In its purest form, Ralph is a Bash loop." Every pass starts with a fresh context window and does "one item per loop"; state lives on disk — the prompt, a plan file, the specs, git history. Huntley calls it "deterministically bad in an undeterministic world": failures repeat in recognizable ways, so you fix them by tuning the prompt rather than babysitting a session.</p>
+  <ul>
+    <li data-pt="&lt;strong&gt;Por que funciona:&lt;/strong&gt; sem context rot (&lt;a href=&quot;#context-engineering&quot;&gt;§08&lt;/a&gt;) — cada passada lê o estado atual do repo em vez de uma transcrição longa e degradada."><strong>Why it works:</strong> no context rot (<a href="#context-engineering">§08</a>) — each pass reads the current state of the repo instead of a long, degrading transcript.</li>
+    <li data-pt="&lt;strong&gt;O que falta:&lt;/strong&gt; tudo o que a &lt;a href=&quot;#loop-engineering&quot;&gt;§09&lt;/a&gt; manda projetar — condições de parada, orçamentos, um verificador separado. Um Ralph loop sem teto de tokens ou tempo é a armadilha do &amp;quot;loop sem limite&amp;quot; de propósito."><strong>What it lacks:</strong> everything <a href="#loop-engineering">§09</a> says to engineer — stop conditions, budgets, a separate verifier. A Ralph loop with no token or time cap is the "unbounded loop" pitfall on purpose.</li>
+  </ul>
+
+  <h3 data-pt="21.4 A lethal trifecta e a Agents Rule of Two">21.4 The lethal trifecta &amp; the Agents Rule of Two</h3>
+  <p data-pt="O &lt;a href=&quot;https://simonwillison.net/2025/Jun/16/the-lethal-trifecta/&quot;&gt;ponto central&lt;/a&gt; de Willison: &amp;quot;LLMs seguem instruções no conteúdo&amp;quot; — e não conseguem distinguir de forma confiável se uma instrução veio de você ou da página web, email ou issue que o agent acabou de ler. Dê a um mesmo agent estas três capacidades e um atacante consegue fazê-lo roubar seus dados:">Willison's <a href="https://simonwillison.net/2025/Jun/16/the-lethal-trifecta/">core point</a>: "LLMs follow instructions in content" — and cannot reliably tell whether an instruction came from you or from the web page, email or issue the agent just read. Give one agent all three of these capabilities and an attacker can make it steal your data:</p>
+  <figure class="diagram">
+    <svg viewBox="0 0 420 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Lethal trifecta: private data, untrusted content, external communication">
+      <circle cx="145" cy="115" r="92" fill="#82b8ff" fill-opacity="0.08" stroke="#82b8ff" stroke-width="1.5"/>
+      <circle cx="275" cy="115" r="92" fill="#ffb86b" fill-opacity="0.08" stroke="#ffb86b" stroke-width="1.5"/>
+      <circle cx="210" cy="200" r="92" fill="#ff6b8b" fill-opacity="0.08" stroke="#ff6b8b" stroke-width="1.5"/>
+      <text x="100" y="85" text-anchor="middle" class="svg-label" font-weight="700" fill="#82b8ff" data-pt="Dados privados">Private data</text>
+      <text x="100" y="102" text-anchor="middle" class="svg-mute" data-pt="Meta [B]">Meta [B]</text>
+      <text x="320" y="85" text-anchor="middle" class="svg-label" font-weight="700" fill="#ffb86b" data-pt="Conteúdo não confiável">Untrusted content</text>
+      <text x="320" y="102" text-anchor="middle" class="svg-mute" data-pt="Meta [A]">Meta [A]</text>
+      <text x="210" y="262" text-anchor="middle" class="svg-label" font-weight="700" fill="#ff6b8b" data-pt="Comunicação externa">External communication</text>
+      <text x="210" y="279" text-anchor="middle" class="svg-mute" data-pt="Meta [C] — ou qualquer mudança de estado">Meta [C] — or any state change</text>
+      <text x="210" y="138" text-anchor="middle" class="svg-label" font-weight="700" fill="#ff6b8b" data-pt="as três">all three</text>
+      <text x="210" y="154" text-anchor="middle" class="svg-label" fill="#ff6b8b" data-pt="= exfiltração">= exfiltration</text>
+    </svg>
+    <figcaption data-pt="Fontes: &lt;a href=&quot;https://simonwillison.net/2025/Jun/16/the-lethal-trifecta/&quot;&gt;Simon Willison, &amp;quot;The lethal trifecta for AI agents&amp;quot;, 16 jun 2025&lt;/a&gt;; &lt;a href=&quot;https://ai.meta.com/blog/practical-ai-agent-security/&quot;&gt;Meta AI, &amp;quot;Agents Rule of Two&amp;quot;, 31 out 2025&lt;/a&gt;. Consultados em 20 nov 2026.">Sources: <a href="https://simonwillison.net/2025/Jun/16/the-lethal-trifecta/">Simon Willison, "The lethal trifecta for AI agents", 16 Jun 2025</a>; <a href="https://ai.meta.com/blog/practical-ai-agent-security/">Meta AI, "Agents Rule of Two", 31 Oct 2025</a>. Consulted 20 Nov 2026.</figcaption>
+  </figure>
+  <p data-pt="A &lt;strong&gt;Agents Rule of Two&lt;/strong&gt; da Meta transforma isso numa regra de design: &amp;quot;até que a pesquisa de robustez permita detectar e recusar prompt injection de forma confiável, agents devem satisfazer no máximo duas&amp;quot; de — [A] processar inputs não confiáveis, [B] acessar sistemas sensíveis ou dados privados, [C] mudar estado ou se comunicar externamente — numa sessão. Ela amplia o [C] de roubo de dados para qualquer mudança de estado. Se um produto realmente precisa das três, coloque uma confirmação humana na frente da perna arriscada (o exemplo de agent de viagem da Meta confirma qualquer reserva ou depósito).">Meta's <strong>Agents Rule of Two</strong> turns it into a design rule: "until robustness research allows us to reliably detect and refuse prompt injection, agents must satisfy no more than two" of — [A] processing untrustworthy inputs, [B] access to sensitive systems or private data, [C] changing state or communicating externally — within a session. It widens [C] from data theft to any state change. If a product truly needs all three, put a human confirmation in front of the risky leg (Meta's travel-agent example confirms any reservation or deposit).</p>
+  <div class="callout danger" data-pt="&lt;strong&gt;Por que isso importa para MCP (&lt;a href=&quot;#mcp&quot;&gt;§10&lt;/a&gt;):&lt;/strong&gt; o alerta de Willison é que o MCP &amp;quot;incentiva os usuários a misturar tools de fontes diferentes&amp;quot; — um server lê seu repo privado, outro busca páginas web, um terceiro abre um PR. O exemplo dele é um único MCP server do GitHub que combinava as três. Audite o conjunto de tools de cada agent &lt;em&gt;como conjunto&lt;/em&gt;; &amp;quot;guardrails&amp;quot; de fornecedor que pegam &amp;quot;95% dos ataques&amp;quot; são, nas palavras dele, &amp;quot;nota reprovada&amp;quot; em segurança."><strong>Why this matters for MCP (<a href="#mcp">§10</a>):</strong> Willison's warning is that MCP "encourages users to mix and match tools from different sources" — one server reads your private repo, another fetches web pages, a third can open a PR. His example is a single GitHub MCP server that combined all three. Audit each agent's tool set <em>as a set</em>; vendor "guardrails" that catch "95% of attacks" are, in his words, "a failing grade" in security.</div>
+
+  <h3 data-pt="21.5 Práticas do dia a dia que ganharam nome">21.5 Everyday practices that got names</h3>
+  <table>
+  <caption data-pt="Fontes: &lt;a href=&quot;https://claude.com/resources/articles/the-ai-native-sdlc-playbook&quot;&gt;Anthropic, &amp;quot;The AI-native SDLC playbook&amp;quot;&lt;/a&gt;, 21 ago 2026; &lt;a href=&quot;https://aws.amazon.com/blogs/devops/open-sourcing-adaptive-workflows-for-ai-driven-development-life-cycle-ai-dlc/&quot;&gt;AWS, 29 nov 2025&lt;/a&gt;. Consultados em 20 nov 2026.">Sources: <a href="https://claude.com/resources/articles/the-ai-native-sdlc-playbook">Anthropic, "The AI-native SDLC playbook"</a>, 21 Aug 2026; <a href="https://aws.amazon.com/blogs/devops/open-sourcing-adaptive-workflows-for-ai-driven-development-life-cycle-ai-dlc/">AWS, 29 Nov 2025</a>. Consulted 20 Nov 2026.</caption>
+  <tr><th data-pt="Prática">Practice</th><th data-pt="O que significa">What it means</th><th data-pt="Fonte">Source</th></tr>
+  <tr><td data-pt="&lt;strong&gt;Plan mode&lt;/strong&gt; / plano primeiro"><strong>Plan mode</strong> / plan-first</td><td data-pt="O agent propõe um plano e não pode editar arquivos até um humano aceitá-lo.">The agent proposes a plan and cannot edit files until a human accepts it.</td><td><a href="https://claude.com/resources/articles/the-ai-native-sdlc-playbook">Anthropic</a></td></tr>
+  <tr><td data-pt="Arquivos &lt;strong&gt;intent → spec → plan&lt;/strong&gt;"><strong>intent → spec → plan</strong> files</td><td data-pt="Cada estágio commita um arquivo que o próximo estágio lê.">Each stage commits a file the next stage reads.</td><td><a href="https://claude.com/resources/articles/the-ai-native-sdlc-playbook">Anthropic</a>; <a href="#ai-dlc">AI-DLC</a></td></tr>
+  <tr><td data-pt="&lt;strong&gt;Worktrees paralelas&lt;/strong&gt;"><strong>Parallel worktrees</strong></td><td data-pt="Uma git worktree por sessão de agent para as sessões não colidirem; comece com duas ou três.">One git worktree per agent session so sessions don't collide; start with two or three.</td><td><a href="https://claude.com/resources/articles/the-ai-native-sdlc-playbook">Anthropic</a></td></tr>
+  <tr><td data-pt="&lt;strong&gt;Hooks como gates&lt;/strong&gt;"><strong>Hooks as gates</strong></td><td data-pt="Checagens determinísticas por trás das skills consultivas — o agent não consegue convencê-las.">Deterministic checks behind advisory skills — the agent can't talk its way past them.</td><td><a href="https://claude.com/resources/articles/the-ai-native-sdlc-playbook">Anthropic</a></td></tr>
+  <tr><td data-pt="&lt;strong&gt;Subagent verificador&lt;/strong&gt;"><strong>Verifier subagent</strong></td><td data-pt="Um agent separado que confere o trabalho e recebe a instrução &amp;quot;Não corrija nada; apenas reporte.&amp;quot;">A separate agent that checks the work and is told "Do not fix anything; report only."</td><td><a href="https://claude.com/resources/articles/the-ai-native-sdlc-playbook">Anthropic</a></td></tr>
+  <tr><td data-pt="&lt;strong&gt;Regra dos dois erros&lt;/strong&gt;"><strong>Two-strikes rule</strong></td><td data-pt="Um erro cometido duas vezes vira uma linha no &lt;code&gt;CLAUDE.md&lt;/code&gt;.">A mistake made twice becomes a line in <code>CLAUDE.md</code>.</td><td><a href="https://claude.com/resources/articles/the-ai-native-sdlc-playbook">Anthropic</a></td></tr>
+  <tr><td data-pt="&lt;strong&gt;Approval gates + trilha de auditoria&lt;/strong&gt;"><strong>Approval gates + audit trail</strong></td><td data-pt="Todo estágio termina num gate humano; toda decisão é registrada.">Every stage ends at a human gate; every decision is logged.</td><td><a href="https://aws.amazon.com/blogs/devops/open-sourcing-adaptive-workflows-for-ai-driven-development-life-cycle-ai-dlc/">AWS AI-DLC</a></td></tr>
+  </table>
+  <div class="callout" data-pt="&lt;strong&gt;Frase matadora:&lt;/strong&gt; &amp;quot;Vibe coding esquece que o código existe; engenharia agêntica é dona dele. Harness engineering constrói a sala onde o agent trabalha; um Ralph loop só mantém o agent trabalhando nela. E a lethal trifecta é o motivo de nenhum agent sozinho receber as três chaves.&amp;quot;"><strong>Killer line:</strong> "Vibe coding forgets the code exists; agentic engineering owns it. Harness engineering builds the room the agent works in; a Ralph loop just keeps the agent working in it. And the lethal trifecta is why no single agent gets all three keys."</div>
+</section>
+
 <!-- =================== COMMUNITY TOOLING — OVERVIEW =================== -->
 <section id="tooling">
-  <h2 data-pt="<span class=&quot;num&quot;>20</span> Ferramentas da comunidade — o que realmente usar"><span class="num">20</span> Community tooling — what to actually reach for</h2>
+  <h2 data-pt="<span class=&quot;num&quot;>22</span> Ferramentas da comunidade — o que realmente usar"><span class="num">22</span> Community tooling — what to actually reach for</h2>
   <p data-pt="Sete ferramentas em torno das quais a comunidade de engenharia de IA se consolidou em 2026. Cada uma corresponde a uma seção acima: é a camada do &quot;o que você instalaria de verdade na segunda-feira?&quot;.">Seven tools the AI engineering community has settled around in 2026. Each one corresponds to a section above: this is the "what would you actually install on Monday?" layer.</p>
 
   <div class="tool-grid" id="toolGrid">
@@ -3182,7 +3478,7 @@ See [Billing API](../systems/billing-api.md).</code></pre>
 
 <!-- =================== CONTEXT7 =================== -->
 <section id="context7">
-  <h2 data-pt="<span class=&quot;num&quot;>21</span> O que é o Context7?"><span class="num">21</span> What is Context7?</h2>
+  <h2 data-pt="<span class=&quot;num&quot;>23</span> O que é o Context7?"><span class="num">23</span> What is Context7?</h2>
   <p data-pt="<strong>Context7</strong> é um servidor MCP (feito pela <strong>Upstash</strong>) que serve <em>documentação de bibliotecas atualizada e por versão específica</em> nas suas ferramentas de código com IA — Cursor, Claude Code, Windsurf, OpenCode, qualquer coisa que fale MCP."><strong>Context7</strong> is an MCP server (built by <strong>Upstash</strong>) that serves <em>up-to-date, version-specific library documentation</em> into your AI coding tools — Cursor, Claude Code, Windsurf, OpenCode, anything that speaks MCP.</p>
 
   <h3 data-pt="O problema que ele resolve">The problem it solves</h3>
@@ -3215,7 +3511,7 @@ See [Billing API](../systems/billing-api.md).</code></pre>
 
 <!-- =================== QUIZ =================== -->
 <section id="quiz">
-  <h2><span class="num">22</span> <span data-quiz-h2>Knowledge check — graded quiz</span></h2>
+  <h2><span class="num">24</span> <span data-quiz-h2>Knowledge check — graded quiz</span></h2>
   <p class="small" data-quiz-intro>Pick an answer for each. Hit <em>Grade</em> at the bottom. Explanations appear after grading.</p>
 
   <div class="quiz-tracker" id="quizTracker"></div>
@@ -4542,6 +4838,163 @@ const questions = [
   // ============ HARDER / DEEPER ROUND =================
   // ====================================================
 
+  // ---- AI-DLC / AI-native SDLC ----
+  {
+    q: "In AWS's AI-DLC methodology, what replaces the Scrum 'sprint'?",
+    q_pt: "Na metodologia AI-DLC da AWS, o que substitui a 'sprint' do Scrum?",
+    opts: [
+      "Units of Work",
+      "Bolts — shorter, more intense cycles measured in hours or days",
+      "Mob Elaboration sessions",
+      "Intents"
+    ],
+    opts_pt: [
+      "Units of Work",
+      "Bolts — ciclos mais curtos e intensos, medidos em horas ou dias",
+      "Sessões de Mob Elaboration",
+      "Intents"
+    ],
+    correct: 1,
+    explain: "AWS's launch post (31 Jul 2025): sprints are replaced by bolts, measured in hours or days rather than weeks, and Epics are replaced by Units of Work. Mob Elaboration is the Inception ritual; an intent is the plain statement of what you want that starts the workflow.",
+    explain_pt: "Post de lançamento da AWS (31 jul 2025): sprints são substituídas por bolts, medidos em horas ou dias em vez de semanas, e Epics são substituídos por Units of Work. Mob Elaboration é o ritual da Inception; um intent é a declaração simples do que você quer, que inicia o workflow."
+  },
+  {
+    q: "What happens in AI-DLC's 'Mob Elaboration'?",
+    q_pt: "O que acontece na 'Mob Elaboration' do AI-DLC?",
+    opts: [
+      "The team rewrites AI-generated code together before merging",
+      "In Inception, AI turns business intent into requirements, stories and units while the whole team validates its questions and proposals",
+      "Several agents vote on the architecture with no humans involved",
+      "Ops engineers review infrastructure-as-code after deployment"
+    ],
+    opts_pt: [
+      "O time reescreve junto o código gerado pela IA antes do merge",
+      "Na Inception, a IA transforma a intenção de negócio em requisitos, stories e units enquanto o time inteiro valida suas perguntas e propostas",
+      "Vários agents votam na arquitetura sem humanos envolvidos",
+      "Engenheiros de Ops revisam infraestrutura como código depois do deploy"
+    ],
+    correct: 1,
+    explain: "Mob Elaboration is the Inception ritual. Its Construction counterpart, Mob Construction, has the team answer the AI's technical and architectural questions in real time. Both exist so AI proposals are validated by the people who hold the business context instead of being accepted blindly.",
+    explain_pt: "Mob Elaboration é o ritual da Inception. Sua contraparte na Construction, a Mob Construction, faz o time responder às perguntas técnicas e de arquitetura da IA em tempo real. Ambos existem para que as propostas da IA sejam validadas por quem tem o contexto de negócio, em vez de aceitas às cegas."
+  },
+  {
+    difficulty: "hard",
+    q: "Which description fits the core AI-DLC loop?",
+    q_pt: "Qual descrição corresponde ao loop central do AI-DLC?",
+    opts: [
+      "Human writes a prompt → AI returns code → human edits it",
+      "AI generates the whole application autonomously from requirements; humans test at the end",
+      "AI creates a plan, asks clarifying questions, and implements only after human validation — repeated for every SDLC activity",
+      "Humans write a spec; the AI executes it without asking anything further"
+    ],
+    opts_pt: [
+      "Humano escreve um prompt → IA devolve código → humano edita",
+      "A IA gera a aplicação inteira de forma autônoma a partir dos requisitos; humanos testam no final",
+      "A IA cria um plano, faz perguntas de esclarecimento e só implementa após validação humana — repetido para cada atividade do SDLC",
+      "Humanos escrevem uma spec; a IA a executa sem perguntar mais nada"
+    ],
+    correct: 2,
+    explain: "In AI-DLC the AI initiates and directs the workflow: plan → clarifying questions → human validation → implementation, with the artifacts saved to the repo. Option A is AI-assisted development and option B is AI-autonomous development — the two approaches AWS says gave suboptimal velocity and quality.",
+    explain_pt: "No AI-DLC a IA inicia e dirige o workflow: plano → perguntas de esclarecimento → validação humana → implementação, com os artefatos salvos no repo. A opção A é desenvolvimento assistido por IA e a B é desenvolvimento autônomo por IA — as duas abordagens que, segundo a AWS, deram velocidade e qualidade abaixo do ideal."
+  },
+  {
+    difficulty: "hard",
+    q: "A teammate wants every change — including one-line bug fixes — to run all 33 stages of aidlc-workflows 'for consistency'. Best response?",
+    q_pt: "Um colega quer que toda mudança — incluindo fixes de uma linha — rode os 33 estágios do aidlc-workflows 'por consistência'. Melhor resposta?",
+    opts: [
+      "Agree: skipping stages breaks the audit trail",
+      "AI-DLC's adaptive principle says breadth and depth should match the intent — the Bugfix profile runs 9 of 33 stages at Minimal depth and keeps the approval gates",
+      "Keep all 33 stages but turn off the approval gates for small changes",
+      "Use Express for everything: it is always faster and just as safe"
+    ],
+    opts_pt: [
+      "Concordar: pular estágios quebra a trilha de auditoria",
+      "O princípio adaptativo do AI-DLC diz que amplitude e profundidade devem combinar com a intenção — o perfil Bugfix roda 9 de 33 estágios em profundidade Minimal e mantém os approval gates",
+      "Manter os 33 estágios mas desligar os approval gates para mudanças pequenas",
+      "Usar Express para tudo: é sempre mais rápido e igualmente seguro"
+    ],
+    correct: 1,
+    explain: "Principle 10 of the AI-DLC Method Definition Paper — no hard-wired, opinionated SDLC workflows — is why the open-source workflows are adaptive. Profiles change breadth (stages) and depth; gates and audit stay. Express deliberately removes design and reviewer surfaces, so it is the wrong pick for ambiguous, cross-team or regulated work.",
+    explain_pt: "O Princípio 10 do AI-DLC Method Definition Paper — sem workflows de SDLC fixos e opinativos — é o motivo de os workflows open-source serem adaptativos. Perfis mudam amplitude (estágios) e profundidade; gates e auditoria ficam. O Express remove de propósito as etapas de design e de revisores, então é a escolha errada para trabalho ambíguo, entre times ou regulado."
+  },
+  {
+    q: "Your CTO asks for an 'AI-SDLC strategy'. Which statement about the terms is accurate?",
+    q_pt: "Seu CTO pede uma 'estratégia de AI-SDLC'. Qual afirmação sobre os termos está correta?",
+    opts: [
+      "AI-SDLC and AI-DLC are the same AWS product",
+      "AI-SDLC is a loose umbrella (it can even mean the lifecycle for building ML systems); AI-DLC is AWS's named methodology with defined phases, rituals and vocabulary",
+      "AI-DLC is the ISO standard that AI-SDLC implements",
+      "AI-SDLC means AI only writes tests; AI-DLC means AI writes code"
+    ],
+    opts_pt: [
+      "AI-SDLC e AI-DLC são o mesmo produto da AWS",
+      "AI-SDLC é um guarda-chuva solto (pode até significar o ciclo de vida para construir sistemas de ML); AI-DLC é a metodologia nomeada da AWS, com fases, rituais e vocabulário definidos",
+      "AI-DLC é o padrão ISO que o AI-SDLC implementa",
+      "AI-SDLC significa que a IA só escreve testes; AI-DLC significa que a IA escreve código"
+    ],
+    correct: 1,
+    explain: "Clarify which one is meant. Anthropic's playbook treats 'agentic SDLC', 'AI SDLC' and 'agentic software development' as names for the same shift; AWS's AI-DLC (Raja SP, July 2025) is a specific method with Inception / Construction / Operations, mob rituals, bolts and Units of Work.",
+    explain_pt: "Esclareça qual deles. O playbook da Anthropic trata 'agentic SDLC', 'AI SDLC' e 'desenvolvimento de software agêntico' como nomes para a mesma mudança; o AI-DLC da AWS (Raja SP, julho de 2025) é um método específico com Inception / Construction / Operations, rituais de mob, bolts e Units of Work."
+  },
+  // ---- Agentic engineering vocabulary ----
+  {
+    q: "Simon Willison's 'lethal trifecta' is the combination of which three agent capabilities?",
+    q_pt: "A 'lethal trifecta' de Simon Willison é a combinação de quais três capacidades de um agent?",
+    opts: [
+      "Long context, tool use and reasoning",
+      "Access to private data, exposure to untrusted content, and the ability to communicate externally",
+      "Git write access, shell access and package installs",
+      "Memory, planning and reflection"
+    ],
+    opts_pt: [
+      "Contexto longo, tool use e reasoning",
+      "Acesso a dados privados, exposição a conteúdo não confiável e capacidade de se comunicar externamente",
+      "Escrita no git, acesso a shell e instalação de pacotes",
+      "Memória, planejamento e reflexão"
+    ],
+    correct: 1,
+    explain: "All three together let a prompt injection hidden in untrusted content (a web page, an email, an issue) make the agent read your data and send it out. Meta's Agents Rule of Two (Oct 2025) generalizes it: at most two of [untrustworthy inputs, sensitive data or systems, changing state or communicating externally] per session — otherwise add human confirmation.",
+    explain_pt: "As três juntas permitem que um prompt injection escondido em conteúdo não confiável (uma página web, um email, uma issue) faça o agent ler seus dados e enviá-los para fora. A Agents Rule of Two da Meta (out 2025) generaliza: no máximo duas de [inputs não confiáveis, dados ou sistemas sensíveis, mudar estado ou se comunicar externamente] por sessão — senão, adicione confirmação humana."
+  },
+  {
+    q: "What is the 'Ralph' (Ralph Wiggum) loop?",
+    q_pt: "O que é o loop 'Ralph' (Ralph Wiggum)?",
+    opts: [
+      "A retrieval pattern that re-ranks search results until confidence passes a threshold",
+      "A bash loop that re-runs a coding agent on the same prompt file, each pass with a fresh context and the state kept on disk",
+      "An RLHF variant that trains on the agent's own failures",
+      "A multi-agent debate protocol"
+    ],
+    opts_pt: [
+      "Um padrão de retrieval que reordena resultados até a confiança passar de um limite",
+      "Um loop em bash que roda de novo um agent de código sobre o mesmo arquivo de prompt, cada passada com contexto novo e o estado guardado em disco",
+      "Uma variante de RLHF que treina com as falhas do próprio agent",
+      "Um protocolo de debate multi-agent"
+    ],
+    correct: 1,
+    explain: "Geoffrey Huntley (Jul 2025): 'In its purest form, Ralph is a Bash loop' — while :; do cat PROMPT.md | claude-code ; done. A fresh context each pass avoids context rot; the price is that stop conditions and budgets (§09) are entirely on you.",
+    explain_pt: "Geoffrey Huntley (jul 2025): 'Na forma mais pura, Ralph é um loop em Bash' — while :; do cat PROMPT.md | claude-code ; done. Contexto novo a cada passada evita context rot; o preço é que condições de parada e orçamentos (§09) ficam inteiramente com você."
+  },
+  {
+    q: "What separates 'agentic engineering' from 'vibe coding'?",
+    q_pt: "O que separa 'engenharia agêntica' de 'vibe coding'?",
+    opts: [
+      "Agentic engineering requires a different model family",
+      "Vibe coding means forgetting the code exists — fine for throwaway projects; in agentic engineering agents write the code while you own the plan, tests, review and what ships",
+      "Vibe coding is only for front-end work",
+      "Nothing — they are synonyms coined on the same day"
+    ],
+    opts_pt: [
+      "Engenharia agêntica exige outra família de modelos",
+      "Vibe coding é esquecer que o código existe — ok para projetos descartáveis; na engenharia agêntica os agents escrevem o código enquanto você é dono do plano, dos testes, do review e do que vai para produção",
+      "Vibe coding é só para front-end",
+      "Nada — são sinônimos cunhados no mesmo dia"
+    ],
+    correct: 1,
+    explain: "Karpathy coined vibe coding in Feb 2025 ('forget that the code even exists') and floated agentic engineering in Feb 2026 for the disciplined version. Simon Willison defines it as 'the practice of developing software with the assistance of coding agents', with code execution as the defining capability.",
+    explain_pt: "Karpathy cunhou vibe coding em fev 2025 ('esquece que o código sequer existe') e propôs agentic engineering em fev 2026 para a versão disciplinada. Simon Willison a define como 'a prática de desenvolver software com a assistência de agents de código', com execução de código como capacidade definidora."
+  },
+  // ---- Deep-dive mix ----
   {
     difficulty: "hard",
     q: "Your agent finishes a Claude tool-use turn (with extended thinking enabled), runs the tool, and you build the next request. Which of these is the most dangerous mistake?",
@@ -5242,8 +5695,9 @@ function reset() {
 
   /* ---- quiz results panel ---- */
   // Category of each question by index, mirroring the grouped order of the questions array.
-  const QCAT_SPEC = [['concepts', 9], ['models', 6], ['models', 2], ['models', 3], ['agents', 1], ['practice', 1],
-                     ['agents', 3], ['knowledge', 2], ['agents', 1], ['practice', 1], ['tooling', 1], ['deep', 18]];
+  const QCAT_SPEC = [['concepts', 9], ['models', 9], ['models', 2], ['models', 4], ['agents', 1], ['practice', 1],
+                     ['agents', 5], ['agents', 2], ['agents', 2], ['knowledge', 2], ['agents', 1], ['practice', 1],
+                     ['tooling', 1], ['practice', 1], ['practice', 5], ['practice', 3], ['deep', 16]];
   const catOf = [];
   QCAT_SPEC.forEach(([g, n]) => { for (let k = 0; k < n; k++) catOf.push(g); });
 
